@@ -131,6 +131,14 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                 decoded_responses[ablation][reps_type] = {}
                 for topk in tqdm(topk_vals, desc="TopK Values"):
                     if os.path.exists(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.txt") and os.path.exists(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.json"):
+                        with open(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.json", 'r') as jf:
+                            decoded_responses[ablation][reps_type][topk] = json.load(jf)
+
+                        for item_iix, item in enumerate(decoded_responses[ablation][reps_type][topk]):
+                            query = item['query']
+                            item[f'old_{config.args.base}'] = model.tokenizer.decode(original_outputs[item_iix], skip_special_tokens=True).split(query)[-1]
+                        gen_file = f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.txt"
+                        save_prompt_responses(decoded_responses[ablation][reps_type][topk], gen_file)
                         print(f"Skipping evaluation for {ablation}, {reps_type}, {topk} {config.args.N} as gen files already exist.")
                         continue
                     decoded_responses[ablation][reps_type][topk] = []
