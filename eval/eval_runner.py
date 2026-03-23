@@ -109,6 +109,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
     original_outputs = []
     pre_patch_logits = None
+    model.eval()
     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
         with model.generate(gen_qs_toks, 

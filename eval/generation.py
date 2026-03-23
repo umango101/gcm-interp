@@ -26,7 +26,7 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
         use_cache=False, 
         do_sample=False,  
         top_p=None, 
-        top_k=None, 
+        top_k=None,
         temperature=None, 
         max_new_tokens=max_new_tokens
     ) as tracer:
