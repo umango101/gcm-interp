@@ -47,37 +47,65 @@ class DataHandler:
             'desired': self.get_templated_prompts(jsons['base_desired']),
             'undesired': self.get_templated_prompts(jsons['base_undesired'])
         }
+        print(base['desired'][0])
 
         print('Making base_qs templated prompts...')
         base_qs = {
             'desired': self.get_templated_prompts(jsons['base_desired'], only_q=True, add_generation_prompt=True),
             'undesired': self.get_templated_prompts(jsons['base_undesired'], only_q=True, add_generation_prompt=True),
         }
+        print(base_qs['desired'][0])
 
         if self.config.args.eval_test:
             print('Making base_qs test templated prompts...')
             base_qs['test'] = self.get_templated_prompts(jsons['base_test'], only_q=True, add_generation_prompt=True)
+            print(base_qs['test'][0])
 
         print('Making source qs templated prompts...')
         source_qs = {
             'desired': self.get_templated_prompts(jsons['source_desired'], only_q=True, add_generation_prompt=True),
             'undesired': self.get_templated_prompts(jsons['source_undesired'], only_q=True, add_generation_prompt=True)
         }
+        print(source_qs['desired'][0])
         
         steering = {
             "add_qs": self.get_templated_prompts(jsons['steering_add'], only_q=True, add_generation_prompt=True) if jsons['steering_add'] else None,
             "sub_qs": self.get_templated_prompts(jsons['steering_sub'], only_q=True, add_generation_prompt=True) if jsons['steering_sub'] else None
         }
 
-        print(file_paths['steering_add'], file_paths['steering_sub'])
-        if not (self.config.args.steering_add_path is None) and not (self.config.args.steering_sub_path is None):
-            all_templated_prompts = base['desired'] + base['undesired'] + source_qs['desired'] + source_qs['undesired'] + steering['add_qs'] + steering['sub_qs']
+        if self.config.args.eval_test:
+            if not (self.config.args.steering_add_path is None) and not (self.config.args.steering_sub_path is None):
+                all_templated_prompts = steering['add_qs'] + steering['sub_qs'] + base_qs['test']
         else:
             all_templated_prompts = base['desired'] + base['undesired'] + source_qs['desired'] + source_qs['undesired']
         all_tokenized_prompts = self.tokenize_prompts(all_templated_prompts, max_length=None)
         self.max_len = all_tokenized_prompts['input_ids'].shape[1]
 
-        if self.config.args.eval_model:
+        if self.config.args.patch_model:
+            print('Tokenizing base_toks')
+            self.base_toks = {
+                key: self.tokenize_prompts(base[key], max_length=self.max_len) for key in base
+            }
+
+            print('Tokenizing base_qs_toks')
+            self.base_qs_toks = {
+                key: self.tokenize_prompts(base_qs[key], max_length=self.max_len) for key in base_qs
+            }
+
+            print('Tokenizing source_qs_toks')
+            self.source_qs_toks = {
+                key: self.tokenize_prompts(source_qs[key], max_length=self.max_len) for key in source_qs
+            }
+
+            print('Finding response start positions...')
+            self.response_start_positions = {
+                "base": {
+                    key: self.get_resp_start_pos(self.base_toks[key], self.model_handler.marker, self.model_handler.tokenizer) for key in self.base_toks
+                }
+            }
+
+        elif self.config.args.eval_model:
+
             orig_template = self.model_handler.tokenizer.chat_template
             if self.config.args.eval_transfer:
                 # Removing the system prompt for eval_test dataset
@@ -114,7 +142,7 @@ class DataHandler:
                 for start in selected_starts:
                     block = [start + offset for offset in range(5)]
                     random_indices.extend(block)
-                print('###### Making eval_transfer dataset templated prompts...')
+                print('###### Tokenizing eval_transfer dataset templated prompts...')
                 self.eval_transfer = {
                     "queries": self.tokenize_prompts(random.sample(self.get_templated_prompts([jsons['eval_transfer'][j] for j in random_indices], only_q=True, add_generation_prompt=True), k=200), max_length=None),
                     "answers": None,
@@ -130,33 +158,23 @@ class DataHandler:
                 self.no_generation_prompt_for_eval_transfer = False
                 self.model_handler.tokenizer.chat_template = orig_template
 
-        self.base_toks = {
-            key: self.tokenize_prompts(base[key], max_length=self.max_len) for key in base
-        }
+            elif self.config.args.eval_test:
+                self.base_qs_toks = {
+                    'test': self.tokenize_prompts(base_qs['test'], max_length=self.max_len)
+                }
 
-        self.base_qs_toks = {
-            key: self.tokenize_prompts(base_qs[key], max_length=self.max_len) for key in base_qs
-        }
+                self.steering_qs_toks = {
+                    "add": self.tokenize_prompts(steering["add_qs"], max_length=self.max_len) if steering["add_qs"] else None,
+                    "sub": self.tokenize_prompts(steering["sub_qs"], max_length=self.max_len) if steering["sub_qs"] else None
+                }
 
-        self.source_qs_toks = {
-            key: self.tokenize_prompts(source_qs[key], max_length=self.max_len) for key in source_qs
-        }
+            elif self.config.args.ablation == 'pyreft':
+                print('Tokenizing pyreft prompts...')
+                self.pyreft_prompts = self.get_templated_prompts(jsons['base_desired'], _base_completion=jsons['source_desired'], add_generation_prompt=False)
+                self.pyreft_toks = self.tokenize_prompts(self.pyreft_prompts, max_length=self.max_len)
 
-        self.pyreft_prompts = self.get_templated_prompts(jsons['base_desired'], _base_completion=jsons['source_desired'], add_generation_prompt=False)
-        self.pyreft_toks = self.tokenize_prompts(self.pyreft_prompts, max_length=self.max_len)
-
-        self.response_start_positions = {
-            "base": {
-                key: self.get_resp_start_pos(self.base_toks[key], self.model_handler.marker, self.model_handler.tokenizer) for key in self.base_toks
-            },
-            "pyreft": self.get_resp_start_pos(self.pyreft_toks, self.model_handler.marker, self.model_handler.tokenizer)
-        }
-
-        self.steering_qs_toks = {
-            "add": self.tokenize_prompts(steering["add_qs"], max_length=self.max_len) if steering["add_qs"] else None,
-            "sub": self.tokenize_prompts(steering["sub_qs"], max_length=self.max_len) if steering["sub_qs"] else None
-        }
-
+                self.response_start_positions['pyreft'] = self.get_resp_start_pos(self.pyreft_toks, self.model_handler.marker, self.model_handler.tokenizer) if self.config.args.ablation == 'pyreft' else None
+        
         if self.config.args.eval_model:
             if self.config.args.eval_transfer:
                 self.LEN = 100
@@ -169,18 +187,33 @@ class DataHandler:
     
     def truncate_to_len(self, L):
         self.LEN = L
-        for key in self.base_toks:
-            self.base_toks[key] = {k: v[:L] for k, v in self.base_toks[key].items()}
-        for key in self.base_qs_toks:
-            self.base_qs_toks[key] = {k: v[:L] for k, v in self.base_qs_toks[key].items()}
-        for key in self.source_qs_toks:
-            self.source_qs_toks[key] = {k: v[:L] for k, v in self.source_qs_toks[key].items()}
-        self.response_start_positions = {
-            "base": {
-                key: self.response_start_positions["base"][key][:L] for key in self.response_start_positions["base"]
-            },
-            "pyreft": self.get_resp_start_pos(self.pyreft_toks, self.model_handler.marker, self.model_handler.tokenizer)
-        }
+        if hasattr(self, "base_toks") and self.base_toks:
+            for key in self.base_toks:
+                self.base_toks[key] = {k: v[:L] for k, v in self.base_toks[key].items()}
+        
+        if hasattr(self, "base_qs_toks") and self.base_qs_toks:
+            if self.config.args.eval_test:
+                self.base_qs_toks['test'] = {k: v[:L] for k, v in self.base_qs_toks['test'].items()}
+            else:
+                for key in self.base_qs_toks:
+                    self.base_qs_toks[key] = {k: v[:L] for k, v in self.base_qs_toks[key].items()}
+        
+        if hasattr(self, "source_qs_toks") and self.source_qs_toks:
+            for key in self.source_qs_toks:
+                self.source_qs_toks[key] = {k: v[:L] for k, v in self.source_qs_toks[key].items()}
+
+        if hasattr(self, "pyreft_toks") and self.pyreft_toks:
+            for key in self.pyreft_toks:
+                self.pyreft_toks[key] = {k: v[:L] for k, v in self.pyreft_toks[key].items()}
+
+        if hasattr(self, 'response_start_positions') and self.response_start_positions:
+            self.response_start_positions = {
+                "base": {
+                    key: self.response_start_positions["base"][key][:L] for key in self.response_start_positions["base"]
+                }
+            }
+            if "pyreft" in self.response_start_positions:
+                self.response_start_positions["pyreft"] = self.get_resp_start_pos(self.pyreft_toks, self.model_handler.marker, self.model_handler.tokenizer)
 
     def get_templated_prompts(self, prompts, _base_completion=None, only_q=False, add_generation_prompt=False):
         if only_q:
@@ -216,7 +249,7 @@ class DataHandler:
         
     def get_resp_start_pos(self, tokens, marker, tokenizer):
         response_start_positions = []
-        for _, tok in tqdm(enumerate(tokens['input_ids']), desc="Finding response start positions..."):
+        for _, tok in tqdm(enumerate(tokens['input_ids'])):
             tok = tok.to(self.device)
             response_start_position = None
             marker_tokens = self.model_handler.alignment_tokens.to(self.device)
@@ -233,7 +266,8 @@ class DataHandler:
         if max_length is None:
             tokens = self.model_handler.tokenizer(p, padding=True, truncation=False, return_tensors="pt")
         else:
-            tokens =  self.model_handler.tokenizer(p, padding='max_length', max_length=self.max_len, truncation=True, return_tensors="pt")
+            print('max_length', max_length)
+            tokens =  self.model_handler.tokenizer(p, padding='max_length', max_length=self.max_len, truncation=False, return_tensors="pt")
         return {"input_ids": tokens["input_ids"].to(self.device), "attention_mask": tokens["attention_mask"].to(self.device)}
     
     def decode_prompts(self, p):
