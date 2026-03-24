@@ -51,5 +51,8 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
     else:
         cache = [torch.cat(steer[i], dim=0) - torch.cat(base[i], dim=0) for i in range(num_layers)]
         print('########### Steering cache after ########### ', cache[0].shape)
-    print('Stacked steering cache ', torch.stack(cache).shape)
+    print('Stacked steering cache ', torch.stack(cache).shape, model.config)
+    if key == 'desired':
+        filename = f'{data_handler.config.args.model_id.split("/")[0].lower()}_steering_cache_{data_handler.config.args.source}_{"single" if "single" in data_handler.config.args.steering_add_path else "long"}_steer.pt'
+        torch.save(torch.stack(cache), filename)
     return torch.stack(cache)

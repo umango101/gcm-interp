@@ -71,11 +71,12 @@ def get_top_k_layer_and_head(patches, top_k, patch_algo):
     })
     return df.sort_values(by=['layer', 'neuron'])
 
-def retrieve_random_k(num_layers, num_heads, k):
+def retrieve_random_k(num_layers, num_heads, k, seed=42):
+    rng = random.Random(seed)
     total = num_layers * num_heads
     num_samples = int(k * total)
     all_combinations = [(l, h) for l in range(num_layers) for h in range(num_heads)]
-    selected = random.sample(all_combinations, num_samples)
+    selected = rng.sample(all_combinations, num_samples)
     df = pd.DataFrame(selected, columns=['layer', 'neuron'])
     return df.sort_values(by=['layer', 'neuron'])
 

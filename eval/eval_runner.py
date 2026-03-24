@@ -15,7 +15,6 @@ import sys
 import torch
 sys.path.append('../')  # Adjust path to import modules correctly
 from batch_handler import BatchHandler
-from eval.eval_extant import ExtantDatasetEvaluator
 import pyreft
 from model_handler import ModelHandler
 best_mmlu_topk_combined = {
@@ -110,9 +109,17 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
     original_outputs = []
     pre_patch_logits = None
+    model.eval()
     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-        with model.generate(gen_qs_toks, do_sample=False, max_new_tokens=config.args.max_new_tokens) as _:
+        with model.generate(gen_qs_toks, 
+        pad_token_id=model.tokenizer.eos_token_id,
+        use_cache=False, 
+        do_sample=False,  
+        top_p=None, 
+        top_k=None, 
+        temperature=None, 
+        max_new_tokens=config.args.max_new_tokens) as _:
             op = model.generator.output.save()
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
@@ -125,6 +132,14 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                 decoded_responses[ablation][reps_type] = {}
                 for topk in tqdm(topk_vals, desc="TopK Values"):
                     if os.path.exists(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.txt") and os.path.exists(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.json"):
+                        with open(f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.json", 'r') as jf:
+                            decoded_responses[ablation][reps_type][topk] = json.load(jf)
+
+                        for item_iix, item in enumerate(decoded_responses[ablation][reps_type][topk]):
+                            query = item['query']
+                            item[f'old_{config.args.base}'] = model.tokenizer.decode(original_outputs[item_iix], skip_special_tokens=True).split(query)[-1]
+                        gen_file = f"{config.get_output_prefix()}/eval/{config.args.N}_{reps_type}_{ablation}_{topk}_{config.args.test_dataset}_gen.txt"
+                        save_prompt_responses(decoded_responses[ablation][reps_type][topk], gen_file)
                         print(f"Skipping evaluation for {ablation}, {reps_type}, {topk} {config.args.N} as gen files already exist.")
                         continue
                     decoded_responses[ablation][reps_type][topk] = []

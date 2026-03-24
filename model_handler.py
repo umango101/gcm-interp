@@ -16,7 +16,6 @@ class ModelHandler:
         self.tokenizer = self.load_tokenizer(model_id)
         self.model = self.load_model(model_id, self.device)
         self.model.tokenizer = self.tokenizer
-        print('MODEL LOADED ', self.model, self.model.device)
         model_config = self.model.config.to_dict()
         hidden_size = model_config['hidden_size']
         self.num_heads = model_config['num_attention_heads']
