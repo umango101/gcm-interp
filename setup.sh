@@ -1,6 +1,6 @@
-echo 'export RM_INTERP_REPO="<PATH-TO-RM-INTERP-REPO>"' >> ~/.bashrc
+echo 'export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"' >> ~/.bashrc
 echo '' >> ~/.bashrc
-echo 'export HF_TOKEN="<HF-TOKEN>"' >> ~/.bashrc
+echo 'export HF_TOKEN="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"' >> ~/.bashrc
 echo '' >> ~/.bashrc
 git clone git@github.com:roonbug/gcm-interp.git
 
