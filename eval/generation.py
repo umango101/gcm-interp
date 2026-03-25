@@ -37,13 +37,10 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                 for head_idx in head_ids:
                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                     if steering_type == 'last_token':
-                        print('steering on last token')
                         steering_vector = patch_activations[layer_idx][-1, sl]
                     elif steering_type == 'all_tokens':
-                        print('steering on all tokens')
-                        steering_vector = patch_activations[layer_idx][:, sl].mean(dim=0)
+                        steering_vector = patch_activations[layer_idx][:, sl]
                     if normalize:
-                        print('Normalizing')
                         steering_vector = steering_vector / (torch.norm(steering_vector, dim=-1, keepdim=True) + 1e-12)
                     if ablation_type == 'mean':
                         layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector

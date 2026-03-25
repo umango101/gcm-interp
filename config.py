@@ -33,6 +33,7 @@ class Config:
         parser.add_argument('-eval_train', '--eval_train', action='store_true', help='Evaluate the model on train set')
         parser.add_argument('-eval_transfer', '--eval_transfer', type=str, help='Path to the test dataset for evaluation')
         parser.add_argument('--steering', action='store_true', help='Steering Eval mode')
+        parser.add_argument('--steering_type', type=str, default='last_token', help='Steering type: last_token or all_tokens')
         parser.add_argument('--pyreft', action='store_true', help='Use PyReFT Eval Mode')
         parser.add_argument('-max_new_tokens', '--max_new_tokens', type=int, default=256, help='Max new tokens to generate during eval')
         parser.add_argument('-patch_algo', '--patch_algo', type=str, help='acp/atp? acp for activation patching, atp for attribution patching')
@@ -68,7 +69,7 @@ class Config:
             elif 'long' in args.test_dataset:
                 args.max_new_tokens = 256
             
-            args.steering_type = 'last_token'
+            args.steering_type = args.steering_type if args.steering else 'last_token'
 
         return args
 
