@@ -69,7 +69,7 @@ class Config:
             elif 'long' in args.test_dataset:
                 args.max_new_tokens = 256
             
-            args.steering_type = args.steering_type if args.steering else 'last_token'
+            args.steering_type = args.steering_type if args.steering_type else 'last_token'
 
         return args
 
