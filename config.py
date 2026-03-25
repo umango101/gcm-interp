@@ -97,7 +97,7 @@ class Config:
         if self.args.patch_model:
             self.output_prefix = f"./results/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/"
         if self.args.eval_model:
-            self.output_prefix = f"./results/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/{eval_test_dir}_eval/{steering_dir}_steer/"
+            self.output_prefix = f"./results/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/{eval_test_dir}_eval_{self.args.steering_type}/{steering_dir}_steer/"
         print("op prefix ", self.output_prefix)
         return self.output_prefix
     
