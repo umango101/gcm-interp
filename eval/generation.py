@@ -41,7 +41,8 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                     elif steering_type == 'all_tokens':
                         steering_vector = patch_activations[layer_idx][:, sl]
                     if normalize:
-                        steering_vector = steering_vector / (torch.norm(steering_vector, dim=-1, keepdim=True) + 1e-12)
+                        # print(torch.norm(steering_vector, dim=-1, keepdim=True))
+                        steering_vector = steering_vector / (torch.norm(steering_vector) + 1e-12)
                     if ablation_type == 'mean':
                         layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
                     elif ablation_type == 'steer':

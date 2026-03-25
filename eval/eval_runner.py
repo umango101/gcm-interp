@@ -158,7 +158,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
                     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
                         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=False, steering_type=config.args.steering_type)
+                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=True, steering_type=config.args.steering_type)
                         decoded = decode_responses(model, gen_qs_toks, original_outputs[idx:idx+config.args.batch_size], edited_outputs, config.args.base)
                         gc.collect()
                         torch.cuda.empty_cache()
