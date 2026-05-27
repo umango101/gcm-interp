@@ -18,4 +18,4 @@ cd /home/ubansal/orcd/scratch/gcm-interp
 
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
-python -u results/umang_accuracies.py 
+python -u umang_accuracies.py 

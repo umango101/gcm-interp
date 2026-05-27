@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 24:00:00
-#SBATCH -J q-vp-l
+#SBATCH -t 01:00:00
+#SBATCH -J loc_jailbreak
 #SBATCH -o logs/%x_%j.out
-#SBATCH --gres=gpu:h100:1
+#SBATCH --gres=gpu:l40:1
 #SBATCH --mem=48G
 #SBATCH --requeue
 #SBATCH -c 4
@@ -20,8 +20,8 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "anti-long_pro-long"
-  "anti-single_pro-single"
+  "harmful-long_harmless-long"
+  "harmful-single_harmless-single"
 )
 declare -A eval_datasets
 

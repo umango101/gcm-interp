@@ -1,0 +1,138 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+                                               query  ... jp_rating
+0  system\nYou are a helpful assistant.\nuser\nYo...  ...         1
+1  system\nYou are a helpful assistant.\nuser\nYo...  ...         1
+2  system\nYou are a helpful assistant.\nuser\nYo...  ...         1
+3  system\nYou are a helpful assistant.\nuser\nYo...  ...         1
+4  system\nYou are a helpful assistant.\nuser\nYo...  ...         1
+
+[5 rows x 17 columns]
+Index(['query', 'post-intervention-response', 'original-response', 'filename',
+       'data_path_query', 'MODEL_ID', 'SOURCE', 'BASE', 'METHOD', 'N', 'REPS',
+       'STEERING_METHOD', 'topk', 'judge_prompt', 'judge_output',
+       'judge_rating', 'jp_rating'],
+      dtype='object')
+Merging DFs on metadata columns...
+Grouping and computing accuracies...
+  0%|          | 0/112 [00:00<?, ?it/s]0.01
+  1%|          | 1/112 [00:20<37:19, 20.18s/it]0.03
+0.05
+0.07
+0.09
+0.1
+  5%|▌         | 6/112 [00:20<04:25,  2.50s/it]0.5
+1.0
+0.01
+0.03
+0.05
+ 10%|▉         | 11/112 [00:20<01:53,  1.12s/it]0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+ 22%|██▏       | 25/112 [00:20<00:30,  2.82it/s]0.03
+0.05
+0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+0.1
+ 34%|███▍      | 38/112 [00:20<00:13,  5.30it/s]0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+0.03
+ 45%|████▍     | 50/112 [00:20<00:07,  8.40it/s]0.05
+0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+ 54%|█████▍    | 61/112 [00:21<00:04, 11.47it/s]0.1
+0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+0.1
+ 62%|██████▎   | 70/112 [00:21<00:02, 14.39it/s]0.5
+1.0
+0.01
+0.03
+0.05
+0.07
+0.09
+ 69%|██████▉   | 77/112 [00:21<00:02, 17.03it/s]0.1
+0.5
+1.0
+0.01
+0.03
+0.05
+ 74%|███████▍  | 83/112 [00:21<00:01, 19.09it/s]0.07
+0.09
+0.1
+0.5
+1.0
+0.01
+ 79%|███████▉  | 89/112 [00:21<00:01, 21.44it/s]0.03
+0.05
+0.07
+0.09
+0.1
+ 84%|████████▍ | 94/112 [00:21<00:00, 23.96it/s]0.5
+1.0
+0.01
+0.03
+0.05
+ 88%|████████▊ | 99/112 [00:22<00:00, 25.32it/s]0.07
+0.09
+0.1
+0.5
+1.0
+ 93%|█████████▎| 104/112 [00:22<00:00, 27.92it/s]0.01
+0.03
+0.05
+0.07
+0.09
+0.1
+0.5
+ 99%|█████████▉| 111/112 [00:22<00:00, 34.84it/s]1.0
+100%|██████████| 112/112 [00:22<00:00,  5.02it/s]

@@ -6,7 +6,7 @@ model_name = "meta-llama/Llama-3.1-70B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 # Your dataframe
-df = pd.read_csv("merged_eval_outputs.csv")
+df = pd.read_csv("eval_para_long/Qwen1.5-14B-Chat/merged_eval_outputs.csv")
 
 # System prompts
 fluency_system = """Please act as an impartial judge and evaluate the fluency of the sentence fragment provided below. Focus solely on fluency, disregarding its completeness, relevance, coherence with any broader context, or informativeness. Begin your evaluation by briefly describing the fluency of the sentence, noting any unnatural phrasing, awkward transitions, grammatical errors, or repetitive structures that may hinder readability. After providing your explanation, rate the sentence’s fluency on a scale from 0 to 2, where 0 indicates the sentence is not fluent and highly unnatural (e.g., incomprehensible or repetitive), 1 indicates it is somewhat fluent but contains noticeable errors or awkward phrasing, and 2 indicates the sentence is fluent and almost perfect. Provide your rating using this exact format: “Rating: [[score]]”."""
@@ -54,4 +54,4 @@ df["relevance_prompt"] = df.apply(
     axis=1
 )
 
-df.to_csv("relevance_fluency_prompts.csv", index=False)
+df.to_csv("eval_para_long/Qwen1.5-14B-Chat/relevance_fluency_prompts.csv", index=False)

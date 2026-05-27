@@ -8,11 +8,14 @@ from vllm import LLM, SamplingParams
 
 MODEL_NAME = "unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit"
 
-RATING_REGEX = re.compile(r"(\d+)\]\]")
+RATING_REGEX = re.compile(r"(\d+)")
+# JUDGE_RATING_REGEX = re.compile(r"\((\d+)\)")
 
 def extract_rating(text: str) -> int:
     match = RATING_REGEX.search(text)
-    return int(match.group(1)) if match else -1
+    # if not match: 
+    #     match = JUDGE_RATING_REGEX.search(text)
+    return int(match.group(0)) if match else -1
 
 def make_llm():
     num_gpus = torch.cuda.device_count()
@@ -38,7 +41,7 @@ def get_sampling_params():
         temperature=0.0,
         top_p=1.0,
         top_k=-1,
-        max_tokens=3,
+        max_tokens=5,
     )
 
 
@@ -52,6 +55,7 @@ def generate_in_batches(llm, prompts, sampling_params, batch_size):
         yield [r.outputs[0].text for r in results]
 
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
@@ -59,20 +63,31 @@ def main():
     parser.add_argument("--output_json", type=str, default=None)
     parser.add_argument("--relevance", action='store_true', default=False)
     parser.add_argument("--fluency", action='store_true', default=False)
-    parser.add_argument("--judge", action='store_true', default=False)
+    parser.add_argument("--judge_refusal", action='store_true', default=False)
+    parser.add_argument("--judge_paragraph", action='store_true', default=False)
+    parser.add_argument("--judge_sentiment", action='store_true', default=False)
     args = parser.parse_args()
 
-    if args.relevance and args.fluency and args.judge:
-        raise ValueError("Please specify only one of --relevance or --fluency or --judge.")
-    if not args.relevance and not args.fluency and not args.judge:
-        raise ValueError("Please specify one of --relevance or --fluency or --judge.")
+    if args.relevance and args.fluency and args.judge_refusal and args.judge_sentiment:
+        raise ValueError("Please specify only one of --relevance or --fluency or --judge_refusal or --judge_sentiment.")
+    if not args.relevance and not args.fluency and not args.judge_refusal and not args.judge_sentiment and not args.judge_paragraph:
+        raise ValueError("Please specify one of --relevance or --fluency or --judge_refusal or --judge_sentiment.")
 
     if args.relevance:
         required_column = 'relevance_prompt'
+        output_name = 'relevance_prompt'
     elif args.fluency:
         required_column = 'fluency_prompt'
-    elif args.judge:
+        output_name = 'fluency_prompt'
+    elif args.judge_refusal:
         required_column = 'judge_prompt'
+        output_name = 'judge_refusal_prompt'
+    elif args.judge_sentiment:
+        required_column = 'judge_prompt'
+        output_name = 'judge_sentiment_prompt'
+    elif args.judge_paragraph:
+        required_column = 'judge_prompt'
+        output_name = 'judge_paragraph_prompt'
 
     df = pd.read_csv(args.input_csv)
 
@@ -85,12 +100,12 @@ def main():
     # Output paths
     input_path = Path(args.input_csv)
     if args.output_json is None:
-        args.output_json = str(input_path.with_suffix(f".{required_column}.judge_outputs.json"))
+        args.output_json = str(input_path.with_suffix(f".{output_name}.judge_outputs.json"))
 
     out_path = Path(args.output_json)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    accuracy_path = str(input_path.with_suffix(f".{required_column}.judge_accuracy.json"))
+    accuracy_path = str(input_path.with_suffix(f".{output_name}.judge_accuracy.json"))
 
     # Prepare model
     llm = make_llm()
@@ -128,7 +143,8 @@ def main():
 
         for (_, row), output in zip(rows.iterrows(), batch_outputs):
 
-            judge_rating = extract_rating(output)
+            print(output)
+            judge_rating = extract_rating(output.replace("(", "").replace(")", ""))
 
             enriched_item = {
                 **{col: row[col] for col in passthrough_cols if col in row},

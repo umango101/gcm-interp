@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import numpy as np
 import math
-BASE_DIR = '/mnt/align4_drive/arunas/multi-token/gcm-interp'
+BASE_DIR = '/home/ubansal/orcd/scratch/gcm-interp'
 
 RUNS_DIR = f"{BASE_DIR}/results"
 DATA_DIR = f"{BASE_DIR}/data"
@@ -14,7 +14,7 @@ DATA_DIR = f"{BASE_DIR}/data"
 GEN_RE = re.compile(
     r"""
     (?P<N>\d+)_
-    (?P<REPS>random)_
+    (?P<REPS>targeted)_
     (?P<STEERING_METHOD>steer|mean)_
     (?P<topk>\d\.\d+)_
     (?P<TEST_FILE>.+?-long)
@@ -161,8 +161,11 @@ def main():
             "NaNs detected in dataframe!\n" +
             nan_locations.to_string(index=False)
         )
+    
+    base_dir = "eval_para_long/Qwen1.5-14B-Chat/"
+    os.makedirs(base_dir, exist_ok=True)
 
-    df.to_csv("merged_eval_outputs.csv", index=False)
+    df.to_csv(f'{base_dir}merged_eval_outputs.csv', index=False)
 
     print("Saved merged_eval_outputs.csv")
     print("Final shape:", df.shape)

@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 48:00:00
-#SBATCH -J single_qwen
+#SBATCH -t 24:00:00
+#SBATCH -J single_jailbreak
 #SBATCH -o logs/%x_%j.out
-#SBATCH --gres=gpu:h200:1
-#SBATCH --mem=128G
+#SBATCH --gres=gpu:h200:2
+#SBATCH --mem=512G
 #SBATCH --requeue
-#SBATCH -c 4
+#SBATCH -c 8
 
 source ~/.bashrc
 export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
@@ -58,8 +58,8 @@ for pair in "${pairs[@]}"; do
                         --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/pro-single-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering-extended.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering-extended.jsonl"
 
         python run.py --model_id "$model_id" \
                         --batch_size 1 \
@@ -84,7 +84,7 @@ for pair in "${pairs[@]}"; do
                         --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering-extended.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering-extended.jsonl"
     done
 done

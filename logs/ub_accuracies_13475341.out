@@ -1,0 +1,16 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/umang_accuracies_harmful.py", line 51, in <module>
+    judge_refusal   = load_json_as_df(jp_refusal_path)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/umang_accuracies_harmful.py", line 22, in load_json_as_df
+    with open(path, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'eval_harmful/Qwen1.5-14B-Chat/judge_refusal_harmlessmpts.judge_refusal_harmlessmpt.judge_outputs.json'

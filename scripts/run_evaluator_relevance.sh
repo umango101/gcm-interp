@@ -3,7 +3,7 @@
 #SBATCH -t 06:00:00
 #SBATCH -J relevance
 #SBATCH -o logs/%x_%j.out
-#SBATCH --gres=gpu:a100:1
+#SBATCH --gres=gpu:h100:1
 #SBATCH --mem=48G
 #SBATCH --requeue
 #SBATCH -c 4
@@ -19,4 +19,4 @@ python -m pip install vllm
 
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
-python results/evaluator.py --input_csv relevance_fluency_prompts.csv --relevance
+python judge-evals/evaluator.py --input_csv eval_para_long/Qwen1.5-14B-Chat/relevance_fluency_prompts.csv --relevance
