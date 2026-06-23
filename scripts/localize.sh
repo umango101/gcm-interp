@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
 #SBATCH -t 01:00:00
-#SBATCH -J loc_jailbreak
+#SBATCH -J loc_harm
 #SBATCH -o logs/%x_%j.out
-#SBATCH --gres=gpu:l40:1
-#SBATCH --mem=48G
+#SBATCH --gres=gpu:h200:1
+#SBATCH --mem=256G
 #SBATCH --requeue
 #SBATCH -c 4
 
@@ -20,8 +20,8 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "harmful-long_harmless-long"
-  "harmful-single_harmless-single"
+  "harmfulMCQA-long_harmlessMCQA-long"
+  "harmfulMCQA-single_harmlessMCQA-single"
 )
 declare -A eval_datasets
 
@@ -44,4 +44,4 @@ for model in "${model_id[@]}"; do
                     --patch_model
         done
     done
-done
+done 

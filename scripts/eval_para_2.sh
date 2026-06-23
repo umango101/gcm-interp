@@ -20,7 +20,7 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "harmful-single_harmless-single"
+  "paragraph-single_sentence-single"
 )
 
 declare -A eval_datasets

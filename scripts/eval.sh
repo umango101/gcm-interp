@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
-#SBATCH -t 24:00:00
-#SBATCH -J long_jailbreak
+#SBATCH -p mit_normal_gpu
+#SBATCH -t 06:00:00
+#SBATCH -J long_harmfulMCQA
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:2
 #SBATCH --mem=512G
@@ -20,7 +20,7 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "anti-long_pro-long"
+  "harmfulMCQA-long_harmlessMCQA-long"
 )
 
 declare -A eval_datasets
@@ -42,11 +42,11 @@ for pair in "${pairs[@]}"; do
                         --base  $base \
                         --device "$device" \
                         --eval_model \
-                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/pro-single-test.jsonl"\
+                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmlessMCQA-single-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/anti-single-desired-all.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/pro-single-desired-all.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmfulMCQA-single-steering.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmlessMCQA-single-steering.jsonl"
 
         python run.py --model_id "$model_id" \
                         --batch_size 1 \
@@ -55,11 +55,11 @@ for pair in "${pairs[@]}"; do
                         --base  $base \
                         --device "$device" \
                         --eval_model \
-                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/pro-single-test.jsonl"\
+                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmlessMCQA-single-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering-extended.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering-extended.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmfulMCQA-long-desired-all.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmlessMCQA-long-desired-all.jsonl"
 
         python run.py --model_id "$model_id" \
                         --batch_size 1 \
@@ -68,11 +68,11 @@ for pair in "${pairs[@]}"; do
                         --base  $base \
                         --device "$device" \
                         --eval_model \
-                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-test.jsonl"\
+                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmlessMCQA-long-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/anti-single-desired-all.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-single/pro-single-desired-all.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmfulMCQA-single-steering.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-single/harmlessMCQA-single-steering.jsonl"
 
         python run.py --model_id "$model_id" \
                         --batch_size 1 \
@@ -81,10 +81,10 @@ for pair in "${pairs[@]}"; do
                         --base  $base \
                         --device "$device" \
                         --eval_model \
-                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-test.jsonl"\
+                        --eval_test  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmlessMCQA-long-test.jsonl"\
                         --steering \
                         --ablation steer \
-                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/anti-long-desired-steering-extended.jsonl" \
-                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/anti-long/pro-long-desired-steering-extended.jsonl"
+                        --steering_add_path  "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmfulMCQA-long-desired-all.jsonl" \
+                        --steering_sub_path "${RM_INTERP_REPO}/data/Qwen1.5-14B-Chat/harmfulMCQA-long/harmlessMCQA-long-desired-all.jsonl"
     done
 done

@@ -1,0 +1,6 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:04<00:29,  4.20s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:08<00:26,  4.48s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:13<00:23,  4.71s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:18<00:19,  4.75s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:23<00:14,  4.80s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:28<00:09,  4.81s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:32<00:04,  4.52s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:33<00:00,  3.55s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:33<00:00,  4.22s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/bias_exploration.py", line 48, in <module>
+    data_female = json.load(f)
+NameError: name 'json' is not defined

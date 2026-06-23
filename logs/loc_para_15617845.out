@@ -1,0 +1,465 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Requirement already satisfied: nnsight in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.7.0)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (4.57.6)
+Requirement already satisfied: astor in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.8.1)
+Requirement already satisfied: cloudpickle in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (3.1.2)
+Requirement already satisfied: httpx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.28.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (5.14.3)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (2.9.0)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (1.11.0)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (8.37.0)
+Requirement already satisfied: rich in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (14.2.0)
+Requirement already satisfied: zstandard in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.25.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (0.4.2)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.20.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (2025.10.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.93)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (9.10.2.21)
+Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (11.3.3.83)
+Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (10.3.9.90)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (11.7.3.90)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.5.8.93)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (0.7.1)
+Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (2.27.5)
+Requirement already satisfied: nvidia-nvshmem-cu12==3.3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.3.20)
+Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.93)
+Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (1.13.1.3)
+Requirement already satisfied: triton==3.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.5.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (2.1.3)
+Requirement already satisfied: packaging>=20.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (25.0)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (7.1.3)
+Requirement already satisfied: pyyaml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (6.0.3)
+Requirement already satisfied: huggingface_hub>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (0.36.2)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (0.6.2)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (1.2.0)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (4.67.1)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx->nnsight) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx->nnsight) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx->nnsight) (1.3.1)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface_hub>=0.21.0->accelerate->nnsight) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface_hub>=0.21.0->accelerate->nnsight) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight) (1.3.1)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from rich->nnsight) (4.0.0)
+Requirement already satisfied: mdurl~=0.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich->nnsight) (0.1.2)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (0.2.3)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from transformers->nnsight) (2025.11.3)
+Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from transformers->nnsight) (0.22.2)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Parsing config...
+op prefix  ./results/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence-long/atp/
+Saved config to file ./results/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence-long/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:09<01:07,  9.71s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:21<01:04, 10.69s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:30<00:51, 10.32s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:40<00:40, 10.18s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:51<00:31, 10.39s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [01:02<00:20, 10.45s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [01:10<00:09,  9.76s/it]Loading checkpoint shards: 100%|██████████| 8/8 [01:14<00:00,  7.83s/it]Loading checkpoint shards: 100%|██████████| 8/8 [01:14<00:00,  9.29s/it]
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Please give a brief summary of The Old Man and the Sea<|im_end|>
+<|im_start|>assistant
+"The Old Man and the Sea" is a novella written by Ernest Hemingway, published in 1952. The story revolves around an aging Cuban fisherman named Santiago, who has gone 84 days without catching a fish. Undeterred by his string of failures, he embarks on one last fishing trip alone, determined to prove his skills and restore his dignity.
+
+Santiago faces immense physical and mental challenges as he battles a giant marlin far out at sea. After a grueling three-day struggle, he finally hooks the massive fish, which tests his strength and endurance to the limit. Despite being injured and exhausted, Santiago perseveres, using only a makeshift rig and his indomitable willpower.
+
+Throughout the journey, Santiago reflects on his life, past victories, and the meaning of success. He forms a deep connection with the marlin, viewing it as a worthy adversary and a symbol of his own pride. However, sharks eventually attack the marlin, devouring much of its flesh before Santiago can bring it back to shore.
+
+When he returns, he is greeted as a hero, even though he brings back only the skeleton of the marlin. The novella highlights themes of resilience, perseverance, and the human condition, emphasizing the struggle between man and nature, as well as the importance of inner strength and the struggle for self-worth. "The Old Man and the Sea" earned Hemingway the Pulitzer Prize and solidified his reputation as a literary icon.<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Please give a brief summary of The Old Man and the Sea<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Please give a detailed summary of The Old Man and the Sea<|im_end|>
+<|im_start|>assistant
+
+Tokenizing base_toks
+max_length 827
+max_length 827
+Tokenizing base_qs_toks
+max_length 827
+max_length 827
+Tokenizing source_qs_toks
+max_length 827
+max_length 827
+Finding response start positions...
+0it [00:00, ?it/s]3it [00:00, 29.67it/s]13it [00:00, 67.82it/s]23it [00:00, 81.37it/s]33it [00:00, 86.69it/s]43it [00:00, 88.15it/s]53it [00:00, 91.98it/s]63it [00:00, 93.50it/s]73it [00:00, 94.43it/s]83it [00:00, 95.36it/s]93it [00:01, 93.92it/s]103it [00:01, 91.82it/s]113it [00:01, 91.22it/s]123it [00:01, 91.97it/s]134it [00:01, 96.30it/s]144it [00:01, 96.79it/s]154it [00:01, 95.27it/s]165it [00:01, 96.96it/s]175it [00:01, 95.75it/s]185it [00:02, 94.09it/s]195it [00:02, 92.67it/s]196it [00:02, 91.45it/s]
+0it [00:00, ?it/s]17it [00:00, 169.72it/s]34it [00:00, 164.67it/s]51it [00:00, 163.42it/s]69it [00:00, 168.65it/s]86it [00:00, 167.47it/s]103it [00:00, 167.66it/s]121it [00:00, 168.04it/s]141it [00:00, 175.21it/s]146it [00:00, 169.56it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]  2%|▏         | 2/100 [00:02<02:07,  1.30s/it]  2%|▏         | 2/100 [00:03<02:51,  1.75s/it]
+Running patching on heads from 1 to 2
+Updating batch handler: start=1, stop=2
+net_effects torch.Size([40, 1, 5120])
+Running patching on heads from 2 to 3
+Updating batch handler: start=2, stop=3
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/__init__.py", line 167, in inner
+    tracer.capture()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/tracing/base.py", line 351, in capture
+    start_line, source_lines, node = self.parse(source_lines, start_line)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/tracing/base.py", line 449, in parse
+    raise WithBlockNotFoundError(message)
+nnsight.intervention.tracing.base.WithBlockNotFoundError: With block not found at line 37
+We looked here:
+
+            source_q_des_attn = self.patching_utils.get_activations(source_qs_toks['desired'], which_patch='heads', resp_start_positions=None, logit=False, align=True, retain_grad=True, base_toks=base_toks['desired'])
+            source_q_undes_attn = self.patching_utils.get_activations(source_qs_toks['undesired'], which_patch='heads', resp_start_positions=None, logit=False, align=True, retain_grad=True, base_toks=base_toks['undesired'])
+
+        L = base_undesired_logits - base_desired_logits
+        L.backward(retain_graph=True) <--- HERE
+        attn_desired_effects = []
+        attn_undesired_effects = []
+        net_effects = []
+        for idx in range(len(model.model.layers)):
+            attn_desired_effects.append(
+                base_desired_attn[idx].grad * 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 34, in main
+    heads_experiment.run()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/experiment.py", line 38, in run
+    self.patching_logits = self.patching.apply_patching()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/patching.py", line 51, in apply_patching
+    L.backward(retain_graph=True)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/__init__.py", line 171, in inner
+    return func(tensor, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/_tensor.py", line 625, in backward
+    torch.autograd.backward(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/autograd/graph.py", line 841, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.45 GiB. GPU 0 has a total capacity of 44.39 GiB of which 1.43 GiB is free. Including non-PyTorch memory, this process has 42.95 GiB memory in use. Of the allocated memory 40.59 GiB is allocated by PyTorch, and 1.86 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Requirement already satisfied: nnsight in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.7.0)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (4.57.6)
+Requirement already satisfied: astor in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.8.1)
+Requirement already satisfied: cloudpickle in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (3.1.2)
+Requirement already satisfied: httpx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.28.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (5.14.3)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (2.9.0)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (1.11.0)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (8.37.0)
+Requirement already satisfied: rich in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (14.2.0)
+Requirement already satisfied: zstandard in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight) (0.25.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight) (0.4.2)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.20.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (2025.10.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.93)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (9.10.2.21)
+Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (11.3.3.83)
+Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (10.3.9.90)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (11.7.3.90)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.5.8.93)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (0.7.1)
+Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (2.27.5)
+Requirement already satisfied: nvidia-nvshmem-cu12==3.3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.3.20)
+Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.90)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (12.8.93)
+Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (1.13.1.3)
+Requirement already satisfied: triton==3.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight) (3.5.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (2.1.3)
+Requirement already satisfied: packaging>=20.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (25.0)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (7.1.3)
+Requirement already satisfied: pyyaml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (6.0.3)
+Requirement already satisfied: huggingface_hub>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (0.36.2)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight) (0.6.2)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (1.2.0)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate->nnsight) (4.67.1)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx->nnsight) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx->nnsight) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx->nnsight) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx->nnsight) (1.3.1)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface_hub>=0.21.0->accelerate->nnsight) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface_hub>=0.21.0->accelerate->nnsight) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight) (1.3.1)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from rich->nnsight) (4.0.0)
+Requirement already satisfied: mdurl~=0.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich->nnsight) (0.1.2)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight) (0.2.3)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from transformers->nnsight) (2025.11.3)
+Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from transformers->nnsight) (0.22.2)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Parsing config...
+op prefix  ./results/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence-single/atp/
+Saved config to file ./results/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:09,  1.36s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:03<00:09,  1.61s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:04<00:08,  1.68s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:06<00:06,  1.70s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:08<00:05,  1.72s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:10<00:03,  1.73s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:11<00:01,  1.63s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:11<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:11<00:00,  1.48s/it]
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Book: The Old Man and the Sea
+Please identify the correct brief summary of the book
+(A) "The Old Man and the Sea" is a novella written by Ernest Hemingway, published in 1952. The story revolves around an aging Cuban fisherman named Santiago, who has gone 84 days without catching a fish. Undeterred by his string of failures, he embarks on one last fishing trip alone, determined to prove his skills and restore his dignity.
+
+Santiago faces immense physical and mental challenges as he battles a giant marlin far out at sea. After a grueling three-day struggle, he finally hooks the massive fish, which tests his strength and endurance to the limit. Despite being injured and exhausted, Santiago perseveres, using only a makeshift rig and his indomitable willpower.
+
+Throughout the journey, Santiago reflects on his life, past victories, and the meaning of success. He forms a deep connection with the marlin, viewing it as a worthy adversary and a symbol of his own pride. However, sharks eventually attack the marlin, devouring much of its flesh before Santiago can bring it back to shore.
+
+When he returns, he is greeted as a hero, even though he brings back only the skeleton of the marlin. The novella highlights themes of resilience, perseverance, and the human condition, emphasizing the struggle between man and nature, as well as the importance of inner strength and the struggle for self-worth. "The Old Man and the Sea" earned Hemingway the Pulitzer Prize and solidified his reputation as a literary icon.
+(B) An Ideal Husband, written by the renowned British playwright Oscar Wilde, is a satirical comedy that premiered in 1895. The play revolves around the complex relationships and societal expectations of the upper class during the Victorian era. The central character is Lord Darlington, a seemingly perfect politician who is admired for his charm, intelligence, and public image as an advocate of marriage based on love.
+
+The story begins with Lord Darlington's engagement to Gwendolen Harleth, a young woman who believes him to be the epitome of an ideal husband. However, unbeknownst to Gwendolen, Lord Darlington has a secret past. Years ago, he had an affair with Maud Kemble, a talented actress, which he kept hidden to maintain his public reputation. Maud, now married to the dull but wealthy Sir James Algy, is still secretly in love with Darlington.
+
+Enter Canon Hardcastle, a prudish and moralistic clergyman, who is determined to matchmake his daughter, Cissy, with Lord Darlington. Canon Hardcastle believes that Darlington's impeccable reputation makes him the perfect suitor for Cissy. As the plot unfolds, various characters' true natures are revealed, leading to a series of comic misunderstandings and deceptions.
+
+Throughout the play, Wilde explores themes of hypocrisy, morality, and the facade of societal norms. He uses humor to criticize the double standards of Victorian society, particularly regarding marriage and personal integrity. The characters' actions and motivations often expose the superficiality and phoniness that underlie their public personas.
+
+As tensions rise, Lord Darlington's secret threatens to unravel, forcing him to confront his past and decide between his love for Maud and his desire to maintain his idealized image. Meanwhile, Gwendolen's naivety and Canon Hardcastle's meddling create a chaotic situation that ultimately leads to a comedic resolution.
+
+In the end, Wilde leaves the audience questioning the true meaning of an ideal husband and the nature of love and commitment. The play concludes with a mix of laughter and introspection, as the characters learn valuable lessons about honesty, forgiveness, and the complexities of human relationships.
+
+Overall, An Ideal Husband is a witty and thought-provoking exploration of Victorian society's conventions, offering a critique of the superficiality and moral hypocrisy that Wilde believed were prevalent at the time. Through its engaging characters and clever dialogue, the play remains a classic example of Wilde's mastery of social satire and psychological insight.
+(C) "The Old Man and the Sea" is a novella written by American author Ernest Hemingway, first published in 1952. It tells the story of Santiago, an aging Cuban fisherman who has faced a long period of bad luck and unremarkable catches. Hemingway's masterpiece is a poignant exploration of human resilience, perseverance, and the delicate relationship between man and nature.
+
+The narrative begins with Santiago returning from 84 consecutive days without catching a fish, a record of failure that has left him isolated and doubted by the other fishermen in his village. Undeterred, he decides to venture out alone into the vast, open sea in search of a big catch. He believes that his luck will change with one last, desperate attempt.
+
+As Santiago sets sail, he encounters a giant marlin, a magnificent creature that tests his skills, strength, and determination to the limit. Over the course of three days and nights, the old man engages in a grueling battle with the fish, enduring exhaustion, hunger, and the relentless assault of the elements. Despite the odds, Santiago refuses to give up, driven by his pride, his desire for validation, and his deep connection to the sea.
+
+Throughout the story, Hemingway employs a minimalist and symbolic style, emphasizing the simplicity of Santiago's life and the stark contrast between his solitary struggle and the grandeur of the natural world. The marlin becomes a symbol of both the beauty and brutality of nature, as well as Santiago's own inner strength.
+
+As the story reaches its climax, Santiago finally succeeds in harpooning the marlin but finds himself in a fierce struggle with the fish's blood, which attracts voracious sharks. With each鲨鱼 attack, Santiago loses more of his catch, but he continues to fight back, using his wits and whatever resources he has left. The sharks' presence serves as a metaphor for the inevitability of adversity and the struggle against one's own limitations.
+
+In the end, Santiago returns to shore with only the broken bones of the marlin as evidence of his triumph. His body battered, his dreams shattered, he is hailed as a hero by the children and respected by his peers, who now recognize his unwavering courage and stoicism. The novella concludes with the realization that true success lies not only in the size of the catch but also in the journey and the lessons learned along the way.
+
+"The Old Man and the Sea" is a timeless tale that celebrates the indomitable human spirit and the power of perseverance in the face of overwhelming odds. It has become a classic of modern literature and continues to resonate with readers worldwide for its profound themes and Hemingway's masterful storytelling.
+(D) An Ideal Husband, written by Oscar Wilde, is a satirical play that was first performed in 1895. The play revolves around the character of John Tarleton, a seemingly perfect politician who is about to marry Maud Kemble, a young and innocent woman. However, it soon becomes apparent that Tarleton's idealism is a facade, as he has been living a double life with Gwendolen Harleth, a beautiful and impressionable society woman.
+
+Gwendolen is infatuated with the idea of an "ideal" husband and believes Tarleton to be the embodiment of such a figure. Meanwhile, her brother, Ernest, discovers Tarleton's secret and decides to expose him to Gwendolen, hoping to ruin his reputation and win her affection. As the plot unfolds, the characters' true natures are revealed, exposing the hypocrisy and moral complexities of their social circle.
+
+The play explores themes of marriage, morality, and the illusions people create to maintain societal expectations. It showcases Wilde's wit and辛辣 commentary on Victorian society, particularly its obsession with appearances and the superficiality of its values. Ultimately, An Ideal Husband questions the nature of truth, deception, and the pursuit of happiness in a world where perfection is often unattainable.
+Answer: (<|im_end|>
+<|im_start|>assistant
+A<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Book: The Old Man and the Sea
+Please identify the correct brief summary of the book
+(A) "The Old Man and the Sea" is a novella written by Ernest Hemingway, published in 1952. The story revolves around an aging Cuban fisherman named Santiago, who has gone 84 days without catching a fish. Undeterred by his string of failures, he embarks on one last fishing trip alone, determined to prove his skills and restore his dignity.
+
+Santiago faces immense physical and mental challenges as he battles a giant marlin far out at sea. After a grueling three-day struggle, he finally hooks the massive fish, which tests his strength and endurance to the limit. Despite being injured and exhausted, Santiago perseveres, using only a makeshift rig and his indomitable willpower.
+
+Throughout the journey, Santiago reflects on his life, past victories, and the meaning of success. He forms a deep connection with the marlin, viewing it as a worthy adversary and a symbol of his own pride. However, sharks eventually attack the marlin, devouring much of its flesh before Santiago can bring it back to shore.
+
+When he returns, he is greeted as a hero, even though he brings back only the skeleton of the marlin. The novella highlights themes of resilience, perseverance, and the human condition, emphasizing the struggle between man and nature, as well as the importance of inner strength and the struggle for self-worth. "The Old Man and the Sea" earned Hemingway the Pulitzer Prize and solidified his reputation as a literary icon.
+(B) An Ideal Husband, written by the renowned British playwright Oscar Wilde, is a satirical comedy that premiered in 1895. The play revolves around the complex relationships and societal expectations of the upper class during the Victorian era. The central character is Lord Darlington, a seemingly perfect politician who is admired for his charm, intelligence, and public image as an advocate of marriage based on love.
+
+The story begins with Lord Darlington's engagement to Gwendolen Harleth, a young woman who believes him to be the epitome of an ideal husband. However, unbeknownst to Gwendolen, Lord Darlington has a secret past. Years ago, he had an affair with Maud Kemble, a talented actress, which he kept hidden to maintain his public reputation. Maud, now married to the dull but wealthy Sir James Algy, is still secretly in love with Darlington.
+
+Enter Canon Hardcastle, a prudish and moralistic clergyman, who is determined to matchmake his daughter, Cissy, with Lord Darlington. Canon Hardcastle believes that Darlington's impeccable reputation makes him the perfect suitor for Cissy. As the plot unfolds, various characters' true natures are revealed, leading to a series of comic misunderstandings and deceptions.
+
+Throughout the play, Wilde explores themes of hypocrisy, morality, and the facade of societal norms. He uses humor to criticize the double standards of Victorian society, particularly regarding marriage and personal integrity. The characters' actions and motivations often expose the superficiality and phoniness that underlie their public personas.
+
+As tensions rise, Lord Darlington's secret threatens to unravel, forcing him to confront his past and decide between his love for Maud and his desire to maintain his idealized image. Meanwhile, Gwendolen's naivety and Canon Hardcastle's meddling create a chaotic situation that ultimately leads to a comedic resolution.
+
+In the end, Wilde leaves the audience questioning the true meaning of an ideal husband and the nature of love and commitment. The play concludes with a mix of laughter and introspection, as the characters learn valuable lessons about honesty, forgiveness, and the complexities of human relationships.
+
+Overall, An Ideal Husband is a witty and thought-provoking exploration of Victorian society's conventions, offering a critique of the superficiality and moral hypocrisy that Wilde believed were prevalent at the time. Through its engaging characters and clever dialogue, the play remains a classic example of Wilde's mastery of social satire and psychological insight.
+(C) "The Old Man and the Sea" is a novella written by American author Ernest Hemingway, first published in 1952. It tells the story of Santiago, an aging Cuban fisherman who has faced a long period of bad luck and unremarkable catches. Hemingway's masterpiece is a poignant exploration of human resilience, perseverance, and the delicate relationship between man and nature.
+
+The narrative begins with Santiago returning from 84 consecutive days without catching a fish, a record of failure that has left him isolated and doubted by the other fishermen in his village. Undeterred, he decides to venture out alone into the vast, open sea in search of a big catch. He believes that his luck will change with one last, desperate attempt.
+
+As Santiago sets sail, he encounters a giant marlin, a magnificent creature that tests his skills, strength, and determination to the limit. Over the course of three days and nights, the old man engages in a grueling battle with the fish, enduring exhaustion, hunger, and the relentless assault of the elements. Despite the odds, Santiago refuses to give up, driven by his pride, his desire for validation, and his deep connection to the sea.
+
+Throughout the story, Hemingway employs a minimalist and symbolic style, emphasizing the simplicity of Santiago's life and the stark contrast between his solitary struggle and the grandeur of the natural world. The marlin becomes a symbol of both the beauty and brutality of nature, as well as Santiago's own inner strength.
+
+As the story reaches its climax, Santiago finally succeeds in harpooning the marlin but finds himself in a fierce struggle with the fish's blood, which attracts voracious sharks. With each鲨鱼 attack, Santiago loses more of his catch, but he continues to fight back, using his wits and whatever resources he has left. The sharks' presence serves as a metaphor for the inevitability of adversity and the struggle against one's own limitations.
+
+In the end, Santiago returns to shore with only the broken bones of the marlin as evidence of his triumph. His body battered, his dreams shattered, he is hailed as a hero by the children and respected by his peers, who now recognize his unwavering courage and stoicism. The novella concludes with the realization that true success lies not only in the size of the catch but also in the journey and the lessons learned along the way.
+
+"The Old Man and the Sea" is a timeless tale that celebrates the indomitable human spirit and the power of perseverance in the face of overwhelming odds. It has become a classic of modern literature and continues to resonate with readers worldwide for its profound themes and Hemingway's masterful storytelling.
+(D) An Ideal Husband, written by Oscar Wilde, is a satirical play that was first performed in 1895. The play revolves around the character of John Tarleton, a seemingly perfect politician who is about to marry Maud Kemble, a young and innocent woman. However, it soon becomes apparent that Tarleton's idealism is a facade, as he has been living a double life with Gwendolen Harleth, a beautiful and impressionable society woman.
+
+Gwendolen is infatuated with the idea of an "ideal" husband and believes Tarleton to be the embodiment of such a figure. Meanwhile, her brother, Ernest, discovers Tarleton's secret and decides to expose him to Gwendolen, hoping to ruin his reputation and win her affection. As the plot unfolds, the characters' true natures are revealed, exposing the hypocrisy and moral complexities of their social circle.
+
+The play explores themes of marriage, morality, and the illusions people create to maintain societal expectations. It showcases Wilde's wit and辛辣 commentary on Victorian society, particularly its obsession with appearances and the superficiality of its values. Ultimately, An Ideal Husband questions the nature of truth, deception, and the pursuit of happiness in a world where perfection is often unattainable.
+Answer: (<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Book: The Old Man and the Sea
+Please identify the correct detailed summary of the book
+(A) "The Old Man and the Sea" is a novella written by Ernest Hemingway, published in 1952. The story revolves around an aging Cuban fisherman named Santiago, who has gone 84 days without catching a fish. Undeterred by his string of failures, he embarks on one last fishing trip alone, determined to prove his skills and restore his dignity.
+
+Santiago faces immense physical and mental challenges as he battles a giant marlin far out at sea. After a grueling three-day struggle, he finally hooks the massive fish, which tests his strength and endurance to the limit. Despite being injured and exhausted, Santiago perseveres, using only a makeshift rig and his indomitable willpower.
+
+Throughout the journey, Santiago reflects on his life, past victories, and the meaning of success. He forms a deep connection with the marlin, viewing it as a worthy adversary and a symbol of his own pride. However, sharks eventually attack the marlin, devouring much of its flesh before Santiago can bring it back to shore.
+
+When he returns, he is greeted as a hero, even though he brings back only the skeleton of the marlin. The novella highlights themes of resilience, perseverance, and the human condition, emphasizing the struggle between man and nature, as well as the importance of inner strength and the struggle for self-worth. "The Old Man and the Sea" earned Hemingway the Pulitzer Prize and solidified his reputation as a literary icon.
+(B) An Ideal Husband, written by the renowned British playwright Oscar Wilde, is a satirical comedy that premiered in 1895. The play revolves around the complex relationships and societal expectations of the upper class during the Victorian era. The central character is Lord Darlington, a seemingly perfect politician who is admired for his charm, intelligence, and public image as an advocate of marriage based on love.
+
+The story begins with Lord Darlington's engagement to Gwendolen Harleth, a young woman who believes him to be the epitome of an ideal husband. However, unbeknownst to Gwendolen, Lord Darlington has a secret past. Years ago, he had an affair with Maud Kemble, a talented actress, which he kept hidden to maintain his public reputation. Maud, now married to the dull but wealthy Sir James Algy, is still secretly in love with Darlington.
+
+Enter Canon Hardcastle, a prudish and moralistic clergyman, who is determined to matchmake his daughter, Cissy, with Lord Darlington. Canon Hardcastle believes that Darlington's impeccable reputation makes him the perfect suitor for Cissy. As the plot unfolds, various characters' true natures are revealed, leading to a series of comic misunderstandings and deceptions.
+
+Throughout the play, Wilde explores themes of hypocrisy, morality, and the facade of societal norms. He uses humor to criticize the double standards of Victorian society, particularly regarding marriage and personal integrity. The characters' actions and motivations often expose the superficiality and phoniness that underlie their public personas.
+
+As tensions rise, Lord Darlington's secret threatens to unravel, forcing him to confront his past and decide between his love for Maud and his desire to maintain his idealized image. Meanwhile, Gwendolen's naivety and Canon Hardcastle's meddling create a chaotic situation that ultimately leads to a comedic resolution.
+
+In the end, Wilde leaves the audience questioning the true meaning of an ideal husband and the nature of love and commitment. The play concludes with a mix of laughter and introspection, as the characters learn valuable lessons about honesty, forgiveness, and the complexities of human relationships.
+
+Overall, An Ideal Husband is a witty and thought-provoking exploration of Victorian society's conventions, offering a critique of the superficiality and moral hypocrisy that Wilde believed were prevalent at the time. Through its engaging characters and clever dialogue, the play remains a classic example of Wilde's mastery of social satire and psychological insight.
+(C) "The Old Man and the Sea" is a novella written by American author Ernest Hemingway, first published in 1952. It tells the story of Santiago, an aging Cuban fisherman who has faced a long period of bad luck and unremarkable catches. Hemingway's masterpiece is a poignant exploration of human resilience, perseverance, and the delicate relationship between man and nature.
+
+The narrative begins with Santiago returning from 84 consecutive days without catching a fish, a record of failure that has left him isolated and doubted by the other fishermen in his village. Undeterred, he decides to venture out alone into the vast, open sea in search of a big catch. He believes that his luck will change with one last, desperate attempt.
+
+As Santiago sets sail, he encounters a giant marlin, a magnificent creature that tests his skills, strength, and determination to the limit. Over the course of three days and nights, the old man engages in a grueling battle with the fish, enduring exhaustion, hunger, and the relentless assault of the elements. Despite the odds, Santiago refuses to give up, driven by his pride, his desire for validation, and his deep connection to the sea.
+
+Throughout the story, Hemingway employs a minimalist and symbolic style, emphasizing the simplicity of Santiago's life and the stark contrast between his solitary struggle and the grandeur of the natural world. The marlin becomes a symbol of both the beauty and brutality of nature, as well as Santiago's own inner strength.
+
+As the story reaches its climax, Santiago finally succeeds in harpooning the marlin but finds himself in a fierce struggle with the fish's blood, which attracts voracious sharks. With each鲨鱼 attack, Santiago loses more of his catch, but he continues to fight back, using his wits and whatever resources he has left. The sharks' presence serves as a metaphor for the inevitability of adversity and the struggle against one's own limitations.
+
+In the end, Santiago returns to shore with only the broken bones of the marlin as evidence of his triumph. His body battered, his dreams shattered, he is hailed as a hero by the children and respected by his peers, who now recognize his unwavering courage and stoicism. The novella concludes with the realization that true success lies not only in the size of the catch but also in the journey and the lessons learned along the way.
+
+"The Old Man and the Sea" is a timeless tale that celebrates the indomitable human spirit and the power of perseverance in the face of overwhelming odds. It has become a classic of modern literature and continues to resonate with readers worldwide for its profound themes and Hemingway's masterful storytelling.
+(D) An Ideal Husband, written by Oscar Wilde, is a satirical play that was first performed in 1895. The play revolves around the character of John Tarleton, a seemingly perfect politician who is about to marry Maud Kemble, a young and innocent woman. However, it soon becomes apparent that Tarleton's idealism is a facade, as he has been living a double life with Gwendolen Harleth, a beautiful and impressionable society woman.
+
+Gwendolen is infatuated with the idea of an "ideal" husband and believes Tarleton to be the embodiment of such a figure. Meanwhile, her brother, Ernest, discovers Tarleton's secret and decides to expose him to Gwendolen, hoping to ruin his reputation and win her affection. As the plot unfolds, the characters' true natures are revealed, exposing the hypocrisy and moral complexities of their social circle.
+
+The play explores themes of marriage, morality, and the illusions people create to maintain societal expectations. It showcases Wilde's wit and辛辣 commentary on Victorian society, particularly its obsession with appearances and the superficiality of its values. Ultimately, An Ideal Husband questions the nature of truth, deception, and the pursuit of happiness in a world where perfection is often unattainable.
+Answer: (<|im_end|>
+<|im_start|>assistant
+
+Tokenizing base_toks
+max_length 2129
+max_length 2129
+Tokenizing base_qs_toks
+max_length 2129
+max_length 2129
+Tokenizing source_qs_toks
+max_length 2129
+max_length 2129
+Finding response start positions...
+0it [00:00, ?it/s]3it [00:00, 24.73it/s]6it [00:00, 26.18it/s]9it [00:00, 26.21it/s]12it [00:00, 26.82it/s]15it [00:00, 26.69it/s]18it [00:00, 26.83it/s]21it [00:00, 26.90it/s]24it [00:00, 26.96it/s]27it [00:01, 27.07it/s]30it [00:01, 27.13it/s]33it [00:01, 26.70it/s]36it [00:01, 26.91it/s]39it [00:01, 26.86it/s]42it [00:01, 26.99it/s]45it [00:01, 26.94it/s]48it [00:01, 26.84it/s]51it [00:01, 26.89it/s]54it [00:02, 26.53it/s]57it [00:02, 26.83it/s]60it [00:02, 26.94it/s]63it [00:02, 26.71it/s]66it [00:02, 26.61it/s]69it [00:02, 26.35it/s]72it [00:02, 26.22it/s]75it [00:02, 26.29it/s]78it [00:02, 26.62it/s]81it [00:03, 26.64it/s]84it [00:03, 26.86it/s]87it [00:03, 26.90it/s]90it [00:03, 26.95it/s]93it [00:03, 26.80it/s]96it [00:03, 26.98it/s]99it [00:03, 26.79it/s]102it [00:03, 26.97it/s]105it [00:03, 27.12it/s]108it [00:04, 26.89it/s]111it [00:04, 26.98it/s]114it [00:04, 26.94it/s]117it [00:04, 26.87it/s]120it [00:04, 27.00it/s]123it [00:04, 26.73it/s]126it [00:04, 27.01it/s]129it [00:04, 26.96it/s]132it [00:04, 27.04it/s]135it [00:05, 27.02it/s]138it [00:05, 27.39it/s]141it [00:05, 27.35it/s]144it [00:05, 27.32it/s]147it [00:05, 27.23it/s]150it [00:05, 27.17it/s]153it [00:05, 27.17it/s]156it [00:05, 27.37it/s]159it [00:05, 27.33it/s]162it [00:06, 27.37it/s]165it [00:06, 27.04it/s]168it [00:06, 26.96it/s]171it [00:06, 26.99it/s]174it [00:06, 26.82it/s]177it [00:06, 26.80it/s]180it [00:06, 26.75it/s]183it [00:06, 26.59it/s]186it [00:06, 26.91it/s]189it [00:07, 26.83it/s]192it [00:07, 27.02it/s]195it [00:07, 26.92it/s]196it [00:07, 26.89it/s]
+0it [00:00, ?it/s]3it [00:00, 26.88it/s]6it [00:00, 27.33it/s]9it [00:00, 26.92it/s]12it [00:00, 26.99it/s]15it [00:00, 27.07it/s]18it [00:00, 27.28it/s]21it [00:00, 27.30it/s]24it [00:00, 27.31it/s]27it [00:00, 27.29it/s]30it [00:01, 27.62it/s]33it [00:01, 27.73it/s]36it [00:01, 27.79it/s]39it [00:01, 27.55it/s]42it [00:01, 27.70it/s]45it [00:01, 27.63it/s]48it [00:01, 27.78it/s]51it [00:01, 27.57it/s]54it [00:01, 27.67it/s]57it [00:02, 27.79it/s]60it [00:02, 27.71it/s]63it [00:02, 27.78it/s]66it [00:02, 27.86it/s]69it [00:02, 27.74it/s]72it [00:02, 27.69it/s]75it [00:02, 27.50it/s]78it [00:02, 27.53it/s]81it [00:02, 27.17it/s]84it [00:03, 27.31it/s]87it [00:03, 27.17it/s]90it [00:03, 27.23it/s]93it [00:03, 27.27it/s]96it [00:03, 27.32it/s]99it [00:03, 27.43it/s]102it [00:03, 27.44it/s]105it [00:03, 27.50it/s]108it [00:03, 27.40it/s]111it [00:04, 27.46it/s]114it [00:04, 27.54it/s]117it [00:04, 27.51it/s]120it [00:04, 27.63it/s]123it [00:04, 27.71it/s]126it [00:04, 27.56it/s]129it [00:04, 27.41it/s]132it [00:04, 27.49it/s]135it [00:04, 27.47it/s]138it [00:05, 27.37it/s]141it [00:05, 27.41it/s]144it [00:05, 27.39it/s]147it [00:05, 27.21it/s]150it [00:05, 27.08it/s]153it [00:05, 26.87it/s]156it [00:05, 26.83it/s]159it [00:05, 26.76it/s]162it [00:05, 26.76it/s]165it [00:06, 27.00it/s]168it [00:06, 27.08it/s]171it [00:06, 27.16it/s]174it [00:06, 27.08it/s]177it [00:06, 27.01it/s]180it [00:06, 27.16it/s]183it [00:06, 27.10it/s]186it [00:06, 27.14it/s]189it [00:06, 26.98it/s]192it [00:07, 26.96it/s]195it [00:07, 26.98it/s]196it [00:07, 27.34it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]  0%|          | 0/100 [00:01<?, ?it/s]
+Running patching on heads from 0 to 1
+Updating batch handler: start=0, stop=1
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 34, in main
+    heads_experiment.run()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/experiment.py", line 38, in run
+    self.patching_logits = self.patching.apply_patching()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/patching.py", line 41, in apply_patching
+    base_undesired_logits, base_undesired_attn = self.patching_utils.get_activations(base_toks['undesired'], which_patch='heads', resp_start_positions=response_start_positions['base']['undesired'], retain_grad=True, logit=True)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/patching_utils.py", line 65, in get_activations
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1881, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1829, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 463, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1881, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1829, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+
+OutOfMemoryError: CUDA out of memory. Tried to allocate 618.00 MiB. GPU 0 has a total capacity of 44.39 GiB of which 571.31 MiB is free. Including non-PyTorch memory, this process has 43.83 GiB memory in use. Of the allocated memory 42.04 GiB is allocated by PyTorch, and 1.29 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
