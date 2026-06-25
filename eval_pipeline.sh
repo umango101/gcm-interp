@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
-#SBATCH -t 12:00:00
+#SBATCH -p mit_normal_gpu
+#SBATCH -t 03:00:00
 #SBATCH -J pipeline
 #SBATCH -o logs/%x_%j.out
-#SBATCH --gres=gpu:h100:1
+#SBATCH --gres=gpu:h200:1
 #SBATCH --mem=48G
 #SBATCH --requeue
 #SBATCH -c 4
@@ -20,4 +20,4 @@ source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda activate /home/ubansal/miniconda/envs/syc
 cd "$RM_INTERP_REPO"
 
-python eval_pipeline.py --stages merge build_prompts judge accuracies plots --batch_size 16
+python -u eval_pipeline.py --stages merge build_prompts judge accuracies plots --batch_size 16

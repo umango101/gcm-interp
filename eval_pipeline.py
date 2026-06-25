@@ -64,12 +64,12 @@ METHOD   = "atp"
 
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
 LOCALIZATIONS = [
-    ("harmful-long",   "harmless-long"),
-    ("harmful-single", "harmless-single"),
+    ("harmfulMCQA-long",   "harmlessMCQA-long"),
+    ("harmfulMCQA-single", "harmlessMCQA-single"),
 ]
 # Eval / steer subdirs to sweep (full cross product with the localizations).
-EVAL_SUB_DIRS  = ["harmful-long_eval",  "harmful-single_eval"]
-STEER_SUB_DIRS = ["harmful-long_steer", "harmful-single_steer"]
+EVAL_SUB_DIRS  = ["harmfulMCQA-long_eval",  "harmfulMCQA-single_eval"]
+STEER_SUB_DIRS = ["harmfulMCQA-long_steer", "harmfulMCQA-single_steer"]
 
 # --- sweep grid (must match what was actually generated) ---------------------
 NS           = [1, 2, 4, 5, 6, 8, 10]

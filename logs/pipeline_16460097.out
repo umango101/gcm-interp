@@ -1,0 +1,25 @@
+Family: harmful->harmless  model=Qwen1.5-14B-Chat  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-long_eval | harmfulMCQA-long_steer
+  - from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-long_eval | harmfulMCQA-single_steer
+  - from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-single_eval | harmfulMCQA-long_steer
+  - from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-single_eval | harmfulMCQA-single_steer
+  - from_harmfulMCQA-single_to_harmlessMCQA-single | harmfulMCQA-long_eval | harmfulMCQA-long_steer
+  - from_harmfulMCQA-single_to_harmlessMCQA-single | harmfulMCQA-long_eval | harmfulMCQA-single_steer
+  - from_harmfulMCQA-single_to_harmlessMCQA-single | harmfulMCQA-single_eval | harmfulMCQA-long_steer
+  - from_harmfulMCQA-single_to_harmlessMCQA-single | harmfulMCQA-single_eval | harmfulMCQA-single_steer
+======================================================================
+STAGE: merge
+  cell: from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-long_eval | harmfulMCQA-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_harmfulMCQA-long_to_harmlessMCQA-long/atp/harmfulMCQA-long_eval/harmfulMCQA-long_steer/merged_eval_outputs.csv)
+  cell: from_harmfulMCQA-long_to_harmlessMCQA-long | harmfulMCQA-long_eval | harmfulMCQA-single_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline.py", line 635, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline.py", line 628, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline.py", line 205, in stage_merge
+    _require(cell.gen_dir, "results-eval-folder")
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline.py", line 173, in _require
+    raise FileNotFoundError(f"[{what}] required path does not exist: {path}")
+FileNotFoundError: [results-eval-folder] required path does not exist: /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-14B-Chat/from_harmfulMCQA-long_to_harmlessMCQA-long/atp/harmfulMCQA-long_eval/harmfulMCQA-single_steer/eval

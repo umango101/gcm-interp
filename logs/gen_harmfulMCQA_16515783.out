@@ -1,0 +1,15 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:02<00:19,  2.81s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:05<00:18,  3.02s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:09<00:15,  3.09s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:12<00:12,  3.23s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:16<00:09,  3.31s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:19<00:06,  3.35s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:22<00:03,  3.10s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:23<00:00,  2.47s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:23<00:00,  2.90s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/qwen_harmfulMCQA.py", line 45, in <module>
+    harmless_tasks.append(json.loads(line))
+NameError: name 'json' is not defined

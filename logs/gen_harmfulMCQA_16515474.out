@@ -1,0 +1,15 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.19it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.41it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.46it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.55it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.60it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.57it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  2.13it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.72it/s]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/qwen_harmfulMCQA.py", line 43, in <module>
+    with open(file_path, 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'expression_harmless_tasks.jsonl'
