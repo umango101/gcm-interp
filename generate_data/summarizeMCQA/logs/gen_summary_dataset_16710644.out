@@ -1,0 +1,32 @@
+[slurm] job 16710644 on node2434 restart=0 Sat Jun 27 23:13:34 EDT 2026
+[slurm] === build_summary_dataset.py === Sat Jun 27 23:13:37 EDT 2026
+[load] 308 books from books.json
+[gen] shard=all -> checkpoint/summaries.jsonl (308 books)
+[gen] loading Qwen/Qwen1.5-14B-Chat (tp=2) ...
+INFO 06-27 23:14:08 [api_utils.py:273] non-default args: {'trust_remote_code': True, 'dtype': 'bfloat16', 'seed': 1234, 'max_model_len': 4096, 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.9, 'disable_log_stats': True, 'model': 'Qwen/Qwen1.5-14B-Chat'}
+INFO 06-27 23:14:26 [model.py:611] Resolved architecture: Qwen2ForCausalLM
+INFO 06-27 23:14:26 [model.py:1745] Using max model len 4096
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/summarizeMCQA/build_summary_dataset.py", line 420, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/summarizeMCQA/build_summary_dataset.py", line 407, in main
+    stage_generate(gen_books, gen_checkpoint_path())
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/summarizeMCQA/build_summary_dataset.py", line 184, in stage_generate
+    llm = LLM(
+          ^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/entrypoints/llm.py", line 349, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/llm_engine.py", line 162, in from_engine_args
+    vllm_config = engine_args.create_engine_config(usage_context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/engine/arg_utils.py", line 1962, in create_engine_config
+    parallel_config = ParallelConfig(
+                      ^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+    s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ParallelConfig
+  Value error, World size (2) is larger than the number of available GPUs (1) in this node. If this is intentional and you are using:
+- ray, set '--distributed-executor-backend ray'.
+- multiprocessing, set '--nnodes' appropriately. [type=value_error, input_value=ArgsKwargs((), {'pipeline...'numa_bind_cpus': None}), input_type=ArgsKwargs]
+    For further information visit https://errors.pydantic.dev/2.13/v/value_error

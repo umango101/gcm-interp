@@ -1,0 +1,12 @@
+[slurm] job 16904066 on node3001 restart=0 Wed Jul  1 02:27:49 EDT 2026
+[load] 181 dicts from questions.json
+[load] preamble: 3732 chars from preamble.txt
+[filter] kept 176/181 (harmless/harmful token-length match); discarded 5 -> output/length_mismatch_errors.jsonl
+[ckpt] 176 dicts already generated+judged
+[gen] nothing to generate; all kept dicts cached.
+[ckpt] 176 dicts already generated+judged
+[build] WARNING: only 34 QC-passing dicts (< TRAIN_SIZE=100); train files will have 34 lines and test files 0.
+[build] QC-passing=34 -> train=34, test=0
+[build] wrote 10 train files (34 rows) + 2 test files (0 rows) -> output
+[done] stages complete: filter,generate,build
+[slurm] python exited rc=0 Wed Jul  1 02:28:08 EDT 2026

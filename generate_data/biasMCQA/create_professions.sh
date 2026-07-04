@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p mit_normal_gpu
+#SBATCH -p mit_preemptable
 #SBATCH -t 06:00:00
 #SBATCH -J bias_exploration
 #SBATCH -o logs/%x_%j.out
@@ -20,4 +20,4 @@ source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda activate /home/ubansal/miniconda/envs/syc
 cd "$RM_INTERP_REPO"
 
-python -u create_professions.py
+python -u generate_data/biasMCQA/create_professions_checkpointed.py
