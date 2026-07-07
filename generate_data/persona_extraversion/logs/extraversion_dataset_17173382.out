@@ -1,0 +1,14 @@
+[load] 500 'Yes' lines from extraversion.jsonl
+[ckpt] 500 records loaded from checkpoint/extra_prompts.jsonl
+[genprompt] all prompts cached.
+[ckpt] 500 records loaded from checkpoint/extra_prompts.jsonl
+[ckpt] 500 records loaded from checkpoint/extra_qc.jsonl
+[qc] all QC cached.
+[build] persona token lengths: 'sociable'=2, 'introverted'=2
+[ckpt] 500 records loaded from checkpoint/extra_prompts.jsonl
+[ckpt] 500 records loaded from checkpoint/extra_qc.jsonl
+[build] 496/500 lines passed all four QC checks
+[build] 289 records after dedup (dropped 207 duplicate statement/prompt)
+[build] wrote 12 train files (100 rows each) and 2 test files (189 rows each, ids 100..288) + manifest -> output
+[done] stages complete: genprompt,qc,build
+[run] finished

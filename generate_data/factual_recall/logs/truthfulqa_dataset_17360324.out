@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 449, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 439, in main
+    rows = load_long_rows(CONFIG["DATASET"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 146, in load_long_rows
+    raise FileNotFoundError(f"Dataset not found: {path}")
+FileNotFoundError: Dataset not found: TruthfulQA.csv
+srun: error: node5105: task 0: Exited with exit code 1

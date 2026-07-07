@@ -1,0 +1,13 @@
+[load] 500 'Yes' lines from narcissism.jsonl
+[ckpt] 500 records loaded from checkpoint/narc_prompts.jsonl
+[genprompt] all prompts cached.
+[ckpt] 500 records loaded from checkpoint/narc_prompts.jsonl
+[ckpt] 500 records loaded from checkpoint/narc_qc.jsonl
+[qc] all QC cached.
+[ckpt] 500 records loaded from checkpoint/narc_prompts.jsonl
+[ckpt] 500 records loaded from checkpoint/narc_qc.jsonl
+[build] 17/500 lines passed all four QC checks
+[build] 16 records after dedup (dropped 1 duplicate statement/prompt)
+[build] wrote 12 train files (16 rows each) and 2 test files (0 rows each, ids 16..15) + manifest -> output
+[done] stages complete: genprompt,qc,build
+[run] finished

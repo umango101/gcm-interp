@@ -1,0 +1,16 @@
+[load] 500 'Yes' lines from extraversion.jsonl
+[ckpt] 500 records loaded from checkpoint/extra_prompts.jsonl
+[genprompt] all prompts cached.
+[ckpt] 500 records loaded from checkpoint/extra_prompts.jsonl
+[ckpt] 500 records loaded from checkpoint/extra_qc.jsonl
+[qc] all QC cached.
+[build] persona token lengths: 'outgoing'=1, 'introverted'=2
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/persona_extraversion/build_extraversion_dataset.py", line 493, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/persona_extraversion/build_extraversion_dataset.py", line 488, in main
+    stage_build(yes_lines)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/persona_extraversion/build_extraversion_dataset.py", line 361, in stage_build
+    raise RuntimeError(f"Persona words are not token-aligned: {POS_WORD!r}={_n_pos} vs "
+RuntimeError: Persona words are not token-aligned: 'outgoing'=1 vs 'introverted'=2 tokens; contrastive prompts differ in length.
+srun: error: node4009: task 0: Exited with exit code 1
