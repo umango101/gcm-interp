@@ -12,9 +12,9 @@ Pipeline (resumable, single-GPU, fail-fast, SLURM-preemption friendly):
 
   Stage QC         (model: Qwen/Qwen1.5-14B-Chat)
     For every such line, run four quality checks and KEEP the line only if all pass:
-      QC1  Qwen(EXTRO + question)     == "yes"
+      QC1  Qwen(SOCIAL_SINGLE + question)  == "yes"   (constrained "Yes"/"No" prompt)
       QC2  Qwen(EXTRO + gen_prompt)   is extroverted
-      QC3  Qwen(INTRO + question)     == "no"
+      QC3  Qwen(SHY_SINGLE + question)     == "no"    (constrained "Yes"/"No" prompt)
       QC4  Qwen(INTRO + gen_prompt)   is introverted
     where EXTRO/INTRO are the roleplay persona prefixes below. QC2/QC4 also PRODUCE
     the long responses reused downstream:
@@ -84,6 +84,11 @@ POS_WORD, NEG_WORD = "social", "shy"
 # Persona-conditioned user-message templates (also the exact strings stored in outputs).
 EXTRO_TMPL = "This is a roleplay game. Please respond exactly as a social person would. {body}"
 INTRO_TMPL = "This is a roleplay game. Please respond exactly as a shy person would. {body}"
+# Constrained yes/no framing used by the -single- output files and QC1/QC3.
+SOCIAL_SINGLE_TMPL = ('This is a roleplay game. Please respond as a social person would. '
+                      'Please respond only with "Yes" or "No" and no other words. {body}')
+SHY_SINGLE_TMPL = ('This is a roleplay game. Please respond as a shy person would. '
+                   'Please respond only with "Yes" or "No" and no other words. {body}')
 
 # Meta-prompt used only to reverse-engineer the open-ended prompt.
 GEN_SYSTEM = (
@@ -289,8 +294,8 @@ def stage_qc(yes_lines):
 
         # Round A: single yes/no (QC1, QC3) -- short.
         single_prompts = (
-            [render(YESNO_SYSTEM, EXTRO_TMPL.format(body=qq)) for qq in q] +      # QC1
-            [render(YESNO_SYSTEM, INTRO_TMPL.format(body=qq)) for qq in q]        # QC3
+            [render(None, SOCIAL_SINGLE_TMPL.format(body=qq)) for qq in q] +      # QC1 social -> Yes
+            [render(None, SHY_SINGLE_TMPL.format(body=qq)) for qq in q]           # QC3 shy    -> No
         )
         # Round A': persona long responses (QC2, QC4) -- long.
         long_prompts = (
@@ -420,33 +425,35 @@ def stage_build(yes_lines):
     h = {n: (out_dir / n).open("w") for n in train_names + test_names}
 
     for idx, rec in enumerate(deduped):
-        extro_q = EXTRO_TMPL.format(body=rec["question"])     # EXTRO + question
-        intro_q = INTRO_TMPL.format(body=rec["question"])     # INTRO + question
-        extro_p = EXTRO_TMPL.format(body=rec["gen_prompt"])   # EXTRO + gen_prompt
-        intro_p = INTRO_TMPL.format(body=rec["gen_prompt"])   # INTRO + gen_prompt
+        social_q = SOCIAL_SINGLE_TMPL.format(body=rec["question"])   # constrained social + question
+        shy_q = SHY_SINGLE_TMPL.format(body=rec["question"])         # constrained shy + question
+        shy_q_yes = shy_q + ". Yes"                                  # shy prompt, "Yes" appended (steering)
+        shy_q_no = shy_q + ". No"                                    # shy prompt, "No" appended (steering)
+        extro_p = EXTRO_TMPL.format(body=rec["gen_prompt"])          # social(exactly) + gen_prompt
+        intro_p = INTRO_TMPL.format(body=rec["gen_prompt"])          # shy(exactly)    + gen_prompt
         extro_resp = rec["extro_response"]
         intro_resp = rec["intro_response"]
 
         if idx < LIMIT:
-            # ---- extraversion single ----
-            _emit(h["extraversion-single-desired-all.jsonl"], idx, extro_q, "Yes")
-            _emit(h["extraversion-single-undesired-all.jsonl"], idx, extro_q, "No")
-            _emit(h["extraversion-single-steering.jsonl"], idx, extro_q, "Yes")
-            # ---- introversion single ----
-            _emit(h["introversion-single-desired-all.jsonl"], idx, intro_q, "No")
-            _emit(h["introversion-single-undesired-all.jsonl"], idx, intro_q, "Yes")
-            _emit(h["introversion-single-steering.jsonl"], idx, intro_q, "No")
+            # ---- extraversion single (social framing) ----
+            _emit(h["extraversion-single-desired-all.jsonl"], idx, social_q, "Yes")
+            _emit(h["extraversion-single-undesired-all.jsonl"], idx, social_q, "No")
+            _emit(h["extraversion-single-steering.jsonl"], idx, shy_q_yes, "")   # shy prompt + ". Yes", empty assistant
+            # ---- introversion single (shy framing) ----
+            _emit(h["introversion-single-desired-all.jsonl"], idx, shy_q, "No")
+            _emit(h["introversion-single-undesired-all.jsonl"], idx, shy_q, "Yes")
+            _emit(h["introversion-single-steering.jsonl"], idx, shy_q_no, "")     # shy prompt + ". No", empty assistant
             # ---- extraversion long ----
             _emit(h["extraversion-long-desired-all.jsonl"], idx, extro_p, extro_resp)
             _emit(h["extraversion-long-undesired-all.jsonl"], idx, extro_p, intro_resp)
-            _emit(h["extraversion-long-steering.jsonl"], idx, extro_p, extro_resp)
+            _emit(h["extraversion-long-steering.jsonl"], idx, intro_p + ". " + extro_resp, "")  # shy prompt + extro response in user, empty assistant
             # ---- introversion long ----
             _emit(h["introversion-long-desired-all.jsonl"], idx, intro_p, intro_resp)
             _emit(h["introversion-long-undesired-all.jsonl"], idx, intro_p, extro_resp)
-            _emit(h["introversion-long-steering.jsonl"], idx, intro_p, intro_resp)
+            _emit(h["introversion-long-steering.jsonl"], idx, intro_p + ". " + intro_resp, "")  # shy prompt + intro response in user, empty assistant
         else:
             # ---- remainder: introversion test files (prompt-only), same id->record map ----
-            _emit(h["introversion-single-test.jsonl"], idx, intro_q)
+            _emit(h["introversion-single-test.jsonl"], idx, shy_q)
             _emit(h["introversion-long-test.jsonl"], idx, intro_p)
 
     for fh in h.values():
