@@ -1,0 +1,3809 @@
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Baron in the Trees
+assistant
+
+The Baron in the Trees is a novel by Italian author Italo Calvino, which tells the story of an orphan boy named Cesare who climbs up a tree to escape his adoptive family and lives among the birds, adopting a unique perspective on life and society.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        var deferred = Q.defer();
+
+        request(this.url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var $ = cheerio.load(body);
+                cheerioCache[key] = $;
+
+                deferred.resolve($);
+            } else {
+                deferred.reject(error);
+            }
+        });
+
+        return deferred.promise.nodeify(cb);
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url;
+
+        if (_.isString(url)) {
+            var $ = cheerioCacheKey(url);
+
+            if (_.has(cheerioCache, $)) {
+                res.send(cheerioCache[$]);
+            } else {
+                request(url, function (error, response, body) {
+                    if (!error && response.statusCode === 200) {
+                        var $ = cheerio.load(body);
+                        cheerioCache[$] = $;
+
+                        res.send($);
+                    } else {
+                        res.status(500).send(error);
+                    }
+                });
+            }
+        } else {
+            res.status(400).send('Bad Request');
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Smilla's Sense of Snow
+assistant
+
+Smilla's Sense of Snow is a novel by Peter Høeg about a young girl named Smilla who uses her heightened intuition to solve the mystery surrounding the death of her neighbor in Copenhagen, while navigating the complexities of her own family and the changing seasons.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.text().trim();
+                var keywords = $metaKeywords.attr('content') || '';
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                res.json({
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                });
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching data from ' + url });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Dream of the Red Chamber
+assistant
+
+"Dream of the Red Chamber" is a classic Chinese novel by Cao Xueqin, which tells the story of the decline of two wealthy families and the tragic love affairs set against the backdrop of 18th-century Chinese society.
+ here we go again
+
+```
+```
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Train to Pakistan
+assistant
+
+"Train to Pakistan" is a novel by Khushwant Singh that tells the story of two Indian women from different communities during the partition of India in 1947, as they journey together on a train, facing adversity and forming an unexpected bond.
+ the
+Chinese
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Interpreter of Maladies
+assistant
+
+Interpreter of Maladies is a collection of short stories by Jhumpa Lahiri that explores the lives of Indian immigrants and their children in America, capturing the nuances of cultural displacement and identity.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.text().trim();
+                var keywords = $metaKeywords.attr('content') || [];
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching page' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Museum of Innocence
+assistant
+
+The Museum of Innocence is a novel by Orhan Pamuk that chronicles the life of a wealthy Istanbul businessman through his collection of objects he gathered to preserve the memories of his love affair with a beautiful woman, exploring themes of obsession, longing, and the passage of time.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('../log');
+
+    var util = require('util');
+
+    var async = require('async');
+
+    var exec = require('child_process').exec;
+
+    var spawn = require('child_process').spawn;
+
+    var execSync = require('child_process').execSync;
+
+    var rimraf = require('rimraf');
+
+    var mkdirp = require('mkdirp');
+
+    var glob = require('glob');
+
+    var existsSync = fs.existsSync || path.existsSync;
+
+    var rimrafSync = rimraf.sync;
+
+    var mkdirpSync = mkdirp.mkdirpSync;
+
+    var globSync = glob.sync;
+
+    var isWindows = process.platform === 'win32';
+
+    var isMac = process.platform === 'darwin';
+
+    var isLinux = process.platform === 'linux';
+
+    var isUnix = isMac || isLinux;
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win32';
+
+    var isWindows = process.platform === 'win3
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Thin Man
+assistant
+
+The Thin Man is a classic 1934 film noir mystery that follows Nick Charles, a retired detective, and his wife Nora as they solve a murder case while on a luxurious vacation in New York City.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $title = $('head title').text();
+                var $metaDescription = $('meta[name="description"]').attr('content');
+                var $metaKeywords = $('meta[name="keywords"]').attr('content');
+                var $ogTitle = $('meta[property="og:title"]').attr('content');
+                var $ogDescription = $('meta[property="og:description"]').attr('content');
+                var $ogImage = $('meta[property="og:image"]').attr('content');
+                var $twitterCard = $('meta[name="twitter:card"]').attr('content');
+                var $twitterTitle = $('meta[name="twitter:title"]').attr('content');
+                var $twitterDescription = $('meta[name="twitter:description"]').attr('content');
+                var $twitterImage = $('meta[name="twitter:image"]').attr('content');
+
+                var data = {
+                    title: $title,
+                    metaDescription: $metaDescription,
+                    metaKeywords: $metaKeywords,
+                    ogTitle: $ogTitle,
+                    ogDescription: $ogDescription,
+                    ogImage: $ogImage,
+                    twitterCard: $twitterCard,
+                    twitterTitle: $twitterTitle,
+                    twitterDescription: $twitterDescription,
+                    twitterImage: $twitterImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                console.error(error);
+                res.status(500).json({ error: 'An error occurred' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Divergent
+assistant
+
+Divergent is a young adult dystopian novel where a teenager named Beatrice Prior must choose between her predetermined faction and rebel against the strict society of factions in Chicago, based on personality traits.
+: 's
+答案：I'm sorry, but I can't generate that story for you.
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Children of Blood and Bone
+assistant
+
+Children of Blood and Bone is a young adult fantasy novel by Tomi Adeyemi, set in a fictional African-inspired world, where a young girl named Zélie fights to reclaim her throne and restore magic after it was banned by an oppressive king.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        request(this.url, function (err, res, body) {
+            if (err) {
+                return cb(err);
+            }
+
+            var $ = cheerio.load(body);
+
+            cheerioCache[key] = $;
+
+            return cb(null, $);
+        });
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url || config.defaultUrl;
+
+        if (!url) {
+            return res.status(400).send('Bad Request');
+        }
+
+        var $ = cheerioCacheKey(url);
+
+        if (_.has(cheerioCache, $)) {
+            return res.send(cheerioCache[$]);
+        }
+
+        request(url, function (err, res, body) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+
+            var $ = cheerio.load(body);
+
+            cheerioCache[$] = $;
+
+            res.send($);
+        });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of A Court of Thorns and Roses
+assistant
+
+A Court of Thorns and Roses is a novel by Sarah J. Maas, set in a mythical world, where a young woman named Feyre learns she must enter the dangerous land of the Night Court to save her kingdom, while navigating love, power, and the complexities of court life.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = require('../cache');
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cacheGet = function (key, callback) {
+        cache.get(key, function (err, data) {
+            if (err) {
+                return callback(err);
+            }
+
+            if (_.isUndefined(data)) {
+                return callback(null, null);
+            }
+
+            return callback(null, data);
+        });
+    };
+
+    var cacheSet = function (key, data, callback) {
+        cache.set(key, data, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheRemove = function (key, callback) {
+        cache.remove(key, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheGetCheerio = function (url, callback) {
+        cacheGet(cheerioCacheKey(url), function (err, data) {
+            if (err) {
+                return callback(err);
+            }
+
+            if (_.isUndefined(data)) {
+                return callback(null, null);
+            }
+
+            return callback(null, cheerio.load(data));
+        });
+    };
+
+    var cacheSetCheerio = function (url, data, callback) {
+        cacheSet(cheerioCacheKey(url), data, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheRemoveCheerio = function (url, callback) {
+        cacheRemove(cheerioCacheKey(url), function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var getCheerio = function (url, callback) {
+        if (_.has(cheerioCache, url)) {
+            return callback(null, cheerioCache[url]);
+        }
+
+        request({
+            url: url,
+            encoding: null
+        }, function (error, response, body) {
+            if (error) {
+                return callback(error);
+            }
+
+            if (_.isUndefined(body)) {
+                return callback(new Error('No body'));
+            }
+
+            var $ = cheerio.load(body);
+
+            cheer
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Eleanor Oliphant Is Completely Fine
+assistant
+
+Eleanor Oliphant Is Completely Fine is a heartwarming novel about a socially awkward woman named Eleanor who forms unexpected friendships and learns to open up to life after a series of events challenge her solitary existence.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        var deferred = Q.defer();
+
+        request(this.url, function (error, response, body) {
+            if (error) {
+                deferred.reject(error);
+            } else {
+                var $ = cheerio.load(body);
+
+                cheerioCache[key] = $;
+
+                deferred.resolve($);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url;
+
+        if (!url) {
+            res.status(400).send('Bad Request');
+            return;
+        }
+
+        var $ = cheerioCacheKey(url);
+
+        if (_.has(cheerioCache, $)) {
+            res.send(cheerioCache[$]);
+            return;
+        }
+
+        request(url, function (error, response, body) {
+            if (error) {
+                res.status(500).send(error);
+                return;
+            }
+
+            var $ = cheerio.load(body);
+
+            cheerioCache[$] = $;
+
+            res.send($);
+        });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of A Tree Grows in Brooklyn
+assistant
+
+"A Tree Grows in Brooklyn" is a novel by Betty Smith, which chronicles the life of an impoverished young girl named Francie Nolan growing up in turn-of-the-century Brooklyn, as she navigates family struggles, dreams, and the power of resilience against the backdrop of a changing world.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = require('../cache');
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cacheGet = function (key, callback) {
+        cache.get(key, function (err, data) {
+            if (err) {
+                return callback(err);
+            }
+
+            if (_.isUndefined(data)) {
+                return callback(null, null);
+            }
+
+            return callback(null, data);
+        });
+    };
+
+    var cacheSet = function (key, data, callback) {
+        cache.set(key, data, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheRemove = function (key, callback) {
+        cache.remove(key, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheGetCheerio = function (url, callback) {
+        cacheGet(cheerioCacheKey(url), function (err, data) {
+            if (err) {
+                return callback(err);
+            }
+
+            if (_.isUndefined(data)) {
+                return callback(null, null);
+            }
+
+            return callback(null, cheerio.load(data));
+        });
+    };
+
+    var cacheSetCheerio = function (url, data, callback) {
+        cacheSet(cheerioCacheKey(url), data, function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var cacheRemoveCheerio = function (url, callback) {
+        cacheRemove(cheerioCacheKey(url), function (err) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null);
+        });
+    };
+
+    var getCheerio = function (url, callback) {
+        if (_.has(cheerioCache, url)) {
+            return callback(null, cheerioCache[url]);
+        }
+
+        request({
+            url: url,
+            encoding: null
+        }, function (error, response, body) {
+            if (error) {
+                return callback(error);
+            }
+
+            if (_.isUndefined(body)) {
+                return callback(new Error('No body'));
+            }
+
+            var $ = cheerio.load(body);
+
+            cheer
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Zorba the Greek
+assistant
+
+Zorba the Greek is a novel by Nikos Kazantzakis that follows the life of a Greek man named Zorba, who embodies the spirit of the title character, blending wisdom, passion, and the struggle between tradition and modernity in a tale of self-discovery on a remote Greek island.
+ here we go again
+
+```
+```
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Nightingale
+assistant
+
+The Nightingale is a novel by Kristin Hannah that tells the story of two sisters in France during World War II, one of whom becomes involved in the resistance while the other struggles with survival and their relationship with each other amidst the Nazi occupation.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content'),
+                twitterDescription: $('meta[name="twitter:description"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Life After Life
+assistant
+
+Life After Life is a novel by Kate Atkinson that follows the interconnected lives of a woman named Ursula Todd, who experiences the same events and choices multiple times, exploring the themes of destiny, love, and the impact of our actions on life's outcomes.
+: 's
+答案：错误
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of World Without End
+assistant
+
+"World Without End" is a novel by Ken Follett that follows the lives of two families, the Duchannes and the Cambray, through generations, set against the backdrop of historical events in Europe from the Middle Ages to the present day.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require('./log');
+
+    var util = require('./util');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+    var fs = (typeof global !== 'undefined' && global.fs) || require('fs');
+
+    var log = require
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of James and the Giant Peach
+assistant
+
+James and the Giant Peach is a novel by Roald Dahl about a young boy who befriends a giant peach and embarks on an adventure across the ocean with its magical inhabitants to escape his evil aunt and uncle.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(body);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.text().replace(/<[^>]*>/g, '').substring(0, 155);
+                var keywords = $metaKeywords.attr('content') || '';
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Error fetching data' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of A Desolation Called Peace
+assistant
+
+"A Desolation Called Peace" is a novel by Joe Abercrombie, which follows the intertwined stories of political intrigue, war, and personal struggles in the world of the First Law series, as characters navigate the aftermath of a devastating battle between nations.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        var deferred = Q.defer();
+
+        request(this.url, function (error, response, body) {
+            if (error) {
+                deferred.reject(error);
+            } else {
+                var $ = cheerio.load(body);
+
+                cheerioCache[key] = $;
+
+                deferred.resolve($);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url || '';
+
+        if (!url) {
+            res.status(400).send('Bad Request');
+            return;
+        }
+
+        var $ = cheerioCacheKey(url);
+
+        if (_.has(cheerioCache, $)) {
+            res.send(cheerioCache[$]);
+            return;
+        }
+
+        request(url, function (error, response, body) {
+            if (error) {
+                res.status(500).send(error);
+                return;
+            }
+
+            var $ = cheerio.load(body);
+
+            cheerioCache[$] = $;
+
+            res.send($);
+        });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Year of the Flood
+assistant
+
+"The Year of the Flood" is a novel by Margaret Atwood that follows the lives of two women in a dystopian future where a devastating flood has submerged most of the world, exploring themes of survival, technology, and the power of human connection.
+ here we go again
+
+```
+```
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Memory Police
+assistant
+
+The Memory Police is a novel by Japanese author Yoko Ogawa, set in a dystopian society where a totalitarian regime controls and deletes memories to maintain power, as a detective investigates the mysterious "忘却病" that challenges their control.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Erewhon
+assistant
+
+Erewhon is a novel by Samuel Butler that satirizes Victorian society and explores utopian ideals, as the protagonist travels to an idealized community named Erewhon where the seemingly perfect existence conceals hidden flaws and contradictions.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $title = $('head title').text();
+                var $metaDescription = $('meta[name="description"]').attr('content');
+                var $ogTitle = $('meta[property="og:title"]').attr('content');
+                var $ogDescription = $('meta[property="og:description"]').attr('content');
+                var $ogImage = $('meta[property="og:image"]').attr('content');
+                var $twitterCard = $('meta[name="twitter:card"]').attr('content');
+                var $twitterTitle = $('meta[name="twitter:title"]').attr('content');
+                var $twitterDescription = $('meta[name="twitter:description"]').attr('content');
+                var $twitterImage = $('meta[name="twitter:image"]').attr('content');
+
+                var data = {
+                    title: $title,
+                    metaDescription: $metaDescription,
+                    ogTitle: $ogTitle,
+                    ogDescription: $ogDescription,
+                    ogImage: $ogImage,
+                    twitterCard: $twitterCard,
+                    twitterTitle: $twitterTitle,
+                    twitterDescription: $twitterDescription,
+                    twitterImage: $twitterImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching data' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Fatelessness
+assistant
+
+"Fatelessness" is a novel by Imre Kertész, which chronicles the disillusionment and personal growth of a young Jewish boy during World War II as he tries to navigate the horrors of the Holocaust and the loss of his innocence.
+: '
+
+
+    array(0 => 'Hello World')
+
+```
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Good Soldier Švejk
+assistant
+
+"The Good Soldier Švejk is a satirical novel by Jaroslav Hašek, following the adventures of a Czech soldier during World War I who remains unflappable and subversive, providing comic relief amidst the chaos and disillusionment of the conflict."
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        var deferred = Q.defer();
+
+        request(this.url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var $ = cheerio.load(body);
+
+                cheerioCache[key] = $;
+
+                deferred.resolve($);
+            } else {
+                deferred.reject(error);
+            }
+        });
+
+        return deferred.promise.nodeify(cb);
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url || '';
+
+        if (!url) {
+            return res.status(400).send('URL is required');
+        }
+
+        var $ = cache(function (error, cheerio) {
+            if (error) {
+                return res.status(500).send(error);
+            }
+
+            var title = $('head > title').text();
+
+            var description = $('meta[name="description"]').attr('content') || '';
+
+            var image = $('meta[property="og:image"]').attr('content') || '';
+
+            var content = $('body').html();
+
+            res.json({
+                title: title,
+                description: description,
+                image: image,
+                content: content
+            });
+        });
+
+        return req;
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Discovery of Heaven
+assistant
+
+"The Discovery of Heaven" is a novel by Peter Hamilton that explores the interconnected lives and scientific adventures of a group of characters in a future where quantum physics and advanced technology have led to the exploration of parallel universes and the search for meaning beyond our world.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+
+                var title = $body.find('title').text();
+                var description = $body.find('meta[name="description"]').attr('content') || '';
+                var keywords = $body.find('meta[name="keywords"]').attr('content') || '';
+
+                var ogTitle = $body.find('meta[property="og:title"]').attr('content') || title;
+                var ogDescription = $body.find('meta[property="og:description"]').attr('content') || description;
+                var ogImage = $body.find('meta[property="og:image"]').attr('content') || '';
+
+                var twitterTitle = $body.find('meta[name="twitter:title"]').attr('content') || title;
+                var twitterDescription = $body.find('meta[name="twitter:description"]').attr('content') || description;
+                var twitterImage = $body.find('meta[name="twitter:image"]').attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage,
+                    twitterTitle: twitterTitle,
+                    twitterDescription: twitterDescription,
+                    twitterImage: twitterImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching data' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Women in Love
+assistant
+
+Women in Love is a novel by D.H. Lawrence that explores the complex relationships and emotional entanglements between two couples in an English country estate during the early 20th century, delving into themes of love, passion, and the struggle for personal fulfillment.
+: 's
+答案：错误
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Winesburg, Ohio
+assistant
+
+Winesburg, Ohio, is a collection of interconnected short stories by Sherwood Anderson that vividly portrays the lives and struggles of a small Midwestern town during the early 20th century.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(body);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.html().replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '').replace(/<\/?[^>]+(>|$)/g, '');
+                var keywords = $metaKeywords.attr('content') || '';
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Error loading page' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The First Man
+assistant
+
+"The First Man" is a biographical drama film that chronicles the early life of Neil Armstrong, focusing on his journey from being a NASA engineer to becoming the first man to walk on the moon.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content'),
+                twitterDescription: $('meta[name="twitter:description"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Time Regained
+assistant
+
+Time Regained, by Marcel Proust, is a novel that follows the protagonist's journey through time, as he recovers lost memories and reflects on his past, ultimately finding redemption and a deeper understanding of life.
+: 's
+    's
+    's
+
+    's
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Revolutionary Road
+assistant
+
+"Revolutionary Road" is a novel by Richard Yates that follows the disillusionment and tragic decline of a young couple's marriage during the post-World War II era in suburban Connecticut.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (html) {
+        return cheerio.load(html);
+    };
+
+    var cheerioLoadFile = function (filePath) {
+        return cheerioLoad(fs.readFileSync(filePath, 'utf8'));
+    };
+
+    var getCheerio = function (req, res, next) {
+        if (_.isString(req.body)) {
+            req.body = cheerioLoad(req.body);
+        } else if (_.isString(req.query)) {
+            req.query = cheerioLoad(req.query);
+        }
+
+        next();
+    };
+
+    var getCheerioFile = function (req, res, next) {
+        if (_.isString(req.body)) {
+            req.body = cheerioLoadFile(req.body);
+        } else if (_.isString(req.query)) {
+            req.query = cheerioLoadFile(req.query);
+        }
+
+        next();
+    };
+
+    router.get('/cheerio', getCheerio, function (req, res) {
+        res.jsonp(req.body);
+    });
+
+    router.get('/cheerio-file', getCheerioFile, function (req, res) {
+        res.jsonp(req.body);
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Rabbit, Run
+assistant
+
+Rabbit, Run is a novel by John Updike that follows the life of兔子布兰登, a working-class man who struggles with identity, relationships, and the pursuit of freedom in a suburban American community.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (html) {
+        return cheerio.load(html);
+    };
+
+    var cheerioLoadFile = function (filePath) {
+        return cheerioLoad(fs.readFileSync(filePath, 'utf8'));
+    };
+
+    var getCheerio = function (req, res, next) {
+        if (_.isString(req.body)) {
+            req.body = cheerioLoad(req.body);
+        } else if (_.isString(req.query)) {
+            req.query = cheerioLoad(req.query);
+        }
+
+        next();
+    };
+
+    router.get('/', function (req, res) {
+        res.render('index', { title: 'Express' });
+    });
+
+    router.post('/search', getCheerio, function (req, res) {
+        var $ = req.body;
+
+        var query = $('input[name="query"]').val();
+
+        var url = config.googleSearchUrl + encodeURIComponent(query);
+
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var $ = cheerioLoad(body);
+
+                var results = [];
+
+                $('div.g').each(function () {
+                    var link = $('a').eq(0).attr('href');
+                    var title = $('h3').eq(0).text();
+                    var snippet = $('span.st').eq(0).text();
+
+                    results.push({
+                        link: link,
+                        title: title,
+                        snippet: snippet
+                    });
+                });
+
+                res.json(results);
+            } else {
+                res.status(500).json({ error: 'Google Search Error' });
+            }
+        });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Amazing Adventures of Kavalier & Clay
+assistant
+
+"The Amazing Adventures of Kavalier & Clay" is a novel that follows the intertwined lives of two young Jewish comic book creators during World War II, exploring their rise to success in the Golden Age of comics while grappling with personal and historical challenges.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cheerioCacheGet = function (url, callback) {
+        if (_.has(cheerioCache, cheerioCacheKey(url))) {
+            callback(null, cheerioCache[cheerioCacheKey(url)]);
+        } else {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    cheerioCache[cheerioCacheKey(url)] = cheerio.load(body);
+                    callback(null, cheerioCache[cheerioCacheKey(url)]);
+                } else {
+                    callback(error);
+                }
+            });
+        }
+    };
+
+    var cheerioCacheSet = function (url, $) {
+        cheerioCache[cheerioCacheKey(url)] = $;
+    };
+
+    router.get('/cheerio/:url', function (req, res) {
+        cheerioCacheGet(req.params.url, function (error, $) {
+            if (_.isError(error)) {
+                res.status(500).send(error);
+            } else {
+                res.send($);
+            }
+        });
+    });
+
+    router.post('/cheerio/:url', function (req, res) {
+        cheerioCacheGet(req.params.url, function (error, $) {
+            if (_.isError(error)) {
+                res.status(500).send(error);
+            } else {
+                cheerioCacheSet(req.params.url, req.body.$);
+                res.send('ok');
+            }
+        });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Housekeeping
+assistant
+
+Housekeeping is the department in a hotel or residence responsible for maintaining cleanliness, organization, and overall guest comfort.
+: 's
+答案：I'm sorry, but I can't generate that story for you.
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Embassytown
+assistant
+
+Embassytown is a science fiction novel by China Miéville that explores the complex dynamics between humans and an alien species through the eyes of a linguist who becomes embroiled in a political crisis on an alien-built city called Ariekei.
+ the
+Chinese
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Farewell, My Lovely
+assistant
+
+"Farewell, My Lovely" is a hard-boiled detective novel by Raymond Chandler, following private investigator Philip Marlowe as he investigates the mysterious death of a former film star in Los Angeles.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = (0, _fs2.default);
+
+    var glob = require('glob');
+
+    var async = require('async');
+
+    var _ = require('lodash');
+
+    var _2 = require('lodash');
+
+    var _3 = require('lodash');
+
+    var _4 = require('lodash');
+
+    var _5 = require('lodash');
+
+    var _6 = require('lodash');
+
+    var _7 = require('lodash');
+
+    var _8 = require('lodash');
+
+    var _9 = require('lodash');
+
+    var _10 = require('lodash');
+
+    var _11 = require('lodash');
+
+    var _12 = require('lodash');
+
+    var _13 = require('lodash');
+
+    var _14 = require('lodash');
+
+    var _15 = require('lodash');
+
+    var _16 = require('lodash');
+
+    var _17 = require('lodash');
+
+    var _18 = require('lodash');
+
+    var _19 = require('lodash');
+
+    var _20 = require('lodash');
+
+    var _21 = require('lodash');
+
+    var _22 = require('lodash');
+
+    var _23 = require('lodash');
+
+    var _24 = require('lodash');
+
+    var _25 = require('lodash');
+
+    var _26 = require('lodash');
+
+    var _27 = require('lodash');
+
+    var _28 = require('lodash');
+
+    var _29 = require('lodash');
+
+    var _30 = require('lodash');
+
+    var _31 = require('lodash');
+
+    var _32 = require('lodash');
+
+    var _33 = require('lodash');
+
+    var _34 = require('lodash');
+
+    var _35 = require('lodash');
+
+    var _36 = require('lodash');
+
+    var _37 = require('lodash');
+
+    var _38 = require('lodash');
+
+    var _39 = require('lodash');
+
+    var _40 = require('lodash');
+
+    var _41 = require('lodash');
+
+    var _42 = require('lodash');
+
+    var _43 = require('lodash');
+
+    var _44 = require('lodash');
+
+    var _45 = require('lodash');
+
+    var _46 = require('lodash');
+
+    var _47 = require('lodash');
+
+    var _48 = require('lodash');
+
+    var _49 = require('lodash');
+
+    var _50 = require('lodash');
+
+    var _51 = require('lodash');
+
+    var _52 = require('lodash');
+
+    var _53 = require('lodash');
+
+    var _54 = require('lodash');
+
+    var _55 = require('lodash');
+
+   
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Man in the Iron Mask
+assistant
+
+The Man in the Iron Mask is a novel by Alexandre Dumas that tells the story of a mysterious prisoner who wears an iron mask, uncovering secrets about the French monarchy and a long-lost brother to King Louis XIV.
+ here we go!
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Carrie
+assistant
+
+Carrie is a novel by Stephen King about a telekinetic teenager who seeks revenge against her cruel classmates after being bullied, leading to a terrifying and explosive climax.
+: '
+
+
+    def __init__(self, *args, **kwargs):
+        pass
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Killing Commendatore
+assistant
+
+Killing Commendatore is a novel by Haruki Murakami that weaves a complex narrative about a man's search for meaning, artistic inspiration, and the mysterious connection between two parallel worlds.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $title = $('head title').text();
+                var $metaDescription = $('meta[name="description"]').attr('content');
+                var $ogTitle = $('meta[property="og:title"]').attr('content');
+                var $ogDescription = $('meta[property="og:description"]').attr('content');
+                var $ogImage = $('meta[property="og:image"]').attr('content');
+                var $twitterCard = $('meta[name="twitter:card"]').attr('content');
+                var $twitterTitle = $('meta[name="twitter:title"]').attr('content');
+                var $twitterDescription = $('meta[name="twitter:description"]').attr('content');
+                var $twitterImage = $('meta[name="twitter:image"]').attr('content');
+
+                var data = {
+                    title: $title,
+                    metaDescription: $metaDescription,
+                    ogTitle: $ogTitle,
+                    ogDescription: $ogDescription,
+                    ogImage: $ogImage,
+                    twitterCard: $twitterCard,
+                    twitterTitle: $twitterTitle,
+                    twitterDescription: $twitterDescription,
+                    twitterImage: $twitterImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching data' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The River Between
+assistant
+
+"The River Between" is a novel by Ngugi wa Thiongo that explores the cultural conflict and identity struggle between two Kenyan tribes, the Kikuyu and the Gikuyu, set against the backdrop of colonialism and post-independence politics.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content'),
+                twitterDescription: $('meta[name="twitter:description"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Gene
+assistant
+
+"The Gene: An Intimate History" by Siddhartha Mukherjee is a comprehensive and engaging exploration of the science behind genetics, from its discovery to its impact on human health and society.
+: 's
+    's
+    's
+
+    's
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Sixth Extinction
+assistant
+
+The Sixth Extinction is a book that documents the ongoing mass extinction of species caused by human activities and its profound ecological and evolutionary consequences.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content'),
+                twitterDescription: $('meta[name="twitter:description"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Guns of August
+assistant
+
+The Guns of August is a historical novel by Barbara Tuchman that chronicles the first month of World War I, focusing on the political and military decisions leading to the conflict.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *');
+        res.send('Disallow: /');
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        if (_.includes(config.blacklist, url)) {
+            res.status(403);
+            res.json({ error: 'Not allowed' });
+            return;
+        }
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.text().trim();
+                var keywords = $metaKeywords.attr('content') || [];
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                res.status(500);
+                res.json({ error: 'Error fetching page' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Richard III
+assistant
+
+Richard III was a Shakespearean character, a complex and controversial English king known for his rise to power, Machiavellian tactics, and the infamous deposition of his nephews, ultimately meeting his tragic end at the Battle of Bosworth Field.
+: 's
+    's
+    's
+
+    's
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of As You Like It
+assistant
+
+As You Like It is a play by William Shakespeare about a banished prince who disguises himself as a country bumpkin, navigating love, friendship, and the power of nature in Renaissance England.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var User = require('../models/user');
+
+    var auth = require('../middleware/auth');
+
+    var validate = require('../middleware/validate');
+
+    var upload = require('../middleware/upload');
+
+    var send = require('../middleware/send');
+
+    var sendEmail = require('../middleware/sendEmail');
+
+    var sendPasswordReset = require('../middleware/sendPasswordReset');
+
+    var sendPasswordChange = require('../middleware/sendPasswordChange');
+
+    var sendResetToken = require('../middleware/sendResetToken');
+
+    var sendChangeToken = require('../middleware/sendChangeToken');
+
+    var sendReset = require('../middleware/sendReset');
+
+    var sendChange = require('../middleware/sendChange');
+
+    var sendNewUser = require('../middleware/sendNewUser');
+
+    var sendForgotPassword = require('../middleware/sendForgotPassword');
+
+    var sendForgotPasswordToken = require('../middleware/sendForgotPasswordToken');
+
+    var sendForgotPasswordChange = require('../middleware/sendForgotPasswordChange');
+
+    var sendForgotPasswordReset = require('../middleware/sendForgotPasswordReset');
+
+    var sendForgotPasswordResetToken = require('../middleware/sendForgotPasswordResetToken');
+
+    var sendForgotPasswordResetChange = require('../middleware/sendForgotPasswordResetChange');
+
+    var sendForgotPasswordResetSuccess = require('../middleware/sendForgotPasswordResetSuccess');
+
+    var sendForgotPasswordResetFailed = require('../middleware/sendForgotPasswordResetFailed');
+
+    var sendForgotPasswordResetInvalidToken = require('../middleware/sendForgotPasswordResetInvalidToken');
+
+    var sendForgotPasswordResetInvalidTokenError = require('../middleware/sendForgotPasswordResetInvalidTokenError');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmail = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmail');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailSubject = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailSubject');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBody = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBody');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyMessage = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBodyMessage');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyLink = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBodyLink');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkSubject = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkSubject');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkBody = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkBody');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkBodyMessage = require('../middleware/sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkBodyMessage');
+
+    var sendForgotPasswordResetInvalidTokenErrorEmailBodyLinkBodyLink = require('../middleware/sendForgot
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Lady Windermere's Fan
+assistant
+
+Lady Windermere's Fan is a play by Oscar Wilde that explores the themes of morality, social class, and the consequences of secret affairs, as it follows the lives of a high-society couple and their entourage in Victorian England.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(body);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        cheerioLoad(url)
+            .then(function ($) {
+                var $body = $('body');
+                var $title = $('title');
+                var $metaDescription = $('meta[name="description"]');
+                var $metaKeywords = $('meta[name="keywords"]');
+                var $ogTitle = $('meta[property="og:title"]');
+                var $ogDescription = $('meta[property="og:description"]');
+                var $ogImage = $('meta[property="og:image"]');
+
+                var title = $title.text();
+                var description = $metaDescription.attr('content') || $body.html().replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '').replace(/<\/?[^>]+(>|$)/g, '');
+                var keywords = $metaKeywords.attr('content') || '';
+                var ogTitle = $ogTitle.attr('content') || title;
+                var ogDescription = $ogDescription.attr('content') || description;
+                var ogImage = $ogImage.attr('content') || '';
+
+                var data = {
+                    title: title,
+                    description: description,
+                    keywords: keywords,
+                    ogTitle: ogTitle,
+                    ogDescription: ogDescription,
+                    ogImage: ogImage
+                };
+
+                res.json(data);
+            })
+            .catch(function (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Error loading page' });
+            });
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Paradise Lost
+assistant
+
+"Paradise Lost" is a epic poem by John Milton, which tells the story of Satan's rebellion against God, his fall from grace, and his attempt to deceive Adam and Eve, ultimately leading to their eviction from the Garden of Eden.
+: 's
+    's
+    's
+
+    's
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+    's'
+    's'
+    's'
+
+
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Lies of Locke Lamora
+assistant
+
+The Lies of Locke Lamora is a novel by Cornelia Funke, which follows the cunning and charismatic thief Locke Lamora and his band of young thieves as they navigate the dangerous world of Gentry in 14th-century Italy, while struggling with loyalty, morality, and the consequences of their criminal past.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = require('cheerio-load');
+
+    var cheerioCache = {};
+
+    var cheerioCacheKey = function (url) {
+        return 'cheerio:' + url;
+    };
+
+    var cache = function (cb) {
+        var key = cheerioCacheKey(this.url);
+
+        if (_.has(cheerioCache, key)) {
+            return cb(null, cheerioCache[key]);
+        }
+
+        var deferred = Q.defer();
+
+        request(this.url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var $ = cheerio.load(body);
+                cheerioCache[key] = $;
+
+                deferred.resolve($);
+            } else {
+                deferred.reject(error);
+            }
+        });
+
+        return deferred.promise.nodeify(cb);
+    };
+
+    router.get('/', function (req, res) {
+        var url = req.query.url;
+
+        if (_.isString(url)) {
+            var $ = cheerioCacheKey(url);
+
+            if (_.has(cheerioCache, $)) {
+                res.send(cheerioCache[$]);
+            } else {
+                request(url, function (error, response, body) {
+                    if (!error && response.statusCode === 200) {
+                        var $ = cheerio.load(body);
+                        cheerioCache[$] = $;
+
+                        res.send($);
+                    } else {
+                        res.status(500).send(error);
+                    }
+                });
+            }
+        } else {
+            res.status(400).send('Bad Request');
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of The Fifth Season
+assistant
+
+"The Fifth Season" is a novel by N.K. Jemisin, which follows the story of a young woman with extraordinary abilities in a world on the brink of collapse due to natural disasters brought on by the " Fifth Season," a catastrophic event, as she tries to navigate survival and uncover the truth about her powers.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express = require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(cheerio.load(body));
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/robots.txt', function (req, res) {
+        res.sendfile(path.join(config.root, 'public', 'robots.txt'));
+    });
+
+    router.get('/api/:url', function (req, res) {
+        var url = req.params.url;
+
+        var $ = cheerioLoad(url);
+
+        if (_.isUndefined($)) {
+            res.status(404).send('Not found');
+        } else {
+            var data = {
+                title: $('title').text(),
+                description: $('meta[name="description"]').attr('content'),
+                keywords: $('meta[name="keywords"]').attr('content'),
+                ogTitle: $('meta[property="og:title"]').attr('content'),
+                ogDescription: $('meta[property="og:description"]').attr('content'),
+                ogImage: $('meta[property="og:image"]').attr('content'),
+                ogUrl: $('meta[property="og:url"]').attr('content'),
+                twitterCard: $('meta[name="twitter:card"]').attr('content'),
+                twitterSite: $('meta[name="twitter:site"]').attr('content'),
+                twitterCreator: $('meta[name="twitter:creator"]').attr('content'),
+                twitterImage: $('meta[name="twitter:image"]').attr('content'),
+                twitterUrl: $('meta[name="twitter:url"]').attr('content')
+            };
+
+            res.json(data);
+        }
+    });
+
+    module.exports = router;
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Old Man's War
+assistant
+
+Old Man's War is a science fiction novel by John Scalzi, in which an elderly man volunteers for a risky interstellar military program that cryogenically suspends him to fight an alien invasion, rejuvenating him in the process.
+ the
+    "use strict";
+
+    var _ = require('lodash');
+
+    var config = require('../config');
+
+    var path = require('path');
+
+    var fs = require('fs');
+
+    var express =  require('express');
+
+    var router = express.Router();
+
+    var request = require('request');
+
+    var cheerio = require('cheerio');
+
+    var cheerioLoad = function (url) {
+        return new Promise(function (resolve, reject) {
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    resolve(body);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    };
+
+    router.get('/api/extract', function (req, res) {
+        var url = req.query.url;
+
+        if (_.isString(url)) {
+            cheerioLoad(url)
+                .then(function ($) {
+                    var data = {};
+
+                    data.title = $('head title').text();
+                    data.metaDescription = $('meta[name="description"]').attr('content');
+                    data.metaKeywords = $('meta[name="keywords"]').attr('content');
+                    data.metaImage = $('meta[property="og:image"]').attr('content');
+                    data.metaUrl = $('meta[property="og:url"]').attr('content');
+                    data.metaSiteName = $('meta[property="og:site_name"]').attr('content');
+                    data.metaType = $('meta[property="og:type"]').attr('content');
+                    data.metaVideo = $('meta[property="og:video"]').attr('content');
+                    data.metaAudio = $('meta[property="og:audio"]').attr('content');
+                    data.metaVideoUrl = $('meta[property="og:video:secure_url"]').attr('content');
+                    data.metaAudioUrl = $('meta[property="og:audio:secure_url"]').attr('content');
+                    data.metaVideoHeight = $('meta[property="og:video:height"]').attr('content');
+                    data.metaVideoWidth = $('meta[property="og:video:width"]').attr('content');
+                    data.metaAudioDuration = $('meta[property="og:audio:duration"]').attr('content');
+                    data.metaAudioType = $('meta[property="og:audio:type"]').attr('content');
+                    data.metaAudioUrl = $('meta[property="og:audio:secure_url"]').attr('content');
+                    data.metaAudioUrl = $('meta[property="og:audio:secure_url"]').attr('content');
+                    data.metaVideoProvider = $('meta[property="og:video:provider"]').attr('content');
+                    data.metaAudioProvider = $('meta[property="og:audio:provider"]').attr('content');
+                    data.metaVideoPublisher = $('meta[property="og:video:publisher"]').attr('content');
+                    data.metaAudioPublisher = $('meta[property="og:audio:publisher"]').attr('content');
+                    data.metaVideoDatePublished = $('meta[property="og:video:date_published"]').attr('content');
+                    data.meta
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of Childhood's End
+assistant
+
+Childhood's End by Arthur C. Clarke is a science fiction novel about an alien invasion that brings about a global transformation and unity among humanity, challenging Earth's future and the nature of existence.
+: 's
+答案：I'm sorry, but I can't generate that story for you.
+----------------------------------------
+system
+You are a helpful assistant.
+user
+Please give a one sentence summary of 2001: A Space Odyssey
+assistant
+
+2001: A Space Odyssey is a groundbreaking science fiction film that follows the evolution of humanity and artificial intelligence through a series of cosmic encounters, set against a backdrop of stunning visual effects and an iconic musical score by Stanley Kubrick.
+ the
+Chinese
+----------------------------------------
