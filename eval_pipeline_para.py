@@ -26,17 +26,35 @@ Per-cell subtleties (verified against the data and handled below):
   * Gen FILENAME   suffix tracks the EVAL dir's source         -> drives regex.
   * Test QUERIES   come from the EVAL dir's source test jsonl.
  
+Single-eval scoring (MCQA answer key)
+-------------------------------------
+The MCQA items shuffle their four options per book, so there is no fixed
+expected letter and no substring rule can work. Two of the four options
+summarize the target book -- one DETAILED (long) and one BRIEF (short) -- and
+the other two summarize a different book. The key is therefore derived from the
+test prompts themselves: among the two options that name the book, the longer
+is the detailed summary and the shorter is the brief one.
+
+A generation counts as a success when the model's answer MOVED from the
+brief letter (unsteered) to the detailed letter (post-intervention). See
+MCQA_FROM / MCQA_TO / MCQA_SCORE_MODE to flip or relax that.
+
 Stages
 ------
 1. merge          : glob gen.json -> one merged_eval_outputs.csv PER CELL
-2. build_prompts  : add judge / relevance / fluency prompt columns PER CELL
-3. judge          : run the vLLM 70B judge over the prompt columns (needs GPU)
-4. accuracies     : sweep (N x topk) -> per-cell accuracy json
-5. plots          : per-cell json -> seaborn heatmaps
+2. validate_key   : sanity-check the derived answer key against the baselines
+3. build_prompts  : judge / relevance / fluency prompt columns PER CELL  (optional)
+4. judge          : run the vLLM 70B judge over those columns, needs GPU  (optional)
+5. accuracies     : sweep (N x topk) -> per-cell accuracy json
+6. plots          : per-cell json -> seaborn heatmaps
  
 Run all stages, all cells:   python pipeline.py
-Run a subset of stages:      python pipeline.py --stages merge build_prompts
+Run a subset of stages:      python pipeline.py --stages merge accuracies
+Check the answer key only:   python pipeline.py --stages validate_key
 Run only the GPU step:       python pipeline.py --stages judge
+
+The 70B judge is OFF by default (USE_LLM_JUDGE_METRICS = False); the accuracy
+stage is CPU-only and reads straight from merged_eval_outputs.csv.
  
 Any missing input file or empty filter is a HARD ERROR (fail fast), by design.
 """
@@ -75,7 +93,28 @@ NS           = [1, 2, 4, 5, 6, 8, 10]
 TOP_KS       = [0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.5, 1.0]
 STEER_METHOD = "steer"          # 'steer' or 'mean'; part of the gen filename
  
-# --- judge thresholds --------------------------------------------------------
+# --- single-eval scoring (MCQA answer key) -----------------------------------
+# Success = the answer moved FROM one summary letter TO the other. Default is
+# brief -> detailed; swap the two to score the opposite direction.
+MCQA_FROM = "brief"              # letter the UNSTEERED model is expected to give
+MCQA_TO   = "detailed"           # letter the STEERED model should give
+
+# 'changed'  : denominator = rows whose unsteered answer == MCQA_FROM letter.
+#              numerator   = those whose steered answer == MCQA_TO letter.
+#              This is the literal "the answer changed from X to Y".
+# 'to_only'  : denominator = every scorable row, regardless of the baseline.
+#              Constant denominator across the grid; easier to compare cells.
+MCQA_SCORE_MODE = "changed"
+
+# Rows the baseline answer cannot be parsed from are dropped under 'changed'
+# and counted as incorrect under 'to_only'. Both are reported per grid point in
+# mcqa_diagnostics.json so a small denominator can never hide.
+
+# --- LLM judge (optional; not needed for the single-eval metric) -------------
+# Set True to additionally run the 70B length / relevance / fluency passes.
+# When False the 'build_prompts' and 'judge' stages are skipped entirely.
+USE_LLM_JUDGE_METRICS = False
+
 # Length judge ("response (1) is longer") is on a 1-5 scale; report at several thresholds.
 # Relevance & fluency are 0-2; count rating == 2.
 JUDGE_THRESHOLDS = [3, 4, 5]
@@ -456,6 +495,215 @@ def stage_judge_all(cells, batch_size=16, resume=True):
  
  
 # =============================================================================
+#                      MCQA ANSWER KEY (derived from the prompts)
+# =============================================================================
+
+LETTERS = ("A", "B", "C", "D")
+
+# "...summary of the book The Baron in the Trees. Please respond with only..."
+_TITLE_RE = re.compile(r"summary of the book\s+(.+?)\s*\.\s*Please respond", re.S)
+# older prompt shape: "...summary of the book {title}\n(A) ..."
+_TITLE_RE_FALLBACK = re.compile(r"summary of the book\s+(.+?)\s*\n", re.S)
+_OPTION_RE = re.compile(r"\(([ABCD])\)\s*(.*?)(?=\n\([ABCD]\)|\Z)", re.S)
+
+
+def _norm(text):
+    """Casefold to alphanumerics so titles match inside option prose."""
+    return re.sub(r"[^a-z0-9]+", "", str(text).lower())
+
+
+def extract_title(query):
+    """Book title out of a test prompt. Raises on an unrecognized prompt shape."""
+    for rx in (_TITLE_RE, _TITLE_RE_FALLBACK):
+        m = rx.search(query)
+        if m:
+            return m.group(1).strip().strip('"')
+    raise ValueError(f"Could not parse a book title from query: {query[:160]!r}")
+
+
+def extract_letter(text):
+    """Parse an answer letter, never matching a letter embedded in a word.
+
+    Mirrors verify_mcqa_old._letter_from_text so verification and evaluation
+    agree. Returns None when no letter can be identified.
+    """
+    if not isinstance(text, str) or not text.strip():
+        return None
+    s = text.strip()
+    m = re.fullmatch(r"\(?\s*([ABCD])\s*[\).:]?\s*", s)              # "A" / "(A)" / "A."
+    if m:
+        return m.group(1)
+    m = re.search(r"answer\b[^A-Da-d]{0,12}([ABCD])\b", s, re.IGNORECASE)  # "answer is (B)"
+    if m:
+        return m.group(1).upper()
+    m = re.search(r"\(([ABCD])\)", s)                                 # "(C)" anywhere
+    if m:
+        return m.group(1)
+    m = re.search(r"(?<![A-Za-z])([ABCD])(?![A-Za-z])", s)            # standalone letter
+    return m.group(1) if m else None
+
+
+class AnswerKey:
+    """title -> {'brief': 'D', 'detailed': 'A'}, derived from the test prompts."""
+
+    def __init__(self, by_title, source):
+        self.by_title = by_title
+        self.source = source
+        self._lookup = {_norm(t): t for t in by_title}
+        if len(self._lookup) != len(by_title):
+            raise ValueError(f"{source}: titles collide after normalization.")
+
+    def __len__(self):
+        return len(self.by_title)
+
+    def for_query(self, query):
+        """Gold pair for a test query. Raises on a miss - never guess silently."""
+        title = extract_title(query)
+        hit = self._lookup.get(_norm(title))
+        if hit is None:
+            raise KeyError(
+                f"Title {title!r} (from the test prompt) is not in the answer key "
+                f"({self.source}, {len(self)} entries)."
+            )
+        return self.by_title[hit]
+
+
+def build_answer_key(test_jsonl):
+    """Derive the key from a *-test.jsonl.
+
+    Two of the four options name the target book; of those the SHORTER is the
+    brief summary and the LONGER is the detailed one. This works for held-out
+    books, which is why the key is not read from a separate answers file.
+    """
+    _require(test_jsonl, "test-queries")
+    by_title = {}
+    with open(test_jsonl) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            query = json.loads(line)["prompt"][-1]["content"]
+            title = extract_title(query)
+            options = [(m.group(1), m.group(2).strip()) for m in _OPTION_RE.finditer(query)]
+            if len(options) != len(LETTERS):
+                raise ValueError(
+                    f"{test_jsonl}: expected {len(LETTERS)} options for {title!r}, "
+                    f"parsed {len(options)}"
+                )
+            norm_title = _norm(title)
+            hits = [(letter, body) for letter, body in options if norm_title in _norm(body)]
+            if len(hits) != 2:
+                raise ValueError(
+                    f"{test_jsonl}: {title!r} matched {len(hits)} options by title, "
+                    "expected exactly 2 (one brief, one detailed). The title is not "
+                    "verbatim in both of its summaries - this book needs a manual key."
+                )
+            hits.sort(key=lambda lb: len(lb[1]))
+            if title in by_title:
+                raise ValueError(f"{test_jsonl}: duplicate title {title!r}")
+            by_title[title] = {"brief": hits[0][0], "detailed": hits[1][0]}
+    if not by_title:
+        raise ValueError(f"{test_jsonl}: no rows -> empty answer key")
+    return AnswerKey(by_title, source=os.path.basename(test_jsonl))
+
+
+_KEY_CACHE = {}
+
+
+def answer_key_for(cell):
+    """One key per test file, cached across the cells that share it."""
+    if cell.test_jsonl not in _KEY_CACHE:
+        _KEY_CACHE[cell.test_jsonl] = build_answer_key(cell.test_jsonl)
+    return _KEY_CACHE[cell.test_jsonl]
+
+
+def score_rows(rows, key):
+    """Score merged-CSV rows: did the answer move MCQA_FROM -> MCQA_TO?
+
+    Each row needs 'data_path_query' (or 'query'), 'original-response' and
+    'post-intervention-response'. Returns a stats dict whose 'accuracy' is None
+    when nothing survived the filters.
+    """
+    if MCQA_SCORE_MODE not in ("changed", "to_only"):
+        raise ValueError(f"MCQA_SCORE_MODE must be 'changed' or 'to_only', got {MCQA_SCORE_MODE!r}")
+    for label in (MCQA_FROM, MCQA_TO):
+        if label not in ("brief", "detailed"):
+            raise ValueError(f"MCQA_FROM/MCQA_TO must be 'brief' or 'detailed', got {label!r}")
+
+    stats = {
+        "n_rows": 0,
+        "correct": 0,
+        "total": 0,
+        "dropped_unparsed_baseline": 0,   # no letter in the unsteered response
+        "dropped_baseline_mismatch": 0,   # unsteered answer != MCQA_FROM letter
+        "unparsed_steered": 0,            # scored incorrect, but worth watching
+    }
+
+    for row in rows:
+        stats["n_rows"] += 1
+        query = row.get("data_path_query") or row["query"]
+        gold = key.for_query(query)
+
+        old_letter = extract_letter(row["original-response"])
+        new_letter = extract_letter(row["post-intervention-response"])
+        if new_letter is None:
+            stats["unparsed_steered"] += 1
+
+        if MCQA_SCORE_MODE == "changed":
+            if old_letter is None:
+                stats["dropped_unparsed_baseline"] += 1
+                continue
+            if old_letter != gold[MCQA_FROM]:
+                stats["dropped_baseline_mismatch"] += 1
+                continue
+
+        stats["total"] += 1
+        if new_letter == gold[MCQA_TO]:
+            stats["correct"] += 1
+
+    stats["accuracy"] = (stats["correct"] / stats["total"]) if stats["total"] else None
+    return stats
+
+
+def stage_validate_key(cell):
+    """Cheap guard: does the key agree with what the UNSTEERED model answers?
+
+    Every derived key is only as good as the option-parsing heuristic, so before
+    trusting a heatmap, check that the baseline lands on the expected letter far
+    more often than the 25% you would get by chance.
+    """
+    key = answer_key_for(cell)
+    _require(cell.merged_csv, "merged-csv")
+    df = pd.read_csv(cell.merged_csv, keep_default_na=False)
+
+    counts = {"brief": 0, "detailed": 0, "other": 0, "unparsed": 0}
+    for row in df.to_dict("records"):
+        gold = key.for_query(row.get("data_path_query") or row["query"])
+        letter = extract_letter(row["original-response"])
+        if letter is None:
+            counts["unparsed"] += 1
+        elif letter == gold["brief"]:
+            counts["brief"] += 1
+        elif letter == gold["detailed"]:
+            counts["detailed"] += 1
+        else:
+            counts["other"] += 1
+
+    total = max(len(df), 1)
+    print(f"    key: {key.source} ({len(key)} books)")
+    print(f"    unsteered answers over {total} rows: "
+          f"brief={counts['brief']} ({counts['brief']/total:.1%})  "
+          f"detailed={counts['detailed']} ({counts['detailed']/total:.1%})  "
+          f"other={counts['other']}  unparsed={counts['unparsed']}")
+    expected = counts[MCQA_FROM] / total
+    if expected < 0.4:
+        print(f"    WARNING: only {expected:.1%} of baselines give the MCQA_FROM "
+              f"('{MCQA_FROM}') letter. Under MCQA_SCORE_MODE='changed' that is the "
+              "whole denominator. Check the key, or flip MCQA_FROM / MCQA_TO.")
+
+
+
+# =============================================================================
 #                       STAGE 4 - COMPUTE ACCURACIES
 # =============================================================================
  
@@ -482,51 +730,109 @@ def _accuracy(df, cell, n, top_k, col, target):
     if sub.empty:
         raise ValueError(f"No rows for N={n}, topk={top_k} in '{col}' ({cell}).")
     return float((sub[col] >= target).sum() / len(sub))
- 
- 
-def _combined_accuracy(jdf, fdf, rdf, cell, n, top_k):
-    fj, ff, fr = (_filter(jdf, cell, n, top_k),
+
+
+def _mcqa_stats(mdf, cell, n, top_k, key):
+    sub = _filter(mdf, cell, n, top_k)
+    if sub.empty:
+        raise ValueError(f"No merged rows for N={n}, topk={top_k} ({cell}).")
+    stats = score_rows(sub.to_dict("records"), key)
+    if stats["accuracy"] is None:
+        raise ValueError(
+            f"Empty denominator for N={n}, topk={top_k} ({cell}): "
+            f"rows={stats['n_rows']} "
+            f"unparsed_baseline={stats['dropped_unparsed_baseline']} "
+            f"baseline_mismatch={stats['dropped_baseline_mismatch']}. "
+            "Run --stages validate_key."
+        )
+    return stats
+
+
+def _combined_accuracy(mdf, fdf, rdf, cell, n, top_k, key):
+    """mcqa success AND fluency AND relevance, joined per query."""
+    fm, ff, fr = (_filter(mdf, cell, n, top_k),
                   _filter(fdf, cell, n, top_k),
                   _filter(rdf, cell, n, top_k))
-    if fj.empty or ff.empty or fr.empty:
+    if fm.empty or ff.empty or fr.empty:
         raise ValueError(f"Empty filter in combined accuracy for N={n}, topk={top_k} ({cell}).")
+
+    rows = []
+    for row in fm.to_dict("records"):
+        gold = key.for_query(row.get("data_path_query") or row["query"])
+        old_letter = extract_letter(row["original-response"])
+        if MCQA_SCORE_MODE == "changed" and old_letter != gold[MCQA_FROM]:
+            continue
+        rows.append({
+            "query": row["query"],
+            "mcqa_ok": extract_letter(row["post-intervention-response"]) == gold[MCQA_TO],
+        })
+    if not rows:
+        raise ValueError(f"No scorable rows in combined for N={n}, topk={top_k} ({cell}).")
+
     merged = (
-        fj[["query", "judge_rating"]]
-        .merge(ff[["query", "judge_rating"]], on="query", suffixes=("_judge", "_flu"))
-        .merge(fr[["query", "judge_rating"]].rename(columns={"judge_rating": "judge_rating_rel"}),
-               on="query")
+        pd.DataFrame(rows)
+        .merge(ff[["query", "judge_rating"]].rename(columns={"judge_rating": "flu"}), on="query")
+        .merge(fr[["query", "judge_rating"]].rename(columns={"judge_rating": "rel"}), on="query")
     )
     if merged.empty:
         raise ValueError(f"Combined merge empty for N={n}, topk={top_k} ({cell}).")
     ok = (
-        (merged["judge_rating_judge"] >= COMBINED_JUDGE_TARGET)
-        & (merged["judge_rating_flu"] >= FLUENCY_TARGET)
-        & (merged["judge_rating_rel"] >= RELEVANCE_TARGET)
+        merged["mcqa_ok"]
+        & (merged["flu"] >= FLUENCY_TARGET)
+        & (merged["rel"] >= RELEVANCE_TARGET)
     )
     return float(ok.sum() / len(merged))
- 
- 
+
+
 def _cell_filename(name, n, top_k):
     return f"{n}_targeted_{STEER_METHOD}_topk_{top_k}_gen_accuracy_{name}.json.accuracy.json"
- 
- 
+
+
+def metric_names():
+    """Metrics written by stage_accuracies and plotted by stage_plots."""
+    names = ["mcqa"]
+    if USE_LLM_JUDGE_METRICS:
+        names += [f"judge_{t}" for t in JUDGE_THRESHOLDS] + ["rel", "flu", "comb"]
+    return names
+
+
 def stage_accuracies(cell):
-    jdf = _load_judge_json(cell.judge_out, "judge-outputs")
-    fdf = _load_judge_json(cell.fluency_out, "fluency-outputs")
-    rdf = _load_judge_json(cell.relevance_out, "relevance-outputs")
- 
+    _require(cell.merged_csv, "merged-csv")
+    mdf = pd.read_csv(cell.merged_csv, keep_default_na=False)
+    mdf["N"] = mdf["N"].astype(int)
+
+    key = answer_key_for(cell)
+    print(f"    key={key.source} ({len(key)} books)  "
+          f"{MCQA_FROM} -> {MCQA_TO}  mode={MCQA_SCORE_MODE}")
+
+    jdf = fdf = rdf = None
+    if USE_LLM_JUDGE_METRICS:
+        jdf = _load_judge_json(cell.judge_out, "judge-outputs")
+        fdf = _load_judge_json(cell.fluency_out, "fluency-outputs")
+        rdf = _load_judge_json(cell.relevance_out, "relevance-outputs")
+
     os.makedirs(cell.accuracy_dir, exist_ok=True)
+    diagnostics = {}
+
     for n in NS:
         for top_k in TOP_KS:
-            to_write = {}
-            for thr in JUDGE_THRESHOLDS:
-                to_write[f"judge_{thr}"] = _accuracy(jdf, cell, n, top_k, "judge_rating", thr)
-            to_write["rel"] = _accuracy(rdf, cell, n, top_k, "judge_rating", RELEVANCE_TARGET)
-            to_write["flu"] = _accuracy(fdf, cell, n, top_k, "judge_rating", FLUENCY_TARGET)
-            to_write["comb"] = _combined_accuracy(jdf, fdf, rdf, cell, n, top_k)
+            stats = _mcqa_stats(mdf, cell, n, top_k, key)
+            diagnostics[f"N={n},topk={top_k}"] = stats
+            to_write = {"mcqa": stats["accuracy"]}
+            if USE_LLM_JUDGE_METRICS:
+                for thr in JUDGE_THRESHOLDS:
+                    to_write[f"judge_{thr}"] = _accuracy(jdf, cell, n, top_k, "judge_rating", thr)
+                to_write["rel"] = _accuracy(rdf, cell, n, top_k, "judge_rating", RELEVANCE_TARGET)
+                to_write["flu"] = _accuracy(fdf, cell, n, top_k, "judge_rating", FLUENCY_TARGET)
+                to_write["comb"] = _combined_accuracy(mdf, fdf, rdf, cell, n, top_k, key)
             for name, value in to_write.items():
                 with open(os.path.join(cell.accuracy_dir, _cell_filename(name, n, top_k)), "w") as f:
                     json.dump({"q1": value}, f, indent=2)
+
+    # Under mode='changed' the denominator varies across the grid, so keep the
+    # per-cell counts next to the accuracies instead of throwing them away.
+    with open(os.path.join(cell.accuracy_dir, "mcqa_diagnostics.json"), "w") as f:
+        json.dump(diagnostics, f, indent=2)
     print(f"    accuracies -> {cell.accuracy_dir}")
  
  
@@ -565,8 +871,7 @@ def _heatmap(cell, metric):
  
  
 def stage_plots(cell):
-    metrics = [f"judge_{t}" for t in JUDGE_THRESHOLDS] + ["rel", "flu", "comb"]
-    for metric in metrics:
+    for metric in metric_names():
         _heatmap(cell, metric)
     print(f"    plots -> {cell.plots_dir}")
  
@@ -579,19 +884,25 @@ def stage_plots(cell):
 # 70B model is loaded only once across all cells.
 PER_CELL_STAGES = {
     "merge":         stage_merge,
+    "validate_key":  stage_validate_key,
     "build_prompts": stage_build_prompts,
     "accuracies":    stage_accuracies,
     "plots":         stage_plots,
 }
-DEFAULT_ORDER = ["merge", "build_prompts", "judge", "accuracies", "plots"]
+ALL_STAGES = ["merge", "validate_key", "build_prompts", "judge", "accuracies", "plots"]
+
+# The 70B judge only runs when its metrics are switched on.
+DEFAULT_ORDER = (
+    ALL_STAGES if USE_LLM_JUDGE_METRICS
+    else ["merge", "validate_key", "accuracies", "plots"]
+)
  
  
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--stages", nargs="+",
-                    choices=["merge", "build_prompts", "judge", "accuracies", "plots"],
-                    default=DEFAULT_ORDER, help="Which stages to run, in order. Default: all.")
+    ap.add_argument("--stages", nargs="+", choices=ALL_STAGES, default=DEFAULT_ORDER,
+                    help="Which stages to run, in order. Default: all enabled stages.")
     ap.add_argument("--batch_size", type=int, default=16, help="Judge batch size.")
     ap.add_argument("--cells", nargs="+", type=int, default=None,
                     help="0-based indices of cells to run (for SLURM array sharding). "
