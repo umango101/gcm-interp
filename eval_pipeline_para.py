@@ -63,12 +63,12 @@ METHOD   = "atp"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
 LOCALIZATIONS = [
-    ("paragraph-long",   "sentence-long"),
-    ("paragraph-single", "sentence-single"),
+    ("paragraphMCQA-long",   "sentenceMCQA-long"),
+    ("paragraphMCQA-single", "sentenceMCQA-single"),
 ]
 # Eval / steer subdirs to sweep (full cross product with the localizations).
-EVAL_SUB_DIRS  = ["paragraph-long_eval",  "paragraph-single_eval"]
-STEER_SUB_DIRS = ["paragraph-long_steer", "paragraph-single_steer"]
+EVAL_SUB_DIRS  = ["paragraphMCQA-long_eval",  "paragraphMCQA-single_eval"]
+STEER_SUB_DIRS = ["paragraphMCQA-long_steer", "paragraphMCQA-single_steer"]
  
 # --- sweep grid (must match what was actually generated) ---------------------
 NS           = [1, 2, 4, 5, 6, 8, 10]
@@ -107,7 +107,7 @@ def eval_source_of(eval_sub_dir):
  
 def base_for_eval_source(eval_source):
     """'paragraph-single' -> 'sentence-single' (the eval dataset's base/test name)."""
-    return eval_source.replace("paragraph", "sentence")
+    return eval_source.replace("paragraphMCQA", "sentenceMCQA")
  
  
 class Cell:
