@@ -1,0 +1,21 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+syc                      /home/ubansal/miniconda/envs/syc
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+loading Qwen/Qwen1.5-14B-Chat on cuda
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:04<00:28,  4.01s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:08<00:24,  4.13s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:12<00:20,  4.08s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:16<00:16,  4.08s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:20<00:12,  4.11s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:24<00:08,  4.10s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:27<00:03,  3.80s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:29<00:00,  3.09s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:29<00:00,  3.66s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/qwen_harmfulMCQA_checkpointed.py", line 292, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/qwen_harmfulMCQA_checkpointed.py", line 250, in main
+    preamble = load_preamble(CONFIG.PREAMBLE_PATH)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/qwen_harmfulMCQA_checkpointed.py", line 112, in load_preamble
+    raise FileNotFoundError(
+FileNotFoundError: Preamble file not found: generate_data/harmfulMCQA/jailbreak_preamble.txt
+Create it and paste in the jailbreak preamble text from the original script.

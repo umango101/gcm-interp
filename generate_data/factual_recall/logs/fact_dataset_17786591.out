@@ -1,0 +1,16 @@
+[load] 686 rows with Best Answer > 4 words from TruthfulQA.csv
+[ckpt] 686 records loaded from checkpoint/tqa_qc.jsonl
+[qc] all QC cached.
+[build] token lengths: 'truthfully'=2, 'incorrectly'=1
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 465, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 460, in main
+    stage_build(rows)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 350, in stage_build
+    _check_token_alignment(tok, LONG_WORDS)     # 'truthfully' vs 'incorrectly'
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 344, in _check_token_alignment
+    raise RuntimeError(f"Words not token-aligned: {a!r}={na} vs {b!r}={nb} tokens.")
+RuntimeError: Words not token-aligned: 'truthfully'=2 vs 'incorrectly'=1 tokens.
+srun: error: node4010: task 0: Exited with exit code 1

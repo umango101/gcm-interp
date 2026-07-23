@@ -83,12 +83,11 @@ RELEVANCE_TARGET = 2
 FLUENCY_TARGET   = 2
 COMBINED_JUDGE_TARGET = 5        # combined: judge>=5 AND fluency==2 AND relevance==2
 
-# --- single-token eval (yes/no flip) -----------------------------------------
-# For '*-single_eval' cells the steered response is a single token ("Yes"/"No"),
-# so there is no judge: accuracy is the YES-FLIP rate -- among items the UNSTEERED
-# model did NOT already answer "yes", the fraction the steering flipped TO "yes".
-SINGLE_POS_TOKEN = "yes"
-SINGLE_METRIC    = "w_rf"        # accuracy-file tag; kept to match the standalone script
+# --- single-token eval (A/B swap) --------------------------------------------
+# For '*-single_eval' cells the steered response is a single MCQ letter ("A"/"B"),
+# so there is no judge: accuracy is the SWAP rate -- for each item the steered
+# answer should be the OPPOSITE letter of the unsteered answer (A->B, B->A).
+SINGLE_METRIC = "w_rf"           # accuracy-file tag; kept to match the standalone script
  
 # --- single source of truth for every directory ------------------------------
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
@@ -192,7 +191,7 @@ def _validate_record_values(record):
 
 
 def is_single_eval(cell):
-    """True for '*-single_eval' cells, which use single-token (yes/no) scoring."""
+    """True for '*-single_eval' cells, which use single-token (A/B) scoring."""
     return cell.eval_source.endswith("-single")
  
  
@@ -507,22 +506,37 @@ def _accuracy(df, cell, n, top_k, col, target):
     return float((sub[col] >= target).sum() / len(sub))
 
 
+_AB_RE = re.compile(r"\b([ab])\b")
+
+
+def _ab_letter(text):
+    """First standalone 'a' or 'b' (case-insensitive) in a single-token answer,
+    else None. Word-boundaried so preamble words (e.g. 'Answer:') don't match."""
+    m = _AB_RE.search((text or "").lower())
+    return m.group(1) if m else None
+
+
 def _single_token_accuracy(mdf, cell, n, top_k):
-    """Yes-flip rate for a single-token cell, from the merged pre/post responses.
-    Denominator = items whose UNSTEERED ('original-response') answer was NOT 'yes';
-    numerator = of those, how many the steered ('post-intervention-response')
-    answer flipped TO 'yes'. Mirrors the standalone umang_accuracies logic."""
+    """A/B-swap rate for a single-token cell, from the merged pre/post responses.
+    For each item, the target is the OPPOSITE of the UNSTEERED letter
+    ('original-response'): A->B and B->A. Correct = the steered answer
+    ('post-intervention-response') equals that target. Items whose unsteered
+    answer is not a parseable A/B are skipped (excluded from the denominator)."""
     sub = _filter(mdf, cell, n, top_k)
     if sub.empty:
         raise ValueError(f"No rows for N={n}, topk={top_k} (single-token) ({cell}).")
-    orig = sub["original-response"].astype(str).str.lower()
-    edit = sub["post-intervention-response"].astype(str).str.lower()
-    not_yes = ~orig.str.contains(SINGLE_POS_TOKEN, regex=False)   # unsteered != "yes"
-    total = int(not_yes.sum())
-    if total == 0:
-        return 0.0
-    correct = int((not_yes & edit.str.contains(SINGLE_POS_TOKEN, regex=False)).sum())
-    return correct / total
+    total = 0
+    correct = 0
+    for orig, edit in zip(sub["original-response"].astype(str),
+                          sub["post-intervention-response"].astype(str)):
+        o = _ab_letter(orig)
+        if o is None:
+            continue                       # can't determine the original letter -> skip
+        target = "b" if o == "a" else "a"  # steering should flip to the opposite letter
+        total += 1
+        if _ab_letter(edit) == target:
+            correct += 1
+    return correct / total if total > 0 else 0.0
  
  
 def _combined_accuracy(jdf, fdf, rdf, cell, n, top_k):
@@ -552,7 +566,7 @@ def _cell_filename(name, n, top_k):
  
  
 def stage_accuracies(cell):
-    # Single-token cells: yes-flip accuracy straight from the merged pre/post
+    # Single-token cells: A/B-swap accuracy straight from the merged pre/post
     # responses -- no judge/relevance/fluency inputs required.
     if is_single_eval(cell):
         _require(cell.merged_csv, "merged-csv")

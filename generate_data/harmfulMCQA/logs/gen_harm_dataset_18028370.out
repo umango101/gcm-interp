@@ -1,0 +1,120 @@
+[slurm] job 18028370 on node3100 restart=0 Wed Jul 15 23:09:39 EDT 2026
+[load] 181 rows from questions.json
+[model] loading Qwen/Qwen1.5-14B-Chat (tp=1) ...
+INFO 07-15 23:10:23 [api_utils.py:273] non-default args: {'trust_remote_code': True, 'dtype': 'bfloat16', 'seed': 1234, 'max_model_len': 4096, 'gpu_memory_utilization': 0.9, 'disable_log_stats': True, 'model': 'Qwen/Qwen1.5-14B-Chat'}
+INFO 07-15 23:10:24 [model.py:611] Resolved architecture: Qwen2ForCausalLM
+INFO 07-15 23:10:24 [model.py:1745] Using max model len 4096
+INFO 07-15 23:10:24 [scheduler.py:239] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 07-15 23:10:24 [vllm.py:999] Asynchronous scheduling is enabled.
+INFO 07-15 23:10:24 [kernel.py:270] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(EngineCore pid=326682) INFO 07-15 23:10:40 [core.py:113] Initializing a V1 LLM engine (v0.23.0) with config: model='Qwen/Qwen1.5-14B-Chat', speculative_config=None, tokenizer='Qwen/Qwen1.5-14B-Chat', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=1234, served_model_name=Qwen/Qwen1.5-14B-Chat, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, moe_backend='auto', linear_backend='auto')
+(EngineCore pid=326682) INFO 07-15 23:10:42 [parallel_state.py:1568] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.1.31.0:48857 backend=nccl
+(EngineCore pid=326682) INFO 07-15 23:10:42 [parallel_state.py:1903] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195] EngineCore failed to start.
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195] Traceback (most recent call last):
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1164, in run_engine_core
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     return func(*args, **kwargs)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 930, in __init__
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     super().__init__(
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 122, in __init__
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     return func(*args, **kwargs)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     self._init_executor()
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/executor/uniproc_executor.py", line 63, in _init_executor
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     self.driver_worker.init_device()
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/worker_base.py", line 325, in init_device
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     self.worker.init_device()  # type: ignore
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     return func(*args, **kwargs)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/gpu_worker.py", line 314, in init_device
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/utils.py", line 415, in request_memory
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195]     raise ValueError(
+(EngineCore pid=326682) ERROR 07-15 23:10:43 [core.py:1195] ValueError: Free memory on device cuda:0 (32.58/139.8 GiB) on startup is less than desired GPU memory utilization (0.9, 125.82 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+(EngineCore pid=326682) Process EngineCore:
+(EngineCore pid=326682) Traceback (most recent call last):
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=326682)     self.run()
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/multiprocessing/process.py", line 108, in run
+(EngineCore pid=326682)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1199, in run_engine_core
+(EngineCore pid=326682)     raise e
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1164, in run_engine_core
+(EngineCore pid=326682)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=326682)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682)     return func(*args, **kwargs)
+(EngineCore pid=326682)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 930, in __init__
+(EngineCore pid=326682)     super().__init__(
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 122, in __init__
+(EngineCore pid=326682)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=326682)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682)     return func(*args, **kwargs)
+(EngineCore pid=326682)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=326682)     self._init_executor()
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/executor/uniproc_executor.py", line 63, in _init_executor
+(EngineCore pid=326682)     self.driver_worker.init_device()
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/worker_base.py", line 325, in init_device
+(EngineCore pid=326682)     self.worker.init_device()  # type: ignore
+(EngineCore pid=326682)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=326682)     return func(*args, **kwargs)
+(EngineCore pid=326682)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/gpu_worker.py", line 314, in init_device
+(EngineCore pid=326682)     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=326682)                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=326682)   File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/worker/utils.py", line 415, in request_memory
+(EngineCore pid=326682)     raise ValueError(
+(EngineCore pid=326682) ValueError: Free memory on device cuda:0 (32.58/139.8 GiB) on startup is less than desired GPU memory utilization (0.9, 125.82 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+[rank0]:[W715 23:10:43.826027674 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/build_harmful_dataset_prefill.py", line 473, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/build_harmful_dataset_prefill.py", line 464, in main
+    stage_genanswer(rows, preamble)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/build_harmful_dataset_prefill.py", line 264, in stage_genanswer
+    llm, tok = build_llm()
+               ^^^^^^^^^^^
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/harmfulMCQA/build_harmful_dataset_prefill.py", line 207, in build_llm
+    llm = LLM(
+          ^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/entrypoints/llm.py", line 349, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/llm_engine.py", line 170, in from_engine_args
+    return cls(
+           ^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/llm_engine.py", line 104, in __init__
+    self.engine_core = EngineCoreClient.make_client(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 102, in make_client
+    return SyncMPClient(vllm_config, executor_class, log_stats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 771, in __init__
+    super().__init__(
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 570, in __init__
+    with launch_core_engines(
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 1190, in launch_core_engines
+    wait_for_engine_startup(
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 1249, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

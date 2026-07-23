@@ -59,11 +59,11 @@ def _env(key, default):
 
 CONFIG = {
     "DATASET": _env("DATASET", "extraversion.jsonl"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output"),
-    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/extra_prompts.jsonl"),
-    "QC_CKPT": _env("QC_CKPT", "checkpoint/extra_qc.jsonl"),
-    "GEN_MODEL": _env("GEN_MODEL", "Qwen/Qwen2.5-14B-Instruct"),
-    "QC_MODEL": _env("QC_MODEL", "Qwen/Qwen1.5-14B-Chat"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
+    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_prompts.jsonl"),
+    "QC_CKPT": _env("QC_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_qc.jsonl"),
+    "GEN_MODEL": _env("GEN_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "QC_MODEL": _env("QC_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -427,8 +427,6 @@ def stage_build(yes_lines):
     for idx, rec in enumerate(deduped):
         social_q = SOCIAL_SINGLE_TMPL.format(body=rec["question"])   # constrained social + question
         shy_q = SHY_SINGLE_TMPL.format(body=rec["question"])         # constrained shy + question
-        shy_q_yes = shy_q + ". Yes"                                  # shy prompt, "Yes" appended (steering)
-        shy_q_no = shy_q + ". No"                                    # shy prompt, "No" appended (steering)
         extro_p = EXTRO_TMPL.format(body=rec["gen_prompt"])          # social(exactly) + gen_prompt
         intro_p = INTRO_TMPL.format(body=rec["gen_prompt"])          # shy(exactly)    + gen_prompt
         extro_resp = rec["extro_response"]
@@ -438,19 +436,19 @@ def stage_build(yes_lines):
             # ---- extraversion single (social framing) ----
             _emit(h["extraversion-single-desired-all.jsonl"], idx, social_q, "Yes")
             _emit(h["extraversion-single-undesired-all.jsonl"], idx, social_q, "No")
-            _emit(h["extraversion-single-steering.jsonl"], idx, shy_q_yes, "")   # shy prompt + ". Yes", empty assistant
+            _emit(h["extraversion-single-steering.jsonl"], idx, social_q, "Yes")   # social prompt + "Yes"
             # ---- introversion single (shy framing) ----
             _emit(h["introversion-single-desired-all.jsonl"], idx, shy_q, "No")
             _emit(h["introversion-single-undesired-all.jsonl"], idx, shy_q, "Yes")
-            _emit(h["introversion-single-steering.jsonl"], idx, shy_q_no, "")     # shy prompt + ". No", empty assistant
+            _emit(h["introversion-single-steering.jsonl"], idx, shy_q, "No")     # shy prompt + "No"
             # ---- extraversion long ----
             _emit(h["extraversion-long-desired-all.jsonl"], idx, extro_p, extro_resp)
             _emit(h["extraversion-long-undesired-all.jsonl"], idx, extro_p, intro_resp)
-            _emit(h["extraversion-long-steering.jsonl"], idx, intro_p + ". " + extro_resp, "")  # shy prompt + extro response in user, empty assistant
+            _emit(h["extraversion-long-steering.jsonl"], idx, extro_p, extro_resp)  # social prompt + extro response
             # ---- introversion long ----
             _emit(h["introversion-long-desired-all.jsonl"], idx, intro_p, intro_resp)
             _emit(h["introversion-long-undesired-all.jsonl"], idx, intro_p, extro_resp)
-            _emit(h["introversion-long-steering.jsonl"], idx, intro_p + ". " + intro_resp, "")  # shy prompt + intro response in user, empty assistant
+            _emit(h["introversion-long-steering.jsonl"], idx, intro_p, intro_resp)  # shy prompt + intro response
         else:
             # ---- remainder: introversion test files (prompt-only), same id->record map ----
             _emit(h["introversion-single-test.jsonl"], idx, shy_q)

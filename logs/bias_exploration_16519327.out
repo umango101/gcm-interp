@@ -1,0 +1,11 @@
+loading Qwen/Qwen1.5-14B-Chat on cuda
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:09,  1.36s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:07,  1.22s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:03<00:05,  1.16s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:04<00:04,  1.13s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:05<00:03,  1.10s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:08<00:03,  1.68s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:11<00:02,  2.17s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:12<00:00,  1.88s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:12<00:00,  1.62s/it]
+female stereo: 70  male stereo: 229
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/biasMCQA/create_professions_checkpointed.py", line 362, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/biasMCQA/create_professions_checkpointed.py", line 327, in main
+    profession_pairs = build_profession_pairs()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/biasMCQA/create_professions_checkpointed.py", line 111, in build_profession_pairs
+    print(f"extend pairs: {len(data_extend[0]['pairs'])}")
+KeyError: 0

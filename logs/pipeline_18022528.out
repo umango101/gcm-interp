@@ -1,0 +1,50 @@
+Family: female->male  model=Qwen1.5-14B-Chat  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_female-long_to_male-long | female-long_eval | female-long_steer
+  - from_female-long_to_male-long | female-long_eval | female-single_steer
+  - from_female-long_to_male-long | female-single_eval | female-long_steer
+  - from_female-long_to_male-long | female-single_eval | female-single_steer
+  - from_female-single_to_male-single | female-long_eval | female-long_steer
+  - from_female-single_to_male-single | female-long_eval | female-single_steer
+  - from_female-single_to_male-single | female-single_eval | female-long_steer
+  - from_female-single_to_male-single | female-single_eval | female-single_steer
+======================================================================
+STAGE: merge
+  cell: from_female-long_to_male-long | female-long_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-long_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-single_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-single_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-long_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-long_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-long_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-single_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-single_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-single_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/merged_eval_outputs.csv)
+======================================================================
+STAGE: build_prompts
+  cell: from_female-long_to_male-long | female-long_eval | female-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/eval_prompts.csv
+  cell: from_female-long_to_male-long | female-long_eval | female-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval_prompts.csv
+  cell: from_female-long_to_male-long | female-single_eval | female-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-long_to_male-long | female-single_eval | female-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-single_to_male-single | female-long_eval | female-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/eval_prompts.csv
+  cell: from_female-single_to_male-single | female-long_eval | female-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/female-long_eval/female-single_steer/eval_prompts.csv
+  cell: from_female-single_to_male-single | female-single_eval | female-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-single_to_male-single | female-single_eval | female-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+======================================================================
+STAGE: judge
+INFO 07-15 20:47:15 [__init__.py:244] Automatically detected platform cuda.
+[2026-07-15T20:47:18.118] error: *** JOB 18022528 ON node2640 CANCELLED AT 2026-07-15T20:47:18 DUE to SIGNAL Terminated ***

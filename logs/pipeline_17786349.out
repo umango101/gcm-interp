@@ -1,0 +1,21 @@
+Family: female->male  model=Qwen1.5-14B-Chat  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_female-long_to_male-long | female-long_eval | female-long_steer
+  - from_female-long_to_male-long | female-long_eval | female-single_steer
+  - from_female-long_to_male-long | female-single_eval | female-long_steer
+  - from_female-long_to_male-long | female-single_eval | female-single_steer
+  - from_female-single_to_male-single | female-long_eval | female-long_steer
+  - from_female-single_to_male-single | female-long_eval | female-single_steer
+  - from_female-single_to_male-single | female-single_eval | female-long_steer
+  - from_female-single_to_male-single | female-single_eval | female-single_steer
+======================================================================
+STAGE: merge
+  cell: from_female-long_to_male-long | female-long_eval | female-long_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 633, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 626, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 208, in stage_merge
+    raise FileNotFoundError(
+FileNotFoundError: No gen files matching '^(?P<N>\\d+)_targeted_(?P<STEERING_METHOD>steer|mean)_(?P<topk>\\d+(?:\\.\\d+)?)_female\\-long_gen\\.json$' under /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/eval

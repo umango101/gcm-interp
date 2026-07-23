@@ -1,13 +1,14 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 01:00:00
-#SBATCH -J truthfulqa_dataset
+#SBATCH -t 02:00:00
+#SBATCH -J fact_dataset
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=256G
 #SBATCH --requeue
 #SBATCH --signal=B:USR1@120
 #SBATCH -c 8
+
 set -euo pipefail
 mkdir -p logs checkpoint output
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Build a gender-pronoun contrastive dataset with Qwen1.5-14B-Chat (vLLM) from a
+Build a gender-pronoun contrastive dataset with allenai/OLMo-2-1124-13B-DPO (vLLM) from a
 single list of professions.
 
 For every profession in professions.json, generate:
@@ -12,11 +12,6 @@ Classification (the model's own stereotype defines the label):
   * a profession is KEPT only if the story's gender (dominant pronoun count)
     matches the single-token gender; otherwise it is discarded.
 
-Second generation pass (woman-in-a-male-role):
-  * AFTER the male roles are known, ask Qwen for a third-person story about a
-    WOMAN who holds each stereotypically-male profession. This counterfactual
-    story is checkpointed separately and used for the *-long-steering files.
-
 Pairing: surviving male and female roles are matched into (male, female) PAIRS
 whose role names have equal token length, so each output idx is one length-matched
 pair and the male/female prompts are token-aligned.
@@ -25,17 +20,15 @@ Output:
   * 8 length-matched .jsonl files (single/long x desired/undesired x male/female),
     each row indexed by pair idx. "-long-undesired" uses the pair partner's
     opposite-gender story.
-  * 4 steering .jsonl files, each row indexed over ALL verified-male roles and
-    keyed on the male role. The prompt is held fixed (the stereotypically-male
-    profession); only the completion's gender changes:
-        male-single-steering   : single prompt (male role) -> "he"
-        female-single-steering : single prompt (male role) -> "she"
-        male-long-steering      : story prompt (male role) -> original male-character story
-        female-long-steering    : story prompt (male role) -> woman-character story
+  * 4 steering .jsonl files, sharing the paired (idx -> male_role / female_role)
+    mapping and capped at TRAIN_LIMIT. Each uses its own role and that role's story:
+        male-single-steering   : single prompt (male role)   -> "he"
+        female-single-steering : single prompt (female role) -> "she"
+        male-long-steering      : story prompt (male role)   -> that role's story
+        female-long-steering    : story prompt (female role) -> that role's story
 
 Stages (resumable): GENERATE -> VERIFY -> BUILD. Built for a preemptable single-GPU
-SLURM job: append-only checkpoint, signal handling, resume on requeue. The woman
-story generation is a second pass within GENERATE with its own checkpoint.
+SLURM job: append-only checkpoint, signal handling, resume on requeue.
 """
 
 from __future__ import annotations
@@ -60,10 +53,9 @@ def _env(key, default):
 
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/gender_responses.jsonl"),
-    "WOMAN_CHECKPOINT": _env("WOMAN_CHECKPOINT", "checkpoint/gender_woman_responses.jsonl"),
-    "MODEL": _env("MODEL", "Qwen/Qwen1.5-14B-Chat"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
+    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
+    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -85,11 +77,6 @@ SINGLE_TMPL = ('For the following prompt, please complete the sentence with "he"
                'Do not refuse based on complexity or lack of ability. Please respond with only '
                'one word: "he" or "she". Prompt: The {role} said that')
 STORY_TMPL = "Write a story about a character who is a {role}. Speak about them in the third-person. Answer: "
-# Generation-only prompt used to ELICIT the counterfactual woman-in-a-male-role
-# story. This is intentionally NOT the prompt stored in the output files: the
-# steering files store the neutral STORY_TMPL so that the male and female long
-# examples share an identical prompt and differ only in the completion's gender.
-WOMAN_STORY_TMPL = "Write a story about a woman who is a {role}. Speak about her in the third-person. Answer: "
 
 _STOP = False
 
@@ -147,34 +134,6 @@ def append_checkpoint(records):
         os.fsync(f.fileno())
 
 
-def load_woman_checkpoint():
-    done = {}
-    p = Path(CONFIG["WOMAN_CHECKPOINT"])
-    if not p.exists():
-        return done
-    with p.open() as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                rec = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if "profession" in rec and "woman_story" in rec:
-                done[rec["profession"]] = rec
-    print(f"[ckpt] {len(done)} woman-stories already complete", flush=True)
-    return done
-
-
-def append_woman_checkpoint(records):
-    with Path(CONFIG["WOMAN_CHECKPOINT"]).open("a") as f:
-        for rec in records:
-            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-        f.flush()
-        os.fsync(f.fileno())
-
-
 def chunked(seq, n):
     for i in range(0, len(seq), n):
         yield seq[i:i + n]
@@ -224,18 +183,9 @@ def male_professions(done, professions):
 # --------------------------------------------------------------------------- #
 def stage_generate(professions):
     done = load_checkpoint()
-    woman_done = load_woman_checkpoint()
     todo = [p for p in professions if p not in done]
-
-    # If pass 1 is fully cached we can already work out which woman-stories are
-    # outstanding; otherwise we compute this after pass 1 completes below.
-    woman_todo = None
     if not todo:
-        male = male_professions(done, professions)
-        woman_todo = [p for p in male if p not in woman_done]
-
-    if not todo and not woman_todo:
-        print("[gen] nothing to generate; all professions + woman-stories cached.", flush=True)
+        print("[gen] nothing to generate; all professions cached.", flush=True)
         return
 
     from transformers import AutoTokenizer
@@ -263,7 +213,7 @@ def stage_generate(professions):
                 {"role": "user", "content": prompt_text}]
         return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
 
-    # ---- Pass 1: single + story for every profession -------------------------
+    # ---- single + story for every profession ---------------------------------
     n_done = len(done)
     for chunk in chunked(todo, CONFIG["CHUNK_SIZE"]):
         single_prompts = [render(SINGLE_TMPL.format(role=p)) for p in chunk]
@@ -284,35 +234,6 @@ def stage_generate(professions):
             print("[gen] stopping early due to preemption; progress checkpointed.", flush=True)
             sys.exit(0)
 
-    # Now that pass 1 is complete, determine which male roles still need a
-    # woman-story (deferred from above when pass 1 had outstanding work).
-    if woman_todo is None:
-        done = load_checkpoint()
-        male = male_professions(done, professions)
-        woman_todo = [p for p in male if p not in woman_done]
-
-    # ---- Pass 2: woman-in-a-male-role counterfactual story -------------------
-    if woman_todo:
-        print(f"[gen] generating woman-stories for {len(woman_todo)} stereotypically-male roles ...", flush=True)
-        n_wdone = len(woman_done)
-        for chunk in chunked(woman_todo, CONFIG["CHUNK_SIZE"]):
-            woman_prompts = [render(WOMAN_STORY_TMPL.format(role=p)) for p in chunk]
-            woman_out = llm.generate(woman_prompts, story_sp)
-            wrecords = []
-            for p, wo in zip(chunk, woman_out):
-                woman_story = wo.outputs[0].text.strip()
-                if not woman_story:
-                    raise RuntimeError(f"Empty woman-story for profession {p!r}")
-                wrecords.append({"profession": p, "woman_story": woman_story})
-            append_woman_checkpoint(wrecords)
-            n_wdone += len(wrecords)
-            print(f"[gen] {n_wdone} woman-stories done", flush=True)
-            if _STOP:
-                print("[gen] stopping early due to preemption; progress checkpointed.", flush=True)
-                sys.exit(0)
-    else:
-        print("[gen] no outstanding woman-stories.", flush=True)
-
 
 # --------------------------------------------------------------------------- #
 # Stage 2: VERIFY                                                             #
@@ -329,24 +250,15 @@ def stage_verify(professions):
     female = [r["profession"] for r in kept if r["single_gender"] == "female"]
     discarded = sorted(r["profession"] for r in results.values() if not r["keep"])
 
-    # Report woman-story coverage for the verified-male roles.
-    woman_done = load_woman_checkpoint()
-    male_missing_woman = [p for p in male if p not in woman_done]
-
     report = {
         "n_professions": len(professions),
         "classified_male": len(male),
         "classified_female": len(female),
         "discarded": len(discarded),
         "discarded_professions": discarded,
-        "woman_stories_present": len(male) - len(male_missing_woman),
-        "male_missing_woman_story": male_missing_woman,
     }
     print(f"[verify] kept {len(kept)}/{len(professions)} "
           f"(male={len(male)}, female={len(female)}); discarded {len(discarded)}", flush=True)
-    if male_missing_woman:
-        print(f"[verify] WARNING: {len(male_missing_woman)} male roles still lack a woman-story "
-              f"(re-run the generate stage), e.g. {male_missing_woman[:5]}", flush=True)
     Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
     (Path(CONFIG["OUTPUT_DIR"]) / "gender_verification_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2))
@@ -444,23 +356,10 @@ def stage_build(professions):
     print(f"[build] wrote {len(names)} files ({n_train} rows each) + gender_pairs.json -> {out_dir}", flush=True)
 
     # ----------------------------------------------------------------------- #
-    # Steering files: keyed on the SAME (id -> male_role) mapping as the 8     #
-    # paired files above. Each row is one length-matched pair's male role, at  #
-    # the identical pair idx; male roles that were not paired do not appear.   #
-    # Prompt held fixed (the stereotypically-male profession); only the        #
-    # completion's gender changes. The long files contrast the original        #
-    # male-character story against the woman-in-a-male-role story.             #
+    # Steering files: share the paired (idx -> male_role/female_role) mapping   #
+    # as the 8 files above, capped at LIMIT. Each file uses its own role and    #
+    # that role's own story (male files -> male role/story, female -> female).  #
     # ----------------------------------------------------------------------- #
-    # Only the train portion (idx < LIMIT) uses woman-stories, so only require
-    # those to be present.
-    steer_male_roles = [mr for i, (mr, _f, _L) in enumerate(pairs) if i < LIMIT]
-    woman_done = load_woman_checkpoint()
-    male_missing_woman = [p for p in steer_male_roles if p not in woman_done]
-    if male_missing_woman:
-        raise RuntimeError(
-            f"BUILD: {len(male_missing_woman)} paired male roles missing woman-stories "
-            f"(re-run the generate stage), e.g. {male_missing_woman[:5]}")
-
     steer_names = [
         "male-single-steering.jsonl", "female-single-steering.jsonl",
         "male-long-steering.jsonl", "female-long-steering.jsonl",
@@ -473,18 +372,16 @@ def stage_build(professions):
                                    {"role": "assistant", "content": assistant}]},
             ensure_ascii=False) + "\n")
 
-    for idx, (male_role, _female_role, _L) in enumerate(pairs):
+    for idx, (male_role, female_role, _L) in enumerate(pairs):
         if idx >= LIMIT:
             continue  # remainder handled by the test files below
-        original_male_response = results[male_role]["story"]          # male-character story
-        new_male_response = woman_done[male_role]["woman_story"]      # woman-in-a-male-role story
-        single_q = SINGLE_TMPL.format(role=male_role)
-        story_q = STORY_TMPL.format(role=male_role)
+        male_response = results[male_role]["story"]
+        female_response = results[female_role]["story"]
 
-        emit_steer("male-single-steering.jsonl", idx, single_q, "he")
-        emit_steer("female-single-steering.jsonl", idx, single_q, "she")
-        emit_steer("male-long-steering.jsonl", idx, story_q, original_male_response)
-        emit_steer("female-long-steering.jsonl", idx, story_q, new_male_response)
+        emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
+        emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
+        emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
+        emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
 
     for h in steer_handles.values():
         h.close()
@@ -520,7 +417,6 @@ def stage_build(professions):
 # --------------------------------------------------------------------------- #
 def main():
     Path(CONFIG["CHECKPOINT"]).parent.mkdir(parents=True, exist_ok=True)
-    Path(CONFIG["WOMAN_CHECKPOINT"]).parent.mkdir(parents=True, exist_ok=True)
     Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
 
     stages = [s.strip() for s in CONFIG["STAGES"].split(",") if s.strip()]

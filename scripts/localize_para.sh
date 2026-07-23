@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
+#SBATCH -p mit_normal_gpu
 #SBATCH -t 01:00:00
 #SBATCH -J loc_para
 #SBATCH -o logs/%x_%j.out
@@ -20,8 +20,8 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "paragraph-long_sentence-long"
-  "paragraph-single_sentence-single"
+  "paragraphMCQA-long_sentenceMCQA-long"
+  "paragraphMCQA-single_sentenceMCQA-single"
 )
 declare -A eval_datasets
 

@@ -1,0 +1,85 @@
+Family: extraversion->introversion  model=Qwen1.5-14B-Chat  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-long_steer
+  - from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-single_steer
+  - from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-long_steer
+  - from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-single_steer
+  - from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-long_steer
+  - from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-single_steer
+  - from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-long_steer
+  - from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-single_steer
+======================================================================
+STAGE: merge
+  cell: from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-long_eval/extraversion-long_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-long_eval/extraversion-single_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-single_eval/extraversion-long_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-single_eval/extraversion-single_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer/merged_eval_outputs.csv)
+  cell: from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer/merged_eval_outputs.csv)
+======================================================================
+STAGE: build_prompts
+  cell: from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-long_eval/extraversion-long_steer/eval_prompts.csv
+  cell: from_extraversion-long_to_introversion-long | extraversion-long_eval | extraversion-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-long_to_introversion-long/atp/extraversion-long_eval/extraversion-single_steer/eval_prompts.csv
+  cell: from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_extraversion-long_to_introversion-long | extraversion-single_eval | extraversion-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer/eval_prompts.csv
+  cell: from_extraversion-single_to_introversion-single | extraversion-long_eval | extraversion-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer/eval_prompts.csv
+  cell: from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_extraversion-single_to_introversion-single | extraversion-single_eval | extraversion-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+======================================================================
+STAGE: judge
+INFO 07-15 20:28:15 [__init__.py:244] Automatically detected platform cuda.
+  loading 4-bit judge on 1 GPU(s)...
+INFO 07-15 20:28:34 [config.py:841] This model supports multiple tasks: {'reward', 'generate', 'embed', 'classify'}. Defaulting to 'generate'.
+INFO 07-15 20:28:34 [config.py:1472] Using max model len 4096
+WARNING 07-15 20:28:34 [config.py:960] bitsandbytes quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+INFO 07-15 20:28:35 [config.py:2285] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 07-15 20:28:36 [core.py:526] Waiting for init message from front-end.
+INFO 07-15 20:28:36 [core.py:69] Initializing a V1 LLM engine (v0.9.2) with config: model='unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit', speculative_config=None, tokenizer='unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=bitsandbytes, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=bitsandbytes, enforce_eager=False, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"max_capture_size":512,"local_cache_dir":null}
+INFO 07-15 20:28:38 [parallel_state.py:1076] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+WARNING 07-15 20:28:38 [topk_topp_sampler.py:59] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+INFO 07-15 20:28:38 [gpu_model_runner.py:1770] Starting to load model unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit...
+INFO 07-15 20:28:38 [gpu_model_runner.py:1775] Loading model from scratch...
+INFO 07-15 20:28:42 [cuda.py:284] Using Flash Attention backend on V1 engine.
+INFO 07-15 20:28:42 [bitsandbytes_loader.py:499] Loading weights with BitsAndBytes quantization. May take a while ...
+INFO 07-15 20:28:42 [weight_utils.py:292] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/6 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  17% Completed | 1/6 [00:00<00:01,  4.86it/s]
+Loading safetensors checkpoint shards:  33% Completed | 2/6 [00:00<00:00,  5.70it/s]
+Loading safetensors checkpoint shards:  50% Completed | 3/6 [00:00<00:00,  5.98it/s]
+Loading safetensors checkpoint shards:  67% Completed | 4/6 [00:00<00:00,  6.16it/s]
+Loading safetensors checkpoint shards:  83% Completed | 5/6 [00:00<00:00,  6.73it/s]
+Loading safetensors checkpoint shards: 100% Completed | 6/6 [00:00<00:00,  6.75it/s]
+
+Loading safetensors checkpoint shards:   0% Completed | 0/6 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  17% Completed | 1/6 [00:09<00:45,  9.01s/it]
+Loading safetensors checkpoint shards:  33% Completed | 2/6 [00:23<00:48, 12.04s/it]
+Loading safetensors checkpoint shards:  50% Completed | 3/6 [00:35<00:36, 12.13s/it]
+Loading safetensors checkpoint shards:  67% Completed | 4/6 [00:49<00:25, 12.77s/it]
+Loading safetensors checkpoint shards:  83% Completed | 5/6 [01:00<00:12, 12.29s/it]
+Loading safetensors checkpoint shards: 100% Completed | 6/6 [01:13<00:00, 12.52s/it]
+Loading safetensors checkpoint shards: 100% Completed | 6/6 [01:13<00:00, 12.26s/it]
+
+INFO 07-15 20:29:57 [gpu_model_runner.py:1801] Model loading took 39.8101 GiB and 78.790632 seconds
+INFO 07-15 20:30:13 [backends.py:508] Using cache directory: /home/ubansal/.cache/vllm/torch_compile_cache/5fd4cad179/rank_0_0/backbone for vLLM's torch.compile
+INFO 07-15 20:30:13 [backends.py:519] Dynamo bytecode transform time: 15.91 s
+INFO 07-15 20:30:26 [backends.py:155] Directly load the compiled graph(s) for shape None from the cache, took 11.942 s
+[2026-07-15T20:30:27.438] error: *** JOB 18021782 ON node2906 CANCELLED AT 2026-07-15T20:30:27 DUE to SIGNAL Terminated ***
