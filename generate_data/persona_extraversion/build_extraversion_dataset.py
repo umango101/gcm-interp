@@ -59,11 +59,11 @@ def _env(key, default):
 
 CONFIG = {
     "DATASET": _env("DATASET", "extraversion.jsonl"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_prompts.jsonl"),
-    "QC_CKPT": _env("QC_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_qc.jsonl"),
-    "GEN_MODEL": _env("GEN_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
-    "QC_MODEL": _env("QC_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/gemma-3-12b-it"),
+    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/gemma-3-12b-it/extra_prompts.jsonl"),
+    "QC_CKPT": _env("QC_CKPT", "checkpoint/gemma-3-12b-it/extra_qc.jsonl"),
+    "GEN_MODEL": _env("GEN_MODEL", "google/gemma-3-12b-it"),
+    "QC_MODEL": _env("QC_MODEL", "google/gemma-3-12b-it"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),

@@ -3,7 +3,7 @@
 #   Cluster (preemptable, resumes on requeue):  sbatch run_narcissism.sh
 #   Interactive on an allocated node:           bash run_narcissism.sh
 # The #SBATCH lines below are read by sbatch and ignored by plain bash.
-#SBATCH -p mit_preemptable
+#SBATCH -p mit_normal_gpu
 #SBATCH -t 01:00:00
 #SBATCH -J extraversion_dataset
 #SBATCH -o logs/%x_%j.out

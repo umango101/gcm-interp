@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Build a gender-pronoun contrastive dataset with allenai/OLMo-2-1124-13B-DPO (vLLM) from a
+Build a gender-pronoun contrastive dataset with allenai/gemma-3-12b-it (vLLM) from a
 single list of professions.
 
 For every profession in professions.json, generate:
@@ -53,9 +53,9 @@ def _env(key, default):
 
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
-    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/gemma-3-12b-it"),
+    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/gemma-3-12b-it/gender_responses.jsonl"),
+    "MODEL": _env("MODEL", "google/gemma-3-12b-it"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
