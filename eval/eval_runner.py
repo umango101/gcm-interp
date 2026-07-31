@@ -1,5 +1,5 @@
 from asyncio import log
-# from setup import set_seed
+from eval.setup import set_seed
 from eval.logits_handler import load_logits, get_top_k_layer_and_head, retrieve_random_k
 from eval.activations import mean_ablations_cache, steering_reps_cache
 from eval.generation import select_gen_qs_toks, generate_with_patches, decode_responses
@@ -44,10 +44,13 @@ def load_patching_reps(data_handler, model_handler, mean=True):
     return patching_reps
 
 def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True):
+    # Large models (e.g. 32B) OOM caching all-layer activations at the default
+    # batch size of 9, so shrink the activation-caching batch for them.
+    cache_bs = 2 if '32B' in data_handler.config.args.model_id else 9
     if ablation_type == 'mean':
-        return mean_ablations_cache(model, data_handler, key=key)
+        return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs)
     elif ablation_type == 'steer':
-        return steering_reps_cache(model, data_handler, key=key, mean=mean)
+        return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
     else:
         raise ValueError(f"Unknown ablation type: {ablation_type}")
 
@@ -78,7 +81,7 @@ def save_top_k(reps_type, config, model, topk, logits, logit_metric):
     return topk_df
 
 def run_eval(config, data_handler, model_handler, batch_handler, patching_utils, which_patch, topk_vals=None, N=None):
-    # set_seed()
+    set_seed(config.args.seed)
     print("Starting evaluation...")
 
     model = model_handler.model
@@ -112,14 +115,14 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
     model.eval()
     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-        with model.generate(gen_qs_toks, 
+        with model.generate(gen_qs_toks,
         pad_token_id=model.tokenizer.eos_token_id,
-        use_cache=False, 
-        do_sample=False,  
-        top_p=None, 
-        top_k=None, 
-        temperature=None, 
-        max_new_tokens=600) as _:
+        use_cache=True,
+        do_sample=False,
+        top_p=None,
+        top_k=None,
+        temperature=None,
+        max_new_tokens=config.args.max_new_tokens) as _:
             op = model.generator.output.save()
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
@@ -158,7 +161,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
                     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
                         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=600, normalize=True, steering_type=config.args.steering_type)
+                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=True, steering_type=config.args.steering_type, kv_caching=config.args.kv_caching)
                         decoded = decode_responses(model, gen_qs_toks, original_outputs[idx:idx+config.args.batch_size], edited_outputs, config.args.base)
                         gc.collect()
                         torch.cuda.empty_cache()
@@ -184,7 +187,7 @@ def run_eval_pyreft(config, data_handler, model_handler, batch_handler):
     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
     for idx in tqdm(range(0, min(len_gen_qs, data_handler.LEN), config.args.batch_size)):
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-        op = model.generate(**gen_qs_toks, do_sample=False, max_new_tokens=600)
+        op = model.generate(**gen_qs_toks, do_sample=False, max_new_tokens=config.args.max_new_tokens)
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
     print('Original inputs length ', len(original_outputs))
@@ -247,7 +250,7 @@ def run_eval_pyreft(config, data_handler, model_handler, batch_handler):
                             topk_heads  # paste to
                         )
                     },
-                    intervene_on_prompt=True, max_new_tokens=600, do_sample=True, 
+                    intervene_on_prompt=True, max_new_tokens=config.args.max_new_tokens, do_sample=False,
                     eos_token_id=model_handler.tokenizer.eos_token_id, early_stopping=True,
                     intervention_additional_kwargs={'S': N}
                 )
@@ -319,7 +322,7 @@ def run_eval_transfer(config, data_handler, model_handler, batch_handler, patchi
             return
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
         edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=256, normalize=False, steering_type=config.args.steering_type)
-        with model.generate(gen_qs_toks, do_sample=False, max_new_tokens=600) as _:
+        with model.generate(gen_qs_toks, do_sample=False, max_new_tokens=256) as _:
             original_outputs = model.generator.output.save()
         if config.args.eval_transfer:
             answers = batch_handler.eval_transfer['answers']

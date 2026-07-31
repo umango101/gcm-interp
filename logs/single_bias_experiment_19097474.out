@@ -1,0 +1,78 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:07<00:30,  7.58s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:15<00:23,  7.88s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:23<00:15,  7.72s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:30<00:07,  7.67s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:37<00:00,  7.50s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:37<00:00,  7.60s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--kv_caching]
+run.py: error: The provided eval_test path '/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/female-single/male-long-test.jsonl' does not exist.
+Parsing config...
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.16s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.20s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.18s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:02,  2.16s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.13s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.15s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--kv_caching]
+run.py: error: The provided eval_test path '/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/female-single/male-long-test.jsonl' does not exist.
+Parsing config...
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:10,  2.60s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:06<00:10,  3.57s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:10<00:07,  3.63s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:14<00:03,  3.61s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:17<00:00,  3.42s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:17<00:00,  3.44s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'

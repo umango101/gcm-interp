@@ -9,6 +9,7 @@ import sys
 import yaml
 from dataclasses import dataclass
 import json
+from eval.setup import set_seed
 class Config:
     def __init__(self):
         self.args = self.parse_arguments()
@@ -40,6 +41,10 @@ class Config:
         parser.add_argument('-base', '--base', type=str, help='Patch to base')
         parser.add_argument('-steering_add_path', '--steering_add_path', type=str, help='steering reps to add')
         parser.add_argument('-steering_sub_path', '--steering_sub_path', type=str, help='steering reps to subtract')
+        parser.add_argument('--full_precision', action='store_true',
+                            help='Load model in full bfloat16 with device_map=auto (no quantization). '
+                                 'Required for very large models (e.g. 72B) that exceed single-GPU memory.')
+        parser.add_argument('--kv_caching', action='store_true', help='Steer prefill only using KV cache; decoding steps are not re-steered')
 
         args = parser.parse_args()
         if not (args.patch_model or args.eval_model):
@@ -64,7 +69,9 @@ class Config:
                 args.test_dataset = args.source
 
             if 'single' in args.test_dataset:
-                args.max_new_tokens = 3
+                # 24 (not 3): enough to reach the option letter when a model prefaces its
+                # answer ("The answer is (B)"), which the scorer's parse_letter recovers.
+                args.max_new_tokens = 24
             elif 'long' in args.test_dataset:
                 args.max_new_tokens = 256
             
@@ -78,9 +85,7 @@ class Config:
             yaml.dump(args_dict, yaml_file, default_flow_style=False)
             
     def setup_environment(self, seed=42):
-        random.seed(seed)
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
+        set_seed(seed)
 
         os.makedirs(f'{self.set_output_prefix()}', exist_ok=True)
         self.save_to_yaml(f"{self.output_prefix}/config.yml", self.args)

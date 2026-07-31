@@ -1,0 +1,86 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:08<00:33,  8.44s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:18<00:27,  9.11s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:27<00:18,  9.43s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:37<00:09,  9.39s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:46<00:00,  9.29s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:46<00:00,  9.25s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.93s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.23s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.35s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.41s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.34s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.32s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.14s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.44s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.53s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.62s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.59s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.54s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.91s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.22s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.34s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.38s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.34s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.97s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.32s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.47s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.47s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.45s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.41s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'

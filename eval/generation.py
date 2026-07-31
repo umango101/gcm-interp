@@ -15,41 +15,67 @@ def select_gen_qs_toks(config, batch_handler):
         return batch_handler.eval_transfer['queries']
     else:
         raise ValueError("Either eval_train or eval_test must be True.")
-def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token'):
+def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token', kv_caching=False):
     patch_activations = patch_activations['desired'].to(model.device)
     layer_ids = topk_df['layer'].unique()
-    head_ids = [topk_df[topk_df['layer'] == layer_idx]['neuron'].unique() for layer_idx in layer_ids]
-    print(f"Generating for ", gen_toks['input_ids'].shape, " with normalization set to ", normalize, " steering type ", steering_type)
-    with model.generate(
-        gen_toks,
+    print(f"Generating for ", gen_toks['input_ids'].shape, " with normalization set to ", normalize, " steering type ", steering_type, " kv_caching ", kv_caching)
+
+    gen_kwargs = dict(
         pad_token_id=model.tokenizer.eos_token_id,
-        use_cache=False, 
-        do_sample=False,  
-        top_p=None, 
+        do_sample=False,
+        top_p=None,
         top_k=None,
-        temperature=None, 
-        max_new_tokens=max_new_tokens
-    ) as tracer:
-        with model.all():
+        temperature=None,
+        max_new_tokens=max_new_tokens,
+    )
+
+    def _steering_vector(layer_idx, sl):
+        if steering_type == 'last_token':
+            vec = patch_activations[layer_idx][-1, sl]
+        elif steering_type == 'all_tokens':
+            vec = patch_activations[layer_idx][:, sl].mean(dim=0)
+        else:
+            raise ValueError(f"Unknown steering_type: {steering_type!r}")
+        if normalize:
+            vec = vec / (torch.norm(vec, dim=-1, keepdim=True) + 1e-12)
+        return vec
+
+    if kv_caching:
+        # KV caching ON: no model.all(). The interventions apply during prefill only;
+        # decoding steps read from the KV cache and are not re-steered. The write targets
+        # the full o_proj output ([..., sl]) because prefill covers every prompt position
+        # in a single forward pass. (Using model.all() here would reapply the write on each
+        # 1-token decode step and index positions that don't exist -> corrupted output.)
+        with model.generate(gen_toks, use_cache=True, **gen_kwargs) as tracer:
             for layer_idx in layer_ids:
                 head_ids = topk_df[topk_df['layer'] == layer_idx]['neuron'].unique()
                 layer = model.model.layers[layer_idx]
                 for head_idx in head_ids:
                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
-                    if steering_type == 'last_token':
-                        print('steering on last token')
-                        steering_vector = patch_activations[layer_idx][-1, sl]
-                    elif steering_type == 'all_tokens':
-                        print('steering on all tokens')
-                        steering_vector = patch_activations[layer_idx][:, sl].mean(dim=0)
-                    if normalize:
-                        print('Normalizing')
-                        steering_vector = steering_vector / (torch.norm(steering_vector, dim=-1, keepdim=True) + 1e-12)
+                    steering_vector = _steering_vector(layer_idx, sl)
                     if ablation_type == 'mean':
-                        layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
+                        layer.self_attn.o_proj.output[..., sl] = N * steering_vector
                     elif ablation_type == 'steer':
-                        layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
+                        layer.self_attn.o_proj.output[..., sl] += N * steering_vector
             generated = model.generator.output.save()
+    else:
+        # KV caching OFF: model.all() reapplies the intervention on every decoding step,
+        # so use_cache=False is required (each step recomputes all positions). The write is
+        # bounded to the steered prompt positions ([..., :patch_activations.shape[1], sl]).
+        with model.generate(gen_toks, use_cache=False, **gen_kwargs) as tracer:
+            with model.all():
+                for layer_idx in layer_ids:
+                    head_ids = topk_df[topk_df['layer'] == layer_idx]['neuron'].unique()
+                    layer = model.model.layers[layer_idx]
+                    for head_idx in head_ids:
+                        sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                        steering_vector = _steering_vector(layer_idx, sl)
+                        if ablation_type == 'mean':
+                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
+                        elif ablation_type == 'steer':
+                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
+            generated = model.generator.output.save()
+
     return generated
 
 def decode_responses(model, inputs, originals, edited, base, answers=None):

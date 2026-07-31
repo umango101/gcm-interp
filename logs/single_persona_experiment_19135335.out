@@ -1,0 +1,1756 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Requirement already satisfied: nnsight==0.4.11 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.4.11)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (4.53.3)
+Requirement already satisfied: protobuf in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (6.33.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: tokenizers>=0.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.4)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.7.0+cu126)
+Requirement already satisfied: sentencepiece in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: torchvision in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.22.0+cu126)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (1.11.0)
+Requirement already satisfied: diffusers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.37.1)
+Requirement already satisfied: einops in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.8.1)
+Requirement already satisfied: msgspec in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.1)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (8.37.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.4.2)
+Requirement already satisfied: huggingface-hub<1.0,>=0.16.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from tokenizers>=0.13.0->nnsight==0.4.11) (0.36.0)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.29.0)
+Requirement already satisfied: fsspec>=2023.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2026.4.0)
+Requirement already satisfied: packaging>=20.9 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (25.0)
+Requirement already satisfied: pyyaml>=5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (6.0.3)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (4.67.1)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (1.2.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.14.0)
+Requirement already satisfied: networkx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.6.80 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.80)
+Requirement already satisfied: nvidia-cudnn-cu12==9.5.1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (9.5.1.17)
+Requirement already satisfied: nvidia-cublas-cu12==12.6.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.0.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.3.0.4)
+Requirement already satisfied: nvidia-curand-cu12==10.3.7.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (10.3.7.77)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.1.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.7.1.2)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.5.4.2)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: nvidia-nccl-cu12==2.26.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (2.26.2)
+Requirement already satisfied: nvidia-nvtx-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.6.85 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.85)
+Requirement already satisfied: nvidia-cufile-cu12==1.11.1.6 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.11.1.6)
+Requirement already satisfied: triton==3.3.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.3.0)
+Requirement already satisfied: setuptools>=40.8.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from triton==3.3.0->torch>=2.4.0->nnsight==0.4.11) (70.2.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (2.1.3)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (7.1.3)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (0.6.2)
+Requirement already satisfied: importlib-metadata in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (9.0.0)
+Requirement already satisfied: httpx<1.0.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (0.28.1)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (2025.11.3)
+Requirement already satisfied: Pillow in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (12.0.0)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx<1.0.0->diffusers->nnsight==0.4.11) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: zipp>=3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from importlib-metadata->diffusers->nnsight==0.4.11) (4.1.0)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight==0.4.11) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight==0.4.11) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight==0.4.11) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (0.2.3)
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:26<01:45, 26.40s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:29<00:37, 12.64s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:34<00:17,  8.99s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:38<00:07,  7.18s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:41<00:00,  5.84s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:41<00:00,  8.39s/it]
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+No<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a social person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Tokenizing base_toks
+max_length 92
+max_length 92
+Tokenizing base_qs_toks
+max_length 92
+max_length 92
+Tokenizing source_qs_toks
+max_length 92
+max_length 92
+Finding response start positions...
+0it [00:00, ?it/s]1it [00:00,  8.28it/s]57it [00:00, 304.62it/s]100it [00:00, 331.10it/s]
+0it [00:00, ?it/s]56it [00:00, 552.39it/s]100it [00:00, 553.45it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 18149.30it/s]
+Parsing config...
+Steering dataset set to: extraversion-long
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:10,  2.58s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:06<00:09,  3.10s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:08<00:05,  2.98s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:11<00:03,  3.03s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:15<00:00,  3.07s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:15<00:00,  3.03s/it]
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+No<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond exactly as a shy person would. Describe a time when socializing with others left you feeling particularly invigorated or inspired.<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a social person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+max_length 51
+max_length 51
+max_length 51
+Starting evaluation...
+Loading patching reps for steer - desired
+########### Mean steering cache ###########  100 torch.Size([9, 51, 3840]) torch.Size([9, 51, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([51, 3840])
+Stacked steering cache  torch.Size([48, 51, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Loading patching reps for steer - undesired
+########### Mean steering cache ###########  100 torch.Size([9, 51, 3840]) torch.Size([9, 51, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([51, 3840])
+Stacked steering cache  torch.Size([48, 51, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Returning patching reps
+Evaluating on test set.  50
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:26<01:18, 26.14s/it] 50%|█████     | 2/4 [01:00<01:01, 30.69s/it] 75%|███████▌  | 3/4 [01:36<00:33, 33.26s/it]100%|██████████| 4/4 [02:07<00:00, 32.28s/it]100%|██████████| 4/4 [02:07<00:00, 31.78s/it]
+Evaluating on test set.  16
+Updating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Updating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Updating batch handler: start=64, stop=80
+Starting for loop  Namespace(device='cuda:0', model_id='google/gemma-3-12b-it', batch_size=16, seed=42, ablation='steer', patch_model=False, eval_model=True, eval_test='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/introversion-long-test.jsonl', eval_train=False, eval_transfer=None, steering=True, pyreft=False, max_new_tokens=256, patch_algo='atp', source='extraversion-single', base='introversion-single', steering_add_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/extraversion-long-steering.jsonl', steering_sub_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/introversion-long-steering.jsonl', full_precision=False, kv_caching=True, test_dataset='extraversion-long', steering_type='last_token', data_path='./data/gemma-3-12b-it/')
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 90.19it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 11.25it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 11.24it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/1_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 1 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 103.42it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.90it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.86it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/2_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 2 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 102.30it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.76it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.73it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/4_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 4 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 100.08it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.49it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.45it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/5_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 5 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 103.91it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.97it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.93it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/6_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 6 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 101.08it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.61it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.58it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/8_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 8 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 105.09it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 13.11it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 13.07it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-long_steer//eval/10_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 10 as gen files already exist.
+Evaluation complete.
+Parsing config...
+Steering dataset set to: extraversion-single
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.02s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:07,  2.62s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.72s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.79s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:13<00:00,  2.73s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:13<00:00,  2.68s/it]
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+No<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"Being around others recharges and energizes me"<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a social person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+max_length 79
+max_length 79
+max_length 79
+Starting evaluation...
+Loading patching reps for steer - desired
+########### Mean steering cache ###########  100 torch.Size([9, 79, 3840]) torch.Size([9, 79, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([79, 3840])
+Stacked steering cache  torch.Size([48, 79, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Loading patching reps for steer - undesired
+########### Mean steering cache ###########  100 torch.Size([9, 79, 3840]) torch.Size([9, 79, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([79, 3840])
+Stacked steering cache  torch.Size([48, 79, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Returning patching reps
+Evaluating on test set.  50
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:02<00:06,  2.15s/it] 50%|█████     | 2/4 [00:04<00:04,  2.05s/it] 75%|███████▌  | 3/4 [00:06<00:02,  2.11s/it]100%|██████████| 4/4 [00:08<00:00,  2.04s/it]100%|██████████| 4/4 [00:08<00:00,  2.06s/it]
+Evaluating on test set.  16
+Updating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Updating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Updating batch handler: start=64, stop=80
+Starting for loop  Namespace(device='cuda:0', model_id='google/gemma-3-12b-it', batch_size=16, seed=42, ablation='steer', patch_model=False, eval_model=True, eval_test='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/introversion-single-test.jsonl', eval_train=False, eval_transfer=None, steering=True, pyreft=False, max_new_tokens=24, patch_algo='atp', source='extraversion-single', base='introversion-single', steering_add_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/extraversion-long-steering.jsonl', steering_sub_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/introversion-long-steering.jsonl', full_precision=False, kv_caching=True, test_dataset='extraversion-single', steering_type='last_token', data_path='./data/gemma-3-12b-it/')
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 230.61it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 28.71it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 28.60it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/1_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 1 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 257.61it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 32.05it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 31.86it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/2_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 2 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 260.82it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 32.46it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 32.30it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/4_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 4 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 256.73it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 31.95it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 31.77it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/5_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 5 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 261.75it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 32.57it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 32.40it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/6_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 6 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 258.85it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 32.22it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 32.06it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/8_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 8 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ASaved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 10 as gen files already exist.
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 10, algo: atp, task: extraversion-single -> introversion-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6688.81it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:02<00:07,  2.60s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7584.64it/s]
+
+
+
+ 50%|█████     | 2/4 [00:05<00:05,  2.52s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6964.39it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:07<00:02,  2.46s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4355.46it/s]
+
+
+
+100%|██████████| 4/4 [00:09<00:00,  2.44s/it][A[A[A100%|██████████| 4/4 [00:09<00:00,  2.46s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [00:09<00:01,  1.42s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.1_extraversion-single_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 10, algo: atp, task: extraversion-single -> introversion-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6869.57it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:02<00:08,  2.76s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6413.92it/s]
+
+
+
+ 50%|█████     | 2/4 [00:05<00:05,  2.76s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7098.46it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:08<00:02,  2.77s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 79])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4019.46it/s]
+
+
+
+100%|██████████| 4/4 [00:10<00:00,  2.55s/it][A[A[A100%|██████████| 4/4 [00:10<00:00,  2.63s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [00:20<00:00,  2.96s/it][A[ATopK Values: 100%|██████████| 8/8 [00:20<00:00,  2.55s/it]
+
+Reps Types: 100%|██████████| 1/1 [00:20<00:00, 20.43s/it][AReps Types: 100%|██████████| 1/1 [00:20<00:00, 20.43s/it]
+Ablations: 100%|██████████| 1/1 [00:20<00:00, 20.43s/it]Ablations: 100%|██████████| 1/1 [00:20<00:00, 20.43s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-long_steer//eval/10_targeted_steer_0.5_extraversion-single_gen.json
+Evaluation complete.
+Parsing config...
+Steering dataset set to: extraversion-long
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.06s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:03<00:05,  1.97s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:05<00:03,  1.94s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:07<00:01,  1.98s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.97s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.97s/it]
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+No<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond exactly as a shy person would. Describe a time when socializing with others left you feeling particularly invigorated or inspired.<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a social person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+max_length 89
+max_length 89
+max_length 89
+Starting evaluation...
+Loading patching reps for steer - desired
+########### Mean steering cache ###########  100 torch.Size([9, 89, 3840]) torch.Size([9, 89, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([89, 3840])
+Stacked steering cache  torch.Size([48, 89, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Loading patching reps for steer - undesired
+########### Mean steering cache ###########  100 torch.Size([9, 89, 3840]) torch.Size([9, 89, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([89, 3840])
+Stacked steering cache  torch.Size([48, 89, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Returning patching reps
+Evaluating on test set.  50
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:22<01:07, 22.46s/it] 50%|█████     | 2/4 [00:48<00:48, 24.42s/it] 75%|███████▌  | 3/4 [01:16<00:26, 26.15s/it]100%|██████████| 4/4 [01:41<00:00, 25.56s/it]100%|██████████| 4/4 [01:41<00:00, 25.28s/it]
+Evaluating on test set.  16
+Updating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Updating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Updating batch handler: start=64, stop=80
+Starting for loop  Namespace(device='cuda:0', model_id='google/gemma-3-12b-it', batch_size=16, seed=42, ablation='steer', patch_model=False, eval_model=True, eval_test='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-long/introversion-long-test.jsonl', eval_train=False, eval_transfer=None, steering=True, pyreft=False, max_new_tokens=256, patch_algo='atp', source='extraversion-single', base='introversion-single', steering_add_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/extraversion-single-steering.jsonl', steering_sub_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/introversion-single-steering.jsonl', full_precision=False, kv_caching=True, test_dataset='extraversion-long', steering_type='last_token', data_path='./data/gemma-3-12b-it/')
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 92.56it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 11.55it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 11.53it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/1_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 1 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 101.34it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.64it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.60it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/2_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 2 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 99.46it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.41it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.37it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/4_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 4 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 100.68it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.56it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.52it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/5_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 5 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 97.55it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.17it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.13it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/6_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 6 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 98.15it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.24it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.21it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/8_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 8 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 101.57it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 12.67it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 12.63it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_1.0_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_1.0_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.01_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.01_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.01 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.03_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.03_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.03 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.05_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.05_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.05 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.07_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.07_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.07 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.09_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.09_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.09 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.1_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.1_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.1 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.5_extraversion-long_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-long_eval/extraversion-single_steer//eval/10_targeted_steer_0.5_extraversion-long_gen.json
+Skipping evaluation for steer, targeted, 0.5 10 as gen files already exist.
+Evaluation complete.
+Parsing config...
+Steering dataset set to: extraversion-single
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.14s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.49s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.59s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.70s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:13<00:00,  2.67s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:13<00:00,  2.61s/it]
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+No<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a shy person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"Being around others recharges and energizes me"<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond as a social person would. Please respond only with "Yes" or "No" and no other words. Is the following statement something you would say?
+"I enjoy a high level of social interaction with others and being part of energetic activities"<end_of_turn>
+<start_of_turn>model
+
+max_length 89
+max_length 89
+max_length 89
+Starting evaluation...
+Loading patching reps for steer - desired
+########### Mean steering cache ###########  100 torch.Size([9, 89, 3840]) torch.Size([9, 89, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([89, 3840])
+Stacked steering cache  torch.Size([48, 89, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Loading patching reps for steer - undesired
+########### Mean steering cache ###########  100 torch.Size([9, 89, 3840]) torch.Size([9, 89, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([89, 3840])
+Stacked steering cache  torch.Size([48, 89, 3840]) Gemma3TextConfig {
+  "_sliding_window_pattern": 6,
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": null,
+  "bos_token_id": 2,
+  "eos_token_id": 1,
+  "final_logit_softcapping": null,
+  "head_dim": 256,
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3840,
+  "initializer_range": 0.02,
+  "intermediate_size": 15360,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 131072,
+  "model_type": "gemma3_text",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 48,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 256,
+  "rms_norm_eps": 1e-06,
+  "rope_local_base_freq": 10000.0,
+  "rope_scaling": {
+    "factor": 8.0,
+    "rope_type": "linear"
+  },
+  "rope_theta": 1000000.0,
+  "sliding_window": 1024,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.3",
+  "use_cache": true,
+  "vocab_size": 262208
+}
+
+Returning patching reps
+Evaluating on test set.  50
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:02<00:06,  2.16s/it] 50%|█████     | 2/4 [00:04<00:04,  2.17s/it] 75%|███████▌  | 3/4 [00:06<00:02,  2.10s/it]100%|██████████| 4/4 [00:08<00:00,  2.03s/it]100%|██████████| 4/4 [00:08<00:00,  2.07s/it]
+Evaluating on test set.  16
+Updating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Updating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Updating batch handler: start=64, stop=80
+Starting for loop  Namespace(device='cuda:0', model_id='google/gemma-3-12b-it', batch_size=16, seed=42, ablation='steer', patch_model=False, eval_model=True, eval_test='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/introversion-single-test.jsonl', eval_train=False, eval_transfer=None, steering=True, pyreft=False, max_new_tokens=24, patch_algo='atp', source='extraversion-single', base='introversion-single', steering_add_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/extraversion-single-steering.jsonl', steering_sub_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/extraversion-single/introversion-single-steering.jsonl', full_precision=False, kv_caching=True, test_dataset='extraversion-single', steering_type='last_token', data_path='./data/gemma-3-12b-it/')
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 234.53it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 29.19it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 29.09it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 1 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/1_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 1 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 241.82it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 30.10it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 29.94it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 2 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/2_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 2 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 249.62it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 31.07it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 30.91it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 4 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/4_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 4 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 249.16it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 31.01it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 30.85it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 5 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/5_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 5 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 184.94it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 23.04it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 22.95it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 6 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/6_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 6 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[A
+
+TopK Values:  62%|██████▎   | 5/8 [00:00<00:00, 46.56it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 63.99it/s]
+
+Reps Types: 100%|██████████| 1/1 [00:00<00:00,  7.99it/s][AReps Types: 100%|██████████| 1/1 [00:00<00:00,  7.98it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00,  7.97it/s]Ablations: 100%|██████████| 1/1 [00:00<00:00,  7.97it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 8 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/8_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 8 as gen files already exist.
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ATopK Values: 100%|██████████| 8/8 [00:00<00:00, 224.22it/s]
+Reps Types: 100%|██████████| 1/1 [00:00<00:00, 27.89it/s]
+Ablations: 100%|██████████| 1/1 [00:00<00:00, 27.71it/s]
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_1.0_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_1.0_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 1.0 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.01_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.01_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.01 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.03_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.03_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.03 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.05_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.05_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.05 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.07_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.07_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.07 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.09_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.09_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.09 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.1_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.1_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.1 10 as gen files already exist.
+Saved responses to ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.5_extraversion-single_gen.txt and ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/extraversion-single_eval/extraversion-single_steer//eval/10_targeted_steer_0.5_extraversion-single_gen.json
+Skipping evaluation for steer, targeted, 0.5 10 as gen files already exist.
+Evaluation complete.

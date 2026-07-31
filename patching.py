@@ -3,6 +3,11 @@ import gc
 from patching_utils import PatchingUtils
 import einops
 import gc
+
+def _val(p):
+    """Unwrap an nnsight proxy to its underlying tensor; no-op on real tensors."""
+    return getattr(p, "value", p)
+
 class Patching:
     def __init__(self, model_handler, batch_handler, config):
         self.model_handler = model_handler
@@ -53,14 +58,23 @@ class Patching:
             attn_undesired_effects = []
             net_effects = []
             for idx in range(len(model.model.layers)):
-                attn_desired_effects.append(
-                    base_desired_attn[idx].grad * 
-                    (source_q_des_attn[idx] - base_desired_attn[idx])
-                )
-                attn_undesired_effects.append(
-                    base_undesired_attn[idx].grad * 
-                    (source_q_undes_attn[idx] - base_undesired_attn[idx])
-                )
+                p = base_desired_attn[idx]
+                t = getattr(p, "value", p)
+                print(type(p).__name__, type(t).__name__, "grad is None:", t.grad is None)
+                # attn_desired_effects.append(
+                #     base_desired_attn[idx].grad * 
+                #     (source_q_des_attn[idx] - base_desired_attn[idx])
+                # )
+                # attn_undesired_effects.append(
+                #     base_undesired_attn[idx].grad * 
+                #     (source_q_undes_attn[idx] - base_undesired_attn[idx])
+                # )
+                bd = _val(base_desired_attn[idx])
+                bu = _val(base_undesired_attn[idx])
+                sd = _val(source_q_des_attn[idx])
+                su = _val(source_q_undes_attn[idx])
+                attn_desired_effects.append(bd.grad * (sd - bd))
+                attn_undesired_effects.append(bu.grad * (su - bu))
 
                 net_effects.append(attn_desired_effects[idx].sum(dim=1) + attn_undesired_effects[idx].sum(dim=1))
             net_effects = torch.stack([h for h in net_effects], dim=0).detach().cpu()

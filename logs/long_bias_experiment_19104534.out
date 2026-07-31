@@ -1,0 +1,602 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Requirement already satisfied: nnsight==0.4.11 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.4.11)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (4.53.3)
+Requirement already satisfied: protobuf in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (6.33.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: tokenizers>=0.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.4)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.7.0+cu126)
+Requirement already satisfied: sentencepiece in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: torchvision in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.22.0+cu126)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (1.11.0)
+Requirement already satisfied: diffusers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.37.1)
+Requirement already satisfied: einops in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.8.1)
+Requirement already satisfied: msgspec in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.1)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (8.37.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.4.2)
+Requirement already satisfied: huggingface-hub<1.0,>=0.16.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from tokenizers>=0.13.0->nnsight==0.4.11) (0.36.0)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.29.0)
+Requirement already satisfied: fsspec>=2023.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2026.4.0)
+Requirement already satisfied: packaging>=20.9 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (25.0)
+Requirement already satisfied: pyyaml>=5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (6.0.3)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (4.67.1)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (1.2.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.14.0)
+Requirement already satisfied: networkx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.6.80 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.80)
+Requirement already satisfied: nvidia-cudnn-cu12==9.5.1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (9.5.1.17)
+Requirement already satisfied: nvidia-cublas-cu12==12.6.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.0.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.3.0.4)
+Requirement already satisfied: nvidia-curand-cu12==10.3.7.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (10.3.7.77)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.1.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.7.1.2)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.5.4.2)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: nvidia-nccl-cu12==2.26.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (2.26.2)
+Requirement already satisfied: nvidia-nvtx-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.6.85 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.85)
+Requirement already satisfied: nvidia-cufile-cu12==1.11.1.6 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.11.1.6)
+Requirement already satisfied: triton==3.3.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.3.0)
+Requirement already satisfied: setuptools>=40.8.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from triton==3.3.0->torch>=2.4.0->nnsight==0.4.11) (70.2.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (2.1.3)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (7.1.3)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (0.6.2)
+Requirement already satisfied: importlib-metadata in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (9.0.0)
+Requirement already satisfied: httpx<1.0.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (0.28.1)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (2025.11.3)
+Requirement already satisfied: Pillow in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (12.0.0)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx<1.0.0->diffusers->nnsight==0.4.11) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: zipp>=3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from importlib-metadata->diffusers->nnsight==0.4.11) (4.1.0)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight==0.4.11) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight==0.4.11) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight==0.4.11) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (0.2.3)
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.89s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:12,  4.10s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:09,  4.53s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.74s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.75s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.54s/it]
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+Okay, here's a story about a professor, written in the third person, aiming for a helpful and engaging tone. I've tried to give him some quirks and a bit of depth.  I've included a little bit about his teaching style and a personal struggle he's navigating.  Let me know if you'd like me to adjust anything or expand on a particular aspect!
+
+---
+
+Professor Alistair Finch was, to put it mildly, a creature of habit. Every morning, precisely at 6:17 AM, he’d brew a pot of Earl Grey tea, steeped for exactly three minutes and fifteen seconds. He’d then read a chapter of a classic – currently, it was *Middlemarch* – while meticulously arranging his collection of antique fountain pens on his desk. This ritual, he believed, prepared him for the intellectual battlefield that was his Victorian Literature classroom at Blackwood University.
+
+Alistair wasn't a flashy professor. He didn't employ PowerPoint presentations or interactive games. His lectures were delivered in a quiet, almost conversational tone, punctuated by the rhythmic tapping of his pen against his chin as he considered a point. He favored long, flowing sentences and a deep dive into the nuances of language,<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a doctor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Tokenizing base_toks
+max_length 291
+max_length 291
+Tokenizing base_qs_toks
+max_length 291
+max_length 291
+Tokenizing source_qs_toks
+max_length 291
+max_length 291
+Finding response start positions...
+0it [00:00, ?it/s]77it [00:00, 767.65it/s]100it [00:00, 839.38it/s]
+0it [00:00, ?it/s]100it [00:00, 1230.83it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+  0%|          | 0/100 [00:01<?, ?it/s]
+Running patching on heads from 0 to 1
+Updating batch handler: start=0, stop=1
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 294, in execute
+    args, kwargs = self.prepare_inputs((self.args, self.kwargs))
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/graph/node.py", line 72, in prepare_inputs
+    inputs = util.apply(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/util.py", line 44, in apply
+    return tuple([apply(_data, fn, cls, inplace=inplace) for _data in data])
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/util.py", line 44, in <listcomp>
+    return tuple([apply(_data, fn, cls, inplace=inplace) for _data in data])
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/util.py", line 39, in apply
+    data[idx] = apply(_data, fn, cls, inplace=inplace)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/util.py", line 32, in apply
+    return fn(data)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/graph/node.py", line 65, in inner
+    value = value.value
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 143, in value
+    raise ValueError("Accessing value before it's been set.")
+ValueError: Accessing value before it's been set.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 34, in main
+    heads_experiment.run()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/experiment.py", line 38, in run
+    self.patching_logits = self.patching.apply_patching()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/patching.py", line 57, in apply_patching
+    base_desired_attn[idx].grad *
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/proxy.py", line 186, in __mul__
+    return self.node.create(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 239, in create
+    node.execute()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 306, in execute
+    raise NNsightError(str(e), self.index, traceback_content)
+nnsight.util.NNsightError: Accessing value before it's been set.
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:10,  2.72s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:12,  4.06s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.46s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.72s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.74s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.51s/it]
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+Okay, here's a story about a professor, written in the third person, aiming for a helpful and engaging tone. I've tried to give him some quirks and a bit of depth.  I've included a little bit about his teaching style and a personal struggle he's navigating.  Let me know if you'd like me to adjust anything or expand on a particular aspect!
+
+---
+
+Professor Alistair Finch was, to put it mildly, a creature of habit. Every morning, precisely at 6:17 AM, he’d brew a pot of Earl Grey tea, steeped for exactly three minutes and fifteen seconds. He’d then read a chapter of a classic – currently, it was *Middlemarch* – while meticulously arranging his collection of antique fountain pens on his desk. This ritual, he believed, prepared him for the intellectual battlefield that was his Victorian Literature classroom at Blackwood University.
+
+Alistair wasn't a flashy professor. He didn't employ PowerPoint presentations or interactive games. His lectures were delivered in a quiet, almost conversational tone, punctuated by the rhythmic tapping of his pen against his chin as he considered a point. He favored long, flowing sentences and a deep dive into the nuances of language,<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a sommelier. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a doctor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 33
+max_length 33
+max_length 33
+Starting evaluation...
+./results/gemma-3-12b-it/from_female-long_to_male-long/atp
+Path does not exist ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/numerator_1_heads.pt, computing logits afresh.
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt'
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 48, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 92, in run_eval
+    logits = load_logits(config, data_handler, which_patch, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/logits_handler.py", line 38, in load_logits
+    all_logits = einops.reduce(all_logits, 'l (n m) b -> l n b', 'sum', n=model_handler.num_heads)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/einops.py", line 527, in reduce
+    backend = get_backend(tensor)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/proxy.py", line 336, in inner
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/_backends.py", line 59, in get_backend
+    raise RuntimeError("Tensor type unknown to einops {}".format(type(tensor)))
+RuntimeError: Tensor type unknown to einops <class 'NoneType'>
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.11s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:11,  3.92s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.48s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.73s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.79s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.49s/it]
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+Okay, here's a story about a professor, written in the third person, aiming for a helpful and engaging tone. I've tried to give him some quirks and a bit of depth.  I've included a little bit about his teaching style and a personal struggle he's navigating.  Let me know if you'd like me to adjust anything or expand on a particular aspect!
+
+---
+
+Professor Alistair Finch was, to put it mildly, a creature of habit. Every morning, precisely at 6:17 AM, he’d brew a pot of Earl Grey tea, steeped for exactly three minutes and fifteen seconds. He’d then read a chapter of a classic – currently, it was *Middlemarch* – while meticulously arranging his collection of antique fountain pens on his desk. This ritual, he believed, prepared him for the intellectual battlefield that was his Victorian Literature classroom at Blackwood University.
+
+Alistair wasn't a flashy professor. He didn't employ PowerPoint presentations or interactive games. His lectures were delivered in a quiet, almost conversational tone, punctuated by the rhythmic tapping of his pen against his chin as he considered a point. He favored long, flowing sentences and a deep dive into the nuances of language,<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The sommelier said that<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a doctor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 59
+max_length 59
+max_length 59
+Starting evaluation...
+./results/gemma-3-12b-it/from_female-long_to_male-long/atp
+Path does not exist ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/numerator_1_heads.pt, computing logits afresh.
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt'
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 48, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 92, in run_eval
+    logits = load_logits(config, data_handler, which_patch, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/logits_handler.py", line 38, in load_logits
+    all_logits = einops.reduce(all_logits, 'l (n m) b -> l n b', 'sum', n=model_handler.num_heads)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/einops.py", line 527, in reduce
+    backend = get_backend(tensor)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/proxy.py", line 336, in inner
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/_backends.py", line 59, in get_backend
+    raise RuntimeError("Tensor type unknown to einops {}".format(type(tensor)))
+RuntimeError: Tensor type unknown to einops <class 'NoneType'>
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.98s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:06<00:11,  3.77s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.35s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.64s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  4.68s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  4.38s/it]
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+Okay, here's a story about a professor, written in the third person, aiming for a helpful and engaging tone. I've tried to give him some quirks and a bit of depth.  I've included a little bit about his teaching style and a personal struggle he's navigating.  Let me know if you'd like me to adjust anything or expand on a particular aspect!
+
+---
+
+Professor Alistair Finch was, to put it mildly, a creature of habit. Every morning, precisely at 6:17 AM, he’d brew a pot of Earl Grey tea, steeped for exactly three minutes and fifteen seconds. He’d then read a chapter of a classic – currently, it was *Middlemarch* – while meticulously arranging his collection of antique fountain pens on his desk. This ritual, he believed, prepared him for the intellectual battlefield that was his Victorian Literature classroom at Blackwood University.
+
+Alistair wasn't a flashy professor. He didn't employ PowerPoint presentations or interactive games. His lectures were delivered in a quiet, almost conversational tone, punctuated by the rhythmic tapping of his pen against his chin as he considered a point. He favored long, flowing sentences and a deep dive into the nuances of language,<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a sommelier. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a doctor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 59
+max_length 59
+max_length 59
+Starting evaluation...
+./results/gemma-3-12b-it/from_female-long_to_male-long/atp
+Path does not exist ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/numerator_1_heads.pt, computing logits afresh.
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt'
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 48, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 92, in run_eval
+    logits = load_logits(config, data_handler, which_patch, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/logits_handler.py", line 38, in load_logits
+    all_logits = einops.reduce(all_logits, 'l (n m) b -> l n b', 'sum', n=model_handler.num_heads)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/einops.py", line 527, in reduce
+    backend = get_backend(tensor)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/proxy.py", line 336, in inner
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/_backends.py", line 59, in get_backend
+    raise RuntimeError("Tensor type unknown to einops {}".format(type(tensor)))
+RuntimeError: Tensor type unknown to einops <class 'NoneType'>
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.95s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:12,  4.12s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:09,  4.57s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:18<00:04,  4.76s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.77s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.57s/it]
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+Okay, here's a story about a professor, written in the third person, aiming for a helpful and engaging tone. I've tried to give him some quirks and a bit of depth.  I've included a little bit about his teaching style and a personal struggle he's navigating.  Let me know if you'd like me to adjust anything or expand on a particular aspect!
+
+---
+
+Professor Alistair Finch was, to put it mildly, a creature of habit. Every morning, precisely at 6:17 AM, he’d brew a pot of Earl Grey tea, steeped for exactly three minutes and fifteen seconds. He’d then read a chapter of a classic – currently, it was *Middlemarch* – while meticulously arranging his collection of antique fountain pens on his desk. This ritual, he believed, prepared him for the intellectual battlefield that was his Victorian Literature classroom at Blackwood University.
+
+Alistair wasn't a flashy professor. He didn't employ PowerPoint presentations or interactive games. His lectures were delivered in a quiet, almost conversational tone, punctuated by the rhythmic tapping of his pen against his chin as he considered a point. He favored long, flowing sentences and a deep dive into the nuances of language,<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a professor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The sommelier said that<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a doctor. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 59
+max_length 59
+max_length 59
+Starting evaluation...
+./results/gemma-3-12b-it/from_female-long_to_male-long/atp
+Path does not exist ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/numerator_1_heads.pt, computing logits afresh.
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_0.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_1.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_2.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_3.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_4.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_5.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_6.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_7.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_8.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_9.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_10.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_11.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_12.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_13.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_14.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_15.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_16.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_17.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_18.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_19.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_20.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_21.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_22.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_23.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_24.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_25.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_26.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_27.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_28.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_29.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_30.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_31.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_32.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_33.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_34.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_35.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_36.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_37.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_38.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_39.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_40.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_41.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_42.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_43.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_44.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_45.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_46.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_47.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_48.pt'
+Could not load logits from ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt, skipping this file.  [Errno 2] No such file or directory: './results/gemma-3-12b-it/from_female-long_to_male-long/atp/heads_49.pt'
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 48, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 92, in run_eval
+    logits = load_logits(config, data_handler, which_patch, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/logits_handler.py", line 38, in load_logits
+    all_logits = einops.reduce(all_logits, 'l (n m) b -> l n b', 'sum', n=model_handler.num_heads)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/einops.py", line 527, in reduce
+    backend = get_backend(tensor)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/proxy.py", line 336, in inner
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/einops/_backends.py", line 59, in get_backend
+    raise RuntimeError("Tensor type unknown to einops {}".format(type(tensor)))
+RuntimeError: Tensor type unknown to einops <class 'NoneType'>

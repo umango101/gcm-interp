@@ -1,0 +1,66 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-single_to_introversion-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:10<00:41, 10.27s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:20<00:30, 10.32s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:31<00:21, 10.62s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:42<00:10, 10.56s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:52<00:00, 10.40s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:52<00:00, 10.43s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    model_config = self.model.config.to_dict()
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH]
+run.py: error: unrecognized arguments: --kv_caching
+Parsing config...
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH]
+run.py: error: unrecognized arguments: --kv_caching
+Parsing config...
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH]
+run.py: error: unrecognized arguments: --kv_caching
+Parsing config...
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH]
+run.py: error: unrecognized arguments: --kv_caching
+Parsing config...

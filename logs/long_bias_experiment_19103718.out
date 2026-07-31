@@ -1,0 +1,190 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Requirement already satisfied: nnsight==0.4.11 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.4.11)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (4.53.3)
+Requirement already satisfied: protobuf in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (6.33.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: tokenizers>=0.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.4)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.7.0+cu126)
+Requirement already satisfied: sentencepiece in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: torchvision in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.22.0+cu126)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (1.11.0)
+Requirement already satisfied: diffusers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.37.1)
+Requirement already satisfied: einops in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.8.1)
+Requirement already satisfied: msgspec in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.1)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (8.37.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.4.2)
+Requirement already satisfied: huggingface-hub<1.0,>=0.16.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from tokenizers>=0.13.0->nnsight==0.4.11) (0.36.0)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.29.0)
+Requirement already satisfied: fsspec>=2023.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2026.4.0)
+Requirement already satisfied: packaging>=20.9 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (25.0)
+Requirement already satisfied: pyyaml>=5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (6.0.3)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (4.67.1)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (1.2.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.14.0)
+Requirement already satisfied: networkx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.6.80 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.80)
+Requirement already satisfied: nvidia-cudnn-cu12==9.5.1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (9.5.1.17)
+Requirement already satisfied: nvidia-cublas-cu12==12.6.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.0.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.3.0.4)
+Requirement already satisfied: nvidia-curand-cu12==10.3.7.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (10.3.7.77)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.1.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.7.1.2)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.5.4.2)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: nvidia-nccl-cu12==2.26.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (2.26.2)
+Requirement already satisfied: nvidia-nvtx-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.6.85 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.85)
+Requirement already satisfied: nvidia-cufile-cu12==1.11.1.6 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.11.1.6)
+Requirement already satisfied: triton==3.3.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.3.0)
+Requirement already satisfied: setuptools>=40.8.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from triton==3.3.0->torch>=2.4.0->nnsight==0.4.11) (70.2.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (2.1.3)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (7.1.3)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (0.6.2)
+Requirement already satisfied: importlib-metadata in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (9.0.0)
+Requirement already satisfied: httpx<1.0.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (0.28.1)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (2025.11.3)
+Requirement already satisfied: Pillow in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (12.0.0)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx<1.0.0->diffusers->nnsight==0.4.11) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: zipp>=3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from importlib-metadata->diffusers->nnsight==0.4.11) (4.1.0)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight==0.4.11) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight==0.4.11) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight==0.4.11) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (0.2.3)
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:06<00:24,  6.02s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:08<00:12,  4.01s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:11<00:06,  3.36s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:13<00:03,  3.04s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:16<00:00,  2.78s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:16<00:00,  3.22s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.03s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.46s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.50s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.51s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.45s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.45s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.99s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.29s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.43s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.48s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.39s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.38s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.90s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.27s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.38s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.44s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.40s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.36s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.99s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.30s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.43s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.40s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.38s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment

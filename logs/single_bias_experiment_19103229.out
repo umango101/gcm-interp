@@ -1,0 +1,106 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:12,  3.22s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:12,  4.10s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.44s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.60s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.54s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.41s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:13,  3.30s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:08<00:13,  4.35s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:13<00:09,  4.65s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:18<00:04,  4.70s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.52s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.47s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:12,  3.18s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:07,  2.45s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.19s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:02,  2.07s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.03s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.17s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:12,  3.17s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:08<00:12,  4.18s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.49s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:17<00:04,  4.61s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.56s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:22<00:00,  4.44s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
+Parsing config...
+Steering dataset set to: female-single
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:13,  3.35s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:12,  4.07s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:12<00:08,  4.30s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:16<00:04,  4.33s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  4.26s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  4.20s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 19, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 117, in load_model
+    return self._load_gemma_causal_lm(model_id, quantization_config=self.nf4_config, device_map=device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 158, in _load_gemma_causal_lm
+    del full_model
+UnboundLocalError: local variable 'full_model' referenced before assignment
