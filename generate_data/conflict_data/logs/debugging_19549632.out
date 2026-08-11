@@ -1,0 +1,12 @@
+[slurm] job 19549632 on node4300 restart=0 Sun Aug  2 23:55:54 EDT 2026
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.19s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.18s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.07s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.10s/it]
+single-token words in bank: 5/119
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/tune_conflict_prompts.py", line 271, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/tune_conflict_prompts.py", line 209, in main
+    pairs = [(words[2 * i], words[2 * i + 1]) for i in range(args.n_pairs)]
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/tune_conflict_prompts.py", line 209, in <listcomp>
+    pairs = [(words[2 * i], words[2 * i + 1]) for i in range(args.n_pairs)]
+IndexError: list index out of range

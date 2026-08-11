@@ -1,3 +1,14 @@
+import os
+
+
+def _head_site(layer):
+    """Per-head activation site. Set HEAD_SITE=o_proj_input for models where
+    num_heads*head_dim != hidden_size (gpt-oss, gemma-3)."""
+    if os.environ.get('HEAD_SITE') == 'o_proj_input':
+        return layer.self_attn.o_proj.input
+    return layer.self_attn.o_proj.output
+
+
 import torch
 
 def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
@@ -10,7 +21,7 @@ def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
         }
         with model.trace(input_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                attn_layer_cache[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                attn_layer_cache[idx].append(_head_site(layer).detach().cpu().save())
     attn_cache = [torch.cat(attns_in_layer, dim=0).mean(dim=0).to(model.device) for attns_in_layer in attn_layer_cache]
     return torch.stack(attn_cache)
 
@@ -39,10 +50,10 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
 
         with model.trace(s_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                steer[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                steer[idx].append(_head_site(layer).detach().cpu().save())
         with model.trace(b_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                base[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                base[idx].append(_head_site(layer).detach().cpu().save())
 
     if mean:
         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))

@@ -85,7 +85,7 @@ class LinearProbes:
         accuracy_dict = {}
         desired_reps = []
         undesired_reps = []
-        head_dim = self.model_handler.dim
+        head_dim = self.model_handler.head_dim  # true head_dim, not hidden_size//n_heads
         for idx in tqdm(range(self.config.args.batch_start, self.data_handler.LEN, self.batch_size)):
             start = idx
             stop = min(idx + self.batch_size, self.data_handler.LEN)

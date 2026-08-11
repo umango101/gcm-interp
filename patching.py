@@ -58,9 +58,10 @@ class Patching:
             attn_undesired_effects = []
             net_effects = []
             for idx in range(len(model.model.layers)):
-                p = base_desired_attn[idx]
-                t = getattr(p, "value", p)
-                print(type(p).__name__, type(t).__name__, "grad is None:", t.grad is None)
+                if idx == 0:
+                    t = getattr(base_desired_attn[0], "value", base_desired_attn[0])
+                    assert t.grad is not None, (
+                        "no gradient on the head site -- ATP would return zeros.")
                 # attn_desired_effects.append(
                 #     base_desired_attn[idx].grad * 
                 #     (source_q_des_attn[idx] - base_desired_attn[idx])

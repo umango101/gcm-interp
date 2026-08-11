@@ -15,7 +15,13 @@ def select_gen_qs_toks(config, batch_handler):
         return batch_handler.eval_transfer['queries']
     else:
         raise ValueError("Either eval_train or eval_test must be True.")
-def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token', kv_caching=False):
+def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token', kv_caching=False, head_site=None):
+    # head_site must match the site the steering vectors were read from.
+    def _site(layer_module):
+        if head_site == 'o_proj_input':
+            return layer_module.self_attn.o_proj.input
+        return layer_module.self_attn.o_proj.output
+
     patch_activations = patch_activations['desired'].to(model.device)
     layer_ids = topk_df['layer'].unique()
     print(f"Generating for ", gen_toks['input_ids'].shape, " with normalization set to ", normalize, " steering type ", steering_type, " kv_caching ", kv_caching)
@@ -54,9 +60,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                     steering_vector = _steering_vector(layer_idx, sl)
                     if ablation_type == 'mean':
-                        layer.self_attn.o_proj.output[..., sl] = N * steering_vector
+                        _site(layer)[..., sl] = N * steering_vector
                     elif ablation_type == 'steer':
-                        layer.self_attn.o_proj.output[..., sl] += N * steering_vector
+                        _site(layer)[..., sl] += N * steering_vector
             generated = model.generator.output.save()
     else:
         # KV caching OFF: model.all() reapplies the intervention on every decoding step,
@@ -71,9 +77,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                         sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                         steering_vector = _steering_vector(layer_idx, sl)
                         if ablation_type == 'mean':
-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
+                            _site(layer)[..., :patch_activations.shape[1], sl] = N * steering_vector
                         elif ablation_type == 'steer':
-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
+                            _site(layer)[..., :patch_activations.shape[1], sl] += N * steering_vector
             generated = model.generator.output.save()
 
     return generated

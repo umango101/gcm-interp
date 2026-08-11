@@ -1,0 +1,11 @@
+[slurm] job 19548257 on node4400 restart=0 Sun Aug  2 23:34:45 EDT 2026
+Loading openai/gpt-oss-20b ...
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 703, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 674, in main
+    gen = ResponseCache(args.model_id, args.device,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 330, in __init__
+    from harmony_template import HARMONY_CHAT_TEMPLATE
+ModuleNotFoundError: No module named 'harmony_template'

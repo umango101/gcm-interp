@@ -39,17 +39,20 @@ class PatchingUtils:
     def patch_heads(self, base_toks, source_toks, resp_start_positions):
         source_toks = self.align_toks(source_toks, base_toks)
         model = self.model_handler.model
-        num_heads = model.model.config.num_attention_heads
-        head_dim = model.model.config.hidden_size // num_heads
+        # Geometry comes from ModelHandler, not from hidden_size // num_heads:
+        # those differ whenever num_heads * head_dim != hidden_size (gpt-oss,
+        # gemma-3), and the per-head slice then has to live on o_proj.input.
+        num_heads = self.model_handler.num_heads
         source_heads = self.get_activations(source_toks, which_patch='heads', base_toks=base_toks, align=True, logit=False)
         with torch.no_grad():
             layer_results = []
             for layer_idx in tqdm(range(len(model.model.layers))):
                 head_results = []
                 for head_idx in range(num_heads):
-                    head = slice(head_dim*head_idx,head_dim*(head_idx+1))
+                    head = self.model_handler.head_slice(head_idx)
                     with model.trace(base_toks) as invoker:
-                        model.model.layers[layer_idx].self_attn.o_proj.output[:, :, head] = \
+                        self.model_handler.head_site_proxy(
+                            model.model.layers[layer_idx])[:, :, head] = \
                             source_heads[layer_idx][:, :, head].to(model.device)
                         logits = model.lm_head.output.detach().cpu().save()
                     head_results.append(self.get_response_logits(base_toks, resp_start_positions, logits)) # Shape: [batch_size]
@@ -65,7 +68,7 @@ class PatchingUtils:
         with model.trace(toks) as _:
             for layer in model.model.layers:
                 if which_patch =='heads':
-                    self_attn = layer.self_attn.o_proj.output
+                    self_attn = self.model_handler.head_site_proxy(layer)
                 if retain_grad:
                     self_attn.retain_grad()
                     attn_effects.append(self_attn.save())

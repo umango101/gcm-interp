@@ -98,9 +98,12 @@ class IndexUtils:
         source_toks = source_toks['input_ids']
         base_toks = base_toks['input_ids']
         tokenizer = self.model_handler.tokenizer
-        # print('newline ', tokenizer.encode('\n'))
-        user_marker = "<|im_start|>user\n"
+        # The user-turn marker is model-specific; it was hardcoded to Qwen's.
+        # ModelHandler.user_marker carries the right one per chat format.
+        user_marker = getattr(self.model_handler, 'user_marker', "<|im_start|>user\n")
         user_tokens = tokenizer(user_marker, return_tensors="pt")["input_ids"][0]
+        # get_user_tokens matches on user_tokens[1] (the role word), so the
+        # marker must tokenize to [<start-of-turn>, <role word>, ...].
         print(user_tokens)
         pad_token_id = self.model_handler.tokenizer.pad_token_id
         user_indices = []

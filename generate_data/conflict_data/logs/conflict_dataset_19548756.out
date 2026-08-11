@@ -1,0 +1,21 @@
+[slurm] job 19548756 on node4300 restart=0 Sun Aug  2 23:39:54 EDT 2026
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading openai/gpt-oss-20b ...
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 736, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 707, in main
+    gen = ResponseCache(args.model_id, args.device,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 379, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(model_id, **kw)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 406, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/modeling_utils.py", line 4165, in from_pretrained
+    device_map = check_and_set_device_map(device_map)  # warn, error and fix the device map
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/integrations/accelerate.py", line 134, in check_and_set_device_map
+    raise ValueError(
+ValueError: Using a `device_map`, `tp_plan`, `torch.device` context manager or setting `torch.set_default_device(device)` requires `accelerate`. You can install it with `pip install accelerate`

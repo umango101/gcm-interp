@@ -168,6 +168,21 @@ class DataHandler:
                     "sub": self.tokenize_prompts(steering["sub_qs"], max_length=self.max_len) if steering["sub_qs"] else None
                 }
 
+                # mean_ablations_cache() reads source_qs_toks, otherwise only
+                # built under --patch_model. Steering does not need it, which is
+                # why the gap went unnoticed.
+                if self.config.args.ablation == 'mean':
+                    print('Tokenizing source_qs_toks for mean ablation')
+                    _u = self.tokenize_prompts(source_qs['desired'], max_length=None)
+                    if _u['input_ids'].shape[1] > self.max_len:
+                        raise ValueError(
+                            f"source prompts are {_u['input_ids'].shape[1]} tokens but max_len "
+                            f"is {self.max_len}; mean ablation would truncate them silently.")
+                    self.source_qs_toks = {
+                        key: self.tokenize_prompts(source_qs[key], max_length=self.max_len)
+                        for key in source_qs
+                    }
+
             elif self.config.args.ablation == 'pyreft':
                 print('Tokenizing pyreft prompts...')
                 self.pyreft_prompts = self.get_templated_prompts(jsons['base_desired'], _base_completion=jsons['source_desired'], add_generation_prompt=False)

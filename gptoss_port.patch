@@ -1,0 +1,398 @@
+diff --git a/config.py b/config.py
+index cbfedc93..921c0611 100644
+--- a/config.py
++++ b/config.py
+@@ -44,6 +44,11 @@ class Config:
+         parser.add_argument('--full_precision', action='store_true',
+                             help='Load model in full bfloat16 with device_map=auto (no quantization). '
+                                  'Required for very large models (e.g. 72B) that exceed single-GPU memory.')
++        parser.add_argument('--head_site', type=str, default='auto',
++                            choices=['auto', 'o_proj_input', 'o_proj_output'],
++                            help='Where per-head activations are read/written. auto -> '
++                                 'o_proj_output when num_heads*head_dim == hidden_size, '
++                                 'else o_proj_input (required for gpt-oss, gemma-3).')
+         parser.add_argument('--kv_caching', action='store_true', help='Steer prefill only using KV cache; decoding steps are not re-steered')
+ 
+         args = parser.parse_args()
+diff --git a/eval/activations.py b/eval/activations.py
+index 5d7b9ede..fd2cbe07 100644
+--- a/eval/activations.py
++++ b/eval/activations.py
+@@ -1,3 +1,14 @@
++import os
++
++
++def _head_site(layer):
++    """Per-head activation site. Set HEAD_SITE=o_proj_input for models where
++    num_heads*head_dim != hidden_size (gpt-oss, gemma-3)."""
++    if os.environ.get('HEAD_SITE') == 'o_proj_input':
++        return layer.self_attn.o_proj.input
++    return layer.self_attn.o_proj.output
++
++
+ import torch
+ 
+ def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
+@@ -10,7 +21,7 @@ def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
+         }
+         with model.trace(input_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                attn_layer_cache[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                attn_layer_cache[idx].append(_head_site(layer).detach().cpu().save())
+     attn_cache = [torch.cat(attns_in_layer, dim=0).mean(dim=0).to(model.device) for attns_in_layer in attn_layer_cache]
+     return torch.stack(attn_cache)
+ 
+@@ -39,10 +50,10 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
+ 
+         with model.trace(s_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                steer[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                steer[idx].append(_head_site(layer).detach().cpu().save())
+         with model.trace(b_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                base[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                base[idx].append(_head_site(layer).detach().cpu().save())
+ 
+     if mean:
+         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))
+diff --git a/eval/generation.py b/eval/generation.py
+index 644a267a..3bca785d 100644
+--- a/eval/generation.py
++++ b/eval/generation.py
+@@ -15,7 +15,13 @@ def select_gen_qs_toks(config, batch_handler):
+         return batch_handler.eval_transfer['queries']
+     else:
+         raise ValueError("Either eval_train or eval_test must be True.")
+-def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token', kv_caching=False):
++def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, max_new_tokens=256, normalize=True, steering_type='last_token', kv_caching=False, head_site=None):
++    # head_site must match the site the steering vectors were read from.
++    def _site(layer_module):
++        if head_site == 'o_proj_input':
++            return layer_module.self_attn.o_proj.input
++        return layer_module.self_attn.o_proj.output
++
+     patch_activations = patch_activations['desired'].to(model.device)
+     layer_ids = topk_df['layer'].unique()
+     print(f"Generating for ", gen_toks['input_ids'].shape, " with normalization set to ", normalize, " steering type ", steering_type, " kv_caching ", kv_caching)
+@@ -54,9 +60,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
+                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                     steering_vector = _steering_vector(layer_idx, sl)
+                     if ablation_type == 'mean':
+-                        layer.self_attn.o_proj.output[..., sl] = N * steering_vector
++                        _site(layer)[..., sl] = N * steering_vector
+                     elif ablation_type == 'steer':
+-                        layer.self_attn.o_proj.output[..., sl] += N * steering_vector
++                        _site(layer)[..., sl] += N * steering_vector
+             generated = model.generator.output.save()
+     else:
+         # KV caching OFF: model.all() reapplies the intervention on every decoding step,
+@@ -71,9 +77,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
+                         sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                         steering_vector = _steering_vector(layer_idx, sl)
+                         if ablation_type == 'mean':
+-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
++                            _site(layer)[..., :patch_activations.shape[1], sl] = N * steering_vector
+                         elif ablation_type == 'steer':
+-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
++                            _site(layer)[..., :patch_activations.shape[1], sl] += N * steering_vector
+             generated = model.generator.output.save()
+ 
+     return generated
+diff --git a/eval/logits.py b/eval/logits.py
+index 1f688d90..84adc393 100644
+--- a/eval/logits.py
++++ b/eval/logits.py
+@@ -2,17 +2,27 @@ import torch
+ import gc
+ from tqdm import tqdm
+ 
+-def patch_heads_and_get_logit(model, DIM, patching_reps, top_indices, base_toks, resp_start, N, ablation_type, get_response_logits, top_tokens=False):
++def patch_heads_and_get_logit(model, DIM, patching_reps, top_indices, base_toks, resp_start, N, ablation_type, get_response_logits, top_tokens=False, head_site=None):
++    # head_site must match the site localization read from, or the vectors are
++    # written into a space they were never measured in.  Defaults to the
++    # historical o_proj.output for backwards compatibility.
+     patching_reps = patching_reps.to(model.device)
++
++    def _site(layer_module):
++        if head_site == 'o_proj_input':
++            return layer_module.self_attn.o_proj.input
++        return layer_module.self_attn.o_proj.output
++
+     with model.trace(base_toks) as _:
+         for _, row in top_indices.iterrows():
+             layer = int(row['layer'])
+             head = int(row['neuron'])
+             head_slice = slice(DIM * head, DIM * (head + 1))
++            site = _site(model.model.layers[layer])
+             if ablation_type == 'mean':
+-                model.model.layers[layer].self_attn.o_proj.output[:, :patching_reps.shape[1], head_slice] = N * patching_reps[layer][:, head_slice]
++                site[:, :patching_reps.shape[1], head_slice] = N * patching_reps[layer][:, head_slice]
+             elif ablation_type == 'steer':
+-                model.model.layers[layer].self_attn.o_proj.output[:, :patching_reps.shape[1], head_slice] += N * patching_reps[layer][:, head_slice]
++                site[:, :patching_reps.shape[1], head_slice] += N * patching_reps[layer][:, head_slice]
+         logits = model.lm_head.output.save()
+     if top_tokens:
+         last_logits = logits[:, -1:, :].detach().cpu()
+@@ -47,22 +57,23 @@ def compute_logit_scores(batch_handler, topk_df, patching_reps, model_handler, a
+     for key in ['desired', 'undesired']:
+         logits = patch_heads_and_get_logit(
+             model_handler.model,
+-            model_handler.dim,
++            model_handler.head_dim,
+             patching_reps[key],
+             topk_df,
+             base_toks[key],
+             response_start_positions['base'][key],
+             N,
+             ablation_type,
+-            get_response_logits
++            get_response_logits,
++            head_site=model_handler.head_site,
+         )
+         scores[key] = logits
+     stacked = torch.stack([scores['desired'], scores['undesired']])
+     return stacked
+ 
+-def get_heads(model, DIM, patching_reps, toks, N, ablation_type, patch=True):
++def get_heads(model, DIM, patching_reps, toks, N, ablation_type, patch=True, head_site=None):
+     heads_by_layer = []
+-    
++
+     for layer in tqdm(range(len(model.model.layers)), desc="Collecting heads for layer"):
+         heads = []
+         for head in range(model.config.num_attention_heads):
+@@ -71,7 +82,10 @@ def get_heads(model, DIM, patching_reps, toks, N, ablation_type, patch=True):
+                 if patch == True:
+                     heads.append(N * patching_reps[layer][:, head_slice].detach().cpu())
+                 else:
+-                    heads.append(model.model.layers[layer].self_attn.o_proj.output[:, :, head_slice].detach().cpu().save())
++                    site = (model.model.layers[layer].self_attn.o_proj.input
++                            if head_site == 'o_proj_input'
++                            else model.model.layers[layer].self_attn.o_proj.output)
++                    heads.append(site[:, :, head_slice].detach().cpu().save())
+         heads_by_layer.append(torch.stack(heads, dim =1))
+ 
+     heads_by_layer = torch.stack(heads_by_layer)
+diff --git a/index_utils.py b/index_utils.py
+index e4bd4ed6..7ad328b4 100644
+--- a/index_utils.py
++++ b/index_utils.py
+@@ -98,9 +98,12 @@ class IndexUtils:
+         source_toks = source_toks['input_ids']
+         base_toks = base_toks['input_ids']
+         tokenizer = self.model_handler.tokenizer
+-        # print('newline ', tokenizer.encode('\n'))
+-        user_marker = "<|im_start|>user\n"
++        # The user-turn marker is model-specific; it was hardcoded to Qwen's.
++        # ModelHandler.user_marker carries the right one per chat format.
++        user_marker = getattr(self.model_handler, 'user_marker', "<|im_start|>user\n")
+         user_tokens = tokenizer(user_marker, return_tensors="pt")["input_ids"][0]
++        # get_user_tokens matches on user_tokens[1] (the role word), so the
++        # marker must tokenize to [<start-of-turn>, <role word>, ...].
+         print(user_tokens)
+         pad_token_id = self.model_handler.tokenizer.pad_token_id
+         user_indices = []
+diff --git a/model_handler.py b/model_handler.py
+index 3f386d8b..355c6095 100644
+--- a/model_handler.py
++++ b/model_handler.py
+@@ -4,6 +4,10 @@ import inspect
+ from transformers import BitsAndBytesConfig, AutoTokenizer, AutoModelForSequenceClassification, AutoModelForCausalLM
+ import os
+ from nnsight import NNsight, LanguageModel
++from harmony_template import (
++    HARMONY_CHAT_TEMPLATE, HARMONY_ASSISTANT_MARKER,
++    HARMONY_SYSTEM_DEFAULT, HARMONY_SYSTEM_MINIMAL, build_harmony_chat_template,
++)
+ 
+ def _hf_token():
+     # An unset/empty HF_TOKEN must resolve to None (anonymous access), not "" --
+@@ -33,10 +37,49 @@ class ModelHandler:
+         # fields under 'text_config' instead of at the top level.
+         text_config = model_config.get('text_config', model_config)
+         hidden_size = text_config['hidden_size']
++        self.hidden_size = hidden_size
+         self.num_heads = text_config['num_attention_heads']
+-        self.dim = hidden_size // self.num_heads
++        # head_dim is NOT hidden_size // num_heads in general.  gpt-oss-20b has
++        # hidden_size=2880 with 64 heads of head_dim 64 (= 4096 total), and
++        # gemma-3-12b-it has 3840 with 16 x 256 (= 4096).  Using the quotient
++        # there carves the residual stream into chunks that are not heads.
++        self.head_dim = text_config.get('head_dim') or (hidden_size // self.num_heads)
++        self.dim = self.head_dim
+ 
+-        if 'solar' in model_id.lower():
++        # Per-head activations only exist as contiguous slices on the *input*
++        # side of o_proj (width num_heads * head_dim).  o_proj.output is the
++        # post-mixing residual-stream write (width hidden_size), where a
++        # per-head slice is only meaningful -- and only correctly sized -- when
++        # num_heads * head_dim == hidden_size.  Move the read/write site when
++        # they differ, or when the user forces it.
++        forced = getattr(config.args, 'head_site', 'auto')
++        if forced == 'auto':
++            self.head_site = ('o_proj_output'
++                              if self.num_heads * self.head_dim == hidden_size
++                              else 'o_proj_input')
++        else:
++            self.head_site = forced
++        self.head_width = (self.num_heads * self.head_dim
++                           if self.head_site == 'o_proj_input' else hidden_size)
++        print(f"[head geometry] n_heads={self.num_heads} head_dim={self.head_dim} "
++              f"hidden={hidden_size} -> site={self.head_site} width={self.head_width}")
++        if self.head_site == 'o_proj_input' and self.num_heads * self.head_dim != hidden_size:
++            print("[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; "
++                  "o_proj.output slicing would not correspond to heads.")
++
++        # Per-format turn markers, used by index_utils to locate role spans.
++        self.user_marker = "<|im_start|>user\n"
++        self.developer_marker = None
++
++        if 'gpt-oss' in model_id.lower():
++            # Harmony.  Matches build_harmony_chat_template(): both a rendered
++            # assistant turn and the generation prompt begin with this exact
++            # string, which is what align_toks requires.
++            self.marker = HARMONY_ASSISTANT_MARKER
++            self.alignment_tokens = self.tokenizer(self.marker, return_tensors="pt")["input_ids"][0]
++            self.user_marker = "<|start|>user<|message|>"
++            self.developer_marker = "<|start|>developer<|message|>"
++        elif 'solar' in model_id.lower():
+             self.marker = '### Assistant'
+             self.alignment_tokens = self.tokenizer(self.marker, return_tensors="pt")["input_ids"][0][2:]
+         elif 'qwen' in model_id.lower():
+@@ -84,6 +127,26 @@ class ModelHandler:
+     )
+ 
+     def load_tokenizer(self, model_id):
++        if 'gpt-oss' in model_id.lower():
++            tokenizer = AutoTokenizer.from_pretrained(model_id, token=_hf_token())
++            # o200k_harmony ships no pad token.  <|endoftext|> (199999) is inert
++            # and is not the eos the model actually emits (<|return|>, 200002),
++            # so using it avoids pad ids colliding with a meaningful control token.
++            if tokenizer.pad_token is None:
++                tokenizer.pad_token = '<|endoftext|>'
++            tokenizer.padding_side = 'left'
++            # Replace the stock template: it maps role="system" -> Harmony
++            # developer, injects a volatile date line, and emits a bare
++            # <|start|>assistant generation prompt.  See harmony_template.py.
++            sysblk = os.environ.get('HARMONY_SYSTEM', 'default')
++            if sysblk == 'minimal':
++                tokenizer.chat_template = build_harmony_chat_template(HARMONY_SYSTEM_MINIMAL)
++            elif sysblk == 'default':
++                tokenizer.chat_template = HARMONY_CHAT_TEMPLATE
++            else:
++                tokenizer.chat_template = build_harmony_chat_template(sysblk)
++            print('Tokenizer loaded (gpt-oss / Harmony), padding side is', tokenizer.padding_side)
++            return tokenizer
+         if 'qwen'  in model_id.lower():
+             tokenizer = AutoTokenizer.from_pretrained(model_id, token=_hf_token(), pad_token='<|pad|>', eos_token='<|endoftext|>',)
+             tokenizer.add_special_tokens({'pad_token': '<|endoftext|>'})
+@@ -106,6 +169,8 @@ class ModelHandler:
+                 bnb_4bit_compute_dtype=torch.bfloat16
+             )
+             return AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, quantization_config=bnb_config, device_map=device, attn_implementation="eager", trust_remote_code=True)
++        elif 'gpt-oss' in model_id.lower():
++            return self._load_gpt_oss(model_id, device)
+         elif getattr(self.config.args, 'full_precision', False):
+             # Full bfloat16, no quantization. device_map="auto" lets HF Accelerate
+             # distribute layers across all available memory (GPU HBM + CPU RAM on GH200).
+@@ -161,4 +226,48 @@ class ModelHandler:
+         print("params requiring grad:", sum(p.requires_grad for p in causal_lm.parameters()))
+         return LanguageModel(causal_lm, tokenizer=self.tokenizer, dispatch=True,
+                              **{cfg_kw: text_config})
+-    
++
++    def _load_gpt_oss(self, model_id, device):
++        """gpt-oss ships MXFP4-quantized MoE weights.
++
++        Layering bitsandbytes nf4 on top of an MXFP4 checkpoint errors out, so
++        the nf4_config path used for every other model here does not apply.
++        Dequantize to bf16 instead: ~40GB of weights for the 20b, which fits a
++        single H200 alongside ATP's retained activations at batch_size 1.
++
++        attn_implementation is pinned to eager because the fused/flash kernels
++        for gpt-oss fold the learned attention sinks into a custom path that
++        nnsight cannot trace cleanly.
++        """
++        from transformers import AutoModelForCausalLM
++        kwargs = dict(dtype=torch.bfloat16, token=_hf_token(),
++                      attn_implementation='eager')
++        try:
++            from transformers import Mxfp4Config
++            kwargs['quantization_config'] = Mxfp4Config(dequantize=True)
++        except Exception:
++            # Older transformers: dequantization happens implicitly when the
++            # triton MXFP4 kernels are unavailable.
++            print('[loader] Mxfp4Config unavailable; relying on implicit dequantization')
++        kwargs['device_map'] = ('auto' if getattr(self.config.args, 'full_precision', False)
++                                else device)
++        # Load with plain transformers and wrap, rather than
++        # LanguageModel(model_id, ...): nnsight would otherwise build the config
++        # itself via AutoConfig, which turns the checkpoint's quantization_config
++        # into an Mxfp4Config OBJECT and then hands that config to
++        # from_pretrained, where the quantizer expects a dict and calls .get().
++        hf_model = AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
++        return LanguageModel(hf_model, tokenizer=self.tokenizer)
++
++    def head_site_proxy(self, layer):
++        """Return the nnsight proxy holding per-head activations for `layer`.
++
++        Read and write both go through here so that localization and steering
++        operate on the same object.
++        """
++        if self.head_site == 'o_proj_input':
++            return layer.self_attn.o_proj.input
++        return layer.self_attn.o_proj.output
++
++    def head_slice(self, head_idx):
++        return slice(self.head_dim * head_idx, self.head_dim * (head_idx + 1))
+diff --git a/patching_utils.py b/patching_utils.py
+index 63a39542..d3899cd9 100644
+--- a/patching_utils.py
++++ b/patching_utils.py
+@@ -39,17 +39,20 @@ class PatchingUtils:
+     def patch_heads(self, base_toks, source_toks, resp_start_positions):
+         source_toks = self.align_toks(source_toks, base_toks)
+         model = self.model_handler.model
+-        num_heads = model.model.config.num_attention_heads
+-        head_dim = model.model.config.hidden_size // num_heads
++        # Geometry comes from ModelHandler, not from hidden_size // num_heads:
++        # those differ whenever num_heads * head_dim != hidden_size (gpt-oss,
++        # gemma-3), and the per-head slice then has to live on o_proj.input.
++        num_heads = self.model_handler.num_heads
+         source_heads = self.get_activations(source_toks, which_patch='heads', base_toks=base_toks, align=True, logit=False)
+         with torch.no_grad():
+             layer_results = []
+             for layer_idx in tqdm(range(len(model.model.layers))):
+                 head_results = []
+                 for head_idx in range(num_heads):
+-                    head = slice(head_dim*head_idx,head_dim*(head_idx+1))
++                    head = self.model_handler.head_slice(head_idx)
+                     with model.trace(base_toks) as invoker:
+-                        model.model.layers[layer_idx].self_attn.o_proj.output[:, :, head] = \
++                        self.model_handler.head_site_proxy(
++                            model.model.layers[layer_idx])[:, :, head] = \
+                             source_heads[layer_idx][:, :, head].to(model.device)
+                         logits = model.lm_head.output.detach().cpu().save()
+                     head_results.append(self.get_response_logits(base_toks, resp_start_positions, logits)) # Shape: [batch_size]
+@@ -65,7 +68,7 @@ class PatchingUtils:
+         with model.trace(toks) as _:
+             for layer in model.model.layers:
+                 if which_patch =='heads':
+-                    self_attn = layer.self_attn.o_proj.output
++                    self_attn = self.model_handler.head_site_proxy(layer)
+                 if retain_grad:
+                     self_attn.retain_grad()
+                     attn_effects.append(self_attn.save())
+diff --git a/probes.py b/probes.py
+index fa857940..0ef0f254 100644
+--- a/probes.py
++++ b/probes.py
+@@ -85,7 +85,7 @@ class LinearProbes:
+         accuracy_dict = {}
+         desired_reps = []
+         undesired_reps = []
+-        head_dim = self.model_handler.dim
++        head_dim = self.model_handler.head_dim  # true head_dim, not hidden_size//n_heads
+         for idx in tqdm(range(self.config.args.batch_start, self.data_handler.LEN, self.batch_size)):
+             start = idx
+             stop = min(idx + self.batch_size, self.data_handler.LEN)

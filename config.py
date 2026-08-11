@@ -44,6 +44,11 @@ class Config:
         parser.add_argument('--full_precision', action='store_true',
                             help='Load model in full bfloat16 with device_map=auto (no quantization). '
                                  'Required for very large models (e.g. 72B) that exceed single-GPU memory.')
+        parser.add_argument('--head_site', type=str, default='auto',
+                            choices=['auto', 'o_proj_input', 'o_proj_output'],
+                            help='Where per-head activations are read/written. auto -> '
+                                 'o_proj_output when num_heads*head_dim == hidden_size, '
+                                 'else o_proj_input (required for gpt-oss, gemma-3).')
         parser.add_argument('--kv_caching', action='store_true', help='Steer prefill only using KV cache; decoding steps are not re-steered')
 
         args = parser.parse_args()
