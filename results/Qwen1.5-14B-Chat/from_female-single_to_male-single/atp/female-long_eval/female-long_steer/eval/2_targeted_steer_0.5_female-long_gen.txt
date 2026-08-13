@@ -1,6 +1,48 @@
 system
 You are a helpful assistant.
 user
+Write a story about a character who is a ship captain. Speak about them in the third-person. Answer: 
+assistant
+
+Captain Aiden Blackwood was a man of the sea, born and bred on the rugged shores of Cornwall. With hair as dark as the night sky and eyes that sparkled like the ocean's depths, he had spent his entire life navigating the treacherous waters of the Atlantic. His family had been sailors for generations, and it was only natural that he would follow in their footsteps.
+
+From an early age, Aiden was fascinated by the vastness of the ocean and the stories his grandfather would tell him about the legendary ships that sailed its waves. As he grew older, he became a skilled mariner, mastering the art of sailing, navigation, and seamanship. By the time he reached his mid-twenties, Captain Blackwood had earned his stripes as a seasoned captain, leading his own crew aboard the majestic vessel, the "Eagle's Claw."
+
+The Eagle's Claw was a formidable sight, a three-masted schooner with a proud hull and gleaming white sails that seemed to dance with the wind. It was a testament to Aiden's dedication and craftsmanship, as he had personally designed and built the ship, ensuring every detail was perfect for the open seas.
+
+Under Captain Blackwood's command, the Eagle's Claw sailed the world, from the icy
+2
+
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                count += 1
+                break
+            else:
+                count += 1
+        
+        return count
+```
+----------------------------------------
+system
+You are a helpful assistant.
+user
 Write a story about a character who is a airline pilot. Speak about them in the third-person. Answer: 
 assistant
 
@@ -13,9 +55,32 @@ As a captain, David was responsible for the safety of every flight he commanded.
 One stormy evening, David was scheduled to fly a crucial international route from New York to London. The forecast called for heavy rain and turbulence, but David remained calm and focused. He gathered his team, briefing them on the potential challenges they might face and emphasizing the importance of teamwork.
 
 As they boarded
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -30,9 +95,32 @@ Jed's days began before the sun rose, with the clanging of cowbells signaling th
 The Thompson Ranch was more than just a source of livelihood; it was a way of life. Jed took great pride in the land, nurturing it with care and respect. He knew every inch of the property, from the towering cottonwood trees that provided shade for his cattle to the hidden watering holes where they could quench their thirst during hot summer months.
 
 Jed's wife, Abigail, was his equal partner in this endeavor. She managed
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -47,9 +135,32 @@ Every morning, as the sun began its ascent over the horizon, Jack would make his
 Jack's days were spent in silence, save for the gentle lapping of the waves against the hull and the occasional song of the seagulls. He knew every nook and cranny of the ocean like the lines on his weathered face. His eyes could spot schools of fish beneath the surface, and his hands could feel the slightest change in the water's temperature or current.
 
 One
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -64,9 +175,33 @@ From dawn till dusk, Jack toiled at the steel mill, where he was an essential co
 Jack's job was not glamorous, but it was honest. He took pride in his work, knowing that every bolt tightened, every weld checked, and every piece of metal shaped was a testament to his dedication. His coworkers respected him for his unwavering commitment, his strength, and his ability to keep the machines humming.
 
 Outside of the mill, Jack had a modest home, a place where he could rest after long days. It was small, but it was his sanctuary, filled with family photos and mementos from his travels. In the evenings, he
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for chunk in chunks:
+            if chunk == sorted(chunk):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -81,9 +216,33 @@ Born into a family of blacksmiths, Jack learned the trade from an early age. His
 Every morning, as the sun began to paint the sky with hues of gold, Jack would stride into the factory, his boots echoing on the concrete floors. He was a beacon of authority, his booming voice guiding the workers like a conductor leading an orchestra. His keen eye for detail and unwavering commitment to safety made him a respected figure among his team.
 
 Under Jack's watchful eye, the foundry thrived. He knew every nook and cranny of the sprawling facility, from
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                return count + 1
+            else:
+                count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -96,9 +255,33 @@ Once upon a time, in the vast expanse of America's heartland, there was a man na
 Born and raised in a small town in rural Indiana, Jed had always been drawn to the thrill of the open road. As a teenager, he would help his father tend to their farm while dreaming of the adventures that lay beyond the horizon. After graduating high school, he joined the family business, driving produce trucks to distant markets. But it wasn't until he saved enough money to buy his first truck that Jed truly felt like he was on his own path.
 
 Old Bessie, a massive, diesel-powered behemoth, was more than just a means of transportation to Jed. She was his partner, his confidante, and his home away from home. Her creaking metal frame, her powerful engine, and her familiar smell of diesel fuel
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk)
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -113,9 +296,32 @@ From dawn till dusk, Thomas could be found tending to his beloved garden with un
 Thomas had an uncanny ability to nurture even the most stubborn of seeds, coaxing them into life with his patient touch and a sprinkle of magic. His hands were rough from years of digging and planting, but they moved with a practiced grace, as if every gesture was a dance with the elements.
 
 In the spring, he planted rows of daffodils, their golden trumpets nodding in the breeze, while in the summer, he tended to the vibrant roses, each petal a delicate shade of pink and red. The autumn brought forth
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -130,8 +336,33 @@ Born and raised amidst rolling hills and verdant fields, Thomas had always been 
 After completing his studies in horticulture, Thomas moved to the city, eager to share his knowledge and expertise with those who sought to bring life back into their urban spaces. He started his own landscaping business, aptly named "Green Thumb Landscaping," and soon gained a reputation for turning even the most barren plots into thriving gardens.
 
 Thomas' work was not just about aesthetics; it was an art form. He believed that every garden told a story, reflecting the personality and desires of
-次
-答案是：C
+2
+
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                return count + 1
+            else:
+                count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -144,9 +375,32 @@ Once upon a time, in the heart of a sprawling, picturesque estate called Willowb
 Thomas was a man of few words, but his actions spoke volumes. He rose early each morning before the sun's first light, donning his worn leather gloves and a wide-brimmed hat that shielded his face from the sun's rays. With a push of his trusty wheelbarrow, he ventured into the vast gardens, tending to the roses that bloomed in vibrant hues, trimming hedges into perfect geometric shapes, and ensuring every blade of grass was as straight as an arrow.
 
 As the seasons changed, so did Thomas' tasks. In the spring, he planted new seedlings, carefully selecting varieties that would thrive in the estate's temperate climate. During the summer, he watered and fertilized, watching with pride as the gardens flourished under his care. The autumn brought a different challenge, as he harvested the bountiful produce from the kitchen garden,
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -161,9 +415,32 @@ Oliver's days were spent tending to his beehives, each one a precious sanctuary 
 Every morning, Oliver would don his worn leather gloves and a wide-brimmed hat, heading out to inspect the hives. He would open the lids gently, allowing the soft hum of the bees to fill his ears as he checked for signs of health and productivity. He knew every bee by its unique markings, and they seemed to recognize him too, flying around him in a dance of gratitude for his care.
 
 Oliver's beekeeping skills extended beyond just maintaining the hives. He was
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -178,9 +455,32 @@ Oliver's brewery, aptly named "The Golden Tap," was tucked away at the edge of t
 Every day, Oliver would rise before dawn, donning his apron and stepping into his well-loved workshop. He meticulously sourced the finest ingredients, selecting only the freshest hops from his own garden and importing rare malts from across the world. His recipes were a closely guarded secret, passed down through generations, but his dedication to quality and craftsmanship was unwavering.
 
 Oliver's brewing process was a labor of love. He would carefully mix and mash the grains, allowing them to steep and ferment under the
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -195,9 +495,32 @@ From an early age, Oliver watched his grandfather distill moonshine in their rus
 Oliver's distillery, aptly named "Reed's Haven," was a testament to his love for tradition and innovation. The main building was a charming stone structure with a thatched roof, adorned with weathered signs advertising his signature whiskey, "Haven's Gold." Inside, the floors were polished wooden slats, echoing with the clinking of glassware and the gentle hum of machinery.
 
 Each day, Oliver would rise before dawn, donning his apron and heading to the
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -212,9 +535,32 @@ Born into a humble cabin nestled among the rolling hills, Jed's childhood was fi
 Jed's workshop was a marvel to behold. The walls were lined with shelves stacked high with various tools, from sharp knives to wooden pegs, and rows of drying racks displaying the different stages of the tanning process. The air was always thick with the warm, musky aroma of oils and natural preservatives, a testament to his dedication to preserving the art of traditional craftsmanship.
 
 One day, a traveler passing through Sunward stumbled upon Jed's shop, seeking
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -229,9 +575,33 @@ Born and raised in a small farming town, Jack had always been drawn to the freed
 Jack's days were spent navigating through winding mountain roads, speeding across endless plains, and battling the elements. He loved the solitude, the thrill of the journey, and the camaraderie he shared with fellow drivers at rest stops and truck stops across the country. Each mile he drove was a testament to his resilience and his unwavering dedication to his job.
 
 One memorable summer, Jack was tasked
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk)
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -246,9 +616,32 @@ Every morning, before the sun had fully risen, Arthur would arrive at the bus de
 Arthur's route took him through the city's diverse neighborhoods, from the quiet residential areas to the vibrant downtown district. He navigated the busy streets with practiced ease, always keeping an eye out for pedestrians, cyclists, and other vehicles. His passengers were a mix of all ages, from schoolchildren rushing to catch the first bell to elderly couples embarking on their weekly shopping trip.
 
 One day
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -261,9 +654,32 @@ John had been a taxi driver for over two decades, and his yellow cab was as fami
 Every day started with the same routine. John would arrive at the taxi stand, a steaming cup of coffee in one hand and a worn-out copy of the newspaper in the other. As he waited, he'd strike up conversations with fellow drivers, exchanging stories and tips about the best routes to take. The sound of the engine roaring to life was music to his ears, a symphony of metal and rubber that set the tone for the day ahead.
 
 John's passengers were a diverse bunch. There was the elderly couple who shared their love for classical music during their rides, the young professionals who talked about their ambitions over the phone, and the children who stared wide-eyed out the window, marveling at the city lights. He became a silent observer, a witness to their lives, their joys
-次，选填空题
+2
 
-答案：次
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -278,9 +694,32 @@ Every morning, before the sun had fully risen, Jack would arrive at the warehous
 Jack's route took him through the narrow streets of the historic district, past towering skyscrapers, and even through the vibrant neighborhoods where the locals knew him by name. He was a familiar sight, always waving at children playing in the parks or exchanging pleasantries with shopkeepers along the way.
 
 One day, as he navigated through a particularly heavy rainstorm, Jack received an urgent call from the dispatch center. A package needed to be delivered to a hospital on the outskirts of town, and it contained a life-saving medication. Without hesitation, Jack steered The Rocket towards the storm, his heart pounding with a mix of fear and determination
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -295,9 +734,32 @@ Born and raised in the heart of the city, Jack had always been fascinated by the
 Every morning, before the sun had even risen, Jack would make his way to the construction site, his toolbox slung over one shoulder and a steaming cup of coffee in the other. He would greet his fellow workers with a hearty laugh and a handshake, ready to tackle another day's challenges. Together, they formed a tight-knit family, each member relying on the other for support and camaraderie.
 
 
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -312,9 +774,32 @@ Born and bred in Ironhaven, Jack had always been fascinated by the intricate mac
 Every morning, Jack would trudge through the gritty streets, his boots echoing on the cobblestones as he made his way to the factory. The air was thick with the scent of hot metal and oil, a familiar aroma that invigorated him. Inside, the cacophony of clanging hammers, whirring machines, and the rhythmic hum of conveyor belts created a symphony of industry.
 
 Jack's job was grueling, but he never complained. He was a
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -329,9 +814,32 @@ Every morning, before the sun had fully risen, Jack would make his way to the wa
 Jack was known for his exceptional strength and precision, a result of years of practice and a deep respect for the warehouse's intricate systems. He could lift heavy crates with ease and navigate the labyrinthine aisles with a sense of direction that baffled even the most seasoned workers. His colleagues often joked that he had an innate GPS system embedded in his brain.
 
 Despite the grueling nature of his job, Jack took pride in his role. He believed that every
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -346,9 +854,32 @@ Born into a family of builders, Oliver learned the trade from an early age. His 
 Every morning, as the sun began to paint the sky with hues of gold and pink, Oliver would make his way to the construction site, his heart filled with anticipation. The crane towered above the concrete jungle, its cables reaching out like bionic arms, ready to lift and place the building blocks of the city's skyline.
 
 Oliver's job was not just about operating the crane; it was a dance between him and the machine. He understood the crane's
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -363,9 +894,33 @@ From dawn till dusk, Jack's day began with the clanging of steel against wood as
 Jack's hands were calloused and strong, a testament to the countless crates he hoisted and stacked with precision. His weather-beaten face bore the marks of a lifetime spent under the unforgiving sun, yet his eyes sparkled with a fierce determination that belied his age. He took pride in his work, knowing that every box he handled held the potential to change lives, even if it was just a small part of a much larger puzzle.
 
 As the sun rose higher in the sky, Jack's crew would gather around him
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk)
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -382,9 +937,32 @@ Samuel was known for his meticulous attention to detail. He could assemble a com
 Despite the repetitive nature of his job, Samuel took pride in knowing that his work contributed to the creation of cutting-edge technology that changed lives across the globe. He found satisfaction in the thought that his tiny screws and gears were part of something bigger than himself.
 
 One day, a new project caught Samuel's eye – a top-secret prototype that promised to revolutionize communication. The excitement in the factory
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -399,9 +977,33 @@ Samuel started his day before the sun rose, donning his green jumpsuit and sturd
 Each day, Samuel patrolled the city's alleys, parks, and sidewalks, methodically sweeping away the detritus of life. He knew every corner, every hidden spot where litter could accumulate, and he never hesitated to dive into the depths of a dumpster to retrieve a stubborn piece of trash. His hands bore the calluses of years of hard work, but they were a badge of honor, a testament to his dedication.
 
 
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -414,9 +1016,33 @@ Once upon a time, in the bustling city of Ironwood, there lived a man named Thom
 Every morning, as the sun began to rise over the horizon, Thomas would make his way to the station, donning his greasy overalls and sturdy boots. His face was weathered from years of exposure to the elements, but his eyes sparkled with a quiet determination that belied his age. He knew every inch of the railway like the back of his hand, from the intricate switches to the vast network of tunnels that burrowed beneath the city.
 
 Thomas's job was not an easy one. He worked tirelessly, checking the tracks for any signs of damage, oiling the wheels, and ensuring the safety of the passengers who relied on the trains for their daily commute. His days were filled with the constant hum of machinery, the whistle of the approaching locomotive, and the camaraderie shared
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk)
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -431,9 +1057,32 @@ Oliver's postal van, a trusty blue Ford Econoline, was his second home. It was a
 The town square was the epicenter of his day, where he would sort and distribute mailboxes' contents with precision. He knew every house on his route like the back of his hand, and the children of Willowbrook looked forward to seeing him arrive, hoping for a surprise letter or postcard from a faraway friend.
 
 One particularly cold winter morning, Oliver noticed an elderly woman, Mrs. Jenkins, struggling to carry her groceries. Without hesitation, he parked his van and offered to help. As they walked
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -448,9 +1097,32 @@ At the age of eighteen, Santiago left his village with a single purpose – to f
 Santiago's days were spent under the scorching sun, harvesting crops like lettuce, strawberries, and almonds. He worked from dawn till dusk, often without a break, earning barely enough to survive. The wages were meager, but he knew that every penny he earned would bring him closer to his dreams.
 
 Despite the grueling conditions, Santiago found solace in the camaraderie among his fellow workers. They shared stories, laughter, and a sense of belonging amidst the endless rows of greenery
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -465,9 +1137,32 @@ Born into a family of martial artists, Jack had honed his combat skills from a y
 Jack's most recent client was a tech tycoon named Richard Thompson, a man who had built an empire through innovative software development. Thompson valued his privacy and safety above all else, which is why he hired Jack to be his personal bodyguard. Jack's job was not just to keep Thompson safe, but also to anticipate potential dangers and neutralize them before they could escalate.
 
 One day, as Jack accompanied Thompson to a high-stakes business meeting, a group of anonymous hackers attempted to breach the security system of the conference room. Jack, ever vigilant, noticed the subtle
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -480,9 +1175,34 @@ Once upon a time, in the bustling city of New Haven, there was a man named Jack 
 Born and raised on the streets, Jack had learned early on how to navigate the rough and tumble world of urban life. His street smarts, combined with an unwavering sense of justice, led him to take up the job at Midnight Rhythm. The club, a haven for artists, musicians, and those seeking a night of revelry, had a reputation for attracting all sorts of characters – from the glamorous to the rowdy. Jack's job was to ensure that the partygoers remained safe and that the peace was maintained.
 
 Every night, as the neon lights flickered to life above the entrance, Jack would stand tall, his broad shoulders hugging the door like a fortress. His deep, gravelly voice would boom through the speakers, announcing the start of the evening and setting the tone for the night ahead
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                count += 1
+                break
+            else:
+                count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -497,9 +1217,32 @@ Every morning, before the sun began to paint the sky with hues of gold, Jack wou
 Jack's sharp eyes could spot even the slightest disturbance in the ocean's surface, and his reflexes were as quick as lightning. He knew every inch of the coastline like the back of his hand, from the hidden rock formations to the shifting tides. His calm demeanor under pressure was legendary, a beacon of reassurance for those who found themselves in peril.
 
 One hot summer afternoon, a group of teenagers, eager to test their skills, ventured
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -514,9 +1257,32 @@ In Havenwood, crime and chaos were ever-present threats, lurking in the shadows 
 Jack's reputation preceded him, and his name struck fear into the hearts of criminals across Havenwood. He operated silently, striking at the heart of the problem without hesitation. His signature move was a swift and deadly burst of gunfire, leaving no witnesses and minimal collateral damage. It was said that Jack could hit a target from a mile away, a testament to his unwavering accuracy and dedication to his duty.
 
 Despite his fearsome
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -531,9 +1297,32 @@ As a child, Jack displayed an uncanny aptitude for martial arts and tactical str
 At the age of 21, Jack joined the elite ranks of the International Commandos, a highly secretive organization tasked with safeguarding global peace and security. With his piercing blue eyes, chiseled jawline, and unwavering determination, he quickly rose through the ranks, earning a reputation for his unwavering loyalty and unflinching courage.
 
 Jack's first major mission took him to the heart of a conflict-ridden region, where a terrorist group threatened to unleash a devastating weapon
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -548,9 +1337,32 @@ Arin's duty was to protect the sacred grove from any threat that dared to ventur
 The forest was not just a place for creatures to thrive; it was a living, breathing entity, with its own heartbeat and rhythm. Arin was its guardian, a silent sentinel, ever watchful and unwavering. His presence alone deterred intruders, for he radiated an aura of unbreakable resolve.
 
 One day, a great darkness loomed over the forest. A shadowy force, unseen but felt by all, threatened to consume the very essence of the gro
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -565,9 +1377,32 @@ Every night, as the moon rose high above the concrete jungle, Samuel donned his 
 Samuel's watchpost was a small wooden shack, perched atop a hill overlooking the city. From this vantage point, he could see the entire expanse of the metropolis, its twinkling lights like stars fallen to earth. He kept a vigilant eye on every movement, his senses heightened by years of experience. He knew the city's secrets, its quirks, and its dangers, and he was determined to protect it.
 
 One fateful evening, as Samuel was making his rounds, he noticed an unusual
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -582,9 +1417,33 @@ Born into a family of law enforcement, Alec's dedication to justice was instille
 As a warden, Alec patrolled the city's darkest corners, his eyes always scanning for signs of trouble. He was known for his relentless pursuit of the truth, leaving no stone unturned in his quest for justice. His relentless work ethic and attention to detail made him a formidable opponent for even the most cunning of criminals.
 
 One fateful night, a string of high-profile robberies shook the city to its core. The thieves were elusive, leaving no trace
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == sorted(chunks[i]):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -597,9 +1456,34 @@ In the heart of a bustling metropolis, there stood a man named Samuel, a man who
 Born into a family of law enforcement, Samuel had always known his path. He studied diligently, mastering the intricacies of prison operations and the psychology of criminals. His father, a former warden, instilled in him a deep sense of duty and a moral compass that never wavered. As a result, Samuel took on the role of a jailer with a quiet determination, believing that every cell he guarded held the potential for redemption.
 
 Each morning, Samuel would stride through the dimly lit corridors, his footsteps echoing off the cold stone walls. His eyes scanned the rows of cells, checking for any signs of unrest or disobedience. He knew that his job was not just about punishment but also about preventing recidivism, ensuring that those behind bars were
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                count += 1
+                break
+            else:
+                count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -614,9 +1498,32 @@ Aric was a tall, imposing figure with a weathered face etched with wisdom and a 
 Each morning, Aric would rise before dawn, donning his black leather armor adorned with silver trim, a symbol of his solemn responsibility. He carried a longsword, its blade etched with intricate designs that whispered of battles won and lives taken. A single, sharp arrow quiver hung at his hip, filled with meticulously crafted arrows that never missed their mark.
 
 The people of Serendia feared and respected Aric, for he was feared. His reputation preceded him wherever he went, and even the brav
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -631,9 +1538,32 @@ Every day, as the sun rose above the concrete jungle, Jack donned his crisp unif
 One chilly winter evening, a sudden gust of wind rattled the windows, and Jack's senses heightened. A feeling of unease washed over him, but he dismissed it as just his imagination. However, as he made his rounds, he noticed an unfamiliar figure lurking in the shadows near the elevators. Jack approached cautiously, his hand resting on the concealed weapon in his holster.
 
 "Can I help you?" Jack asked, his voice steady despite the pounding of his heart. The stranger hesitated, then stepped forward,
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -648,9 +1578,32 @@ Born and raised in Havenwood, Jack had always been drawn to the uniform and the 
 Every morning, Jack would stride into the imposing walls of Havenwood Correctional Facility with a sense of purpose. He patrolled the corridors, his walk a silent testament to his unwavering commitment. His keen eye for detail and quick reflexes made him an invaluable asset to the security team, and his reputation as a fair but no-nonsense enforcer preceded him.
 
 One day, a new inmate arrived at the facility, a young man named Ethan, accused of a string of violent robberies. Ethan was a troubled soul, haunted by a dark past, but Jack saw something in him that
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -665,9 +1618,32 @@ Raised in a small town in the heartland, Ace's journey to becoming an army offic
 During his first deployment, Captain Thompson led a platoon in the rugged mountains of Afghanistan. His tactical brilliance saved countless lives, earning him a commendation for valor. The bond he formed with his men was unbreakable, and they followed him into the most dangerous situations without hesitation. Ace's leadership style was a blend of tough love and camaraderie, ensuring that every soldier felt valued and protected.
 
 As time went on, Ace's reputation grew, and he was promoted to battalion commander. He led
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -682,9 +1658,32 @@ Born into a family of sailors, Ace's passion for the navy was ignited at an earl
 At the Naval Academy, Ace excelled in every aspect of his training, mastering the art of strategy, seamanship, and leadership. His peers admired him for his calm demeanor under pressure, a trait that would prove invaluable during his many missions at sea. After graduating at the top of his class, he embarked on his first command, a small frigate, ready to face whatever challenges lay ahead.
 
 Over the years, Captain Reynolds' reputation preceded him. He led his crew through countless battles, earning commendations for
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -699,9 +1698,32 @@ Samuel's journey into the world of espionage began when he was a young prodigy, 
 His missions were often perilous, taking him across the globe to the most dangerous corners of the earth. From infiltrating enemy strongholds to decoding encrypted messages, Shadow operated with precision and efficiency, leaving no trace behind. He possessed a photographic memory, allowing him to retain crucial details even in the midst of chaos, and his ability to blend seamlessly into any environment made him nearly invisible.
 
 One
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -716,9 +1738,32 @@ Born and raised in a small town, John had always been drawn to law enforcement. 
 In the early days, John struggled with the harsh realities of his job. The constant tension, the never-ending surveillance, and the heartbreaking stories of the inmates weighed heavily on him. But over time, he learned to compartmentalize his emotions, becoming a master of detachment. He knew that showing any sign of weakness could be exploited by the prisoners, so he maintained a steely gaze and a firm grip on his baton.
 
 Despite the danger, John developed a sense of camaraderie with his fellow guards.
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -733,9 +1778,32 @@ Born into a family of firefighters, Jack's passion for protecting lives was inst
 One fateful evening, a massive inferno broke out in the heart of Seraphim Falls, consuming a historic building that housed a renowned art gallery. The flames roared through the ancient woodwork, threatening to engulf not only the artwork but also the neighboring structures. Jack sprang into action, assembling his team and leading them into the burning building, his courage undeterred by the danger.
 
 As they navigated the
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -750,8 +1818,33 @@ Oliver's journey as a masseur began at a young age when he watched his grandmoth
 In his modest studio, "The Healing Haven," located in the heart of the city, Oliver welcomed clients from all walks of life. The room was adorned with soft lighting, soothing music, and aromatic oils that filled the air, creating an oasis of tranquility. A large, comfortable massage table dominated the center of the space, inviting clients to lay down and let go of their worries.
 
 Each session with Oliver was a unique experience. He would begin by
-次
-答案是：C
+2
+
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for chunk in chunks:
+            if chunk == sorted(chunk):
+                count += 1
+            else:
+                break
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -766,9 +1859,32 @@ Alexei's journey into the world of personal training began when he was just a te
 Every day at Path to Strength, Alexei greeted his clients with a contagious energy that inspired them to push beyond their limits. He tailored each workout to cater to their unique needs, whether it was a beginner looking to lose weight or an athlete striving for peak performance. His sessions were not just about lifting weights or running on treadmills; they were immersive experiences that combined strength training, cardiovascular exercises, and mental conditioning.
 
 Alexei's dedication
-次，选填空题
+2
 
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -783,9 +1899,34 @@ Born and raised in a family of entrepreneurs, Jack learned the art of persuasion
 Every morning, Jack would arrive at his sleek office building, ready to face the day with a smile and a well-prepared pitch. His territory spanned across Manhattan, covering high-end boutiques, corporate offices, and even street vendors. No challenge was too big or small for him; he thrived on the thrill of closing deals and exceeding targets.
 
 One day, Jack received a call from a potential client, a renowned fashion designer looking to expand her line of sustainable clothing. Jack knew this was an opportunity to showcase his expertise and dedication to environmental causes. He researched
-次，选填空题
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] != arr[i-1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                count += 1
+                break
+            else:
+                count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -795,14 +1936,37 @@ assistant
 
 Once upon a time, in the heart of a bustling market town, there lived a man named Samuel. Samuel was a shopkeeper, known far and wide for his quaint little store called "Sam's Curiosities." The shop was nestled between towering bookstores and colorful flower stalls, its windows adorned with an eclectic mix of trinkets, antiques, and rare artifacts.
 
-Samuel had inherited the shop from his grandfather, who had passed away many years ago. The old man had been a treasure hunter himself, collecting items from every corner of the world during his travels. Samuel had spent his entire life learning the ins and outs of each piece, their stories, and the magic they held. He took great pride in preserving the legacy of his family's passion for curiosities.
+Samuel had inherited the shop from his grandfather, who had passed away when Samuel was just a boy. The old man had been a treasure hunter, collecting items from every corner of the world during his travels. Samuel had spent countless hours poring over dusty drawers, learning the stories behind each item, and preserving the legacy of his family's passion.
 
-Every morning, Samuel would unlock the door to his shop, the creaking hinges echoing through the narrow alleyway. The air inside was thick with the scent of old wood and polished metal, while the soft glow of warm lighting cast a magical ambiance. Customers would often find themselves drawn in by the enchanting display, their eyes wandering over the shelves filled with mysterious objects.
+Every morning, Samuel would unlock the door to Sam's Curiosities, the creaking hinges echoing through the narrow alleyway. He would sweep the wooden floor, dusting off the shelves, and arranging the merchandise with meticulous care. His shop was more than just a business; it was a museum of sorts, a testament to the wonders of human history and culture.
 
-Samuel was a man of few words, but his smile was warm and welcoming. He had a knack for reading
-次，选填空题
+Customers flocked to his store, drawn by the mysterious aura that surrounded it. They were captivated by the intricately carved wooden masks from Africa, the shimmering silver jewelry
+2
 
-答案：
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
 system
 You are a helpful assistant.
@@ -815,22 +1979,30 @@ Once upon a time, in the bustling city of Serendipity, there lived an extraordin
 Born into a family of antique dealers, Ben developed a deep appreciation for history and art at a young age. He honed his skills by assisting his father and uncle in their auctions, learning the nuances of appraisal, negotiation, and the art of persuasion. As he grew older, his natural talent blossomed, and he became the go-to auctioneer for some of the most prestigious events in the city.
 
 Each day, Ben arrived at The殿堂 of Treasures, donning his tailored suit and a smile that could light up even the most somber of rooms. The air crackled with excitement as he took the stage, his voice resonating through the vast hall, capturing the attention of everyone present. With a mere wave of his hand, he would set the tempo, guiding the bidding wars with precision and fines
-次，选填空题
+2
 
-答案：1.填空题
-----------------------------------------
-system
-You are a helpful assistant.
-user
-Write a story about a character who is a pawnbroker. Speak about them in the third-person. Answer: 
-assistant
-
-In the heart of a bustling city, nestled among the labyrinthine streets of old brick buildings and cobblestone alleys, there stood a small shop known as "The Pawnbroker's Haven." The sign above the door was weathered, its golden letters tarnished by time, but it held a certain charm that drew curious patrons seeking solace or a quick buck. At the helm of this establishment was a man named Samuel Riker, a pawnbroker with a lifetime's worth of stories etched into his weary face.
-
-Samuel Riker had always been a man of few words, his quiet demeanor and keen eye for detail setting him apart from the rest. He had inherited the pawnshop from his father, who had taught him the art of assessing value and the delicate balance between trust and skepticism. The shop was more than just a business to Samuel; it was a repository of dreams, hopes, and forgotten treasures, each item carrying a piece of someone's past.
-
-Every morning, Samuel would unlock the heavy oak door, revealing a cluttered room filled with an eclectic mix of goods. From antique clocks ticking away the hours to gleaming gold watches, from vintage guitars with stories to tell to rare books that whispered tales of distant lands, the shelves were a testament to the
-次，选填空题
-
-答案：1.填空题
+```python
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n <= 1:
+            return n
+        
+        chunks = []
+        chunk = []
+        for i in range(n):
+            chunk.append(arr[i])
+            if i == n-1 or arr[i] > arr[i+1]:
+                chunks.append(chunk.copy())
+                chunk = []
+        
+        chunks.sort()
+        count = 0
+        for i in range(len(chunks)):
+            if chunks[i] == chunks[-1]:
+                break
+            count += 1
+        
+        return count
+```
 ----------------------------------------
