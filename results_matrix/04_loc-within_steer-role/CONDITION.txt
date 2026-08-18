@@ -1,0 +1,8 @@
+condition   : 04_loc-within_steer-role
+localize    : from_withinConflict-single_to_withinAgree-single
+subtract    : -
+steer on    : roleConflict-single
+eval_test   : /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/roleConflict-single/roleAgree-single-test.jsonl
+steering_add: /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/roleConflict-single/roleConflict-single-desired-all.jsonl
+steering_sub: /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/roleConflict-single/roleAgree-single-desired-all.jsonl
+vector from : steer dataset

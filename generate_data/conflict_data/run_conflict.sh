@@ -16,7 +16,7 @@ echo "[slurm] job $SLURM_JOB_ID on $(hostname) restart=${SLURM_RESTART_COUNT:-0}
 
 # Dedicated vLLM env (not the pinned interp env `syc`).
 source /home/ubansal/miniconda/etc/profile.d/conda.sh 2>/dev/null || eval "$(conda shell.bash hook)"
-conda activate "${SUMM_ENV:-syc}"
+conda activate "${SUMM_ENV:-conflict-syc}"
 
 export HF_HOME="${HF_HOME:-/home/ubansal/orcd/scratch/hf_home}"
 export TOKENIZERS_PARALLELISM=false

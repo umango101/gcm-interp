@@ -1,0 +1,66 @@
+{
+  "keep": "from_roleConflict-single_to_roleAgree-single",
+  "remove": "from_withinConflict-single_to_withinAgree-single",
+  "mode": "setdiff",
+  "algo": "atp",
+  "keep_map": "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp/numerator_1_heads.pt",
+  "remove_map": "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_withinConflict-single_to_withinAgree-single/atp/numerator_1_heads.pt",
+  "per_topk": {
+    "1.0": {
+      "n_keep": 1536,
+      "n_remove": 1536,
+      "n_survive": 0,
+      "frac_of_keep": 0.0,
+      "file": "numerator_1_targeted_1.0.csv"
+    },
+    "0.01": {
+      "n_keep": 15,
+      "n_remove": 15,
+      "n_survive": 9,
+      "frac_of_keep": 0.6,
+      "file": "numerator_1_targeted_0.01.csv"
+    },
+    "0.03": {
+      "n_keep": 46,
+      "n_remove": 46,
+      "n_survive": 20,
+      "frac_of_keep": 0.43478260869565216,
+      "file": "numerator_1_targeted_0.03.csv"
+    },
+    "0.05": {
+      "n_keep": 77,
+      "n_remove": 77,
+      "n_survive": 34,
+      "frac_of_keep": 0.44155844155844154,
+      "file": "numerator_1_targeted_0.05.csv"
+    },
+    "0.07": {
+      "n_keep": 108,
+      "n_remove": 108,
+      "n_survive": 37,
+      "frac_of_keep": 0.3425925925925926,
+      "file": "numerator_1_targeted_0.07.csv"
+    },
+    "0.09": {
+      "n_keep": 138,
+      "n_remove": 138,
+      "n_survive": 52,
+      "frac_of_keep": 0.37681159420289856,
+      "file": "numerator_1_targeted_0.09.csv"
+    },
+    "0.1": {
+      "n_keep": 154,
+      "n_remove": 154,
+      "n_survive": 57,
+      "frac_of_keep": 0.37012987012987014,
+      "file": "numerator_1_targeted_0.1.csv"
+    },
+    "0.5": {
+      "n_keep": 768,
+      "n_remove": 768,
+      "n_survive": 178,
+      "frac_of_keep": 0.23177083333333334,
+      "file": "numerator_1_targeted_0.5.csv"
+    }
+  }
+}

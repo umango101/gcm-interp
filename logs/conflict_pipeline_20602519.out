@@ -1,0 +1,44 @@
+python:  /home/ubansal/miniconda/envs/syc/bin/python
+results: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix
+Family: instruction conflict (developer vs user)  model=gpt-oss-20b method=atp
+Repo root: /home/ubansal/orcd/scratch/conflicts/gcm-interp
+  gen input : /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix
+  test data : /home/ubansal/orcd/scratch/conflicts/gcm-interp/data
+Running 9 of 9 experiments:
+  - 01_loc-role_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role eval=role
+  - 02_loc-within_steer-within | from_withinConflict-single_to_withinAgree-single | steer=within eval=within
+  - 03_loc-role_steer-within | from_roleConflict-single_to_roleAgree-single | steer=within eval=role
+  - 04_loc-within_steer-role | from_withinConflict-single_to_withinAgree-single | steer=role eval=role
+  - 05_loc-role-minus-inverted_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role eval=role
+  - 06_loc-role-minus-within_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role eval=role
+  - 07_loc-role-minus-within_steer-within | from_roleConflict-single_to_roleAgree-single | steer=within eval=role
+  - 08_loc-within-minus-role_steer-role | from_withinConflict-single_to_withinAgree-single | steer=role eval=role
+  - 09_loc-within-minus-role_steer-within | from_withinConflict-single_to_withinAgree-single | steer=within eval=role
+======================================================================
+STAGE: merge
+  cell: 01_loc-role_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role eval=role
+    merge: 140 files -> (6720, 24) rows (/home/ubansal/orcd/scratch/conflicts/gcm-interp/eval_pipeline_conflict/01_loc-role_steer-role/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp/roleConflict-single_eval/roleConflict-single_steer/merged_eval_outputs.csv)
+      GRID WARNING for 01_loc-role_steer-role:
+        declared NS=[1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50] TOP_KS=[0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0] -> 150 cells
+        on disk  NS=[1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45] TOP_KS=[0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0] -> 140 files
+        declared but MISSING on disk: N=[50] topk=[]  <-- stage_accuracies will raise on these
+  cell: 02_loc-within_steer-within | from_withinConflict-single_to_withinAgree-single | steer=within eval=within
+    merge: 140 files -> (6720, 24) rows (/home/ubansal/orcd/scratch/conflicts/gcm-interp/eval_pipeline_conflict/02_loc-within_steer-within/gpt-oss-20b/from_withinConflict-single_to_withinAgree-single/atp/withinConflict-single_eval/withinConflict-single_steer/merged_eval_outputs.csv)
+      GRID WARNING for 02_loc-within_steer-within:
+        declared NS=[1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50] TOP_KS=[0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0] -> 150 cells
+        on disk  NS=[1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45] TOP_KS=[0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0] -> 140 files
+        declared but MISSING on disk: N=[50] topk=[]  <-- stage_accuracies will raise on these
+  cell: 03_loc-role_steer-within | from_roleConflict-single_to_roleAgree-single | steer=within eval=role
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 883, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 876, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 372, in stage_merge
+    _require(cell.gen_dir, "results-eval-folder")
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 301, in _require
+    raise FileNotFoundError(
+FileNotFoundError: [results-eval-folder] required path does not exist: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix/03_loc-role_steer-within/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp/roleConflict-single_eval/withinConflict-single_steer/eval
+  deepest existing ancestor: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix/03_loc-role_steer-within/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp
+  looking for 'roleConflict-single_eval' in it; it contains: ['numerator_1_heads.pt', 'withinConflict-single_eval']
+  (repo root in use: /home/ubansal/orcd/scratch/conflicts/gcm-interp -- override with --repo_root)

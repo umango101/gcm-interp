@@ -39,18 +39,20 @@ def load_patching_reps(data_handler, model_handler, mean=True):
         patching_reps[ablation] = {}
         for key in ['desired', 'undesired']:
             print(f"Loading patching reps for {ablation} - {key}")
-            patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+            patching_reps[ablation][key] = get_patch_activations(
+                model, data_handler, ablation, key=key, mean=mean,
+                head_site=model_handler.head_site)
     print('Returning patching reps')
     return patching_reps
 
-def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True):
+def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True, head_site=None):
     # Large models (e.g. 32B) OOM caching all-layer activations at the default
     # batch size of 9, so shrink the activation-caching batch for them.
     cache_bs = 2 if '32B' in data_handler.config.args.model_id else 9
     if ablation_type == 'mean':
-        return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs)
+        return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs, head_site=head_site)
     elif ablation_type == 'steer':
-        return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+        return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs, head_site=head_site)
     else:
         raise ValueError(f"Unknown ablation type: {ablation_type}")
 
@@ -97,7 +99,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
     reps_types = ['random'] if config.args.patch_algo == 'random' else ['targeted']
 
     if topk_vals is None:
-        topk_vals = [1.0, 0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.5]
+        topk_vals = [0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0]
     if N is not None:
         config.args.N = N
     if config.args.patch_algo == 'probes':
@@ -127,7 +129,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
     print('Starting for loop ', config.args)
-    for N in [1, 2, 4, 5, 6, 8, 10]:
+    for N in [1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45]:
         config.args.N = N
         for ablation in tqdm(ablations, desc="Ablations"):
             decoded_responses[ablation] = {}
@@ -157,6 +159,10 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                     else:
                         topk_df = pd.read_csv(f"{config.get_output_prefix()}/eval/{logit_metric}_{reps_type}_{topk}.csv")
 
+                    # Reseed per cell. Without this, a resumed run that skips
+                    # earlier (N, topk) cells reaches this one with a different RNG
+                    # state than a from-scratch run would.
+                    set_seed(config.args.seed)
                     batch_handler = BatchHandler(config, data_handler)
                     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
                     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):

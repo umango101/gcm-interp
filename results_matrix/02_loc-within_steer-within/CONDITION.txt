@@ -1,0 +1,8 @@
+condition   : 02_loc-within_steer-within
+localize    : from_withinConflict-single_to_withinAgree-single
+subtract    : -
+steer on    : withinConflict-single
+eval_test   : /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/withinConflict-single/withinAgree-single-test.jsonl
+steering_add: /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/withinConflict-single/withinConflict-single-desired-all.jsonl
+steering_sub: /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data/gpt-oss-20b/withinConflict-single/withinAgree-single-desired-all.jsonl
+vector from : steer dataset

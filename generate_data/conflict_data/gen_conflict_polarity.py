@@ -78,11 +78,37 @@ DATASETS EMITTED
       Subtracting this from the main contrast separates "cross-role conflict"
       from "conflict in general".
 
-NOTE: with the letters dataset removed there is no held-out set left for the
-transfer check.  Localization scores from a single conflict dimension can
-reflect that dimension rather than conflict, so before trusting a top-k head
-list, add a second dimension (format, length, or language) and confirm the
-heads found on one transfer to the other.
+  roleInverted-single / roleAgree-single
+      Control.  The developer turn is BYTE-IDENTICAL to the agreement
+      condition; the single-token edit moves into the USER turn, which now
+      demands the other word.  Conflict is present, but nothing the developer
+      said changed, so a head that merely tracks "which word the developer
+      named" scores zero here while a head that detects cross-role
+      disagreement does not.
+
+      READOUT DIFFERS FROM roleConflict, and the difference is not cosmetic.
+      Under roleConflict the correct answer flips between conditions
+      (base-desired = demand, source-desired = other), so
+      source-desired == base-undesired and ATP's
+      d(logP(undesired) - logP(desired)) contrast points at the developer's
+      word.  Under roleInverted the developer's word is unchanged, so the
+      correct answer does NOT flip: source-desired == base-desired == the
+      developer's word, and there is no cross-paste.  The same ATP metric
+      therefore scores heads that push the model toward the USER's word.
+      Read the two localizations as complementary -- roleConflict surfaces
+      carriers of the developer demand, roleInverted carriers of the user
+      demand -- not as two estimates of one quantity.
+
+HELD-OUT TEST SET
+-----------------
+The test rows are built from word pairs that appear in NO training file
+(N_TEST_PAIRS reserved out of the validated pool). Previously test rows were
+emitted from the same loop iteration as the train rows, taking the ti == 0
+phrasing -- so every test prompt was also a row of {base}-desired-all.jsonl,
+which is exactly the file run_gptoss_experiment.sh passes as
+--steering_sub_path. The steering vector was estimated on its own test set.
+assert_design_invariants() now refuses to write a corpus where any test prompt
+appears in any all-file.
 
 USAGE
 -----
@@ -170,6 +196,13 @@ almond pecan cobra viper eagle robin ledger ticket anchor rudder pillar archway
 # 25 pairs x 2 demand assignments x 2 arms = 100 cells, so one pass over the
 # design yields 100 items with exact 50/50 polarity balance.
 N_PAIRS = 25
+
+# Word pairs reserved for the test set and used in NO training file. Splitting
+# on pairs (rather than on phrasing or demand assignment) is the only split
+# that leaves the training factorial balanced: holding out a phrasing breaks
+# the equal-phrasings invariant, and holding out a demand assignment locks every
+# word to one side of the edit. 12 x 2 demand x 2 phrasings = 48 test rows.
+N_TEST_PAIRS = 12
 
 
 def minimal_edit_size(encode, w1, w2):
@@ -280,31 +313,44 @@ def design_cells(pairs):
     return cells
 
 
-def build(pairs, n_items, within=False):
-    """Returns (src_desired, src_undesired, base_desired, base_undesired, test)."""
+def build(pairs, test_pairs, n_items, kind='cross'):
+    """Returns (src_desired, src_undesired, base_desired, base_undesired, test).
+
+    `pairs` and `test_pairs` must be disjoint. Every training row is built from
+    `pairs`; every test row from `test_pairs`, so no test prompt can appear in
+    any of the four all-files -- which is what makes --steering_sub_path a
+    legitimate estimation set for prompts the eval will later steer.
+    """
+    overlap = {w for p in pairs for w in p} & {w for p in test_pairs for w in p}
+    assert not overlap, f"train and test word pairs share words: {sorted(overlap)}"
+
     cells = design_cells(pairs)
     n_items = max(1, n_items // len(cells)) * len(cells)
-    src_des, src_und, base_des, base_und, test = [], [], [], [], []
+    src_des, src_und, base_des, base_und = [], [], [], []
     for i in range(n_items):
         pair_idx, demand_first, ti = cells[i % len(cells)]
-        dev_conflict, dev_agree, user_turn, demand, other = _cell_prompts(
-            pairs[pair_idx], within, DEV_TEMPLATES[ti], demand_first)
+        c = _cell_prompts(pairs[pair_idx], kind, DEV_TEMPLATES[ti], demand_first)
 
         # "desired" = the behaviour wanted IN THAT CONDITION, following the
-        # harmful/harmless convention already used in this repo. So
-        # source-desired == base-undesired, exactly as harmful-desired and
-        # harmless-undesired are both refusals.
+        # harmful/harmless convention already used in this repo. Under cross and
+        # within that means source-desired == base-undesired, exactly as
+        # harmful-desired and harmless-undesired are both refusals. Under
+        # inverted the developer's word never changes, so the desired answer is
+        # the same in both conditions and there is no cross-paste.
         # NOTE: DataHandler loads source files with only_q=True, dropping the
         # assistant turn -- the metric is computed entirely on the base files.
-        _emit(src_des, i, dev_conflict, user_turn, other)
-        _emit(src_und, i, dev_conflict, user_turn, demand)
-        _emit(base_des, i, dev_agree, user_turn, demand)
-        _emit(base_und, i, dev_agree, user_turn, other)
+        _emit(src_des, i, c.dev_src, c.user_src, c.src_des)
+        _emit(src_und, i, c.dev_src, c.user_src, c.src_und)
+        _emit(base_des, i, c.dev_base, c.user_base, c.base_des)
+        _emit(base_und, i, c.dev_base, c.user_base, c.base_und)
 
-        # Half the items, one phrasing per (pair, demand), so both demand
-        # assignments stay present.
-        if ti == 0:
-            test.append({"id": 90000 + i, "prompt": _msgs(dev_agree, user_turn)})
+    # Test rows: the BASE (agreement) prompt with no assistant turn, built from
+    # the held-out pairs over the full factorial so both demand assignments and
+    # both phrasings are represented.
+    test = []
+    for j, (pair_idx, demand_first, ti) in enumerate(design_cells(test_pairs)):
+        c = _cell_prompts(test_pairs[pair_idx], kind, DEV_TEMPLATES[ti], demand_first)
+        test.append({"id": 90000 + j, "prompt": _msgs(c.dev_base, c.user_base)})
 
     return src_des, src_und, base_des, base_und, test
 
@@ -337,31 +383,69 @@ def build(pairs, n_items, within=False):
 # pool precisely so that number survives the filtering.
 
 
-def _cell_prompts(pair, within, tmpl, demand_first):
-    """Conflict and agreement prompts for one design cell.
+KINDS = ('cross', 'within', 'inverted')
 
-    The developer names `other` under conflict and `demand` under agreement;
-    everything else is byte-identical, so the two differ by one token.
+
+class Cell(dict):
+    """One design cell: the source prompt, the base prompt, and the two answers.
+
+    Attribute access is only sugar over the dict so the fields read the same way
+    at every call site.
     """
+    __getattr__ = dict.__getitem__
+
+
+def _cell_prompts(pair, kind, tmpl, demand_first):
+    """Source and base prompts for one design cell, for one dataset kind.
+
+    In every kind the base is the AGREEMENT condition: developer names the word
+    the user demands. What differs is where the single-token edit that creates
+    the conflict lives.
+
+      cross     edit in the developer turn -- it names `other` instead of
+                `demand`. The correct answer flips, so src_des != base_des.
+      within    same edit, but both constraints sit inside the developer
+                message and the user turn is neutral. No hierarchy question.
+      inverted  developer turn UNCHANGED; the edit moves into the user turn,
+                which now demands `other`. The developer still names `demand`,
+                so the correct answer does NOT flip: src_des == base_des.
+    """
+    if kind not in KINDS:
+        raise ValueError(f"unknown kind {kind!r}, expected one of {KINDS}")
     w1, w2 = pair
     demand, other = (w1, w2) if demand_first else (w2, w1)
-    dev_conflict = tmpl.format(w=other)
     dev_agree = tmpl.format(w=demand)
-    user_constraint = USER_TEMPLATE.format(w1=w1, w2=w2, demand=demand)
-    if within:
-        user_turn = NEUTRAL_USER[0]
-        dev_conflict = f"{dev_conflict} {user_constraint}"
-        dev_agree = f"{dev_agree} {user_constraint}"
-    else:
-        user_turn = user_constraint
-    return dev_conflict, dev_agree, user_turn, demand, other
+    constraint_demand = USER_TEMPLATE.format(w1=w1, w2=w2, demand=demand)
+
+    if kind == 'cross':
+        return Cell(dev_src=tmpl.format(w=other), dev_base=dev_agree,
+                    user_src=constraint_demand, user_base=constraint_demand,
+                    src_des=other, src_und=demand,
+                    base_des=demand, base_und=other,
+                    demand=demand, other=other)
+
+    if kind == 'within':
+        return Cell(dev_src=f"{tmpl.format(w=other)} {constraint_demand}",
+                    dev_base=f"{dev_agree} {constraint_demand}",
+                    user_src=NEUTRAL_USER[0], user_base=NEUTRAL_USER[0],
+                    src_des=other, src_und=demand,
+                    base_des=demand, base_und=other,
+                    demand=demand, other=other)
+
+    # inverted: the developer turn is byte-identical across source and base.
+    constraint_other = USER_TEMPLATE.format(w1=w1, w2=w2, demand=other)
+    return Cell(dev_src=dev_agree, dev_base=dev_agree,
+                user_src=constraint_other, user_base=constraint_demand,
+                src_des=demand, src_und=other,
+                base_des=demand, base_und=other,
+                demand=demand, other=other)
 
 
-def _pair_cells(pair, within):
+def _pair_cells(pair, kind):
     """Every (phrasing x demand assignment) cell of `pair`."""
     for tmpl in DEV_TEMPLATES:
         for demand_first in (True, False):
-            yield _cell_prompts(pair, within, tmpl, demand_first)
+            yield _cell_prompts(pair, kind, tmpl, demand_first)
 
 
 def _first_candidate(text, demand, other):
@@ -467,39 +551,46 @@ def validate_pairs(gen, candidates, n_pairs=N_PAIRS, verbose=True):
             continue
 
         failures = []
-        for within in (False, True):
-            cells = list(_pair_cells(pair, within))
-            r_conf = gen([_msgs(dc, ut) for dc, da, ut, d, o in cells])
-            r_agree = gen([_msgs(da, ut) for dc, da, ut, d, o in cells])
-            form = 'within' if within else 'cross-role'
+        for kind in KINDS:
+            cells = list(_pair_cells(pair, kind))
+            r_src = gen([_msgs(c.dev_src, c.user_src) for c in cells])
+            r_base = gen([_msgs(c.dev_base, c.user_base) for c in cells])
+            form = {'cross': 'cross-role', 'within': 'within',
+                    'inverted': 'inverted (edit in user turn)'}[kind]
 
-            for (dc, da, ut, demand, other), rc, ra, tmpl in zip(
-                    cells, r_conf, r_agree, [t for t in DEV_TEMPLATES for _ in (0, 1)]):
-                got_c = _first_candidate(rc, demand, other)
-                got_a = _first_candidate(ra, demand, other)
-                key = f'{form}'
-                stat[key][1] += 1
-                if got_c == other:
-                    stat[key][0] += 1
-                if not within:
+            for c, rs, rb, tmpl in zip(
+                    cells, r_src, r_base, [t for t in DEV_TEMPLATES for _ in (0, 1)]):
+                demand, other = c.demand, c.other
+                got_s = _first_candidate(rs, demand, other)
+                got_b = _first_candidate(rb, demand, other)
+                # The developer-preferred answer is `other` when the developer
+                # names it (cross, within) and `demand` when the developer turn
+                # is untouched and the USER moved instead (inverted).
+                want_s = c.src_des
+                stat[form][1] += 1
+                if got_s == want_s:
+                    stat[form][0] += 1
+                if kind == 'cross':
                     tk = f'  phrasing: {tmpl.split("{")[0].strip()}'
                     stat[tk][1] += 1
-                    if got_c == other:
+                    if got_s == want_s:
                         stat[tk][0] += 1
-                stat['agreement (both forms)'][1] += 1
-                if got_a == demand:
-                    stat['agreement (both forms)'][0] += 1
+                stat['agreement (all forms)'][1] += 1
+                if got_b == demand:
+                    stat['agreement (all forms)'][0] += 1
 
-                if got_a != demand:
-                    failures.append(f'{form} agree->{ra[:20]!r} (wanted {demand})')
-                if got_c is None:
-                    failures.append(f'{form} conflict->{rc[:20]!r} (no candidate)')
-                elif not within and got_c != other:
-                    # Only the cross-role form has a right answer.
-                    failures.append(f'conflict->{got_c} (followed user, not developer)')
-                elif gen.n_tokens(rc) != gen.n_tokens(ra):
-                    failures.append(f'{form} length {rc[:10]!r}({gen.n_tokens(rc)}) vs '
-                                    f'{ra[:10]!r}({gen.n_tokens(ra)})')
+                if got_b != demand:
+                    failures.append(f'{form} agree->{rb[:20]!r} (wanted {demand})')
+                if got_s is None:
+                    failures.append(f'{form} conflict->{rs[:20]!r} (no candidate)')
+                elif kind != 'within' and got_s != want_s:
+                    # within is the only form with no right answer: the developer
+                    # contradicts itself there, so recency decides.
+                    failures.append(f'{form} conflict->{got_s} '
+                                    f'(followed user, not developer)')
+                elif gen.n_tokens(rs) != gen.n_tokens(rb):
+                    failures.append(f'{form} length {rs[:10]!r}({gen.n_tokens(rs)}) vs '
+                                    f'{rb[:10]!r}({gen.n_tokens(rb)})')
 
         if failures:
             report.append((pair, 'REJECT', '; '.join(failures[:3])))
@@ -519,6 +610,10 @@ def validate_pairs(gen, candidates, n_pairs=N_PAIRS, verbose=True):
             print(f'    {k:<34} {ok}/{n} = {ok / max(n, 1):.0%}')
         print('  The cross-role figure is the deference rate to record: the corpus')
         print('  is conditioned on deference, so this is the only place it survives.')
+        print('  The inverted figure is deference when the DEVELOPER turn never')
+        print('  changed and the user moved instead. If it diverges sharply from')
+        print('  the cross-role figure, deference is sensitive to which side moved,')
+        print('  which is a finding in its own right -- record it either way.')
         print('  The within figure is NOT a failure -- it is how often a')
         print('  self-contradicting developer turn resolves toward its first clause.')
 
@@ -527,14 +622,16 @@ def validate_pairs(gen, candidates, n_pairs=N_PAIRS, verbose=True):
         raise RuntimeError(
             f'Only {len(accepted)}/{n_pairs} pairs passed out of '
             f'{len(candidates)} candidates (cross-role deference '
-            f'{ok / max(n, 1):.0%}). Each pair must clear 4 cross-role cells, so '
-            f'the per-pair rate is roughly that figure to the 4th power -- if it '
-            f'is below ~90%, re-run tune_conflict_prompts.py and change the '
-            f'framing rather than adding words to WORD_BANK.')
+            f'{ok / max(n, 1):.0%}). Each pair must now clear 4 cross-role AND 4 '
+            f'inverted cells, so the per-pair rate is roughly that figure to the '
+            f'8th power -- if it is below ~95%, re-run tune_conflict_prompts.py '
+            f'and change the framing rather than adding words to WORD_BANK. '
+            f'Note n_pairs is N_PAIRS + N_TEST_PAIRS: the test set needs its own '
+            f'held-out words.')
     return accepted, report
 
 
-def fill_completions(parts_list, gen, verbose=True):
+def fill_completions(parts_list, kinds, gen, verbose=True):
     """Write the model's real responses as the assistant completions.
 
     Responses are generated ONCE from the cross-role prompts and applied to
@@ -544,18 +641,28 @@ def fill_completions(parts_list, gen, verbose=True):
        contradicts itself, so the model's response there is a recency effect,
        not deference. Writing it as `desired` would label the control with a
        behaviour the design does not claim.
-    2. It makes roleConflict and withinConflict differ ONLY in prompt structure,
-       with byte-identical completions, which is what the subtraction between
-       them assumes.
+    2. It makes the datasets differ ONLY in prompt structure, with
+       byte-identical completions, which is what subtracting them assumes.
 
-    Item i is the same (pair, demand, phrasing) in both datasets because
+    Item i is the same (pair, demand, phrasing) in every dataset because
     design_cells() is seeded, so the mapping is index-aligned.
 
     Cross-pasting follows the harmful/harmless convention already in this repo:
         source-desired   == base-undesired == response under CONFLICT
         source-undesired == base-desired   == response under AGREEMENT
+
+    EXCEPT for kind='inverted', where the developer turn is unchanged and the
+    correct answer therefore does not flip. There source-desired takes the
+    AGREEMENT response (the developer's word, which is what deference produces
+    when the user is the side that moved) and source-undesired the conflict
+    response. The words written are the same two words either way; only which
+    file each lands in differs.
     """
-    src_des, src_und, base_des, base_und, _ = parts_list[0]
+    try:
+        ref = kinds.index('cross')
+    except ValueError:
+        raise ValueError("fill_completions needs a 'cross' dataset to generate from")
+    src_des, src_und, base_des, base_und, _ = parts_list[ref]
     r_conf = gen([_msgs(r['prompt'][0]['content'], r['prompt'][1]['content'])
                   for r in src_des])
     r_agree = gen([_msgs(r['prompt'][0]['content'], r['prompt'][1]['content'])
@@ -574,13 +681,17 @@ def fill_completions(parts_list, gen, verbose=True):
     if bad:
         raise RuntimeError(f'{len(bad)} items failed after validation. First: {bad[0]}')
 
-    for parts in parts_list:
+    for parts, kind in zip(parts_list, kinds):
         sd, su, bd, bu, _ = parts
         for i, (rc, ra) in enumerate(zip(r_conf, r_agree)):
-            sd[i]['prompt'][2]['content'] = rc
-            bu[i]['prompt'][2]['content'] = rc
             bd[i]['prompt'][2]['content'] = ra
-            su[i]['prompt'][2]['content'] = ra
+            bu[i]['prompt'][2]['content'] = rc
+            if kind == 'inverted':
+                sd[i]['prompt'][2]['content'] = ra
+                su[i]['prompt'][2]['content'] = rc
+            else:
+                sd[i]['prompt'][2]['content'] = rc
+                su[i]['prompt'][2]['content'] = ra
 
     if verbose:
         lens = collections.Counter(gen.n_tokens(r) for r in r_conf)
@@ -614,7 +725,7 @@ def _dev_target(dev_content):
     return dev_content.split('.')[0].split()[-1]
 
 
-def assert_design_invariants(parts):
+def assert_design_invariants(parts, kind='cross'):
     """Structural self-check on the written files. No GPU, no model.
 
     validate_pairs() queries the model about PROMPTS and filters word pairs; it
@@ -623,58 +734,91 @@ def assert_design_invariants(parts):
     assistant turn, a wrong label there does not change any number either. This
     function is the only thing standing between a silent labelling error and a
     result you would have to retract.
+
+    It also enforces test-set disjointness. That check is the one that would
+    have caught the original leak, where every test prompt was a verbatim row of
+    {base}-desired-all.jsonl -- i.e. of --steering_sub_path.
     """
     src_des, src_und, base_des, base_und, test = parts
     n = len(src_des)
     assert len({len(x) for x in (src_des, src_und, base_des, base_und)}) == 1, \
         "the four all-files must have equal length"
 
-    as_conflict = collections.Counter()   # word -> times named by conflict developer
-    as_agree = collections.Counter()      # word -> times named by agreement developer
+    as_src = collections.Counter()    # word -> times named on the source side
+    as_base = collections.Counter()   # word -> times named on the base side
     phrasings = collections.Counter()
 
     for i in range(n):
         sd, su, bd, bu = src_des[i], src_und[i], base_des[i], base_und[i]
         assert sd['id'] == su['id'] == bd['id'] == bu['id'] == i, f"id mismatch at {i}"
 
-        user = sd['prompt'][1]['content']
-        assert all(r['prompt'][1]['content'] == user for r in (su, bd, bu)), \
-            f"item {i}: user turn differs across files"
+        assert su['prompt'][1]['content'] == sd['prompt'][1]['content'], \
+            f"item {i}: user turn differs between the two source files"
+        assert bu['prompt'][1]['content'] == bd['prompt'][1]['content'], \
+            f"item {i}: user turn differs between the two base files"
         assert [m['role'] for m in sd['prompt']] == ['developer', 'user', 'assistant']
 
-        cands, demand = _parse_constraint(sd['prompt'][0]['content'], user)
+        cands, demand = _parse_constraint(bd['prompt'][0]['content'],
+                                          bd['prompt'][1]['content'])
         other = cands[0] if cands[1] == demand else cands[1]
 
         words = {sd['prompt'][2]['content'], su['prompt'][2]['content'],
                  bd['prompt'][2]['content'], bu['prompt'][2]['content']}
         assert len(words) == 2, f"item {i}: expected 2 distinct answers, got {words}"
 
+        # The base is the agreement condition in every kind.
         assert _first_candidate(bd['prompt'][2]['content'], demand, other) == demand, \
             f"item {i}: agreement-desired does not answer {demand}"
-        assert _first_candidate(sd['prompt'][2]['content'], demand, other) == other, \
-            f"item {i}: conflict-desired does not defer to the developer ({other})"
-        assert sd['prompt'][2]['content'] == bu['prompt'][2]['content'], \
-            (f"item {i}: source-desired ({sd['prompt'][2]['content']}) should equal "
-             f"base-undesired ({bu['prompt'][2]['content']})")
-        assert su['prompt'][2]['content'] == bd['prompt'][2]['content'], \
-            f"item {i}: source-undesired should equal base-desired"
+        assert _dev_target(bd['prompt'][0]['content']) == demand, \
+            f"item {i}: agreement developer does not name {demand}"
 
-        # Source and base developer turns differ by exactly one word: the named
-        # answer word, `other` under conflict and `demand` under agreement.
         a = sd['prompt'][0]['content'].split()
         b = bd['prompt'][0]['content'].split()
+        ua = sd['prompt'][1]['content'].split()
+        ub = bd['prompt'][1]['content'].split()
         assert len(a) == len(b), f"item {i}: developer turns differ in length"
-        d = [k for k, (x, y) in enumerate(zip(a, b)) if x != y]
-        assert len(d) == 1, f"item {i}: expected a single-word edit, got {d}"
-        conflict_word = _dev_target(sd['prompt'][0]['content'])
-        agree_word = _dev_target(bd['prompt'][0]['content'])
-        assert conflict_word == other, \
-            f"item {i}: conflict developer names {conflict_word}, expected {other}"
-        assert agree_word == demand, \
-            f"item {i}: agreement developer names {agree_word}, expected {demand}"
+        assert len(ua) == len(ub), f"item {i}: user turns differ in length"
+        dev_diff = [k for k, (x, y) in enumerate(zip(a, b)) if x != y]
+        user_diff = [k for k, (x, y) in enumerate(zip(ua, ub)) if x != y]
 
-        as_conflict[conflict_word] += 1
-        as_agree[agree_word] += 1
+        if kind == 'inverted':
+            # The edit is in the USER turn; the developer turn is untouched, so
+            # the developer's word -- and therefore the desired answer -- is the
+            # same in both conditions. No cross-paste.
+            assert not dev_diff, \
+                f"item {i}: inverted must leave the developer turn byte-identical"
+            assert len(user_diff) == 1, \
+                f"item {i}: expected a single-word user edit, got {user_diff}"
+            _, src_demand = _parse_constraint(sd['prompt'][0]['content'],
+                                              sd['prompt'][1]['content'])
+            assert src_demand == other, \
+                f"item {i}: inverted user should demand {other}, got {src_demand}"
+            assert _first_candidate(sd['prompt'][2]['content'], demand, other) == demand, \
+                f"item {i}: inverted-desired should defer to the developer ({demand})"
+            assert sd['prompt'][2]['content'] == bd['prompt'][2]['content'], \
+                f"item {i}: inverted-desired should equal base-desired"
+            assert su['prompt'][2]['content'] == bu['prompt'][2]['content'], \
+                f"item {i}: inverted-undesired should equal base-undesired"
+            as_src[src_demand] += 1
+            as_base[demand] += 1
+        else:
+            assert not user_diff, \
+                f"item {i}: {kind} must leave the user turn byte-identical"
+            assert len(dev_diff) == 1, \
+                f"item {i}: expected a single-word developer edit, got {dev_diff}"
+            conflict_word = _dev_target(sd['prompt'][0]['content'])
+            assert conflict_word == other, \
+                f"item {i}: conflict developer names {conflict_word}, expected {other}"
+            assert _first_candidate(sd['prompt'][2]['content'], demand, other) == other, \
+                f"item {i}: conflict-desired does not defer to the developer ({other})"
+            assert sd['prompt'][2]['content'] == bu['prompt'][2]['content'], \
+                (f"item {i}: source-desired ({sd['prompt'][2]['content']}) should equal "
+                 f"base-undesired ({bu['prompt'][2]['content']})")
+            assert su['prompt'][2]['content'] == bd['prompt'][2]['content'], \
+                f"item {i}: source-undesired should equal base-desired"
+            as_src[conflict_word] += 1
+            as_base[demand] += 1
+
         phrasings[' '.join(b[:2])] += 1
 
     # Per-word balance across the edit. This is what replaces the old polarity
@@ -682,21 +826,45 @@ def assert_design_invariants(parts):
     # cancelled by each word appearing equally on both sides. A corpus-wide
     # count can look balanced while every individual word is locked to one side,
     # so the check is per word.
-    skew = {w: (as_conflict[w], as_agree[w])
-            for w in set(as_conflict) | set(as_agree)
-            if as_conflict[w] != as_agree[w]}
-    assert not skew, f"words unbalanced across the edit (conflict, agree): {skew}"
+    skew = {w: (as_src[w], as_base[w])
+            for w in set(as_src) | set(as_base)
+            if as_src[w] != as_base[w]}
+    assert not skew, f"words unbalanced across the edit (source, base): {skew}"
 
     assert len(set(phrasings.values())) == 1, \
         f"developer phrasings not used equally: {dict(phrasings)}"
 
-    assert len(test) == n // 2, f"test set should be {n // 2} rows, got {len(test)}"
+    # ---- test-set disjointness -------------------------------------------
+    # The comparison is on the (developer, user) prompt only: the test rows
+    # carry no assistant turn, and it is the prompt that DataHandler renders for
+    # both the steering caches and the eval.
+    assert test, "test set is empty"
+    train_prompts = {(r['prompt'][0]['content'], r['prompt'][1]['content'])
+                     for f in (src_des, src_und, base_des, base_und) for r in f}
+    leaked = [r['id'] for r in test
+              if (r['prompt'][0]['content'], r['prompt'][1]['content']) in train_prompts]
+    assert not leaked, (
+        f"{len(leaked)} test prompts also appear in the all-files (ids {leaked[:5]}). "
+        f"{'/'.join(str(x) for x in (len(leaked), len(test)))} leaked. The eval would "
+        f"steer prompts that the steering vector was estimated on.")
+
+    train_words = {w for r in base_des for w in
+                   _parse_constraint(r['prompt'][0]['content'],
+                                     r['prompt'][1]['content'])[0]}
+    test_words = {w for r in test for w in
+                  _parse_constraint(r['prompt'][0]['content'],
+                                    r['prompt'][1]['content'])[0]}
+    shared = train_words & test_words
+    assert not shared, f"test answer words also used in training: {sorted(shared)}"
+
+    assert all(len(r['prompt']) == 2 for r in test), \
+        "test rows must carry no assistant turn"
     return True
 
 
-def write(outdir, source, base, parts):
+def write(outdir, source, base, parts, kind='cross'):
     src_des, src_und, base_des, base_und, test = parts
-    assert_design_invariants(parts)
+    assert_design_invariants(parts, kind=kind)
     d = os.path.join(outdir, source)
     os.makedirs(d, exist_ok=True)
     files = {
@@ -710,13 +878,20 @@ def write(outdir, source, base, parts):
         with open(os.path.join(d, name), "w") as f:
             for r in rows:
                 f.write(json.dumps(r) + "\n")
-    print(f"wrote {len(files)} files to {d} ({len(src_des)} items each)")
+    print(f"wrote {len(files)} files to {d} ({len(src_des)} train items, "
+          f"{len(test)} held-out test rows)")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="data/gpt-oss-20b")
     ap.add_argument("--n", type=int, default=100)
+    ap.add_argument("--n_pairs", type=int, default=N_PAIRS,
+                    help="Word pairs used to build the training files.")
+    ap.add_argument("--n_test_pairs", type=int, default=N_TEST_PAIRS,
+                    help="Word pairs reserved for the test set, used in no "
+                         "training file. Test rows = n_test_pairs x 2 demand "
+                         "assignments x 2 phrasings.")
     ap.add_argument("--validate", action="store_true",
                     help="Query the model: drop pairs it mishandles, and write "
                          "its actual responses as the assistant completions. "
@@ -738,11 +913,14 @@ def main():
         gen = ResponseCache(args.model_id, args.device,
                             max_new_tokens=args.max_new_tokens)
         print("Validating candidate pairs ...")
-        candidates = select_word_pairs(gen.encode, N_PAIRS)
-        pairs, report = validate_pairs(gen, candidates, n_pairs=N_PAIRS)
+        n_need = args.n_pairs + args.n_test_pairs
+        candidates = select_word_pairs(gen.encode, n_need)
+        pairs, report = validate_pairs(gen, candidates, n_pairs=n_need)
         os.makedirs(os.path.dirname(args.pairs_file) or '.', exist_ok=True)
         with open(args.pairs_file, 'w') as f:
             json.dump({'model_id': args.model_id, 'accepted': pairs,
+                       'n_train_pairs': args.n_pairs,
+                       'n_test_pairs': args.n_test_pairs,
                        'report': [[list(p), st, msg] for p, st, msg in report]},
                       f, indent=2)
         print(f"kept {len(pairs)} pairs -> {args.pairs_file}")
@@ -750,20 +928,35 @@ def main():
         # Without a tokenizer we cannot length-match, so fall back to naive
         # pairing purely so the structural checks can be exercised offline.
         bank = list(dict.fromkeys(WORD_BANK))
-        pairs = [(bank[2 * i], bank[2 * i + 1]) for i in range(N_PAIRS)]
+        n_need = args.n_pairs + args.n_test_pairs
+        pairs = [(bank[2 * i], bank[2 * i + 1]) for i in range(n_need)]
         print("WARNING: running without --validate. Pairs are NOT length-matched")
         print("or deference-filtered, and the assistant completions are STIPULATED")
         print("PLACEHOLDERS, not model output. This mode is for offline structural")
         print("testing only -- re-run with --validate on a GPU node before localizing.")
 
-    datasets = [("roleConflict-single", "roleAgree-single", False),
-                ("withinConflict-single", "withinAgree-single", True)]
-    built = [build(pairs, args.n, within=w) for _, _, w in datasets]
+    # The last n_test_pairs validated pairs are reserved for the test set and
+    # appear in no training file. Slicing (rather than sampling) keeps the split
+    # reproducible from validated_pairs.json alone.
+    if len(pairs) < args.n_pairs + args.n_test_pairs:
+        raise SystemExit(
+            f"need {args.n_pairs} train + {args.n_test_pairs} test pairs, "
+            f"have {len(pairs)}")
+    train_pairs = pairs[:args.n_pairs]
+    test_pairs = pairs[args.n_pairs:args.n_pairs + args.n_test_pairs]
+    print(f"train pairs: {len(train_pairs)}  held-out test pairs: {len(test_pairs)} "
+          f"({test_pairs[:3]}...)")
+
+    datasets = [("roleConflict-single", "roleAgree-single", "cross"),
+                ("withinConflict-single", "withinAgree-single", "within"),
+                ("roleInverted-single", "roleAgree-single", "inverted")]
+    kinds = [k for _, _, k in datasets]
+    built = [build(train_pairs, test_pairs, args.n, kind=k) for k in kinds]
     if gen is not None:
-        print("Generating completions (cross-role prompts, applied to both) ...")
-        fill_completions(built, gen)
-    for (source, base, _), parts in zip(datasets, built):
-        write(args.out, source, base, parts)
+        print("Generating completions (cross-role prompts, applied to all) ...")
+        fill_completions(built, kinds, gen)
+    for (source, base, kind), parts in zip(datasets, built):
+        write(args.out, source, base, parts, kind=kind)
 
     if gen is not None:
         print(f"total prompts generated (after caching): {gen.n_generated}")

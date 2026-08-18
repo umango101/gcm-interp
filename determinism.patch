@@ -1,0 +1,355 @@
+diff --git a/batch_handler.py b/batch_handler.py
+index b26fb737..c207c54d 100644
+--- a/batch_handler.py
++++ b/batch_handler.py
+@@ -7,7 +7,9 @@ class BatchHandler:
+         self.data_handler = data_handler
+         self.batch_size = config.args.batch_size
+ 
+-        if not start or not stop:
++        # `not start` is True for start=0, so an explicit (0, LEN) window was
++        # silently replaced by (0, batch_size).
++        if start is None or stop is None:
+             start = 0
+             stop = self.batch_size
+ 
+diff --git a/config.py b/config.py
+index 921c0611..19ce44f8 100644
+--- a/config.py
++++ b/config.py
+@@ -9,7 +9,7 @@ import sys
+ import yaml
+ from dataclasses import dataclass
+ import json
+-from eval.setup import set_seed
++from eval.setup import set_seed, assert_determinism_env
+ class Config:
+     def __init__(self):
+         self.args = self.parse_arguments()
+@@ -90,6 +90,9 @@ class Config:
+             yaml.dump(args_dict, yaml_file, default_flow_style=False)
+             
+     def setup_environment(self, seed=42):
++        # Checked first: CUBLAS_WORKSPACE_CONFIG / PYTHONHASHSEED only take
++        # effect if they were exported before the interpreter started.
++        assert_determinism_env()
+         set_seed(seed)
+ 
+         os.makedirs(f'{self.set_output_prefix()}', exist_ok=True)
+diff --git a/eval/activations.py b/eval/activations.py
+index fd2cbe07..78ce5253 100644
+--- a/eval/activations.py
++++ b/eval/activations.py
+@@ -1,17 +1,28 @@
+ import os
+ 
+ 
+-def _head_site(layer):
+-    """Per-head activation site. Set HEAD_SITE=o_proj_input for models where
+-    num_heads*head_dim != hidden_size (gpt-oss, gemma-3)."""
+-    if os.environ.get('HEAD_SITE') == 'o_proj_input':
++def _head_site(layer, head_site=None):
++    """Per-head activation site.
++
++    head_site comes from ModelHandler.head_site (i.e. from --head_site) so that
++    caching and steering cannot disagree. The HEAD_SITE env var is only a
++    fallback for callers with no ModelHandler in scope; if neither is set on a
++    model where num_heads*head_dim != hidden_size, the cache would be read at
++    o_proj.output (width hidden_size) while generation writes at o_proj.input
++    (width num_heads*head_dim), silently mismatching every head slice.
++    """
++    site = head_site or os.environ.get('HEAD_SITE')
++    if site is None:
++        raise ValueError(
++            "head_site is unset; pass model_handler.head_site or export HEAD_SITE")
++    if site == 'o_proj_input':
+         return layer.self_attn.o_proj.input
+     return layer.self_attn.o_proj.output
+ 
+ 
+ import torch
+ 
+-def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
++def mean_ablations_cache(model, data_handler, batch_size=9, key='desired', head_site=None):
+     toks = data_handler.source_qs_toks[key]
+     attn_layer_cache = [[] for _ in range(len(model.model.layers))]
+     for i in range(0, toks['input_ids'].shape[0], batch_size):
+@@ -21,11 +32,11 @@ def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
+         }
+         with model.trace(input_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                attn_layer_cache[idx].append(_head_site(layer).detach().cpu().save())
++                attn_layer_cache[idx].append(_head_site(layer, head_site).detach().cpu().save())
+     attn_cache = [torch.cat(attns_in_layer, dim=0).mean(dim=0).to(model.device) for attns_in_layer in attn_layer_cache]
+     return torch.stack(attn_cache)
+ 
+-def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=True):
++def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=True, head_site=None):
+     source_toks = data_handler.steering_qs_toks['add']
+     base_toks = data_handler.steering_qs_toks['sub']
+     num_layers = len(model.model.layers)
+@@ -50,10 +61,10 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
+ 
+         with model.trace(s_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                steer[idx].append(_head_site(layer).detach().cpu().save())
++                steer[idx].append(_head_site(layer, head_site).detach().cpu().save())
+         with model.trace(b_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                base[idx].append(_head_site(layer).detach().cpu().save())
++                base[idx].append(_head_site(layer, head_site).detach().cpu().save())
+ 
+     if mean:
+         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))
+@@ -64,6 +75,14 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
+         print('########### Steering cache after ########### ', cache[0].shape)
+     print('Stacked steering cache ', torch.stack(cache).shape, model.config)
+     if key == 'desired':
+-        filename = f'{data_handler.config.args.model_id.split("/")[0].lower()}_steering_cache_{data_handler.config.args.source}_{"single" if "single" in data_handler.config.args.steering_add_path else "long"}_steer.pt'
+-        torch.save(torch.stack(cache), filename)
++        # Was: f'{model_id.split("/")[0]}_..._steer.pt' in the CWD -- that is the
++        # ORG ("openai"), and the name omits the sub set and the eval set, so
++        # concurrent runs of the same source overwrite each other's cache.
++        cfg = data_handler.config
++        out_dir = os.path.join(cfg.get_output_prefix(), 'eval')
++        os.makedirs(out_dir, exist_ok=True)
++        add = os.path.basename(cfg.args.steering_add_path).replace('.jsonl', '')
++        sub = os.path.basename(cfg.args.steering_sub_path).replace('.jsonl', '')
++        torch.save(torch.stack(cache),
++                   os.path.join(out_dir, f'steering_cache_{add}_minus_{sub}.pt'))
+     return torch.stack(cache)
+\ No newline at end of file
+diff --git a/eval/eval_runner.py b/eval/eval_runner.py
+index 46a4a7eb..93c8e906 100644
+--- a/eval/eval_runner.py
++++ b/eval/eval_runner.py
+@@ -39,18 +39,20 @@ def load_patching_reps(data_handler, model_handler, mean=True):
+         patching_reps[ablation] = {}
+         for key in ['desired', 'undesired']:
+             print(f"Loading patching reps for {ablation} - {key}")
+-            patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
++            patching_reps[ablation][key] = get_patch_activations(
++                model, data_handler, ablation, key=key, mean=mean,
++                head_site=model_handler.head_site)
+     print('Returning patching reps')
+     return patching_reps
+ 
+-def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True):
++def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True, head_site=None):
+     # Large models (e.g. 32B) OOM caching all-layer activations at the default
+     # batch size of 9, so shrink the activation-caching batch for them.
+     cache_bs = 2 if '32B' in data_handler.config.args.model_id else 9
+     if ablation_type == 'mean':
+-        return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs)
++        return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs, head_site=head_site)
+     elif ablation_type == 'steer':
+-        return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
++        return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs, head_site=head_site)
+     else:
+         raise ValueError(f"Unknown ablation type: {ablation_type}")
+ 
+@@ -157,6 +159,10 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
+                     else:
+                         topk_df = pd.read_csv(f"{config.get_output_prefix()}/eval/{logit_metric}_{reps_type}_{topk}.csv")
+ 
++                    # Reseed per cell. Without this, a resumed run that skips
++                    # earlier (N, topk) cells reaches this one with a different RNG
++                    # state than a from-scratch run would.
++                    set_seed(config.args.seed)
+                     batch_handler = BatchHandler(config, data_handler)
+                     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
+                     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
+diff --git a/eval/logits_handler.py b/eval/logits_handler.py
+index df732f93..096e3d2c 100644
+--- a/eval/logits_handler.py
++++ b/eval/logits_handler.py
+@@ -19,16 +19,27 @@ def load_logits(config, data_handler, which_patch, model_handler):
+     else:
+         print('Path does not exist {}, computing logits afresh.'.format(f"{'/'.join(config.get_output_prefix().split('/')[:-3])}/{name}_{which_patch}.pt"))
+         if config.args.patch_algo != 'probes':
+-            for i in range(data_handler.LEN):
+-                try:
+-                    with open(f"{logits_path}_{i}.pt", 'rb') as f:
+-                        logits = torch.load(f)
+-                        # print('atp-zero', logits.shape)
+-                        logits = logits.squeeze().unsqueeze(-1) if 'atp' in config.args.patch_algo else logits
+-                        all_logits = logits if all_logits is None else torch.cat([all_logits, logits], dim=-1)
+-                except Exception as e:
+-                    print(f"Could not load logits from {logits_path}_{i}.pt, skipping this file. ", e)
+-                    continue
++            # Every shard written by Experiment.run must be consumed, in index
++            # order, or the attribution map silently averages a subset -- and
++            # then gets cached as numerator_1_heads.pt for every later run.
++            # data_handler.LEN is 50 under --eval_model but 100 under
++            # --patch_model, so ranging over LEN here dropped half the shards.
++            shard_dir = os.path.dirname(logits_path)
++            stem = os.path.basename(logits_path)
++            shard_idx = sorted(
++                int(f[len(stem) + 1:-3]) for f in os.listdir(shard_dir)
++                if f.startswith(stem + "_") and f.endswith(".pt")
++                and f[len(stem) + 1:-3].isdigit())
++            if not shard_idx:
++                raise FileNotFoundError(
++                    f"no {stem}_*.pt shards under {shard_dir}; run --patch_model first")
++            print(f"loading {len(shard_idx)} shards from {shard_dir} "
++                  f"(indices {shard_idx[0]}..{shard_idx[-1]})")
++            for i in shard_idx:
++                with open(f"{logits_path}_{i}.pt", 'rb') as f:
++                    logits = torch.load(f)
++                    logits = logits.squeeze().unsqueeze(-1) if 'atp' in config.args.patch_algo else logits
++                    all_logits = logits if all_logits is None else torch.cat([all_logits, logits], dim=-1)
+ 
+             # print('patcher ', all_logits.shape)
+             name = 'numerator_1'
+@@ -60,8 +71,15 @@ def get_top_k_layer_and_head(patches, top_k, patch_algo):
+     patches = patches.to(torch.float32)
+     if patch_algo != 'probes':
+         patches = patches.mean(dim=-1)
++    patches = patches.cpu()  # CUDA topk/sort tie-breaking is not specified
+     flat = patches.view(-1)
+-    top_values, top_indices = flat.topk(k=int(top_k * flat.numel()))
++    k = int(round(top_k * flat.numel()))
++    k = max(1, min(k, flat.numel()))
++    # topk does not specify how it orders equal values. Sort by (-value, index)
++    # so ties always resolve to the lower flat index, on any device or version.
++    order = sorted(range(flat.numel()), key=lambda i: (-flat[i].item(), i))[:k]
++    top_indices = torch.tensor(order, dtype=torch.long)
++    top_values = flat[top_indices]
+     layer_indices = top_indices // patches.shape[1]
+     neuron_indices = top_indices % patches.shape[1]
+     df = pd.DataFrame({
+@@ -69,7 +87,7 @@ def get_top_k_layer_and_head(patches, top_k, patch_algo):
+         'neuron': neuron_indices.numpy(),
+         'value': top_values.numpy()
+     })
+-    return df.sort_values(by=['layer', 'neuron'])
++    return df.sort_values(by=['layer', 'neuron'], kind='mergesort').reset_index(drop=True)
+ 
+ def retrieve_random_k(num_layers, num_heads, k, seed=42):
+     rng = random.Random(seed)
+diff --git a/eval/setup.py b/eval/setup.py
+index b76038d5..8489622e 100644
+--- a/eval/setup.py
++++ b/eval/setup.py
+@@ -6,6 +6,39 @@ import logging
+ import warnings
+ warnings.filterwarnings("ignore")
+ 
++# Set before the first CUDA op, i.e. before python starts. Kept here as the
++# single source of truth so the shell script and the assertion agree.
++REQUIRED_ENV = {
++    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",  # deterministic cuBLAS GEMM workspaces
++    "PYTHONHASHSEED": "0",                 # str hashing -> set/dict iteration order
++    "TOKENIZERS_PARALLELISM": "false",     # rust tokenizer thread pool
++}
++
++
++def assert_determinism_env(strict=None):
++    """Fail loudly if the process was not launched with a deterministic env.
++
++    CUBLAS_WORKSPACE_CONFIG and PYTHONHASHSEED are read by cuBLAS and by the
++    interpreter at startup respectively. Setting them from inside Python (as
++    the old set_seed did, via os.environ.setdefault) is too late to have any
++    effect, and the run looks deterministic while not being so. Export them in
++    the SLURM script instead; this only checks.
++    """
++    if strict is None:
++        # "2" is stricter than "1", not a different mode -- it must not turn the
++        # env check OFF.
++        strict = os.environ.get("STRICT_DETERMINISM", "1") in ("1", "2")
++    bad = {k: (os.environ.get(k), v) for k, v in REQUIRED_ENV.items()
++           if os.environ.get(k) != v}
++    if not bad:
++        return
++    msg = ("determinism env not set before interpreter start (got, want): "
++           f"{bad}\nExport these in the launcher, e.g.\n"
++           + "\n".join(f'  export {k}="{v}"' for k, v in REQUIRED_ENV.items()))
++    if strict:
++        raise RuntimeError(msg)
++    print("[determinism] WARNING: " + msg)
++
+ 
+ def set_seed(seed=42):
+     random.seed(seed)
+@@ -15,8 +48,23 @@ def set_seed(seed=42):
+     torch.cuda.manual_seed_all(seed)
+     torch.backends.cudnn.deterministic = True
+     torch.backends.cudnn.benchmark = False
+-    os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+-    torch.use_deterministic_algorithms(True, warn_only=True)
++
++    # TF32 and reduced-precision accumulation change results depending on which
++    # kernel autotuning picks, which varies with free memory and shape. Pin them
++    # off: slower matmuls, identical numbers across runs and across nodes.
++    torch.backends.cuda.matmul.allow_tf32 = False
++    torch.backends.cudnn.allow_tf32 = False
++    torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
++    if hasattr(torch.backends.cuda.matmul, "allow_bf16_reduced_precision_reduction"):
++        torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = False
++
++    # warn_only=False is the real guarantee, but gpt-oss's MoE routing uses
++    # scatter/index_add kernels with no deterministic implementation, so it
++    # raises. Default to warn_only=True and let STRICT_DETERMINISM=2 opt into
++    # the hard failure when you want to find out exactly which op is at fault.
++    hard = os.environ.get("STRICT_DETERMINISM") == "2"
++    torch.use_deterministic_algorithms(True, warn_only=not hard)
++
+ 
+ def configure_logging():
+     logging.basicConfig(level=logging.ERROR)
+diff --git a/run_gptoss_experiment.sh b/run_gptoss_experiment.sh
+index e00952bd..f89625f9 100644
+--- a/run_gptoss_experiment.sh
++++ b/run_gptoss_experiment.sh
+@@ -44,6 +44,19 @@ mkdir -p "$HF_HOME"
+ export HARMONY_SYSTEM=minimal
+ export HEAD_SITE=o_proj_input
+ 
++# --- determinism -----------------------------------------------------------
++# These three are read at process start (by cuBLAS, by the interpreter, and by
++# the rust tokenizer respectively), so setting them from inside Python has no
++# effect -- eval/setup.py asserts them instead of setting them.
++export CUBLAS_WORKSPACE_CONFIG=":4096:8"
++export PYTHONHASHSEED="0"
++export TOKENIZERS_PARALLELISM="false"
++# 1 = assert the env and use torch.use_deterministic_algorithms(warn_only=True).
++# 2 = warn_only=False, which raises on gpt-oss's MoE scatter kernels; use it to
++#     identify which op is nondeterministic, not for production runs.
++export STRICT_DETERMINISM="1"
++export SEED=42
++
+ model_id="openai/gpt-oss-20b"
+ model_name="gpt-oss-20b"
+ device="cuda:0"
+@@ -112,6 +125,7 @@ for pair in "${pairs[@]}"; do
+     # --- localize -----------------------------------------------------------
+     python run.py --model_id "$model_id" \
+                   --batch_size 1 \
++                  --seed "$SEED" \
+                   --patch_algo "$algo" \
+                   --source "$source" \
+                   --base "$base" \
+@@ -126,6 +140,7 @@ for pair in "${pairs[@]}"; do
+     # direction rather than memorised items.
+     python run.py --model_id "$model_id" \
+                   --batch_size 1 \
++                  --seed "$SEED" \
+                   --patch_algo "$algo" \
+                   --source "$source" \
+                   --base "$base" \
+@@ -151,6 +166,7 @@ for pair in "${pairs[@]}"; do
+ 
+     python run.py --model_id "$model_id" \
+                   --batch_size 1 \
++                  --seed "$SEED" \
+                   --patch_algo "$algo" \
+                   --source "$source" \
+                   --base "$base" \
+@@ -170,6 +186,7 @@ for pair in "${pairs[@]}"; do
+     # tests whether the heads are load-bearing.
+     python run.py --model_id "$model_id" \
+                   --batch_size 1 \
++                  --seed "$SEED" \
+                   --patch_algo "$algo" \
+                   --source "$source" \
+                   --base "$base" \

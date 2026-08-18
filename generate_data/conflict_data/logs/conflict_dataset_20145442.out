@@ -1,0 +1,25 @@
+[slurm] job 20145442 on node2434 restart=0 Tue Aug 11 00:02:51 EDT 2026
+Loading openai/gpt-oss-20b ...
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1218, in from_pretrained
+    config_class = CONFIG_MAPPING[config_dict["model_type"]]
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 914, in __getitem__
+    raise KeyError(key)
+KeyError: 'gpt_oss'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 966, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 913, in main
+    gen = ResponseCache(args.model_id, args.device,
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict_data/gen_conflict_polarity.py", line 491, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(model_id, **kw)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 547, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1220, in from_pretrained
+    raise ValueError(
+ValueError: The checkpoint you are trying to load has model type `gpt_oss` but Transformers does not recognize this architecture. This could be because of an issue with the checkpoint, or because your version of Transformers is out of date.
+
+You can update Transformers with the command `pip install --upgrade transformers`. If this does not work, and the checkpoint is very new, then there may not be a release version that supports this model yet. In this case, you can get the most up-to-date code by installing Transformers from source with the command `pip install git+https://github.com/huggingface/transformers.git`

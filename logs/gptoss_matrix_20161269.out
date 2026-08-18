@@ -1,0 +1,63 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+======================================================================
+1. role words render as expected (roles are held FIXED in this design;
+   this is a sanity check on the template, not the minimal pair)
+   developer  -> 1 token(s) [77944]  OK 
+   user       -> 1 token(s) [1428]  OK 
+   system     -> 1 token(s) [17360]  OK 
+   assistant  -> 1 token(s) [173781]  OK 
+======================================================================
+2. rendered prompt + marker alignment
+   SOURCE render:
+ '<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nReasoning: low\n\n# Valid channels: analysis, final. Channel must be included for every message.<|end|><|start|>developer<|message|>Rule: you must always answer MANGO. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, APPLE or MANGO. Answer APPLE.<|end|><|start|>assistant<|channel|>final<|message|>'
+   marker present in generation prompt: OK
+   marker present in rendered assistant turn: OK
+======================================================================
+3. minimal-pair property (equal length, exactly one differing token)
+   source len=90  base len=90
+   differing positions: [57, 58]
+     pos 57: source=' M'  base=' APP'
+     pos 58: source='ANGO'  base='LE'
+   exactly one differing token: False
+======================================================================
+4. sliding-window budget
+   rendered prompt is 90 tokens.
+   gpt-oss alternates 128-token sliding-window layers with full-attention
+   layers. If the developer instruction sits more than 128 tokens before
+   the read position, sliding-window layers cannot see it at all.
+   OK -- whole prompt fits inside the sliding window.
+======================================================================
+5. answer words: how many length-matched pairs the bank yields
+  word bank by token length: {1: 59, 2: 169, 3: 55, 4: 5}
+  single-token-edit pairs formed: 81 (need 25)
+  rejected substitutions: {'token count changes': 5292, '2-position edit': 2635, '3-position edit': 686, '4-position edit': 1}
+  examples: [('GREEN', 'BUTTON'), ('WINDOW', 'LIGHT'), ('apple', 'river'), ('stone', 'north')]
+   OK -- 81 candidates for 25 slots (deference filtering will remove some)
+   pairs with mismatched token lengths: 0 (should be 0)
+======================================================================
+6. every generated pair, checked end to end
+   roleConflict-single      n=100  maxlen=91   structure=OK  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+   roleInverted-single      n=100  maxlen=91   structure=FAIL (item 0: cross must leave the user turn byte-identical)  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+   withinConflict-single    n=100  maxlen=94   structure=OK  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+[loader] Mxfp4Config unavailable; relying on implicit dequantization
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1218, in from_pretrained
+    config_class = CONFIG_MAPPING[config_dict["model_type"]]
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 914, in __getitem__
+    raise KeyError(key)
+KeyError: 'gpt_oss'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/./verify_gptoss.py", line 325, in <module>
+    stage_model(a.model_id, a.device)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/./verify_gptoss.py", line 242, in stage_model
+    hf_model = AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 547, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1220, in from_pretrained
+    raise ValueError(
+ValueError: The checkpoint you are trying to load has model type `gpt_oss` but Transformers does not recognize this architecture. This could be because of an issue with the checkpoint, or because your version of Transformers is out of date.
+
+You can update Transformers with the command `pip install --upgrade transformers`. If this does not work, and the checkpoint is very new, then there may not be a release version that supports this model yet. In this case, you can get the most up-to-date code by installing Transformers from source with the command `pip install git+https://github.com/huggingface/transformers.git`

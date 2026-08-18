@@ -7,7 +7,9 @@ class BatchHandler:
         self.data_handler = data_handler
         self.batch_size = config.args.batch_size
 
-        if not start or not stop:
+        # `not start` is True for start=0, so an explicit (0, LEN) window was
+        # silently replaced by (0, batch_size).
+        if start is None or stop is None:
             start = 0
             stop = self.batch_size
 

@@ -44,6 +44,19 @@ mkdir -p "$HF_HOME"
 export HARMONY_SYSTEM=minimal
 export HEAD_SITE=o_proj_input
 
+# --- determinism -----------------------------------------------------------
+# These three are read at process start (by cuBLAS, by the interpreter, and by
+# the rust tokenizer respectively), so setting them from inside Python has no
+# effect -- eval/setup.py asserts them instead of setting them.
+export CUBLAS_WORKSPACE_CONFIG=":4096:8"
+export PYTHONHASHSEED="0"
+export TOKENIZERS_PARALLELISM="false"
+# 1 = assert the env and use torch.use_deterministic_algorithms(warn_only=True).
+# 2 = warn_only=False, which raises on gpt-oss's MoE scatter kernels; use it to
+#     identify which op is nondeterministic, not for production runs.
+export STRICT_DETERMINISM="1"
+export SEED=42
+
 model_id="openai/gpt-oss-20b"
 model_name="gpt-oss-20b"
 device="cuda:0"
@@ -112,6 +125,7 @@ for pair in "${pairs[@]}"; do
     # --- localize -----------------------------------------------------------
     python run.py --model_id "$model_id" \
                   --batch_size 1 \
+                  --seed "$SEED" \
                   --patch_algo "$algo" \
                   --source "$source" \
                   --base "$base" \
@@ -126,6 +140,7 @@ for pair in "${pairs[@]}"; do
     # direction rather than memorised items.
     python run.py --model_id "$model_id" \
                   --batch_size 1 \
+                  --seed "$SEED" \
                   --patch_algo "$algo" \
                   --source "$source" \
                   --base "$base" \
@@ -151,6 +166,7 @@ for pair in "${pairs[@]}"; do
 
     python run.py --model_id "$model_id" \
                   --batch_size 1 \
+                  --seed "$SEED" \
                   --patch_algo "$algo" \
                   --source "$source" \
                   --base "$base" \
@@ -170,6 +186,7 @@ for pair in "${pairs[@]}"; do
     # tests whether the heads are load-bearing.
     python run.py --model_id "$model_id" \
                   --batch_size 1 \
+                  --seed "$SEED" \
                   --patch_algo "$algo" \
                   --source "$source" \
                   --base "$base" \

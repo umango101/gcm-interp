@@ -1,0 +1,163 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+======================================================================
+1. role words render as expected (roles are held FIXED in this design;
+   this is a sanity check on the template, not the minimal pair)
+   developer  -> 1 token(s) [77944]  OK 
+   user       -> 1 token(s) [1428]  OK 
+   system     -> 1 token(s) [17360]  OK 
+   assistant  -> 1 token(s) [173781]  OK 
+======================================================================
+2. rendered prompt + marker alignment
+   SOURCE render:
+ '<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nReasoning: low\n\n# Valid channels: analysis, final. Channel must be included for every message.<|end|><|start|>developer<|message|>Rule: you must always answer MANGO. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, APPLE or MANGO. Answer APPLE.<|end|><|start|>assistant<|channel|>final<|message|>'
+   marker present in generation prompt: OK
+   marker present in rendered assistant turn: OK
+======================================================================
+3. minimal-pair property (equal length, exactly one differing token)
+   source len=90  base len=90
+   differing positions: [57, 58]
+     pos 57: source=' M'  base=' APP'
+     pos 58: source='ANGO'  base='LE'
+   exactly one differing token: False
+======================================================================
+4. sliding-window budget
+   rendered prompt is 90 tokens.
+   gpt-oss alternates 128-token sliding-window layers with full-attention
+   layers. If the developer instruction sits more than 128 tokens before
+   the read position, sliding-window layers cannot see it at all.
+   OK -- whole prompt fits inside the sliding window.
+======================================================================
+5. answer words: how many length-matched pairs the bank yields
+  word bank by token length: {1: 59, 2: 169, 3: 55, 4: 5}
+  single-token-edit pairs formed: 81 (need 25)
+  rejected substitutions: {'token count changes': 5292, '2-position edit': 2635, '3-position edit': 686, '4-position edit': 1}
+  examples: [('GREEN', 'BUTTON'), ('WINDOW', 'LIGHT'), ('apple', 'river'), ('stone', 'north')]
+   OK -- 81 candidates for 25 slots (deference filtering will remove some)
+   pairs with mismatched token lengths: 0 (should be 0)
+======================================================================
+6. every generated pair, checked end to end
+   roleConflict-single      n=100  maxlen=91   structure=OK  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+   roleInverted-single      n=100  maxlen=91   structure=FAIL (item 0: cross must leave the user turn byte-identical)  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+   withinConflict-single    n=100  maxlen=94   structure=OK  minimal-pair=OK (len-mismatch=0, multi-diff=0)
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.10it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.25it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]
+======================================================================
+config: hidden=2880 n_heads=64 head_dim=64 layers=24
+n_heads*head_dim = 4096  hidden = 2880  MISMATCH -> must use o_proj.input
+layer_types: ['sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention', 'sliding_attention', 'full_attention']
+  -> report ATP scores split by sliding_attention vs full_attention; they are not comparable.
+======================================================================
+o_proj.input shape + settability + gradient flow
+  o_proj.input shape: (1, 90, 4096)  (expect [..., 4096])
+  grad on o_proj.input: present (1, 90, 4096)
+======================================================================
+intervention writes to o_proj.input actually change the output
+  max |delta| after zeroing head 0 of layer 0: 7.1875
+======================================================================
+first generated token is the answer (final channel forced)
+  argmax next token: 'M'
+  (should be an answer word, not '<|channel|>' or 'analysis')
+=== localizing roleConflict-single -> roleAgree-single ===
+Parsing config...
+op prefix  /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp/
+Saved config to file /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_roleConflict-single_to_roleAgree-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.13s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.04it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.00s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>assistant<|channel|>final<|message|>yellow<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer orange. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 63
+max_length 63
+Tokenizing base_qs_toks
+max_length 63
+max_length 63
+Tokenizing source_qs_toks
+max_length 63
+max_length 63
+Finding response start positions...
+0it [00:00, ?it/s]79it [00:00, 787.53it/s]100it [00:00, 810.31it/s]
+0it [00:00, ?it/s]92it [00:00, 916.58it/s]100it [00:00, 916.22it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 17008.53it/s]
+=== localizing withinConflict-single -> withinAgree-single ===
+Parsing config...
+op prefix  /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_withinConflict-single_to_withinAgree-single/atp/
+Saved config to file /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_withinConflict-single_to_withinAgree-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.13s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.04it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.00s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly. Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>user<|message|>Which word?<|end|><|start|>assistant<|channel|>final<|message|>yellow<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly. Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>user<|message|>Which word?<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer orange. Follow this rule exactly. Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>user<|message|>Which word?<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 66
+max_length 66
+Tokenizing base_qs_toks
+max_length 66
+max_length 66
+Tokenizing source_qs_toks
+max_length 66
+max_length 66
+Finding response start positions...
+0it [00:00, ?it/s]71it [00:00, 705.95it/s]100it [00:00, 736.68it/s]
+0it [00:00, ?it/s]85it [00:00, 849.72it/s]100it [00:00, 848.33it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 18071.11it/s]
+=== localizing roleInverted-single -> roleAgree-single ===
+Parsing config...
+op prefix  /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_roleInverted-single_to_roleAgree-single/atp/
+Saved config to file /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/results/gpt-oss-20b/from_roleInverted-single_to_roleAgree-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.16s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.11s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.03it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.01s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>assistant<|channel|>final<|message|>yellow<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer yellow.<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Reasoning: low
+
+# Valid channels: analysis, final.<|end|><|start|>developer<|message|>Rule: you must always answer yellow. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, orange or yellow. Answer orange.<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 63
+max_length 63
+Tokenizing base_qs_toks
+max_length 63
+max_length 63
+Tokenizing source_qs_toks
+max_length 63
+max_length 63
+Finding response start positions...
+0it [00:00, ?it/s]82it [00:00, 817.03it/s]100it [00:00, 833.83it/s]
+0it [00:00, ?it/s]93it [00:00, 926.36it/s]100it [00:00, 925.77it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]  3%|▎         | 3/100 [00:01<00:33,  2.91it/s]  4%|▍         | 4/100 [00:01<00:43,  2.18it/s]  5%|▌         | 5/100 [00:02<00:50,  1.89it/s]  6%|▌         | 6/100 [00:03<00:54,  1.74it/s]  7%|▋         | 7/100 [00:03<00:56,  1.63it/s]  8%|▊         | 8/100 [00:04<00:58,  1.57it/s]  9%|▉         | 9/100 [00:05<00:58,  1.54it/s] 10%|█         | 10/100 [00:05<00:57,  1.56it/s] 11%|█         | 11/100 [00:06<00:57,  1.55it/s] 12%|█▏        | 12/100 [00:07<01:01,  1.43it/s] 13%|█▎        | 13/100 [00:07<01:00,  1.44it/s] 14%|█▍        | 14/100 [00:08<01:00,  1.42it/s] 15%|█▌        | 15/100 [00:09<00:59,  1.43it/s] 16%|█▌        | 16/100 [00:10<00:58,  1.43it/s] 17%|█▋        | 17/100 [00:10<00:57,  1.44it/s] 18%|█▊        | 18/100 [00:11<00:56,  1.44it/s] 19%|█▉        | 19/100 [00:12<00:55,  1.45it/s] 20%|██        | 20/100 [00:12<00:55,  1.45it/s] 21%|██        | 21/100 [00:13<01:02,  1.27it/s] 22%|██▏       | 22/100 [00:14<01:07,  1.16it/s] 23%|██▎       | 23/100 [00:15<01:01,  1.25it/s] 24%|██▍       | 24/100 [00:16<00:58,  1.30it/s] 25%|██▌       | 25/100 [00:16<00:55,  1.36it/s] 26%|██▌       | 26/100 [00:17<00:52,  1.40it/s] 27%|██▋       | 27/100 [00:18<00:51,  1.42it/s] 28%|██▊       | 28/100 [00:18<00:49,  1.47it/s] 29%|██▉       | 29/100 [00:19<00:48,  1.47it/s] 30%|███       | 30/100 [00:20<00:47,  1.46it/s] 31%|███       | 31/100 [00:20<00:47,  1.46it/s] 32%|███▏      | 32/100 [00:21<00:46,  1.45it/s] 33%|███▎      | 33/100 [00:22<00:45,  1.49it/s] 34%|███▍      | 34/100 [00:22<00:44,  1.50it/s] 35%|███▌      | 35/100 [00:23<00:44,  1.47it/s] 36%|███▌      | 36/100 [00:24<00:44,  1.45it/s] 37%|███▋      | 37/100 [00:25<00:44,  1.40it/s] 38%|███▊      | 38/100 [00:25<00:44,  1.40it/s] 39%|███▉      | 39/100 [00:26<00:42,  1.42it/s] 40%|████      | 40/100 [00:27<00:42,  1.42it/s] 41%|████      | 41/100 [00:27<00:41,  1.43it/s] 42%|████▏     | 42/100 [00:28<00:39,  1.45it/s] 43%|████▎     | 43/100 [00:29<00:39,  1.45it/s] 44%|████▍     | 44/100 [00:29<00:38,  1.46it/s][2026-08-11T03:32:01.475] error: *** JOB 20161491 ON node4400 CANCELLED AT 2026-08-11T03:32:01 DUE to SIGNAL Terminated ***

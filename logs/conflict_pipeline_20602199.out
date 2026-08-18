@@ -1,0 +1,32 @@
+python:  /home/ubansal/miniconda/envs/syc/bin/python
+results: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix
+Family: instruction conflict (developer vs user)  model=gpt-oss-20b method=atp
+Repo root: /home/ubansal/orcd/scratch/conflicts/gcm-interp
+  gen input : /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix
+  test data : /home/ubansal/orcd/scratch/conflicts/gcm-interp/data
+Running 9 of 9 experiments:
+  - 01_loc-role_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role
+  - 02_loc-within_steer-within | from_withinConflict-single_to_withinAgree-single | steer=within
+  - 03_loc-role_steer-within | from_roleConflict-single_to_roleAgree-single | steer=within
+  - 04_loc-within_steer-role | from_withinConflict-single_to_withinAgree-single | steer=role
+  - 05_loc-role-minus-inverted_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role
+  - 06_loc-role-minus-within_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role
+  - 07_loc-role-minus-within_steer-within | from_roleConflict-single_to_roleAgree-single | steer=within
+  - 08_loc-within-minus-role_steer-role | from_withinConflict-single_to_withinAgree-single | steer=role
+  - 09_loc-within-minus-role_steer-within | from_withinConflict-single_to_withinAgree-single | steer=within
+======================================================================
+STAGE: merge
+  cell: 01_loc-role_steer-role | from_roleConflict-single_to_roleAgree-single | steer=role
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 850, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 843, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 370, in stage_merge
+    _require(cell.gen_dir, "results-eval-folder")
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval_pipeline_conflict.py", line 299, in _require
+    raise FileNotFoundError(
+FileNotFoundError: [results-eval-folder] required path does not exist: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix/01_loc-role_steer-role/gpt_oss_20b/from_roleConflict-single_to_roleAgree-single/atp/roleConflict-single_eval/roleConflict-single_steer/eval
+  deepest existing ancestor: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_matrix/01_loc-role_steer-role
+  looking for 'gpt_oss_20b' in it; it contains: ['CONDITION.txt', 'gpt-oss-20b']
+  (repo root in use: /home/ubansal/orcd/scratch/conflicts/gcm-interp -- override with --repo_root)

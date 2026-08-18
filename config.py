@@ -9,7 +9,7 @@ import sys
 import yaml
 from dataclasses import dataclass
 import json
-from eval.setup import set_seed
+from eval.setup import set_seed, assert_determinism_env
 class Config:
     def __init__(self):
         self.args = self.parse_arguments()
@@ -50,6 +50,13 @@ class Config:
                                  'o_proj_output when num_heads*head_dim == hidden_size, '
                                  'else o_proj_input (required for gpt-oss, gemma-3).')
         parser.add_argument('--kv_caching', action='store_true', help='Steer prefill only using KV cache; decoding steps are not re-steered')
+        parser.add_argument('--results_root', type=str, default='./results',
+                            help='Root of the results tree. Was hardcoded to '
+                                 './results, which meant two runs differing only '
+                                 'in their head list (e.g. a differenced vs an '
+                                 'undifferenced localization) resolved to the '
+                                 'same output prefix and overwrote each other. '
+                                 'Give each condition its own root.')
 
         args = parser.parse_args()
         if not (args.patch_model or args.eval_model):
@@ -90,6 +97,9 @@ class Config:
             yaml.dump(args_dict, yaml_file, default_flow_style=False)
             
     def setup_environment(self, seed=42):
+        # Checked first: CUBLAS_WORKSPACE_CONFIG / PYTHONHASHSEED only take
+        # effect if they were exported before the interpreter started.
+        assert_determinism_env()
         set_seed(seed)
 
         os.makedirs(f'{self.set_output_prefix()}', exist_ok=True)
@@ -103,10 +113,13 @@ class Config:
         model = self.args.model_id.split('/')[-1]
         eval_test_dir = self.args.eval_test.split('/')[-2] if isinstance(self.args.eval_test, str) else ''
         steering_dir = self.args.steering_add_path.split('/')[-2] if self.args.steering_add_path else ''
+        # rstrip('/') so load_logits' split('/')[:-3] walk lands on the algo dir
+        # regardless of whether the caller passed a trailing slash.
+        root = getattr(self.args, 'results_root', './results').rstrip('/')
         if self.args.patch_model:
-            self.output_prefix = f"./results/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/"
+            self.output_prefix = f"{root}/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/"
         if self.args.eval_model:
-            self.output_prefix = f"./results/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/{eval_test_dir}_eval/{steering_dir}_steer/"
+            self.output_prefix = f"{root}/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/{eval_test_dir}_eval/{steering_dir}_steer/"
         print("op prefix ", self.output_prefix)
         return self.output_prefix
     
