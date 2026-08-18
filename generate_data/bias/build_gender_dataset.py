@@ -53,9 +53,9 @@ def _env(key, default):
 
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/gemma-3-12b-it"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/gemma-3-12b-it/gender_responses.jsonl"),
-    "MODEL": _env("MODEL", "google/gemma-3-12b-it"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
+    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
+    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -378,11 +378,15 @@ def stage_build(professions):
         male_response = results[male_role]["story"]
         female_response = results[female_role]["story"]
 
-        emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
-        emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
-        emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
-        emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
+        # emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
+        # emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
+        # emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
+        # emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
 
+        emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "")
+        emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "")
+        emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), "")
+        emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), "")
     for h in steer_handles.values():
         h.close()
     print(f"[build] wrote {len(steer_names)} steering files ({n_train} rows each) -> {out_dir}", flush=True)

@@ -1,0 +1,21 @@
+Family: lying->truthful  model=Qwen1.5-32B-Chat  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_lying-long_to_truthful-long | lying-long_eval | lying-long_steer
+  - from_lying-long_to_truthful-long | lying-long_eval | lying-single_steer
+  - from_lying-long_to_truthful-long | lying-single_eval | lying-long_steer
+  - from_lying-long_to_truthful-long | lying-single_eval | lying-single_steer
+  - from_lying-single_to_truthful-single | lying-long_eval | lying-long_steer
+  - from_lying-single_to_truthful-single | lying-long_eval | lying-single_steer
+  - from_lying-single_to_truthful-single | lying-single_eval | lying-long_steer
+  - from_lying-single_to_truthful-single | lying-single_eval | lying-single_steer
+======================================================================
+STAGE: merge
+  cell: from_lying-long_to_truthful-long | lying-long_eval | lying-long_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_fact.py", line 705, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_fact.py", line 698, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_fact.py", line 237, in stage_merge
+    raise ValueError(
+ValueError: Row count mismatch in /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-long_steer/eval/10_targeted_steer_0.01_lying-long_gen.json: 50 gen items vs 228 test queries (/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/lying-long/truthful-long-test.jsonl). Refusing to misalign.

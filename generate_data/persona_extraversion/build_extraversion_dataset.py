@@ -59,11 +59,11 @@ def _env(key, default):
 
 CONFIG = {
     "DATASET": _env("DATASET", "extraversion.jsonl"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/gemma-3-12b-it"),
-    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/gemma-3-12b-it/extra_prompts.jsonl"),
-    "QC_CKPT": _env("QC_CKPT", "checkpoint/gemma-3-12b-it/extra_qc.jsonl"),
-    "GEN_MODEL": _env("GEN_MODEL", "google/gemma-3-12b-it"),
-    "QC_MODEL": _env("QC_MODEL", "google/gemma-3-12b-it"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
+    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_prompts.jsonl"),
+    "QC_CKPT": _env("QC_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_qc.jsonl"),
+    "GEN_MODEL": _env("GEN_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "QC_MODEL": _env("QC_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -436,19 +436,23 @@ def stage_build(yes_lines):
             # ---- extraversion single (social framing) ----
             _emit(h["extraversion-single-desired-all.jsonl"], idx, social_q, "Yes")
             _emit(h["extraversion-single-undesired-all.jsonl"], idx, social_q, "No")
-            _emit(h["extraversion-single-steering.jsonl"], idx, social_q, "Yes")   # social prompt + "Yes"
+            # _emit(h["extraversion-single-steering.jsonl"], idx, social_q, "Yes")   # social prompt + "Yes"
+            _emit(h["extraversion-single-steering.jsonl"], idx, social_q, "")
             # ---- introversion single (shy framing) ----
             _emit(h["introversion-single-desired-all.jsonl"], idx, shy_q, "No")
             _emit(h["introversion-single-undesired-all.jsonl"], idx, shy_q, "Yes")
-            _emit(h["introversion-single-steering.jsonl"], idx, shy_q, "No")     # shy prompt + "No"
+            # _emit(h["introversion-single-steering.jsonl"], idx, shy_q, "No")     # shy prompt + "No"
+            _emit(h["introversion-single-steering.jsonl"], idx, shy_q, "")
             # ---- extraversion long ----
             _emit(h["extraversion-long-desired-all.jsonl"], idx, extro_p, extro_resp)
             _emit(h["extraversion-long-undesired-all.jsonl"], idx, extro_p, intro_resp)
-            _emit(h["extraversion-long-steering.jsonl"], idx, extro_p, extro_resp)  # social prompt + extro response
+            # _emit(h["extraversion-long-steering.jsonl"], idx, extro_p, extro_resp)  # social prompt + extro response
+            _emit(h["extraversion-long-steering.jsonl"], idx, extro_p, "")
             # ---- introversion long ----
             _emit(h["introversion-long-desired-all.jsonl"], idx, intro_p, intro_resp)
             _emit(h["introversion-long-undesired-all.jsonl"], idx, intro_p, extro_resp)
-            _emit(h["introversion-long-steering.jsonl"], idx, intro_p, intro_resp)  # shy prompt + intro response
+            # _emit(h["introversion-long-steering.jsonl"], idx, intro_p, intro_resp)  # shy prompt + intro response
+            _emit(h["introversion-long-steering.jsonl"], idx, intro_p, "")
         else:
             # ---- remainder: introversion test files (prompt-only), same id->record map ----
             _emit(h["introversion-single-test.jsonl"], idx, shy_q)

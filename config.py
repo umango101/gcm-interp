@@ -45,6 +45,11 @@ class Config:
                             help='Load model in full bfloat16 with device_map=auto (no quantization). '
                                  'Required for very large models (e.g. 72B) that exceed single-GPU memory.')
         parser.add_argument('--kv_caching', action='store_true', help='Steer prefill only using KV cache; decoding steps are not re-steered')
+        parser.add_argument('--no_deterministic', action='store_true',
+                            help='Disable the deterministic kernel settings (see determinism.py). '
+                                'Generation is nondeterministic without them -- two identical runs '
+                                'diverged in 24/50 continuations -- so arms generated with and '
+                                'without this flag are not comparable.')
 
         args = parser.parse_args()
         if not (args.patch_model or args.eval_model):

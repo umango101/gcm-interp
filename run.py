@@ -1,4 +1,6 @@
-import sys 
+import sys
+from determinism import set_cublas_env, enable_determinism
+set_cublas_env()
 from config import Config
 from model_handler import ModelHandler
 from data_handler import DataHandler
@@ -8,13 +10,14 @@ from patching import Patching
 import os
 from eval.eval_runner import *
 import logging
-# Set the logging level to WARNING to suppress DEBUG and INFO
 logging.basicConfig(level=logging.WARNING)
 from batch_handler import BatchHandler
 from patching import Patching
 def main():
     print('Parsing config...')
     config = Config()
+    if not config.args.no_deterministic:
+        enable_determinism()
     print('Loading model...')
     model_handler = ModelHandler(config)
     config.args.batch_size = 5

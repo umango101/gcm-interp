@@ -1,0 +1,308 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+Requirement already satisfied: nnsight==0.4.11 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (0.4.11)
+Requirement already satisfied: transformers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (4.57.1)
+Requirement already satisfied: protobuf in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (6.33.1)
+Requirement already satisfied: python-socketio[client] in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: tokenizers>=0.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.22.1)
+Requirement already satisfied: pydantic>=2.9.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.12.4)
+Requirement already satisfied: torch>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (2.7.0+cu126)
+Requirement already satisfied: sentencepiece in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: torchvision in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.22.0+cu126)
+Requirement already satisfied: accelerate in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (1.11.0)
+Requirement already satisfied: diffusers in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.37.1)
+Requirement already satisfied: einops in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.8.1)
+Requirement already satisfied: msgspec in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.21.1)
+Requirement already satisfied: toml in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (0.10.2)
+Requirement already satisfied: ipython in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from nnsight==0.4.11) (8.37.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (2.41.5)
+Requirement already satisfied: typing-extensions>=4.14.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pydantic>=2.9.0->nnsight==0.4.11) (0.4.2)
+Requirement already satisfied: huggingface-hub<2.0,>=0.16.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from tokenizers>=0.13.0->nnsight==0.4.11) (0.36.0)
+Requirement already satisfied: filelock in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.29.0)
+Requirement already satisfied: fsspec>=2023.5.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2026.4.0)
+Requirement already satisfied: packaging>=20.9 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (25.0)
+Requirement already satisfied: pyyaml>=5.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (6.0.3)
+Requirement already satisfied: requests in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.32.5)
+Requirement already satisfied: tqdm>=4.42.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (4.67.1)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (1.2.0)
+Requirement already satisfied: sympy>=1.13.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.14.0)
+Requirement already satisfied: networkx in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.4.2)
+Requirement already satisfied: jinja2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.6.80 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.80)
+Requirement already satisfied: nvidia-cudnn-cu12==9.5.1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (9.5.1.17)
+Requirement already satisfied: nvidia-cublas-cu12==12.6.4.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.0.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.3.0.4)
+Requirement already satisfied: nvidia-curand-cu12==10.3.7.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (10.3.7.77)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.1.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (11.7.1.2)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.4.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.5.4.2)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: nvidia-nccl-cu12==2.26.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (2.26.2)
+Requirement already satisfied: nvidia-nvtx-cu12==12.6.77 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.77)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.6.85 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (12.6.85)
+Requirement already satisfied: nvidia-cufile-cu12==1.11.1.6 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (1.11.1.6)
+Requirement already satisfied: triton==3.3.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from torch>=2.4.0->nnsight==0.4.11) (3.3.0)
+Requirement already satisfied: setuptools>=40.8.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from triton==3.3.0->torch>=2.4.0->nnsight==0.4.11) (70.2.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from sympy>=1.13.3->torch>=2.4.0->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: numpy>=1.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (2.1.3)
+Requirement already satisfied: psutil in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (7.1.3)
+Requirement already satisfied: safetensors>=0.4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from accelerate->nnsight==0.4.11) (0.6.2)
+Requirement already satisfied: importlib-metadata in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (9.0.0)
+Requirement already satisfied: httpx<1.0.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (0.28.1)
+Requirement already satisfied: regex!=2019.12.17 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (2025.11.3)
+Requirement already satisfied: Pillow in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from diffusers->nnsight==0.4.11) (12.0.0)
+Requirement already satisfied: anyio in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (4.11.0)
+Requirement already satisfied: certifi in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (1.0.9)
+Requirement already satisfied: idna in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpx<1.0.0->diffusers->nnsight==0.4.11) (3.11)
+Requirement already satisfied: h11>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from httpcore==1.*->httpx<1.0.0->diffusers->nnsight==0.4.11) (0.16.0)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.0)
+Requirement already satisfied: sniffio>=1.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from anyio->httpx<1.0.0->diffusers->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: zipp>=3.20 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from importlib-metadata->diffusers->nnsight==0.4.11) (4.1.0)
+Requirement already satisfied: decorator in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.2.1)
+Requirement already satisfied: jedi>=0.16 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.2.1)
+Requirement already satisfied: pexpect>4.3 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (4.9.0)
+Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (3.0.52)
+Requirement already satisfied: pygments>=2.4.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (2.19.2)
+Requirement already satisfied: stack_data in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (0.6.3)
+Requirement already satisfied: traitlets>=5.13.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from ipython->nnsight==0.4.11) (5.14.3)
+Requirement already satisfied: wcwidth in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython->nnsight==0.4.11) (0.2.14)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jedi>=0.16->ipython->nnsight==0.4.11) (0.8.5)
+Requirement already satisfied: ptyprocess>=0.5 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from pexpect>4.3->ipython->nnsight==0.4.11) (0.7.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from jinja2->torch>=2.4.0->nnsight==0.4.11) (3.0.3)
+Requirement already satisfied: bidict>=0.21.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (4.12.3)
+Requirement already satisfied: websocket-client>=0.54.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-socketio[client]->nnsight==0.4.11) (1.9.0)
+Requirement already satisfied: simple-websocket>=0.10.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from requests->huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.0->nnsight==0.4.11) (2.5.0)
+Requirement already satisfied: wsproto in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio[client]->nnsight==0.4.11) (1.3.1)
+Requirement already satisfied: executing>=1.2.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (3.0.1)
+Requirement already satisfied: pure-eval in /orcd/home/002/ubansal/miniconda/envs/syc/lib/python3.10/site-packages (from stack_data->ipython->nnsight==0.4.11) (0.2.3)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:10,  2.59s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:07,  2.56s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.53s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.55s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.61s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.59s/it]
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The professor said that<end_of_turn>
+<start_of_turn>model
+he<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The professor said that<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The doctor said that<end_of_turn>
+<start_of_turn>model
+
+Tokenizing base_toks
+max_length 62
+max_length 62
+Tokenizing base_qs_toks
+max_length 62
+max_length 62
+Tokenizing source_qs_toks
+max_length 62
+max_length 62
+Finding response start positions...
+0it [00:00, ?it/s]88it [00:00, 879.96it/s]100it [00:00, 889.94it/s]
+0it [00:00, ?it/s]98it [00:00, 976.32it/s]100it [00:00, 975.82it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 28130.81it/s]
+`torch_dtype` is deprecated! Use `dtype` instead!
+Parsing config...
+Steering dataset set to: female-long
+op prefix  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//config.yml
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:10,  2.69s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:08,  2.85s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:08<00:05,  2.88s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.60s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.41s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.56s/it]
+params requiring grad: 290
+Making base templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The professor said that<end_of_turn>
+<start_of_turn>model
+he<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The professor said that<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a sommelier. Speak about them in the third-person. Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The doctor said that<end_of_turn>
+<start_of_turn>model
+
+max_length 33
+max_length 33
+max_length 33
+Starting evaluation...
+Loading patching reps for steer - desired
+########### Mean steering cache ###########  100 torch.Size([9, 33, 3840]) torch.Size([9, 33, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([33, 3840])
+Stacked steering cache  torch.Size([48, 33, 3840])
+Loading patching reps for steer - undesired
+########### Mean steering cache ###########  100 torch.Size([9, 33, 3840]) torch.Size([9, 33, 3840]) 12 48
+########### Mean steering cache after ###########  torch.Size([33, 3840])
+Stacked steering cache  torch.Size([48, 33, 3840])
+Returning patching reps
+Evaluating on test set.  50
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:18<00:54, 18.30s/it] 50%|█████     | 2/4 [00:36<00:36, 18.15s/it] 75%|███████▌  | 3/4 [00:54<00:18, 18.09s/it]100%|██████████| 4/4 [01:12<00:00, 18.06s/it]100%|██████████| 4/4 [01:12<00:00, 18.09s/it]
+Evaluating on test set.  16
+Updating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Updating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Updating batch handler: start=64, stop=80
+Starting for loop  Namespace(device='cuda:0', model_id='google/gemma-3-12b-it', batch_size=16, seed=42, ablation='steer', patch_model=False, eval_model=True, eval_test='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/female-long/male-long-test.jsonl', eval_train=False, eval_transfer=None, steering=True, pyreft=False, max_new_tokens=256, patch_algo='atp', source='female-single', base='male-single', steering_add_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/female-long/female-long-steering.jsonl', steering_sub_path='/home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/female-long/male-long-steering.jsonl', full_precision=False, kv_caching=True, test_dataset='female-long', steering_type='last_token', data_path='./data/gemma-3-12b-it/')
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[ASaved responses to ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_1.0_female-long_gen.txt and ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_1.0_female-long_gen.json
+Skipping evaluation for steer, targeted, 1.0 1 as gen files already exist.
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 1, algo: atp, task: female-single -> male-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3281.45it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:55, 18.34s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2767.49it/s]
+
+
+
+ 50%|█████     | 2/4 [00:36<00:36, 18.31s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3274.24it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:54<00:18, 18.30s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2450.66it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 18.24s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.27s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [01:13<03:39, 36.55s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_0.01_female-long_gen.txt and ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_0.01_female-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 1, algo: atp, task: female-single -> male-single
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/numerator_1_targeted_0.03.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2799.12it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:54, 18.30s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3134.02it/s]
+
+
+
+ 50%|█████     | 2/4 [00:36<00:36, 18.29s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3361.33it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:54<00:18, 18.26s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 33])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1741.82it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 18.23s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.25s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [02:26<04:18, 51.74s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_0.03_female-long_gen.txt and ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/1_targeted_steer_0.03_female-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 1, algo: atp, task: female-single -> male-single
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer//eval/numerator_1_targeted_0.05.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[A[2026-08-04T00:35:50.367] error: *** JOB 19609020 ON node4010 CANCELLED AT 2026-08-04T00:35:50 DUE to SIGNAL Terminated ***

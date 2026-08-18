@@ -26,8 +26,8 @@ declare -a pairs=(
 declare -A eval_datasets
 
 algos=("atp")
-model_id="allenai/OLMo-2-1124-13B-DPO"
-model_name="OLMo-2-1124-13B-DPO"
+model_id="tiiuae/Falcon3-10B-Instruct"
+model_name="Falcon3-10B-Instruct"
 device="cuda:0"
 
 for pair in "${pairs[@]}"; do

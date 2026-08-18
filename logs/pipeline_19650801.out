@@ -1,0 +1,76 @@
+Family: female->male  model=gemma-3-12b-it  method=atp
+Running 8 of 8 cells (2 localizations x 2 eval x 2 steer):
+  - from_female-long_to_male-long | female-long_eval | female-long_steer
+  - from_female-long_to_male-long | female-long_eval | female-single_steer
+  - from_female-long_to_male-long | female-single_eval | female-long_steer
+  - from_female-long_to_male-long | female-single_eval | female-single_steer
+  - from_female-single_to_male-single | female-long_eval | female-long_steer
+  - from_female-single_to_male-single | female-long_eval | female-single_steer
+  - from_female-single_to_male-single | female-single_eval | female-long_steer
+  - from_female-single_to_male-single | female-single_eval | female-single_steer
+======================================================================
+STAGE: merge
+  cell: from_female-long_to_male-long | female-long_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-long_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-single_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-long_to_male-long | female-single_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-long_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-long_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-single_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-single_eval | female-long_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-long_steer/merged_eval_outputs.csv)
+  cell: from_female-single_to_male-single | female-single_eval | female-single_steer
+    merge: 56 files -> (2800, 16) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/merged_eval_outputs.csv)
+======================================================================
+STAGE: build_prompts
+  cell: from_female-long_to_male-long | female-long_eval | female-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-long_steer/eval_prompts.csv
+  cell: from_female-long_to_male-long | female-long_eval | female-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval_prompts.csv
+  cell: from_female-long_to_male-long | female-single_eval | female-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-long_to_male-long | female-single_eval | female-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-single_to_male-single | female-long_eval | female-long_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-long_steer/eval_prompts.csv
+  cell: from_female-single_to_male-single | female-long_eval | female-single_steer
+    build_prompts: (2800, 19) -> /orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_female-single_to_male-single/atp/female-long_eval/female-single_steer/eval_prompts.csv
+  cell: from_female-single_to_male-single | female-single_eval | female-long_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+  cell: from_female-single_to_male-single | female-single_eval | female-single_steer
+    build_prompts: single-token eval -> no judge prompts needed; skipping
+======================================================================
+STAGE: judge
+INFO 08-04 17:27:22 [__init__.py:244] Automatically detected platform cuda.
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 691, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 679, in main
+    stage_judge_all(cells, batch_size=args.batch_size, resume=not args.no_resume)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_bias.py", line 460, in stage_judge_all
+    from vllm import LLM, SamplingParams
+  File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/__init__.py", line 64, in __getattr__
+    module = import_module(module_name, __package__)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 20, in <module>
+    from vllm.config import (CompilationConfig, ModelDType, TokenizerMode,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/config.py", line 37, in <module>
+    from vllm.transformers_utils.config import (
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 33, in <module>
+    from vllm.transformers_utils.configs import (ChatGLMConfig, Cohere2Config,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/transformers_utils/configs/__init__.py", line 26, in <module>
+    from vllm.transformers_utils.configs.ovis import OvisConfig
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/vllm/transformers_utils/configs/ovis.py", line 76, in <module>
+    AutoConfig.register("aimv2", AIMv2Config)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1401, in register
+    CONFIG_MAPPING.register(model_type, config, exist_ok=exist_ok)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1081, in register
+    raise ValueError(f"'{key}' is already used by a Transformers config, pick another name.")
+ValueError: 'aimv2' is already used by a Transformers config, pick another name.

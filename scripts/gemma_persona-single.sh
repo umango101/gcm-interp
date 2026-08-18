@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 06:00:00
+#SBATCH -t 24:00:00
 #SBATCH -J single_persona_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -26,8 +26,8 @@ declare -a pairs=(
 declare -A eval_datasets
 
 algos=("atp")
-model_id="allenai/OLMo-2-1124-13B-DPO"
-model_name="OLMo-2-1124-13B-DPO"
+model_id="Qwen/Qwen1.5-14B-Chat"
+model_name="Qwen1.5-14B-Chat"
 device="cuda:0"
 
 for pair in "${pairs[@]}"; do

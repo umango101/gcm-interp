@@ -1,0 +1,14 @@
+[load] 686 rows with Best Answer > 4 words from TruthfulQA.csv
+[ckpt] 686 records loaded from checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[qcgen] all responses + MCQ cached.
+[ckpt] 686 records loaded from checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 294 records loaded from checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[qcjudge] nothing to judge (all cached, or no QC1&QC2 survivors).
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 294 records loaded from checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[build] 83/686 rows passed all four QC checks
+[build] wrote 12 train files (83 rows each) and 2 test files (0 rows each, ids 83..82) + manifest -> output/OLMo-2-1124-13B-DPO
+[done] stages complete: qcgen,qcjudge,build
+[run] finished

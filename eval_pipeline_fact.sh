@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
+#SBATCH -p mit_normal_gpu
 #SBATCH -t 03:00:00
 #SBATCH -J pipeline
 #SBATCH -o logs/%x_%j.out

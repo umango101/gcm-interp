@@ -92,10 +92,10 @@ def _env(key, default):
 
 CONFIG = {
     "DATASET": _env("DATASET", "TruthfulQA.csv"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "QC_CKPT": _env("QC_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl"),
-    "JUDGE_CKPT": _env("JUDGE_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl"),
-    "QC_MODEL": _env("QC_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/gemma-3-12b-it"),
+    "QC_CKPT": _env("QC_CKPT", "checkpoint/gemma-3-12b-it/tqa_qc.jsonl"),
+    "JUDGE_CKPT": _env("JUDGE_CKPT", "checkpoint/gemma-3-12b-it/tqa_judge.jsonl"),
+    "QC_MODEL": _env("QC_MODEL", "google/gemma-3-12b-it"),
     "QC_TP": int(_env("QC_TP", "1")),            # QC model: tensor-parallel GPU count
     "QC_PP": int(_env("QC_PP", "1")),            # QC model: pipeline-parallel GPU count
     "QC_QUANT": _env("QC_QUANT", ""),            # "" -> unquantized (bf16)
@@ -605,19 +605,23 @@ def stage_build(rows):
             # ---- truthful single ----
             _emit(h["truthful-single-desired-all.jsonl"], idx, mcq_correct, tl)
             _emit(h["truthful-single-undesired-all.jsonl"], idx, mcq_correct, ll)
-            _emit(h["truthful-single-steering.jsonl"], idx, steer_correct, tl)
+            # _emit(h["truthful-single-steering.jsonl"], idx, steer_correct, tl)
+            _emit(h["truthful-single-steering.jsonl"], idx, steer_correct, "")
             # ---- lying single ----
             _emit(h["lying-single-desired-all.jsonl"], idx, mcq_wrong, ll)
             _emit(h["lying-single-undesired-all.jsonl"], idx, mcq_wrong, tl)
-            _emit(h["lying-single-steering.jsonl"], idx, steer_wrong, ll)
+            # _emit(h["lying-single-steering.jsonl"], idx, steer_wrong, ll)
+            _emit(h["lying-single-steering.jsonl"], idx, steer_wrong, "")
             # ---- truthful long ----
             _emit(h["truthful-long-desired-all.jsonl"], idx, long_true, tr)
             _emit(h["truthful-long-undesired-all.jsonl"], idx, long_true, lr)
-            _emit(h["truthful-long-steering.jsonl"], idx, long_true, tr)
+            # _emit(h["truthful-long-steering.jsonl"], idx, long_true, tr)
+            _emit(h["truthful-long-steering.jsonl"], idx, long_true, "")
             # ---- lying long ----
             _emit(h["lying-long-desired-all.jsonl"], idx, long_lie, lr)
             _emit(h["lying-long-undesired-all.jsonl"], idx, long_lie, tr)
-            _emit(h["lying-long-steering.jsonl"], idx, long_lie, lr)
+            # _emit(h["lying-long-steering.jsonl"], idx, long_lie, lr)
+            _emit(h["lying-long-steering.jsonl"], idx, long_lie, "")
         else:
             _emit(h["truthful-single-test.jsonl"], idx, mcq_correct)
             _emit(h["truthful-long-test.jsonl"], idx, long_true)

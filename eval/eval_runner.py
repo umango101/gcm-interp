@@ -127,7 +127,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
     print('Starting for loop ', config.args)
-    for N in [1, 2, 4, 5, 6, 8, 10]:
+    for N in [1, 2, 4, 5, 6, 8, 10, 15, 20]:
         config.args.N = N
         for ablation in tqdm(ablations, desc="Ablations"):
             decoded_responses[ablation] = {}

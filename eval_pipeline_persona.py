@@ -58,7 +58,7 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (extraversion -> introversion) -------------------------------
-MODEL_ID = "gemma-3-12b-it"
+MODEL_ID = "Qwen1.5-32B-Chat"
 METHOD   = "atp"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.

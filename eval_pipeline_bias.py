@@ -58,7 +58,7 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (female -> male) -------------------------------
-MODEL_ID = "Qwen1.5-14B-Chat"
+MODEL_ID = "OLMo-2-1124-13B-DPO"
 METHOD   = "atp"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
