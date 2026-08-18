@@ -10,3 +10,47 @@
 [warn] lying top_k=0.07: 112 heads x 128 cols = 14336 >= ambient 5120; subspaces saturate the space and overlap is ~1 by construction. Interpret with care.
 [warn] lying top_k=0.09: 144 heads x 128 cols = 18432 >= ambient 5120; subspaces saturate the space and overlap is ~1 by construction. Interpret with care.
 [warn] lying top_k=0.1: 160 heads x 128 cols = 20480 >= ambient 5120; subspaces saturate the space and overlap is ~1 by construction. Interpret with care.
+[warn] lying top_k=0.5: 800 heads x 128 cols = 102400 >= ambient 5120; subspaces saturate the space and overlap is ~1 by construction. Interpret with care.
+[warn] lying top_k=1.0: 1600 heads x 128 cols = 204800 >= ambient 5120; subspaces saturate the space and overlap is ~1 by construction. Interpret with care.
+Reading o_proj weights for Qwen/Qwen1.5-14B-Chat ...
+model: 40 layers, d_model=5120, n_heads=40, head_dim=128
+
+=== female ===
+  long:   ./results/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/numerator_1_heads.pt
+  single: ./results/Qwen1.5-14B-Chat/from_female-single_to_male-single/atp/numerator_1_heads.pt
+
+=== lying ===
+  long:   ./results/Qwen1.5-14B-Chat/from_lying-long_to_truthful-long/atp/numerator_1_heads.pt
+  single: ./results/Qwen1.5-14B-Chat/from_lying-single_to_truthful-single/atp/numerator_1_heads.pt
+
+Wrote results/svd/svd_subspaces_Qwen1.5-14B-Chat_head.csv
+  task  variant  top_k  n_heads_long  head_jaccard  saturated  rank_a  rank_b  rank_joint  rank_sharing  grassmann_overlap  null_layer_matched_grassmann_overlap_mean  null_layer_matched_grassmann_overlap_z
+female      all   0.01            16      0.000000      False    1901    1910        3340      0.247764           0.419581                                   0.447675                               -3.664891
+female      all   0.03            48      0.054945       True    4080    4134        4674      0.867647           0.825883                                   0.822460                                2.866452
+female disjoint   0.03            43      0.054945       True    3911    3965        4657      0.823063           0.789197                                   0.792904                               -0.706444
+female      all   0.05            80      0.081081       True    4595    4629        4819      0.958651           0.916933                                   0.916306                                0.349385
+female disjoint   0.05            68      0.081081       True    4494    4533        4813      0.937695           0.895201                                   0.893721                                0.653611
+female      all   0.07           112      0.098039       True    4764    4781        4881      0.979009           0.944346                                   0.942756                                0.989559
+female disjoint   0.07            92      0.098039       True    4696    4719        4877      0.966354           0.929016                                   0.930803                               -1.034208
+female      all   0.09           144      0.125000       True    4846    4852        4922      0.985555           0.954492                                   0.957466                               -1.578718
+female disjoint   0.09           112      0.125000       True    4788    4801        4919      0.975355           0.941507                                   0.945078                               -2.101315
+female      all   0.10           160      0.138790       True    4867    4872        4929      0.988288           0.959045                                   0.961807                               -3.109857
+female disjoint   0.10           121      0.138790       True    4811    4823        4927      0.978383           0.945825                                   0.949045                               -2.724969
+female      all   0.50           800      0.341157       True    5011    5015        5018      0.999401           0.988489                                   0.989093                               -1.475467
+female disjoint   0.50           393      0.341157       True    4982    4991        5007      0.996788           0.978430                                   0.979128                               -1.113927
+female      all   1.00          1600      1.000000       True    5020    5020        5020      1.000000           1.000000                                   1.000000                                2.000000
+ lying      all   0.01            16      0.032258      False    1897    1920        3288      0.278861           0.431111                                   0.410824                                2.006226
+ lying disjoint   0.01            15      0.032258      False    1786    1807        3217      0.210526           0.384978                                   0.396984                               -1.095100
+ lying      all   0.03            48      0.010526       True    4123    4133        4709      0.860296           0.820517                                   0.823318                               -1.374024
+ lying disjoint   0.03            47      0.010526       True    4088    4097        4704      0.851517           0.812862                                   0.817128                               -1.514573
+ lying      all   0.05            80      0.052632       True    4615    4653        4846      0.958180           0.917235                                   0.917031                                0.120483
+ lying disjoint   0.05            72      0.052632       True    4540    4581        4838      0.943392           0.901335                                   0.905207                               -2.048449
+ lying      all   0.07           112      0.066667       True    4765    4796        4894      0.979433           0.944955                                   0.944068                                0.676364
+ lying disjoint   0.07            98      0.066667       True    4720    4753        4891      0.970763           0.934404                                   0.935871                               -1.555237
+ lying      all   0.09           144      0.099237       True    4832    4861        4919      0.987997           0.958092                                   0.957243                                0.886354
+ lying disjoint   0.09           118      0.099237       True    4791    4825        4920      0.980171           0.947612                                   0.947460                                0.098469
+ lying      all   0.10           160      0.114983       True    4848    4880        4925      0.990718           0.962560                                   0.960524                                1.496560
+ lying disjoint   0.10           127      0.114983       True    4808    4846        4926      0.983361           0.951996                                   0.952138                               -0.133637
+ lying      all   0.50           800      0.336675       True    5003    5011        5012      0.999800           0.989983                                   0.989312                                1.817281
+ lying disjoint   0.50           397      0.336675       True    4985    4998        5013      0.996991           0.978321                                   0.979200                               -1.634055
+ lying      all   1.00          1600      1.000000       True    5020    5020        5020      1.000000           1.000000                                   1.000000                                2.000000
