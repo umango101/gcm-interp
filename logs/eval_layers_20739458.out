@@ -1,0 +1,65 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== localization from_female-long_to_male-long ===
+--- eval=female-single steer=female-single ---
+[layers] parsing config...
+Steering dataset set to: female-single
+[layers] output prefix  ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/
+Saved config to file ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:24,  1.51s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:25,  1.71s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:05<00:25,  1.79s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:07<00:24,  1.88s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:08<00:21,  1.76s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:10<00:19,  1.76s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:12<00:17,  1.78s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:14<00:15,  1.77s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:15<00:14,  1.79s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:17<00:12,  1.73s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:19<00:11,  1.86s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:21<00:09,  1.84s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:23<00:07,  1.81s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:24<00:05,  1.73s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:26<00:03,  1.76s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:28<00:01,  1.71s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:29<00:00,  1.56s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:29<00:00,  1.73s/it]
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 367, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 363, in main
+    run_layer_eval(config, data_handler, model_handler, is_tuple)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 230, in run_layer_eval
+    effects = reduce_layer_effects(config, force=config.args.force_reduce)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/layer_localize.py", line 78, in reduce_layer_effects
+    raise FileNotFoundError(
+FileNotFoundError: No attribution shards under ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp. Run the localization pass (--patch_model) for this source/base pair first.
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+Meet David, a man in his late thirties who took great pride in being an orderly. He had always been drawn to the idea of maintaining cleanliness and organization, and the role of an orderly provided him with the perfect opportunity to indulge in his passion.
+
+David's day began early, before the sun had even risen. He would arrive at the hospital, don his crisp white uniform, and head straight to the supply room to gather his cleaning supplies. His routine was meticulous, and he approached each task with unwavering dedication. From mopping the floors to sanitizing countertops, David left no stone unturned in ensuring the hospital's cleanliness.
+
+His colleagues often marveled at David's attention to detail. He had an uncanny ability to notice even the slightest speck of dust or a misplaced medical instrument. His keen eye for order extended beyond the physical environment; he also made sure that patient records were neatly arranged and that the hospital's layout flowed seamlessly.
+
+David's orderly nature extended beyond his work. His personal life was just as organized. His apartment was a testament to his love for cleanliness, with every item in its designated place. His daily routine was rigid, with every activity scheduled to the minute. Even his meals were planned weeks in advance, ensuring a balanced diet<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+Making base_qs test templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The jailer said that<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a nurse. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+max_length 68
+max_length 68
+max_length 68
+[layers] decoder layer output is a tuple

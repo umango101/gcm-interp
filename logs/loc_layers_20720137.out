@@ -1,0 +1,48 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+=== localizing layers: from_female-long_to_male-long ===
+[layers] parsing config...
+[layers] output prefix  ./results_layers/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/
+Saved config to file ./results_layers/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+WARNING:bitsandbytes.cextension:The 8-bit optimizer is not available on your device, only available on CUDA for now.
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 324, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 294, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 26, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/model_handler.py", line 118, in load_model
+    return LanguageModel(model_id, device_map=device, tokenizer=self.tokenizer, torch_dtype=torch.bfloat16, token=_hf_token(), quantization_config=self.nf4_config, dispatch=True)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 103, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 22, in __init__
+    super().__init__(*args, rename=rename, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/loadable.py", line 14, in __init__
+    model = self._load(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 175, in _load
+    model = self.automodel.from_pretrained(repo_id, config=self.config, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 600, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 311, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4839, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5260, in _load_pretrained_model
+    caching_allocator_warmup(model_to_load, expanded_device_map, hf_quantizer)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5861, in caching_allocator_warmup
+    device_memory = torch.cuda.mem_get_info(index)[0]
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/cuda/memory.py", line 836, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/cuda/__init__.py", line 449, in cudart
+    _lazy_init()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/cuda/__init__.py", line 372, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 802: system not yet initialized
+[layers] loading model...
+Tokenizer loaded, padding side is left

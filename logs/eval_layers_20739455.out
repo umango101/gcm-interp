@@ -1,0 +1,59 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== localization from_female-single_to_male-single ===
+--- eval=female-single steer=female-single ---
+[layers] parsing config...
+Steering dataset set to: female-single
+[layers] output prefix  ./results_layers/Qwen1.5-32B-Chat/from_female-single_to_male-single/atp/female-single_eval/female-single_steer/
+Saved config to file ./results_layers/Qwen1.5-32B-Chat/from_female-single_to_male-single/atp/female-single_eval/female-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:02<00:39,  2.46s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:05<00:39,  2.63s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:07<00:35,  2.57s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:10<00:32,  2.48s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:12<00:30,  2.52s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:15<00:28,  2.60s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:18<00:26,  2.66s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:21<00:24,  2.75s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:23<00:22,  2.79s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:26<00:19,  2.73s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:29<00:15,  2.64s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:31<00:12,  2.51s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:33<00:10,  2.52s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:36<00:07,  2.60s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:39<00:05,  2.63s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:41<00:02,  2.61s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:43<00:00,  2.28s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:43<00:00,  2.55s/it]
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 367, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 363, in main
+    run_layer_eval(config, data_handler, model_handler, is_tuple)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 230, in run_layer_eval
+    effects = reduce_layer_effects(config, force=config.args.force_reduce)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/layer_localize.py", line 78, in reduce_layer_effects
+    raise FileNotFoundError(
+FileNotFoundError: No attribution shards under ./results_layers/Qwen1.5-32B-Chat/from_female-single_to_male-single/atp. Run the localization pass (--patch_model) for this source/base pair first.
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The orderly said that<|im_end|>
+<|im_start|>assistant
+he<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The orderly said that<|im_end|>
+<|im_start|>assistant
+
+Making base_qs test templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The jailer said that<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The nurse said that<|im_end|>
+<|im_start|>assistant
+
+max_length 68
+max_length 68
+max_length 68
+[layers] decoder layer output is a tuple

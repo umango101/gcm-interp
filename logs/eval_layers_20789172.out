@@ -1,0 +1,1584 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== localization from_female-long_to_male-long ===
+--- eval=female-single steer=female-single ---
+[layers] parsing config...
+Steering dataset set to: female-single
+[layers] output prefix  ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/
+Saved config to file ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:23,  1.49s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:23,  1.59s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:22,  1.61s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:06<00:21,  1.63s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:08<00:19,  1.63s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:09<00:18,  1.64s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:11<00:16,  1.63s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:12<00:14,  1.62s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:14<00:12,  1.59s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:15<00:10,  1.57s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:17<00:09,  1.58s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:19<00:07,  1.57s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:20<00:06,  1.54s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:22<00:04,  1.52s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:23<00:03,  1.52s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:25<00:01,  1.51s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.34s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.53s/it]
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+Meet David, a man in his late thirties who took great pride in being an orderly. He had always been drawn to the idea of maintaining cleanliness and organization, and the role of an orderly provided him with the perfect opportunity to indulge in his passion.
+
+David's day began early, before the sun had even risen. He would arrive at the hospital, don his crisp white uniform, and head straight to the supply room to gather his cleaning supplies. His routine was meticulous, and he approached each task with unwavering dedication. From mopping the floors to sanitizing countertops, David left no stone unturned in ensuring the hospital's cleanliness.
+
+His colleagues often marveled at David's attention to detail. He had an uncanny ability to notice even the slightest speck of dust or a misplaced medical instrument. His keen eye for order extended beyond the physical environment; he also made sure that patient records were neatly arranged and that the hospital's layout flowed seamlessly.
+
+David's orderly nature extended beyond his work. His personal life was just as organized. His apartment was a testament to his love for cleanliness, with every item in its designated place. His daily routine was rigid, with every activity scheduled to the minute. Even his meals were planned weeks in advance, ensuring a balanced diet<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+Making base_qs test templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The jailer said that<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a nurse. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+max_length 68
+max_length 68
+max_length 68
+[layers] decoder layer output is a tuple
+[layers] loaded cached map (64, 100) from ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-single_steer/eval/layer_effects.png and layer_effects.csv
+[layers] reusing steering cache ./results_layers/Qwen1.5-32B-Chat/_steering_cache/female-single__last_token.pt
+Evaluating on test set.  50
+[layers] residual norms (mean over 50 prompts) min=2.8 max=1069.3
+Layer counts:   0%|          | 0/7 [00:00<?, ?it/s][layers] k=1 -> layers [52]
+
+N sweep (k=1):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=1 N=1; gen files present.
+[layers] skipping k=1 N=2; gen files present.
+[layers] skipping k=1 N=4; gen files present.
+[layers] skipping k=1 N=5; gen files present.
+[layers] skipping k=1 N=6; gen files present.
+[layers] skipping k=1 N=8; gen files present.
+[layers] skipping k=1 N=10; gen files present.
+[layers] k=2 -> layers [43, 52]
+
+N sweep (k=2):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=2 N=1; gen files present.
+[layers] skipping k=2 N=2; gen files present.
+[layers] skipping k=2 N=4; gen files present.
+[layers] skipping k=2 N=5; gen files present.
+[layers] skipping k=2 N=6; gen files present.
+[layers] skipping k=2 N=8; gen files present.
+[layers] skipping k=2 N=10; gen files present.
+[layers] k=3 -> layers [43, 46, 52]
+
+N sweep (k=3):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=3 N=1; gen files present.
+[layers] skipping k=3 N=2; gen files present.
+[layers] skipping k=3 N=4; gen files present.
+[layers] skipping k=3 N=5; gen files present.
+[layers] skipping k=3 N=6; gen files present.
+[layers] skipping k=3 N=8; gen files present.
+[layers] skipping k=3 N=10; gen files present.
+[layers] k=5 -> layers [43, 46, 49, 51, 52]
+
+N sweep (k=5):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=5 N=1; gen files present.
+[layers] skipping k=5 N=2; gen files present.
+[layers] skipping k=5 N=4; gen files present.
+[layers] skipping k=5 N=5; gen files present.
+[layers] skipping k=5 N=6; gen files present.
+[layers] skipping k=5 N=8; gen files present.
+[layers] skipping k=5 N=10; gen files present.
+[layers] k=7 -> layers [43, 46, 49, 51, 52, 53, 54]
+
+N sweep (k=7):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=7 N=1; gen files present.
+[layers] skipping k=7 N=2; gen files present.
+[layers] skipping k=7 N=4; gen files present.
+[layers] skipping k=7 N=5; gen files present.
+[layers] skipping k=7 N=6; gen files present.
+[layers] skipping k=7 N=8; gen files present.
+[layers] skipping k=7 N=10; gen files present.
+[layers] k=9 -> layers [43, 46, 49, 50, 51, 52, 53, 54, 63]
+
+N sweep (k=9):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=9 N=1; gen files present.
+[layers] skipping k=9 N=2; gen files present.
+[layers] skipping k=9 N=4; gen files present.
+[layers] skipping k=9 N=5; gen files present.
+[layers] skipping k=9 N=6; gen files present.
+[layers] skipping k=9 N=8; gen files present.
+[layers] skipping k=9 N=10; gen files present.
+[layers] k=10 -> layers [30, 43, 46, 49, 50, 51, 52, 53, 54, 63]
+
+N sweep (k=10):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                     [ALayer counts: 100%|██████████| 7/7 [00:00<00:00, 458.88it/s]
+[layers] skipping k=10 N=1; gen files present.
+[layers] skipping k=10 N=2; gen files present.
+[layers] skipping k=10 N=4; gen files present.
+[layers] skipping k=10 N=5; gen files present.
+[layers] skipping k=10 N=6; gen files present.
+[layers] skipping k=10 N=8; gen files present.
+[layers] skipping k=10 N=10; gen files present.
+[layers] evaluation complete.
+--- eval=female-single steer=female-long ---
+[layers] parsing config...
+Steering dataset set to: female-single
+[layers] output prefix  ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/
+Saved config to file ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-long_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:22,  1.39s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:23,  1.59s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:23,  1.65s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:06<00:21,  1.69s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:08<00:20,  1.69s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:10<00:18,  1.70s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:11<00:16,  1.68s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:13<00:14,  1.65s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:14<00:12,  1.62s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:16<00:11,  1.59s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:17<00:09,  1.58s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:19<00:07,  1.57s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:20<00:06,  1.55s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:22<00:04,  1.52s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:23<00:03,  1.52s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:25<00:01,  1.52s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.34s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.55s/it]
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+Meet David, a man in his late thirties who took great pride in being an orderly. He had always been drawn to the idea of maintaining cleanliness and organization, and the role of an orderly provided him with the perfect opportunity to indulge in his passion.
+
+David's day began early, before the sun had even risen. He would arrive at the hospital, don his crisp white uniform, and head straight to the supply room to gather his cleaning supplies. His routine was meticulous, and he approached each task with unwavering dedication. From mopping the floors to sanitizing countertops, David left no stone unturned in ensuring the hospital's cleanliness.
+
+His colleagues often marveled at David's attention to detail. He had an uncanny ability to notice even the slightest speck of dust or a misplaced medical instrument. His keen eye for order extended beyond the physical environment; he also made sure that patient records were neatly arranged and that the hospital's layout flowed seamlessly.
+
+David's orderly nature extended beyond his work. His personal life was just as organized. His apartment was a testament to his love for cleanliness, with every item in its designated place. His daily routine was rigid, with every activity scheduled to the minute. Even his meals were planned weeks in advance, ensuring a balanced diet<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+Making base_qs test templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+For the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of ability. Please respond with only one word: "he" or "she". Prompt: The jailer said that<|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a nurse. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+max_length 68
+max_length 68
+max_length 68
+[layers] decoder layer output is a tuple
+[layers] loaded cached map (64, 100) from ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-single_eval/female-long_steer/eval/layer_effects.png and layer_effects.csv
+[layers] reusing steering cache ./results_layers/Qwen1.5-32B-Chat/_steering_cache/female-long__last_token.pt
+Evaluating on test set.  50
+[layers] residual norms (mean over 50 prompts) min=2.8 max=1069.3
+Layer counts:   0%|          | 0/7 [00:00<?, ?it/s][layers] k=1 -> layers [52]
+
+N sweep (k=1):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=1 N=1; gen files present.
+[layers] skipping k=1 N=2; gen files present.
+[layers] skipping k=1 N=4; gen files present.
+[layers] skipping k=1 N=5; gen files present.
+[layers] skipping k=1 N=6; gen files present.
+[layers] skipping k=1 N=8; gen files present.
+[layers] skipping k=1 N=10; gen files present.
+[layers] k=2 -> layers [43, 52]
+
+N sweep (k=2):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=2 N=1; gen files present.
+[layers] skipping k=2 N=2; gen files present.
+[layers] skipping k=2 N=4; gen files present.
+[layers] skipping k=2 N=5; gen files present.
+[layers] skipping k=2 N=6; gen files present.
+[layers] skipping k=2 N=8; gen files present.
+[layers] skipping k=2 N=10; gen files present.
+[layers] k=3 -> layers [43, 46, 52]
+
+N sweep (k=3):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=3 N=1; gen files present.
+[layers] skipping k=3 N=2; gen files present.
+[layers] skipping k=3 N=4; gen files present.
+[layers] skipping k=3 N=5; gen files present.
+[layers] skipping k=3 N=6; gen files present.
+[layers] skipping k=3 N=8; gen files present.
+[layers] skipping k=3 N=10; gen files present.
+[layers] k=5 -> layers [43, 46, 49, 51, 52]
+
+N sweep (k=5):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=5 N=1; gen files present.
+[layers] skipping k=5 N=2; gen files present.
+[layers] skipping k=5 N=4; gen files present.
+[layers] skipping k=5 N=5; gen files present.
+[layers] skipping k=5 N=6; gen files present.
+[layers] skipping k=5 N=8; gen files present.
+[layers] skipping k=5 N=10; gen files present.
+[layers] k=7 -> layers [43, 46, 49, 51, 52, 53, 54]
+
+N sweep (k=7):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=7 N=1; gen files present.
+[layers] skipping k=7 N=2; gen files present.
+[layers] skipping k=7 N=4; gen files present.
+[layers] skipping k=7 N=5; gen files present.
+[layers] skipping k=7 N=6; gen files present.
+[layers] skipping k=7 N=8; gen files present.
+[layers] skipping k=7 N=10; gen files present.
+[layers] k=9 -> layers [43, 46, 49, 50, 51, 52, 53, 54, 63]
+
+N sweep (k=9):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=9 N=1; gen files present.
+[layers] skipping k=9 N=2; gen files present.
+[layers] skipping k=9 N=4; gen files present.
+[layers] skipping k=9 N=5; gen files present.
+[layers] skipping k=9 N=6; gen files present.
+[layers] skipping k=9 N=8; gen files present.
+[layers] skipping k=9 N=10; gen files present.
+[layers] k=10 -> layers [30, 43, 46, 49, 50, 51, 52, 53, 54, 63]
+
+N sweep (k=10):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                     [ALayer counts: 100%|██████████| 7/7 [00:00<00:00, 442.40it/s]
+[layers] skipping k=10 N=1; gen files present.
+[layers] skipping k=10 N=2; gen files present.
+[layers] skipping k=10 N=4; gen files present.
+[layers] skipping k=10 N=5; gen files present.
+[layers] skipping k=10 N=6; gen files present.
+[layers] skipping k=10 N=8; gen files present.
+[layers] skipping k=10 N=10; gen files present.
+[layers] evaluation complete.
+--- eval=female-long steer=female-single ---
+[layers] parsing config...
+Steering dataset set to: female-long
+[layers] output prefix  ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/
+Saved config to file ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=True deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:22,  1.40s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:23,  1.56s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:22,  1.61s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:06<00:21,  1.65s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:08<00:19,  1.65s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:09<00:18,  1.66s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:11<00:16,  1.65s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:13<00:14,  1.64s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:14<00:12,  1.61s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:16<00:11,  1.60s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:17<00:09,  1.61s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:19<00:08,  1.61s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:20<00:06,  1.60s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:22<00:04,  1.58s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:24<00:03,  1.56s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:25<00:01,  1.56s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.38s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:26<00:00,  1.56s/it]
+Making base templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+Meet David, a man in his late thirties who took great pride in being an orderly. He had always been drawn to the idea of maintaining cleanliness and organization, and the role of an orderly provided him with the perfect opportunity to indulge in his passion.
+
+David's day began early, before the sun had even risen. He would arrive at the hospital, don his crisp white uniform, and head straight to the supply room to gather his cleaning supplies. His routine was meticulous, and he approached each task with unwavering dedication. From mopping the floors to sanitizing countertops, David left no stone unturned in ensuring the hospital's cleanliness.
+
+His colleagues often marveled at David's attention to detail. He had an uncanny ability to notice even the slightest speck of dust or a misplaced medical instrument. His keen eye for order extended beyond the physical environment; he also made sure that patient records were neatly arranged and that the hospital's layout flowed seamlessly.
+
+David's orderly nature extended beyond his work. His personal life was just as organized. His apartment was a testament to his love for cleanliness, with every item in its designated place. His daily routine was rigid, with every activity scheduled to the minute. Even his meals were planned weeks in advance, ensuring a balanced diet<|im_end|>
+
+Making base_qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+Making base_qs test templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a jailer. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+Making source qs templated prompts...
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Write a story about a character who is a nurse. Speak about them in the third-person. Answer: <|im_end|>
+<|im_start|>assistant
+
+max_length 68
+max_length 68
+max_length 68
+[layers] decoder layer output is a tuple
+[layers] loaded cached map (64, 100) from ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/layer_effects.png and layer_effects.csv
+[layers] reusing steering cache ./results_layers/Qwen1.5-32B-Chat/_steering_cache/female-single__last_token.pt
+Evaluating on test set.  50
+[layers] residual norms (mean over 50 prompts) min=3.2 max=1130.9
+Layer counts:   0%|          | 0/7 [00:00<?, ?it/s][layers] k=1 -> layers [52]
+
+N sweep (k=1):   0%|          | 0/7 [00:00<?, ?it/s][A
+                                                    [A[layers] skipping k=1 N=1; gen files present.
+[layers] skipping k=1 N=2; gen files present.
+[layers] skipping k=1 N=4; gen files present.
+[layers] skipping k=1 N=5; gen files present.
+[layers] skipping k=1 N=6; gen files present.
+[layers] skipping k=1 N=8; gen files present.
+[layers] skipping k=1 N=10; gen files present.
+[layers] k=2 -> layers [43, 52]
+
+N sweep (k=2):   0%|          | 0/7 [00:00<?, ?it/s][A[layers] steer k=2 N=1 alpha=0.1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3584.88it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:10<06:31, 130.62s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3696.85it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:20<04:20, 130.03s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3626.13it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:29<02:09, 129.68s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1877.49it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:11<00:00, 95.18s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  14%|█▍        | 1/7 [07:11<43:10, 431.78s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=2 alpha=0.2 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3549.42it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.11s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3554.49it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.12s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3657.76it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.38s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1793.97it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.59s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  29%|██▊       | 2/7 [14:20<35:51, 430.26s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=4 alpha=0.4 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3579.52it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:28, 129.44s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3652.58it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.25s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3635.76it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.18s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1832.77it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.46s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  43%|████▎     | 3/7 [21:29<28:38, 429.64s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=5 alpha=0.5 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3623.78it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:28, 129.36s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3720.83it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.21s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3740.53it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.17s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1957.67it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.44s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  57%|█████▋    | 4/7 [28:38<21:27, 429.30s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=6 alpha=0.6 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3748.89it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.26s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3605.48it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.45s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3594.28it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:28<02:09, 129.61s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1876.23it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.70s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  71%|███████▏  | 5/7 [35:48<14:18, 429.50s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=8 alpha=0.8 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3609.36it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:26, 128.95s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3771.22it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:17<04:17, 128.88s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3736.99it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:26<02:08, 128.86s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1779.51it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:06<00:00, 93.89s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2):  86%|████████▌ | 6/7 [42:55<07:08, 428.62s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_2_female-long_gen.json
+[layers] steer k=2 N=10 alpha=1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3793.39it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:22, 127.50s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3910.32it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:14<04:14, 127.23s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3813.22it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:22<02:07, 127.42s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2147.62it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:03<00:00, 93.33s/it] [A[A
+
+                                                      [A[A
+N sweep (k=2): 100%|██████████| 7/7 [49:58<00:00, 426.87s/it][A
+                                                             [ALayer counts:  29%|██▊       | 2/7 [49:58<2:04:56, 1499.34s/it]Updating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_2_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_2_female-long_gen.json
+[layers] k=3 -> layers [43, 46, 52]
+
+N sweep (k=3):   0%|          | 0/7 [00:00<?, ?it/s][A[layers] steer k=3 N=1 alpha=0.1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3647.22it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.21s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3626.33it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.21s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3592.36it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.20s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1837.19it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.48s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  14%|█▍        | 1/7 [07:08<42:53, 428.86s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=2 alpha=0.2 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3701.74it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:28, 129.51s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3635.56it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.35s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3633.99it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.28s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1775.37it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.53s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  29%|██▊       | 2/7 [14:18<35:45, 429.07s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=4 alpha=0.4 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3779.72it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.06s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3670.16it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.10s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3665.95it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.10s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1907.80it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.41s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  43%|████▎     | 3/7 [21:26<28:35, 428.82s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=5 alpha=0.5 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3586.60it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.04s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3632.22it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.04s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3624.37it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.04s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1649.35it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.38s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  57%|█████▋    | 4/7 [28:34<21:25, 428.64s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=6 alpha=0.6 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3749.31it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.14s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3765.51it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:17, 129.00s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3778.23it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:26<02:08, 128.97s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1946.31it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.33s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  71%|███████▏  | 5/7 [35:43<14:16, 428.49s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=8 alpha=0.8 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3829.10it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.97s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3992.67it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:16<04:16, 128.34s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3933.70it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:24<02:08, 128.27s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1993.49it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:05<00:00, 93.90s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3):  86%|████████▌ | 6/7 [42:49<07:07, 427.63s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_3_female-long_gen.json
+[layers] steer k=3 N=10 alpha=1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3766.14it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:21, 127.05s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3844.02it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:14<04:14, 127.10s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3820.38it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:21<02:07, 127.16s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2006.36it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:02<00:00, 93.19s/it] [A[A
+
+                                                      [A[A
+N sweep (k=3): 100%|██████████| 7/7 [49:51<00:00, 425.96s/it][A
+                                                             [ALayer counts:  43%|████▎     | 3/7 [1:39:50<2:21:24, 2121.15s/it]Updating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_3_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_3_female-long_gen.json
+[layers] k=5 -> layers [43, 46, 49, 51, 52]
+
+N sweep (k=5):   0%|          | 0/7 [00:00<?, ?it/s][A[layers] steer k=5 N=1 alpha=0.1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3532.42it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:29, 129.68s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3618.12it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.39s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3560.15it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:28<02:09, 129.31s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1783.29it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.55s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  14%|█▍        | 1/7 [07:09<42:56, 429.34s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=2 alpha=0.2 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3433.03it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:26, 128.98s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3512.45it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.03s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3529.26it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.22s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1758.99it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:08<00:00, 94.48s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  29%|██▊       | 2/7 [14:18<35:44, 428.98s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=4 alpha=0.4 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3962.50it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:26, 128.86s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3896.92it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:17<04:17, 128.57s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3804.79it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:25<02:08, 128.47s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1923.99it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:06<00:00, 94.00s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  43%|████▎     | 3/7 [21:24<28:31, 427.95s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=5 alpha=0.5 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3912.37it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:24, 128.20s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3893.98it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:16<04:16, 128.22s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3986.98it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:24<02:08, 128.37s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2074.85it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:06<00:00, 93.93s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  57%|█████▋    | 4/7 [28:30<21:21, 427.23s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=6 alpha=0.6 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3969.76it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.89s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3900.32it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:15<04:15, 127.91s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4012.49it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:23<02:07, 127.99s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2313.46it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:05<00:00, 93.70s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  71%|███████▏  | 5/7 [35:35<14:12, 426.44s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=8 alpha=0.8 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3866.61it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:26, 128.88s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3912.60it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:17<04:17, 128.82s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4071.65it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:26<02:08, 128.67s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2045.00it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:07<00:00, 94.14s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5):  86%|████████▌ | 6/7 [42:43<07:06, 426.76s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_5_female-long_gen.json
+[layers] steer k=5 N=10 alpha=1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3913.05it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.76s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4010.09it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:15<04:15, 127.55s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4026.45it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:22<02:07, 127.41s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2628.83it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:03<00:00, 93.34s/it] [A[A
+
+                                                      [A[A
+N sweep (k=5): 100%|██████████| 7/7 [49:46<00:00, 425.70s/it][A
+                                                             [ALayer counts:  57%|█████▋    | 4/7 [2:29:37<2:02:12, 2444.18s/it]Updating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_5_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_5_female-long_gen.json
+[layers] k=7 -> layers [43, 46, 49, 51, 52, 53, 54]
+
+N sweep (k=7):   0%|          | 0/7 [00:00<?, ?it/s][A[layers] steer k=7 N=1 alpha=0.1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3575.90it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.18s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3655.76it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.40s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3603.55it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:28<02:09, 129.39s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1931.97it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.58s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  14%|█▍        | 1/7 [07:09<42:55, 429.33s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=2 alpha=0.2 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3645.04it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:28, 129.35s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3597.75it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.40s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3782.49it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:28<02:09, 129.33s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1915.64it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.53s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  29%|██▊       | 2/7 [14:18<35:46, 429.26s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=4 alpha=0.4 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4029.11it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.93s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4058.35it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:16<04:16, 128.19s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4074.86it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:25<02:08, 128.45s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2730.67it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:06<00:00, 93.98s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  43%|████▎     | 3/7 [21:24<28:31, 427.87s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=5 alpha=0.5 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4002.68it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:21, 127.33s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4250.62it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:14<04:14, 127.26s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4167.99it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:21<02:07, 127.30s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2139.41it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:02<00:00, 93.25s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  57%|█████▋    | 4/7 [28:27<21:17, 425.92s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/5_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=6 alpha=0.6 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4319.29it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.70s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4287.01it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:15<04:15, 127.95s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4222.28it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:23<02:07, 127.98s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2241.15it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:04<00:00, 93.67s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  71%|███████▏  | 5/7 [35:32<14:11, 425.56s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/6_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=8 alpha=0.8 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4359.70it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:06<06:20, 126.81s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4456.99it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:13<04:13, 126.85s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4304.33it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:20<02:06, 126.88s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2379.07it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:01<00:00, 92.97s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7):  86%|████████▌ | 6/7 [42:34<07:04, 424.22s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/8_targeted_steer_7_female-long_gen.json
+[layers] steer k=7 N=10 alpha=1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4396.83it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:06<06:20, 126.68s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4427.87it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:13<04:13, 126.73s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4410.99it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:20<02:06, 126.78s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2243.54it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:01<00:00, 92.92s/it] [A[A
+
+                                                      [A[A
+N sweep (k=7): 100%|██████████| 7/7 [49:35<00:00, 423.27s/it][A
+                                                             [ALayer counts:  71%|███████▏  | 5/7 [3:19:12<1:27:37, 2628.93s/it]Updating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_7_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/10_targeted_steer_7_female-long_gen.json
+[layers] k=9 -> layers [43, 46, 49, 50, 51, 52, 53, 54, 63]
+
+N sweep (k=9):   0%|          | 0/7 [00:00<?, ?it/s][A[layers] steer k=9 N=1 alpha=0.1 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3758.76it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:09<06:27, 129.30s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3888.57it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:18<04:18, 129.29s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3878.23it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:27<02:09, 129.31s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2699.91it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:09<00:00, 94.52s/it] [A[A
+
+                                                      [A[A
+N sweep (k=9):  14%|█▍        | 1/7 [07:09<42:54, 429.11s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_9_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/1_targeted_steer_9_female-long_gen.json
+[layers] steer k=9 N=2 alpha=0.2 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4150.21it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:08<06:25, 128.36s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4071.15it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:16<04:16, 128.42s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4022.11it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:25<02:08, 128.50s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2054.02it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:06<00:00, 94.04s/it] [A[A
+
+                                                      [A[A
+N sweep (k=9):  29%|██▊       | 2/7 [14:15<35:38, 427.65s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_9_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/2_targeted_steer_9_female-long_gen.json
+[layers] steer k=9 N=4 alpha=0.4 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4270.91it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:22, 127.35s/it][A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4193.26it/s]
+
+
+Batches:  50%|█████     | 2/4 [04:15<04:15, 127.55s/it][A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4161.79it/s]
+
+
+Batches:  75%|███████▌  | 3/4 [06:22<02:07, 127.58s/it][A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2226.28it/s]
+
+
+Batches: 100%|██████████| 4/4 [07:03<00:00, 93.42s/it] [A[A
+
+                                                      [A[A
+N sweep (k=9):  43%|████▎     | 3/7 [21:19<28:23, 425.86s/it][AUpdating batch handler: start=64, stop=80
+[layers] saved responses to ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_9_female-long_gen.txt and ./results_layers/Qwen1.5-32B-Chat/from_female-long_to_male-long/atp/female-long_eval/female-single_steer/eval/4_targeted_steer_9_female-long_gen.json
+[layers] steer k=9 N=5 alpha=0.5 scale=relative eval=female-long loc=from_female-long_to_male-long
+Evaluating on test set.  50
+
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s][A[AEvaluating on test set.  16
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4277.72it/s]
+
+
+Batches:  25%|██▌       | 1/4 [02:07<06:23, 127.86s/it][A[A

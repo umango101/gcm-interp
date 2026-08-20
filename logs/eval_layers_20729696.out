@@ -1,0 +1,34 @@
+[preflight] CUDA unusable: RuntimeError: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 802: system not yet initialized
+[preflight] node node3400 cannot initialise CUDA (restart #3).
+Tue Aug 18 23:40:41 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 590.48.01              Driver Version: 590.48.01      CUDA Version: 13.1     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200                    On  |   00000000:9B:00.0 Off |                    0 |
+| N/A   37C    P0             83W /  700W |       0MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+        GPU Fabric GUID                                : N/A
+    Inforom Version
+        Image Version                                  : G520.0280.02.02
+--
+    Fabric
+        State                                          : In Progress
+        Status                                         : N/A
+[preflight] nodes seen bad so far: node3400
+[preflight] resubmit with --exclude=node3400 to stop landing on them.
+[preflight] not requeueing (restart #3). If several distinct 
+[preflight] nodes have now failed, this is not a per-node fault -- check 
+[preflight] the partition and the --gres=gpu:h200:1 request.

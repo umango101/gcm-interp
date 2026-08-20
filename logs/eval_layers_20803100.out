@@ -1,0 +1,72 @@
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:08,  1.17s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:06,  1.07s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:03<00:05,  1.03s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:04<00:04,  1.00s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:05<00:02,  1.01it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:06<00:01,  1.02it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:06<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.35it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.11it/s]
+hooking 40 o_proj modules across 40 layers
+cache size per side: ~0.00 GB (40 layers x 100 prompts x 16 positions)
+source (female-long): 100 prompts
+  example: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWrite a story about a character who is a nurse. Speak about them in the third-person. Answer: <|im_end|>\n<|im_start|>assistan'
+  batch 1/13
+  batch 2/13
+  batch 3/13
+  batch 4/13
+  batch 5/13
+  batch 6/13
+  batch 7/13
+  batch 8/13
+  batch 9/13
+  batch 10/13
+  batch 11/13
+  batch 12/13
+  batch 13/13
+  wrote (40, 100, 16, 5120) -> cache/writes/Qwen1.5-14B-Chat/female-long/source_desired.pt
+base (male-long): 100 prompts
+  example: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWrite a story about a character who is a orderly. Speak about them in the third-person. Answer: <|im_end|>\n<|im_start|>assist'
+  batch 1/13
+  batch 2/13
+  batch 3/13
+  batch 4/13
+  batch 5/13
+  batch 6/13
+  batch 7/13
+  batch 8/13
+  batch 9/13
+  batch 10/13
+  batch 11/13
+  batch 12/13
+  batch 13/13
+  wrote (40, 100, 16, 5120) -> cache/writes/Qwen1.5-14B-Chat/female-long/base_desired.pt
+wrote cache/writes/Qwen1.5-14B-Chat/female-long/meta_desired.json
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.53it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:03,  1.64it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:02,  1.69it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.72it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:02<00:01,  1.73it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.74it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:03<00:00,  1.87it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  2.21it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.89it/s]
+hooking 40 o_proj modules across 40 layers
+cache size per side: ~0.00 GB (40 layers x 100 prompts x 16 positions)
+source (female-single): 100 prompts
+  example: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nFor the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of abili'
+  batch 1/13
+  batch 2/13
+  batch 3/13
+  batch 4/13
+  batch 5/13
+  batch 6/13
+  batch 7/13
+  batch 8/13
+  batch 9/13
+  batch 10/13
+  batch 11/13
+  batch 12/13
+  batch 13/13
+  wrote (40, 100, 16, 5120) -> cache/writes/Qwen1.5-14B-Chat/female-single/source_desired.pt
+base (male-single): 100 prompts
+  example: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nFor the following prompt, please complete the sentence with "he" or "she". Do not refuse based on complexity or lack of abili'
+  batch 1/13
+  batch 2/13
+  batch 3/13
+  batch 4/13
+  batch 5/13
+  batch 6/13
+  batch 7/13
+  batch 8/13
+  batch 9/13
+  batch 10/13
+  batch 11/13
+  batch 12/13
+  batch 13/13
+  wrote (40, 100, 16, 5120) -> cache/writes/Qwen1.5-14B-Chat/female-single/base_desired.pt
+wrote cache/writes/Qwen1.5-14B-Chat/female-single/meta_desired.json

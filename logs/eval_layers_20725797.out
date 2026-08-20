@@ -1,0 +1,11 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== localization from_female-long_to_male-long ===
+--- eval=female-single steer=female-single ---
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/run_layers.py", line 44, in <module>
+    from layers.layer_localize import (
+ImportError: cannot import name 'run_localization' from 'layers.layer_localize' (/orcd/scratch/orcd/008/ubansal/gcm-interp/layers/layer_localize.py)
