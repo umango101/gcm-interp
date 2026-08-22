@@ -1,0 +1,181 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+############################################################
+# google/gemma-3-12b-it
+############################################################
+=== google/gemma-3-12b-it ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.26s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.14s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.13s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:02,  2.10s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.09s/it]
+params requiring grad: 626
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+[0] o_proj.input  (2, 6, 4096)
+    o_proj.output (2, 6, 3840)
+    num_attention_heads = 16
+    correct per-head width (input space) = 256
+    model_handler.dim (current)          = 240
+    NOTE: input dim 4096 != output dim 3840 -- num_heads*head_dim != hidden_size for this model.
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 118, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 120, in main
+    out_zeroed = torch.as_tensor(oproj.output.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 139, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 141, in main
+    z_after = torch.as_tensor(oproj.input.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 154, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 159, in main
+    torch.as_tensor(logits)[:, -1, :].sum().backward()
+TypeError: `__cuda_array_interface__` must be a dict
+
+ADVISORY: model_handler.dim is 240 but the input space needs 256 (4096/16). Apply the model_handler.py part of the patch.
+
+BLOCKERS:
+  - in-place assignment to o_proj.input raised
+  - in-place += on o_proj.input raised
+  - retain_grad/backward through o_proj.input raised
+
+google/gemma-3-12b-it: NOT safe to switch as written.
+
+############################################################
+# Qwen/Qwen1.5-14B-Chat
+############################################################
+=== Qwen/Qwen1.5-14B-Chat ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:11,  1.58s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:03<00:09,  1.62s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:04<00:08,  1.62s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:06<00:06,  1.62s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:08<00:04,  1.62s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:09<00:03,  1.64s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:11<00:01,  1.53s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:11<00:00,  1.25s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:11<00:00,  1.46s/it]
+[0] o_proj.input  (2, 5, 5120)
+    o_proj.output (2, 5, 5120)
+    num_attention_heads = 40
+    correct per-head width (input space) = 128
+    model_handler.dim (current)          = 128
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 118, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 120, in main
+    out_zeroed = torch.as_tensor(oproj.output.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 139, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 141, in main
+    z_after = torch.as_tensor(oproj.input.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 154, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 159, in main
+    torch.as_tensor(logits)[:, -1, :].sum().backward()
+TypeError: `__cuda_array_interface__` must be a dict
+
+
+BLOCKERS:
+  - in-place assignment to o_proj.input raised
+  - in-place += on o_proj.input raised
+  - retain_grad/backward through o_proj.input raised
+
+Qwen/Qwen1.5-14B-Chat: NOT safe to switch as written.
+
+############################################################
+# Qwen/Qwen1.5-32B-Chat
+############################################################
+=== Qwen/Qwen1.5-32B-Chat ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:25,  1.57s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:23,  1.59s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:22,  1.58s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:06<00:20,  1.57s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:07<00:18,  1.58s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:13<00:33,  3.04s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:21<00:44,  4.44s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:22<00:31,  3.53s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:24<00:23,  2.90s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:25<00:17,  2.48s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:27<00:13,  2.19s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:28<00:09,  1.97s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:30<00:07,  1.82s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:31<00:05,  1.70s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:33<00:03,  1.61s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:34<00:01,  1.56s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:35<00:00,  1.42s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:35<00:00,  2.09s/it]
+[0] o_proj.input  (2, 5, 5120)
+    o_proj.output (2, 5, 5120)
+    num_attention_heads = 40
+    correct per-head width (input space) = 128
+    model_handler.dim (current)          = 128
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 118, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 120, in main
+    out_zeroed = torch.as_tensor(oproj.output.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 139, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 141, in main
+    z_after = torch.as_tensor(oproj.input.detach().cpu().save())
+TypeError: `__cuda_array_interface__` must be a dict
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 154, in main
+    with model.trace(toks) as _:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 96, in __exit__
+    super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/tracer.py", line 25, in __exit__
+    return super().__exit__(exc_type, exc_val, exc_tb)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/contexts/base.py", line 72, in __exit__
+    raise exc_val
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verify_oproj_input.py", line 159, in main
+    torch.as_tensor(logits)[:, -1, :].sum().backward()
+TypeError: `__cuda_array_interface__` must be a dict
+
+
+BLOCKERS:
+  - in-place assignment to o_proj.input raised
+  - in-place += on o_proj.input raised
+  - retain_grad/backward through o_proj.input raised
+
+Qwen/Qwen1.5-32B-Chat: NOT safe to switch as written.
+
+==================== summary ====================
+BLOCKED:
+  google/gemma-3-12b-it (exit 1)
+  Qwen/Qwen1.5-14B-Chat (exit 1)
+  Qwen/Qwen1.5-32B-Chat (exit 1)
+
+Do not apply the o_proj.input switch for these until the blocker is resolved.

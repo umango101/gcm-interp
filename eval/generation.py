@@ -43,7 +43,7 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
     if kv_caching:
         # KV caching ON: no model.all(). The interventions apply during prefill only;
         # decoding steps read from the KV cache and are not re-steered. The write targets
-        # the full o_proj output ([..., sl]) because prefill covers every prompt position
+        # the full o_proj input ([..., sl]) because prefill covers every prompt position
         # in a single forward pass. (Using model.all() here would reapply the write on each
         # 1-token decode step and index positions that don't exist -> corrupted output.)
         with model.generate(gen_toks, use_cache=True, **gen_kwargs) as tracer:
@@ -54,9 +54,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                     steering_vector = _steering_vector(layer_idx, sl)
                     if ablation_type == 'mean':
-                        layer.self_attn.o_proj.output[..., sl] = N * steering_vector
+                        layer.self_attn.o_proj.input[..., sl] = N * steering_vector
                     elif ablation_type == 'steer':
-                        layer.self_attn.o_proj.output[..., sl] += N * steering_vector
+                        layer.self_attn.o_proj.input[..., sl] += N * steering_vector
             generated = model.generator.output.save()
     else:
         # KV caching OFF: model.all() reapplies the intervention on every decoding step,
@@ -71,9 +71,9 @@ def generate_with_patches(model, gen_toks, patch_activations, topk_df, N, ablati
                         sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                         steering_vector = _steering_vector(layer_idx, sl)
                         if ablation_type == 'mean':
-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
+                            layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] = N * steering_vector
                         elif ablation_type == 'steer':
-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
+                            layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] += N * steering_vector
             generated = model.generator.output.save()
 
     return generated

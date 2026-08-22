@@ -58,7 +58,7 @@ class PatchingUtils:
                 for head_idx in range(num_heads):
                     head = slice(head_dim*head_idx,head_dim*(head_idx+1))
                     with model.trace(base_toks) as invoker:
-                        model.model.layers[layer_idx].self_attn.o_proj.input[:, :, head] = \
+                        model.model.layers[layer_idx].self_attn.o_proj.output[:, :, head] = \
                             source_heads[layer_idx][:, :, head].to(model.device)
                         logits = model.lm_head.output.detach().cpu().save()
                     head_results.append(self.get_response_logits(base_toks, resp_start_positions, logits)) # Shape: [batch_size]
@@ -74,10 +74,7 @@ class PatchingUtils:
         with model.trace(toks) as _:
             for layer in model.model.layers:
                 if which_patch =='heads':
-                    # o_proj INPUT = concatenated per-head attention outputs z, so
-                    # slicing [h*dim:(h+1)*dim] is exactly head h. (The output is the
-                    # post-W_O residual write, where that slice is not a head.)
-                    self_attn = layer.self_attn.o_proj.input
+                    self_attn = layer.self_attn.o_proj.output
                 if retain_grad:
                     self_attn.retain_grad()
                     attn_effects.append(self_attn.save())

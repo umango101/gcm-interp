@@ -34,7 +34,29 @@ class ModelHandler:
         text_config = model_config.get('text_config', model_config)
         hidden_size = text_config['hidden_size']
         self.num_heads = text_config['num_attention_heads']
-        self.dim = hidden_size // self.num_heads
+        # Per-head slice width for the o_proj INPUT space (the concatenated per-head
+        # attention outputs z), which is num_attention_heads * head_dim. That is NOT
+        # always hidden_size: Gemma-3-12B has hidden_size=3840 but 16 heads x 256 =
+        # 4096. Prefer the config's head_dim, cross-check against the real module,
+        # and only fall back to the old formula if neither is available.
+        self.dim = text_config.get('head_dim') or (hidden_size // self.num_heads)
+        try:
+            _oproj = getattr(self.model, "_model", self.model).model.layers[0].self_attn.o_proj
+            _in = int(_oproj.in_features)
+            if _in % self.num_heads != 0:
+                raise ValueError(
+                    f"o_proj.in_features={_in} is not divisible by num_attention_heads="
+                    f"{self.num_heads}; per-head slicing would be meaningless."
+                )
+            if _in // self.num_heads != self.dim:
+                print(f"[model] head_dim {self.dim} disagrees with o_proj.in_features//heads "
+                      f"= {_in // self.num_heads}; using the module's value.", flush=True)
+                self.dim = _in // self.num_heads
+        except (AttributeError, IndexError) as e:
+            print(f"[model] could not read o_proj.in_features ({e}); "
+                  f"using head_dim={self.dim} from config.", flush=True)
+        print(f"[model] hidden_size={hidden_size} num_heads={self.num_heads} "
+              f"per-head dim={self.dim} (heads*dim={self.num_heads * self.dim})", flush=True)
 
         if 'solar' in model_id.lower():
             self.marker = '### Assistant'
@@ -132,7 +154,7 @@ class ModelHandler:
         extra memory allocated before the transplant overwrites it). The vision tower
         and projector are then dropped since nothing here uses them. Verified
         end-to-end in a standalone test (real generation + an nnsight activation trace
-        on model.layers[0].self_attn.o_proj.output, the exact pattern patching_utils.py
+        on model.layers[0].self_attn.o_proj.input, the exact pattern patching_utils.py
         uses) before wiring this in -- both produced correct, sane results.
         """
         from transformers import Gemma3ForCausalLM

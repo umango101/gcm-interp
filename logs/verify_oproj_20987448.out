@@ -1,0 +1,126 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+############################################################
+# google/gemma-3-12b-it
+############################################################
+nnsight 0.4.11
+=== google/gemma-3-12b-it ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:04,  1.18s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:03,  1.12s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:03<00:02,  1.09s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:04<00:01,  1.08s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:05<00:00,  1.05s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:05<00:00,  1.08s/it]
+params requiring grad: 626
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+[0] o_proj.input  (2, 6, 4096)
+    o_proj.output (2, 6, 3840)
+    num_attention_heads = 16
+    correct per-head width (input space) = 256
+    model_handler.dim (current)          = 240
+    NOTE: input 4096 != output 3840 -- num_heads*head_dim != hidden_size for this model.
+[1] zero head 3 (via .input): max|out - z_h W_O^h - out_zeroed| = 1.279e+01  (scale 2.720e+03)
+    OK: input[..., 768:1024] is exactly head 3, and writes via .input take effect
+[2] += 0.1 on head 3 (via .input): max|observed - predicted| = 7.960e+00  (scale 2.720e+03)
+    OK: += on the input slice propagates exactly
+[3] grad (2, 6, 4096), abs mean 2.412e-01
+    OK: gradients reach o_proj.input
+
+ADVISORY: model_handler.dim is 240 but the input space needs 256 (4096/16). Apply the model_handler.py part of the patch.
+
+google/gemma-3-12b-it: nnsight handles o_proj.input correctly. Safe to switch once the advisories above are addressed.
+
+############################################################
+# Qwen/Qwen1.5-14B-Chat
+############################################################
+nnsight 0.4.11
+=== Qwen/Qwen1.5-14B-Chat ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.17it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:05,  1.16it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.17it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.17it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:04<00:02,  1.18it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:05<00:01,  1.18it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.27it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.31it/s]
+[0] o_proj.input  (2, 5, 5120)
+    o_proj.output (2, 5, 5120)
+    num_attention_heads = 40
+    correct per-head width (input space) = 128
+    model_handler.dim (current)          = 128
+[1] zero head 3 (via .input): max|out - z_h W_O^h - out_zeroed| = 4.721e-03  (scale 1.578e+00)
+    OK: input[..., 384:512] is exactly head 3, and writes via .input take effect
+[2] += 0.1 on head 3 (via .input): max|observed - predicted| = 6.803e-03  (scale 1.578e+00)
+    OK: += on the input slice propagates exactly
+[3] grad (2, 5, 5120), abs mean 7.320e+02
+    OK: gradients reach o_proj.input
+
+
+Qwen/Qwen1.5-14B-Chat: nnsight handles o_proj.input correctly. Safe to switch.
+
+############################################################
+# Qwen/Qwen1.5-32B-Chat
+############################################################
+nnsight 0.4.11
+=== Qwen/Qwen1.5-32B-Chat ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:00<00:13,  1.16it/s]Loading checkpoint shards:  12%|█▏        | 2/17 [00:01<00:12,  1.18it/s]Loading checkpoint shards:  18%|█▊        | 3/17 [00:02<00:11,  1.19it/s]Loading checkpoint shards:  24%|██▎       | 4/17 [00:03<00:10,  1.20it/s]Loading checkpoint shards:  29%|██▉       | 5/17 [00:04<00:09,  1.21it/s]Loading checkpoint shards:  35%|███▌      | 6/17 [00:04<00:08,  1.26it/s]Loading checkpoint shards:  41%|████      | 7/17 [00:05<00:07,  1.29it/s]Loading checkpoint shards:  47%|████▋     | 8/17 [00:06<00:06,  1.32it/s]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:07<00:05,  1.34it/s]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:07<00:05,  1.36it/s]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:08<00:04,  1.39it/s]Loading checkpoint shards:  71%|███████   | 12/17 [00:09<00:03,  1.44it/s]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:09<00:02,  1.48it/s]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:10<00:01,  1.51it/s]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:10<00:01,  1.54it/s]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:11<00:00,  1.55it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:12<00:00,  1.66it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:12<00:00,  1.40it/s]
+[0] o_proj.input  (2, 5, 5120)
+    o_proj.output (2, 5, 5120)
+    num_attention_heads = 40
+    correct per-head width (input space) = 128
+    model_handler.dim (current)          = 128
+[1] zero head 3 (via .input): max|out - z_h W_O^h - out_zeroed| = 2.814e-03  (scale 7.500e-01)
+    OK: input[..., 384:512] is exactly head 3, and writes via .input take effect
+[2] += 0.1 on head 3 (via .input): max|observed - predicted| = 3.549e-03  (scale 7.500e-01)
+    OK: += on the input slice propagates exactly
+[3] grad (2, 5, 5120), abs mean 9.120e+02
+    OK: gradients reach o_proj.input
+
+
+Qwen/Qwen1.5-32B-Chat: nnsight handles o_proj.input correctly. Safe to switch.
+
+############################################################
+# allenai/OLMo-2-1124-13B-DPO
+############################################################
+nnsight 0.4.11
+=== allenai/OLMo-2-1124-13B-DPO ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:01<00:09,  1.92s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:03<00:07,  1.94s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:05<00:05,  1.92s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:07<00:03,  1.94s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:09<00:01,  1.92s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:10<00:00,  1.62s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:10<00:00,  1.78s/it]
+[0] o_proj.input  (2, 5, 5120)
+    o_proj.output (2, 5, 5120)
+    num_attention_heads = 40
+    correct per-head width (input space) = 128
+    model_handler.dim (current)          = 128
+[1] zero head 3 (via .input): max|out - z_h W_O^h - out_zeroed| = 2.913e-02  (scale 6.812e+00)
+    OK: input[..., 384:512] is exactly head 3, and writes via .input take effect
+[2] += 0.1 on head 3 (via .input): max|observed - predicted| = 2.903e-02  (scale 6.812e+00)
+    OK: += on the input slice propagates exactly
+[3] grad (2, 5, 5120), abs mean 1.580e+02
+    OK: gradients reach o_proj.input
+
+
+allenai/OLMo-2-1124-13B-DPO: nnsight handles o_proj.input correctly. Safe to switch.
+
+############################################################
+# tiiuae/Falcon3-10B-Instruct
+############################################################
+nnsight 0.4.11
+=== tiiuae/Falcon3-10B-Instruct ===
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.20s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.18s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.24s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:02,  2.19s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.54s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.83s/it]
+[0] o_proj.input  (2, 5, 3072)
+    o_proj.output (2, 5, 3072)
+    num_attention_heads = 12
+    correct per-head width (input space) = 256
+    model_handler.dim (current)          = 256
+[1] zero head 3 (via .input): max|out - z_h W_O^h - out_zeroed| = 1.001e-02  (scale 2.938e+00)
+    OK: input[..., 768:1024] is exactly head 3, and writes via .input take effect
+[2] += 0.1 on head 3 (via .input): max|observed - predicted| = 1.264e-02  (scale 2.938e+00)
+    OK: += on the input slice propagates exactly
+[3] grad (2, 5, 3072), abs mean 4.704e+03
+    OK: gradients reach o_proj.input
+
+
+tiiuae/Falcon3-10B-Instruct: nnsight handles o_proj.input correctly. Safe to switch.
+
+==================== summary ====================
+safe to switch:
+  google/gemma-3-12b-it
+  Qwen/Qwen1.5-14B-Chat
+  Qwen/Qwen1.5-32B-Chat
+  allenai/OLMo-2-1124-13B-DPO
+  tiiuae/Falcon3-10B-Instruct
+
+No blockers. Re-read the ADVISORY lines above before applying the patch --
+they tell you whether model_handler.dim needs the head_dim fix per model.

@@ -10,7 +10,7 @@ def mean_ablations_cache(model, data_handler, batch_size=9, key='desired'):
         }
         with model.trace(input_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                attn_layer_cache[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                attn_layer_cache[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
     attn_cache = [torch.cat(attns_in_layer, dim=0).mean(dim=0).to(model.device) for attns_in_layer in attn_layer_cache]
     return torch.stack(attn_cache)
 
@@ -39,10 +39,10 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
 
         with model.trace(s_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                steer[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                steer[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
         with model.trace(b_slice) as _:
             for idx, layer in enumerate(model.model.layers):
-                base[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
+                base[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
 
     if mean:
         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))

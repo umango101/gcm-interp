@@ -140,7 +140,7 @@ def get_attn_tensors(model, gen_toks, patch_activations, topk_df, N, ablation_ty
                         for head_idx in head_ids:
                             sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                             if ablation_type == 'steer':
-                                layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
+                                layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
                     for i, layer in enumerate(model.model.layers):
                         q_hidden_states[i].append(layer.self_attn.q_proj.output)
                         k_hidden_states[i].append(layer.self_attn.k_proj.output)

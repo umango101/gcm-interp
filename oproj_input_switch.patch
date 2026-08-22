@@ -1,0 +1,135 @@
+--- gcm-interp/patching_utils.py	2026-08-21 19:23:46.802728035 +0000
++++ work/oproj/patching_utils.py	2026-08-22 18:51:47.064910730 +0000
+@@ -49,7 +49,7 @@
+                 for head_idx in range(num_heads):
+                     head = slice(head_dim*head_idx,head_dim*(head_idx+1))
+                     with model.trace(base_toks) as invoker:
+-                        model.model.layers[layer_idx].self_attn.o_proj.output[:, :, head] = \
++                        model.model.layers[layer_idx].self_attn.o_proj.input[:, :, head] = \
+                             source_heads[layer_idx][:, :, head].to(model.device)
+                         logits = model.lm_head.output.detach().cpu().save()
+                     head_results.append(self.get_response_logits(base_toks, resp_start_positions, logits)) # Shape: [batch_size]
+@@ -65,7 +65,10 @@
+         with model.trace(toks) as _:
+             for layer in model.model.layers:
+                 if which_patch =='heads':
+-                    self_attn = layer.self_attn.o_proj.output
++                    # o_proj INPUT = concatenated per-head attention outputs z, so
++                    # slicing [h*dim:(h+1)*dim] is exactly head h. (The output is the
++                    # post-W_O residual write, where that slice is not a head.)
++                    self_attn = layer.self_attn.o_proj.input
+                 if retain_grad:
+                     self_attn.retain_grad()
+                     attn_effects.append(self_attn.save())
+--- gcm-interp/model_handler.py	2026-08-21 19:23:46.802728035 +0000
++++ work/oproj/model_handler.py	2026-08-22 18:52:03.171640222 +0000
+@@ -34,7 +34,29 @@
+         text_config = model_config.get('text_config', model_config)
+         hidden_size = text_config['hidden_size']
+         self.num_heads = text_config['num_attention_heads']
+-        self.dim = hidden_size // self.num_heads
++        # Per-head slice width for the o_proj INPUT space (the concatenated per-head
++        # attention outputs z), which is num_attention_heads * head_dim. That is NOT
++        # always hidden_size: Gemma-3-12B has hidden_size=3840 but 16 heads x 256 =
++        # 4096. Prefer the config's head_dim, cross-check against the real module,
++        # and only fall back to the old formula if neither is available.
++        self.dim = text_config.get('head_dim') or (hidden_size // self.num_heads)
++        try:
++            _oproj = getattr(self.model, "_model", self.model).model.layers[0].self_attn.o_proj
++            _in = int(_oproj.in_features)
++            if _in % self.num_heads != 0:
++                raise ValueError(
++                    f"o_proj.in_features={_in} is not divisible by num_attention_heads="
++                    f"{self.num_heads}; per-head slicing would be meaningless."
++                )
++            if _in // self.num_heads != self.dim:
++                print(f"[model] head_dim {self.dim} disagrees with o_proj.in_features//heads "
++                      f"= {_in // self.num_heads}; using the module's value.", flush=True)
++                self.dim = _in // self.num_heads
++        except (AttributeError, IndexError) as e:
++            print(f"[model] could not read o_proj.in_features ({e}); "
++                  f"using head_dim={self.dim} from config.", flush=True)
++        print(f"[model] hidden_size={hidden_size} num_heads={self.num_heads} "
++              f"per-head dim={self.dim} (heads*dim={self.num_heads * self.dim})", flush=True)
+ 
+         if 'solar' in model_id.lower():
+             self.marker = '### Assistant'
+@@ -132,7 +154,7 @@
+         extra memory allocated before the transplant overwrites it). The vision tower
+         and projector are then dropped since nothing here uses them. Verified
+         end-to-end in a standalone test (real generation + an nnsight activation trace
+-        on model.layers[0].self_attn.o_proj.output, the exact pattern patching_utils.py
++        on model.layers[0].self_attn.o_proj.input, the exact pattern patching_utils.py
+         uses) before wiring this in -- both produced correct, sane results.
+         """
+         from transformers import Gemma3ForCausalLM
+--- gcm-interp/eval/activations.py	2026-08-21 19:23:23.504182034 +0000
++++ work/oproj/eval/activations.py	2026-08-22 18:51:47.065175363 +0000
+@@ -10,7 +10,7 @@
+         }
+         with model.trace(input_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                attn_layer_cache[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                attn_layer_cache[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
+     attn_cache = [torch.cat(attns_in_layer, dim=0).mean(dim=0).to(model.device) for attns_in_layer in attn_layer_cache]
+     return torch.stack(attn_cache)
+ 
+@@ -39,10 +39,10 @@
+ 
+         with model.trace(s_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                steer[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                steer[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
+         with model.trace(b_slice) as _:
+             for idx, layer in enumerate(model.model.layers):
+-                base[idx].append(layer.self_attn.o_proj.output.detach().cpu().save())
++                base[idx].append(layer.self_attn.o_proj.input.detach().cpu().save())
+ 
+     if mean:
+         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))
+--- gcm-interp/eval/generation.py	2026-08-21 19:23:23.504182034 +0000
++++ work/oproj/eval/generation.py	2026-08-22 18:51:53.527613017 +0000
+@@ -43,7 +43,7 @@
+     if kv_caching:
+         # KV caching ON: no model.all(). The interventions apply during prefill only;
+         # decoding steps read from the KV cache and are not re-steered. The write targets
+-        # the full o_proj output ([..., sl]) because prefill covers every prompt position
++        # the full o_proj input ([..., sl]) because prefill covers every prompt position
+         # in a single forward pass. (Using model.all() here would reapply the write on each
+         # 1-token decode step and index positions that don't exist -> corrupted output.)
+         with model.generate(gen_toks, use_cache=True, **gen_kwargs) as tracer:
+@@ -54,9 +54,9 @@
+                     sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                     steering_vector = _steering_vector(layer_idx, sl)
+                     if ablation_type == 'mean':
+-                        layer.self_attn.o_proj.output[..., sl] = N * steering_vector
++                        layer.self_attn.o_proj.input[..., sl] = N * steering_vector
+                     elif ablation_type == 'steer':
+-                        layer.self_attn.o_proj.output[..., sl] += N * steering_vector
++                        layer.self_attn.o_proj.input[..., sl] += N * steering_vector
+             generated = model.generator.output.save()
+     else:
+         # KV caching OFF: model.all() reapplies the intervention on every decoding step,
+@@ -71,9 +71,9 @@
+                         sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                         steering_vector = _steering_vector(layer_idx, sl)
+                         if ablation_type == 'mean':
+-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] = N * steering_vector
++                            layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] = N * steering_vector
+                         elif ablation_type == 'steer':
+-                            layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * steering_vector
++                            layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] += N * steering_vector
+             generated = model.generator.output.save()
+ 
+     return generated
+--- gcm-interp/eval/attn_attributions.py	2026-08-21 19:23:23.504182034 +0000
++++ work/oproj/eval/attn_attributions.py	2026-08-22 18:51:47.065628319 +0000
+@@ -140,7 +140,7 @@
+                         for head_idx in head_ids:
+                             sl = slice(DIM * head_idx, DIM * (head_idx + 1))
+                             if ablation_type == 'steer':
+-                                layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
++                                layer.self_attn.o_proj.input[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
+                     for i, layer in enumerate(model.model.layers):
+                         q_hidden_states[i].append(layer.self_attn.q_proj.output)
+                         k_hidden_states[i].append(layer.self_attn.k_proj.output)
