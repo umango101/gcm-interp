@@ -33,8 +33,10 @@ SLURM job: append-only checkpoint, signal handling, resume on requeue.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import random
 import re
 import signal
 import sys
@@ -44,6 +46,38 @@ from pathlib import Path
 
 # Native sampler -> no FlashInfer JIT (needs nvcc). Must precede any vllm import.
 os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
+# Pin the cuBLAS workspace so GEMM reductions take the same path every run. Must be
+# set before the first CUDA context, hence before vllm is imported below.
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+# PYTHONHASHSEED only takes effect if it is set before the interpreter starts, so
+# setting it here cannot help this process -- run_gender.sh exports it. We assert
+# it instead, rather than pretending it was handled.
+_HASHSEED = os.environ.get("PYTHONHASHSEED")
+
+
+def _seed_everything(seed):
+    """Seed every RNG that can influence the run. torch/numpy are seeded when
+    present (they are pulled in by vllm) but are not required for the CPU-only
+    verify/build stages, so their absence is not an error."""
+    random.seed(seed)
+    os.environ["VLLM_SEED"] = str(seed)
+    try:
+        import numpy as np
+        np.random.seed(seed)
+    except ImportError:
+        pass
+    try:
+        import torch
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        # warn_only: an op with no deterministic kernel warns instead of aborting
+        # mid-run. The goal is to remove the nondeterminism that actually bites,
+        # not to fail closed inside a vllm kernel we do not control.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+    except ImportError:
+        pass
 
 
 def _env(key, default):
@@ -53,9 +87,9 @@ def _env(key, default):
 
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
-    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/Falcon3-10B-Instruct"),
+    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl"),
+    "MODEL": _env("MODEL", "tiiuae/Falcon3-10B-Instruct"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -65,7 +99,7 @@ CONFIG = {
     "SINGLE_MAX_TOKENS": int(_env("SINGLE_MAX_TOKENS", "3")),
     "STORY_MAX_TOKENS": int(_env("STORY_MAX_TOKENS", "256")),
     "CHUNK_SIZE": int(_env("CHUNK_SIZE", "16")),
-    "SEED": int(_env("SEED", "1234")),
+    "SEED": int(_env("SEED", "42")),
     "STAGES": _env("STAGES", "generate,verify,build"),
     # Rows with pair idx < TRAIN_LIMIT go to the 12 train files; rows with
     # idx >= TRAIN_LIMIT go to the male-*-test files. Ids are preserved (never
@@ -100,10 +134,68 @@ def load_professions(path):
     if not isinstance(profs, list) or not all(isinstance(p, str) for p in profs):
         raise ValueError(f"{path} must be a JSON array of strings")
     if len(set(profs)) != len(profs):
-        dupes = [p for p in set(profs) if profs.count(p) > 1]
+        dupes = sorted({p for p in profs if profs.count(p) > 1})
         raise ValueError(f"Duplicate professions in {path}: {dupes}")
     print(f"[load] {len(profs)} professions from {path}", flush=True)
     return profs
+
+
+def run_signature(professions):
+    """Every setting that can change a generated token. Stored as the first line of
+    the checkpoint; a resume whose signature differs is refused rather than silently
+    producing a checkpoint that is half one configuration and half another.
+
+    CHUNK_SIZE is in here deliberately: vLLM batches a chunk in one forward pass, and
+    batched GEMM reductions are batch-shape dependent, so the same prompt generated in
+    a chunk of 16 and a chunk of 8 can differ in its last token."""
+    blob = json.dumps(professions, ensure_ascii=False).encode()
+    return {
+        "MODEL": CONFIG["MODEL"],
+        "DTYPE": CONFIG["DTYPE"],
+        "SEED": CONFIG["SEED"],
+        "TEMPERATURE": CONFIG["TEMPERATURE"],
+        "SINGLE_MAX_TOKENS": CONFIG["SINGLE_MAX_TOKENS"],
+        "STORY_MAX_TOKENS": CONFIG["STORY_MAX_TOKENS"],
+        "CHUNK_SIZE": CONFIG["CHUNK_SIZE"],
+        "TENSOR_PARALLEL": CONFIG["TENSOR_PARALLEL"],
+        "MAX_MODEL_LEN": CONFIG["MAX_MODEL_LEN"],
+        "SYSTEM_PROMPT": CONFIG["SYSTEM_PROMPT"],
+        "SINGLE_TMPL": SINGLE_TMPL,
+        "STORY_TMPL": STORY_TMPL,
+        "professions_sha256": hashlib.sha256(blob).hexdigest(),
+        "n_professions": len(professions),
+    }
+
+
+def check_or_write_signature(professions):
+    """Write the signature on a fresh checkpoint; verify it on a resume."""
+    sig = run_signature(professions)
+    p = Path(CONFIG["CHECKPOINT"])
+    if p.exists() and p.stat().st_size > 0:
+        with p.open() as f:
+            first = f.readline().strip()
+        stored = json.loads(first).get("__signature__") if first else None
+        if stored is None:
+            raise RuntimeError(
+                f"{p} has no run signature -- it was written by an older revision of "
+                "this script, whose chunk boundaries shifted on resume. Its contents "
+                "are not reproducible; move it aside and regenerate."
+            )
+        if stored != sig:
+            differing = sorted(k for k in set(stored) | set(sig)
+                               if stored.get(k) != sig.get(k))
+            raise RuntimeError(
+                f"Checkpoint {p} was written under a different configuration "
+                f"(differs in: {differing}). Resuming would mix two configurations "
+                "in one dataset. Use a fresh CHECKPOINT path or restore the old settings."
+            )
+        return
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open("w") as f:
+        f.write(json.dumps({"__signature__": sig}, ensure_ascii=False, sort_keys=True) + "\n")
+        f.flush()
+        os.fsync(f.fileno())
+    print(f"[ckpt] fresh checkpoint; signature written to {p}", flush=True)
 
 
 def load_checkpoint():
@@ -119,7 +211,15 @@ def load_checkpoint():
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:
+                # a line torn by preemption mid-write; the chunk it belonged to is
+                # regenerated whole, so dropping it is safe
                 continue
+            if "__signature__" in rec:
+                continue
+            # Last write wins. Chunks are regenerated whole after a preemption, so a
+            # profession can legitimately appear twice; under a matching signature
+            # both copies are identical, and taking the last is order-independent
+            # with respect to how many times the job was requeued.
             if "profession" in rec and "single" in rec and "story" in rec:
                 done[rec["profession"]] = rec
     print(f"[ckpt] {len(done)} professions already complete", flush=True)
@@ -181,12 +281,65 @@ def male_professions(done, professions):
 # --------------------------------------------------------------------------- #
 # Stage 1: GENERATE                                                           #
 # --------------------------------------------------------------------------- #
+def _deterministic_engine_kwargs():
+    """Engine settings that remove run-to-run variation. Filtered against the
+    installed vLLM's accepted arguments, because these names have moved between
+    versions -- a silently-ignored kwarg would be worse than a reported one."""
+    wanted = {
+        # no CUDA graph capture / torch.compile: the compiled path can select
+        # different kernels than eager for the same shapes
+        "enforce_eager": True,
+        # prefix caching makes a prompt's numerics depend on what ran before it,
+        # which is precisely what breaks reproducibility across a resume
+        "enable_prefix_caching": False,
+        # chunked prefill splits a prompt across steps by scheduler state, so the
+        # same prompt can be split differently between runs
+        "enable_chunked_prefill": False,
+        # cap concurrency at the chunk size so the scheduler never batches two
+        # chunks together under memory pressure
+        "max_num_seqs": CONFIG["CHUNK_SIZE"],
+    }
+    if CONFIG["TENSOR_PARALLEL"] > 1:
+        # the custom all-reduce kernel reduces in a nondeterministic order
+        wanted["disable_custom_all_reduce"] = True
+
+    accepted, dropped = {}, []
+    try:
+        import dataclasses
+        from vllm.engine.arg_utils import EngineArgs
+        fields = {f.name for f in dataclasses.fields(EngineArgs)}
+    except Exception:
+        fields = None
+    for k, v in wanted.items():
+        if fields is None or k in fields:
+            accepted[k] = v
+        else:
+            dropped.append(k)
+    if dropped:
+        print(f"[gen] WARNING: this vLLM build does not accept {dropped}; "
+              "determinism is not guaranteed for those settings.", flush=True)
+    return accepted
+
+
 def stage_generate(professions):
+    check_or_write_signature(professions)
     done = load_checkpoint()
-    todo = [p for p in professions if p not in done]
-    if not todo:
+
+    # Chunk over the FULL profession list so boundaries are a function of
+    # professions.json and CHUNK_SIZE alone, never of how much happened to be
+    # finished when the job was preempted. A chunk is regenerated whole unless
+    # every profession in it is already cached; that re-does at most CHUNK_SIZE-1
+    # generations per resume, which is the price of the batch composition being
+    # identical to a clean run.
+    all_chunks = list(chunked(professions, CONFIG["CHUNK_SIZE"]))
+    todo_chunks = [c for c in all_chunks if any(p not in done for p in c)]
+    if not todo_chunks:
         print("[gen] nothing to generate; all professions cached.", flush=True)
         return
+    n_redo = sum(1 for c in todo_chunks for p in c if p in done)
+    print(f"[gen] {len(todo_chunks)}/{len(all_chunks)} chunks to run "
+          f"({n_redo} cached generations will be redone to keep batches identical)",
+          flush=True)
 
     from transformers import AutoTokenizer
     from vllm import LLM, SamplingParams
@@ -202,11 +355,22 @@ def stage_generate(professions):
         dtype=CONFIG["DTYPE"],
         seed=CONFIG["SEED"],
         trust_remote_code=True,
+        **_deterministic_engine_kwargs(),
     )
     print(f"[gen] model ready in {time.time() - t0:.1f}s", flush=True)
 
-    single_sp = SamplingParams(temperature=CONFIG["TEMPERATURE"], max_tokens=CONFIG["SINGLE_MAX_TOKENS"], seed=CONFIG["SEED"])
-    story_sp = SamplingParams(temperature=CONFIG["TEMPERATURE"], max_tokens=CONFIG["STORY_MAX_TOKENS"], seed=CONFIG["SEED"])
+    # temperature=0 is greedy, so top_p/top_k/seed are inert -- pinned anyway so a
+    # future edit to TEMPERATURE cannot quietly turn sampling back on.
+    def _sp(max_tokens):
+        return SamplingParams(temperature=CONFIG["TEMPERATURE"], top_p=1.0, top_k=-1,
+                              n=1, max_tokens=max_tokens, seed=CONFIG["SEED"])
+
+    if CONFIG["TEMPERATURE"] != 0.0:
+        raise RuntimeError(
+            f"TEMPERATURE={CONFIG['TEMPERATURE']} is not greedy; this script's output "
+            "is only reproducible at temperature 0."
+        )
+    single_sp, story_sp = _sp(CONFIG["SINGLE_MAX_TOKENS"]), _sp(CONFIG["STORY_MAX_TOKENS"])
 
     def render(prompt_text):
         msgs = [{"role": "system", "content": CONFIG["SYSTEM_PROMPT"]},
@@ -214,8 +378,8 @@ def stage_generate(professions):
         return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
 
     # ---- single + story for every profession ---------------------------------
-    n_done = len(done)
-    for chunk in chunked(todo, CONFIG["CHUNK_SIZE"]):
+    n_chunks_done = 0
+    for chunk in todo_chunks:
         single_prompts = [render(SINGLE_TMPL.format(role=p)) for p in chunk]
         story_prompts = [render(STORY_TMPL.format(role=p)) for p in chunk]
         single_out = llm.generate(single_prompts, single_sp)
@@ -228,8 +392,8 @@ def stage_generate(professions):
                 raise RuntimeError(f"Empty story for profession {p!r}")
             records.append({"profession": p, "single": single, "story": story})
         append_checkpoint(records)
-        n_done += len(records)
-        print(f"[gen] {n_done}/{len(professions)} professions done", flush=True)
+        n_chunks_done += 1
+        print(f"[gen] {n_chunks_done}/{len(todo_chunks)} chunks done", flush=True)
         if _STOP:
             print("[gen] stopping early due to preemption; progress checkpointed.", flush=True)
             sys.exit(0)
@@ -420,11 +584,24 @@ def stage_build(professions):
 # Entry                                                                       #
 # --------------------------------------------------------------------------- #
 def main():
+    _seed_everything(CONFIG["SEED"])
+    if _HASHSEED != str(CONFIG["SEED"]):
+        print(f"[warn] PYTHONHASHSEED={_HASHSEED!r} (expected {CONFIG['SEED']!r}). "
+              "Set it in the launcher, before python starts -- it cannot be set from "
+              "inside this process. Nothing here currently depends on hash order, so "
+              "this is a guard against future edits, not a live bug.", flush=True)
+
     Path(CONFIG["CHECKPOINT"]).parent.mkdir(parents=True, exist_ok=True)
     Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
 
     stages = [s.strip() for s in CONFIG["STAGES"].split(",") if s.strip()]
     professions = load_professions(CONFIG["PROFESSIONS_JSON"])
+
+    # Record exactly what produced this output directory, so a run can be
+    # reproduced without reconstructing the environment by hand.
+    (Path(CONFIG["OUTPUT_DIR"]) / "gender_build_config.json").write_text(
+        json.dumps({"config": CONFIG, "signature": run_signature(professions),
+                    "stages": stages}, ensure_ascii=False, indent=2, sort_keys=True))
 
     if "generate" in stages:
         stage_generate(professions)

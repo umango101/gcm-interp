@@ -85,6 +85,7 @@ import pandas as pd
 import torch
 
 DTYPE = torch.float64  # set from --dtype in main()
+DEVICE = torch.device("cpu")  # set from --device in main()
 
 # ---------------------------------------------------------------------------
 # head selection -- kept bit-identical to eval/logits_handler.py
@@ -223,7 +224,7 @@ def build_matrix(o_proj: torch.Tensor, heads: List[Tuple[int, int]], n_heads: in
     dtype = dtype or DTYPE
     cols = []
     for (l, h) in heads:
-        B = head_block(o_proj[l], h, n_heads, space).to(dtype)
+        B = head_block(o_proj[l], h, n_heads, space).to(device=DEVICE, dtype=dtype)
         if normalize:
             n = torch.linalg.norm(B)
             if n > 0:
@@ -269,7 +270,8 @@ def stable_rank(s: torch.Tensor, eps: float = 1e-12) -> float:
 def rank_at_energy(s: torch.Tensor, thresh: float) -> int:
     e = s.pow(2)
     c = torch.cumsum(e, 0) / e.sum().clamp_min(1e-12)
-    r = int(torch.searchsorted(c, torch.tensor(thresh, dtype=c.dtype)).item()) + 1
+    r = int(torch.searchsorted(
+        c, torch.tensor(thresh, dtype=c.dtype, device=c.device)).item()) + 1
     return max(1, min(r, int(s.numel())))
 
 
@@ -304,8 +306,19 @@ def set_stats(M: torch.Tensor, s: torch.Tensor, tol_scale: float = 1e-10) -> Set
 def compare(Ma: torch.Tensor, Mb: torch.Tensor, energy: float = 0.99,
             fixed_rank: Optional[int] = None) -> Dict:
     """All cross-set metrics for two head-set matrices sharing an ambient dim."""
-    Ua, sa = left_spectrum(Ma)
-    Ub, sb = left_spectrum(Mb)
+    # When both sides go the Gram route, build each Gram once and reuse it for
+    # the joint spectrum. The joint used to recompute both, so this halves the
+    # matmul cost of every comparison.
+    wide = Ma.shape[1] > Ma.shape[0] or Mb.shape[1] > Mb.shape[0]
+    Ga = Gb = None
+    if wide:
+        Ga = Ma @ Ma.T
+        Gb = Mb @ Mb.T
+        Ua, sa = left_spectrum(None, gram=Ga)
+        Ub, sb = left_spectrum(None, gram=Gb)
+    else:
+        Ua, sa = left_spectrum(Ma)
+        Ub, sb = left_spectrum(Mb)
     ra = fixed_rank or rank_at_energy(sa, energy)
     rb = fixed_rank or rank_at_energy(sb, energy)
     ra = min(ra, Ma.shape[0])
@@ -319,11 +332,18 @@ def compare(Ma: torch.Tensor, Mb: torch.Tensor, energy: float = 0.99,
     e_b_in_a = float((Qa.T @ Mb).pow(2).sum() / Mb.pow(2).sum().clamp_min(1e-12))
     e_a_in_b = float((Qb.T @ Ma).pow(2).sum() / Ma.pow(2).sum().clamp_min(1e-12))
 
-    Mj = torch.cat([Ma, Mb], dim=1)
-    if Mj.shape[1] <= Mj.shape[0]:
-        sj = torch.linalg.svdvals(Mj)
+    if Ga is not None:
+        Gj = Ga + Gb
+        del Ga, Gb
+        _, sj = left_spectrum(None, gram=Gj)
+        del Gj
+    elif Ma.shape[1] + Mb.shape[1] <= Ma.shape[0]:
+        sj = torch.linalg.svdvals(torch.cat([Ma, Mb], dim=1))
     else:
-        _, sj = left_spectrum(None, gram=(Ma @ Ma.T) + (Mb @ Mb.T))
+        Gj = Ma @ Ma.T
+        Gj += Mb @ Mb.T
+        _, sj = left_spectrum(None, gram=Gj)
+        del Gj
     rj = rank_at_energy(sj, energy)
     sharing = (ra + rb - rj) / max(min(ra, rb), 1)
 
@@ -479,9 +499,16 @@ def run_one(task: str, long_path: str, single_path: str, o_proj: torch.Tensor,
 
         n_cols_l = len(heads_l) * block_cols
         if n_cols_l >= ambient:
-            print(f"[warn] {task} top_k={topk}: {len(heads_l)} heads x {block_cols} cols "
-                  f"= {n_cols_l} >= ambient {ambient}; subspaces saturate the space and "
-                  f"overlap is ~1 by construction. Interpret with care.", file=sys.stderr)
+            msg = (f"{task} top_k={topk}: {len(heads_l)} heads x {block_cols} cols "
+                   f"= {n_cols_l} >= ambient {ambient}; the subspaces saturate the "
+                   f"residual stream, so every overlap metric is ~1 by construction. "
+                   f"This is also by far the most expensive cell to compute "
+                   f"(cost grows linearly in n_cols once saturated).")
+            if args.skip_saturated:
+                print(f"[skip] {msg} Pass --keep-saturated to compute it anyway.",
+                      file=sys.stderr)
+                continue
+            print(f"[warn] {msg}", file=sys.stderr)
 
         variants = {"all": (heads_l, heads_s)}
         if args.disjoint and shared:
@@ -582,11 +609,19 @@ def main():
     p.add_argument("--disjoint", action="store_true", default=True,
                    help="Also report metrics with heads shared by both sets removed.")
     p.add_argument("--no-disjoint", dest="disjoint", action="store_false")
+    p.add_argument("--skip-saturated", action="store_true", default=True,
+                   help="Skip top_k values where n_heads*block_cols >= ambient dim. "
+                        "Those cells cost the most and return ~1 regardless.")
+    p.add_argument("--keep-saturated", dest="skip_saturated", action="store_false")
     p.add_argument("--n-null", type=int, default=5,
                    help="Null draws per condition. Each costs one full compare(), "
                         "so this is the main runtime knob.")
     p.add_argument("--dtype", choices=["float64", "float32"], default="float64",
                    help="float32 roughly halves runtime; metrics agree to ~1e-4.")
+    p.add_argument("--device", default="cpu",
+                   help="cpu or cuda. On an L40S use --dtype float32; its float64 "
+                        "throughput is ~1/64 of float32 and will be slower than a CPU "
+                        "node. H100/H200/A100 are fine in float64.")
     p.add_argument("--threads", type=int, default=None,
                    help="torch CPU threads (defaults to whatever torch picks).")
     p.add_argument("--seed", type=int, default=42)
@@ -602,8 +637,17 @@ def main():
                    help="Override num_attention_heads (otherwise read from config).")
     args = p.parse_args()
 
-    global DTYPE
+    global DTYPE, DEVICE
     DTYPE = torch.float64 if args.dtype == "float64" else torch.float32
+    DEVICE = torch.device(args.device)
+    if DEVICE.type == "cuda":
+        if not torch.cuda.is_available():
+            raise SystemExit("--device cuda but no CUDA device is visible.")
+        name = torch.cuda.get_device_name(0)
+        print(f"device: {name}")
+        if "L40S" in name and args.dtype == "float64":
+            print("warn: L40S float64 runs at ~1/64 of float32. Use --dtype float32 "
+                  "here, or request -G h100:1 / an A100 on mit_preemptable.")
     if args.threads:
         torch.set_num_threads(args.threads)
 
@@ -644,6 +688,15 @@ def main():
     if d_model % n_heads:
         print(f"warn: d_model {d_model} not divisible by {n_heads}; --space block "
               f"will drop the remainder.")
+
+    n_total_heads = n_layers * n_heads
+    block_cols = (in_dim // n_heads) if args.space == "head" else (d_model // n_heads)
+    ambient = d_model if args.space == "head" else in_dim
+    max_heads = ambient // max(block_cols, 1)
+    print(f"saturation: {max_heads} heads span the {ambient}-dim space, i.e. "
+          f"top_k <= {max_heads / n_total_heads:.4f}. Larger top_k values give "
+          f"overlap ~1 by construction"
+          f"{' and are skipped' if args.skip_saturated else ''}.")
 
     triples = discover_tasks(args.results_root, model_name, args.algo)
     if args.task and "all" not in args.task:

@@ -1,0 +1,35 @@
+NVIDIA H200, 143771 MiB
+pool = mean
+[warn] female-long top_k=0.5: 800 heads x min(head_dim 128, 16 cols) = 12800 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[warn] female-long top_k=1.0: 1600 heads x min(head_dim 128, 16 cols) = 25600 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+device: NVIDIA H200
+Reading o_proj weights for Qwen/Qwen1.5-14B-Chat ...
+model: 40 layers, d_model=5120, n_heads=40, head_dim=128
+pool=mean, contrast=diff: long (40, 16, 5120), single (40, 16, 5120) -> 16 columns per head
+compressing per-head blocks (exact; see compress_head_blocks docstring)
+compressed head blocks: 16 -> 16 columns (actual rank median 16, max 16)
+compressed head blocks: 16 -> 16 columns (actual rank median 9, max 9)
+
+Wrote results/svd_act_gpu/svd_activations_Qwen1.5-14B-Chat_female-long_mean.csv
+pool  variant  top_k  n_heads_long  head_jaccard  eff_rank_long  eff_rank_single  rank_a  rank_b  rank_joint  rank_sharing  grassmann_overlap  null_layer_matched_grassmann_overlap_mean  null_layer_matched_grassmann_overlap_z
+mean      all  0.005             8      0.000000      67.151039        38.922054      64      37          98      0.081081           0.027205                                   0.027042                                0.012507
+mean      all  0.010            16      0.000000     126.542130        75.021500     118      70         183      0.071429           0.041190                                   0.053669                               -0.789976
+mean      all  0.015            24      0.000000     178.123383       111.709244     165     105         262      0.076190           0.056852                                   0.068214                               -1.012446
+mean      all  0.020            32      0.066667     239.550919       151.963837     223     143         353      0.090909           0.096957                                   0.084636                                1.249727
+mean disjoint  0.020            28      0.066667     208.789932       130.581726     195     122         307      0.081967           0.064125                                   0.074286                               -0.938554
+mean      all  0.025            40      0.052632     290.494202       190.424927     269     177         428      0.101695           0.102776                                   0.099624                                0.368105
+mean disjoint  0.025            36      0.052632     260.063019       169.130417     240     156         383      0.083333           0.074675                                   0.089258                               -1.851169
+mean      all  0.030            48      0.054945     339.525452       226.413574     310     211         498      0.109005           0.114101                                   0.115818                               -0.175571
+mean disjoint  0.030            43      0.054945     301.623901       200.912369     275     186         444      0.091398           0.083298                                   0.102358                               -2.189528
+mean      all  0.050            80      0.081081     546.147949       386.980011     491     364         805      0.137363           0.159705                                   0.163418                               -0.546719
+mean disjoint  0.050            68      0.081081     464.921509       330.280426     417     311         694      0.109325           0.114004                                   0.142435                               -4.392075
+mean      all  0.070           112      0.098039     743.306702       530.682129     660     495        1070      0.171717           0.202267                                   0.200978                                0.183931
+mean disjoint  0.070            92      0.098039     608.650879       436.487244     540     408         895      0.129902           0.143185                                   0.171992                               -4.304053
+mean      all  0.090           144      0.125000     936.133667       678.032715     825     627        1325      0.202552           0.237916                                   0.234823                                0.688758
+mean disjoint  0.090           112      0.125000     735.518372       533.797180     648     495        1071      0.145455           0.164991                                   0.190881                               -3.659479
+mean      all  0.100           160      0.138790    1018.957825       747.717590     895     691        1434      0.219971           0.255863                                   0.253316                                0.442010
+mean disjoint  0.100           121      0.138790     783.090698       575.741943     688     534        1141      0.151685           0.173529                                   0.199973                               -4.845908
+mean      all  0.500           800      0.341157    3088.640381      2858.585449    2998    2654        3853      0.677845           0.630868                                   0.631026                               -0.060030
+mean disjoint  0.500           393      0.341157    2120.254150      1739.352905    1874    1590        2841      0.391824           0.393116                                   0.410808                               -3.277258
+mean      all  1.000          1600      1.000000    3910.671387      3765.553711    4061    3799        4496      0.885496           0.820467                                   0.820467                               -0.563927
+done: pool=mean

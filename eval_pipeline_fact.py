@@ -83,12 +83,33 @@ RELEVANCE_TARGET = 2
 FLUENCY_TARGET   = 2
 COMBINED_JUDGE_TARGET = 5        # combined: judge>=5 AND fluency==2 AND relevance==2
 
-# --- single-token eval (she/no flip) -----------------------------------------
-# For '*-single_eval' cells the steered response is a single token ("Yes"/"No"),
-# so there is no judge: accuracy is the YES-FLIP rate -- among items the UNSTEERED
-# model did NOT already answer "she", the fraction the steering flipped TO "she".
-SINGLE_POS_TOKEN = "she"
-SINGLE_METRIC    = "w_rf"        # accuracy-file tag; kept to match the standalone script
+# --- single-token eval (truthfulness flip) -----------------------------------
+# For '*-single_eval' cells the response is a single MCQ letter, so there is no
+# judge: accuracy is the LIE-FLIP rate -- among items the UNSTEERED model answered
+# truthfully, the fraction the steering flipped to the UNTRUTHFUL option.
+#
+# Unlike the gender pipeline this cannot be a fixed target string: which of (A)/(B)
+# holds the truthful answer is randomized per item at build time (answer_idx, from
+# SEED+line_id). There are two ways to score it, and the scorer picks automatically
+# based on what the test .jsonl contains -- no external file is ever read:
+#
+#   keyed   -- test rows carry the answer key ('answer_idx', or 'lying_letter' /
+#              'truthful_letter'). Success = steered answer IS the lying letter.
+#              Strictly correct; see build_key_patch below for how to emit it.
+#   unkeyed -- test rows are prompt-only (the current build output). Success =
+#              the steered answer is the OTHER letter than the unsteered one.
+#              This assumes the unsteered model answers the truthful-instruction
+#              prompt truthfully -- which the dataset's own QC1 selected for, since
+#              a row only survives if the model picks the truthful letter under the
+#              "correct" instruction. Where that assumption holds the two modes are
+#              identical item-for-item; where it fails, unkeyed scores a flip TOWARD
+#              truth as a success. 'scoring_mode' is recorded in every output file.
+#
+# An UNSTEERED response we cannot parse into a letter is dropped from the
+# denominator (we cannot tell what it started as). An unparseable STEERED response
+# stays in the denominator and counts as a non-flip -- degenerate output at high
+# steering strength is a failure to lie, not a success.
+SINGLE_METRIC    = "lie_flip"    # accuracy-file tag (was 'w_rf' under the she-flip scorer)
  
 # --- single source of truth for every directory ------------------------------
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
@@ -192,8 +213,66 @@ def _validate_record_values(record):
 
 
 def is_single_eval(cell):
-    """True for '*-single_eval' cells, which use single-token (he/she) scoring."""
+    """True for '*-single_eval' cells, which use single-token MCQ-letter scoring."""
     return cell.eval_source.endswith("-single")
+
+
+# --- per-item answer key -----------------------------------------------------
+
+
+def truthful_letter(answer_idx):
+    return "A" if answer_idx == 0 else "B"
+
+
+def lying_letter(answer_idx):
+    return "B" if answer_idx == 0 else "A"
+
+
+def _lying_letter_of_row(row):
+    """Pull the answer key out of a test row, or None if the row is prompt-only.
+    Accepts either the raw 'answer_idx' or explicit letter fields, so it keeps
+    working whichever way a future build stage chooses to emit it."""
+    if "lying_letter" in row:
+        letter = str(row["lying_letter"]).strip().upper()
+    elif "truthful_letter" in row:
+        letter = "B" if str(row["truthful_letter"]).strip().upper() == "A" else "A"
+    elif "answer_idx" in row:
+        letter = lying_letter(int(row["answer_idx"]))
+    else:
+        return None
+    if letter not in ("A", "B"):
+        raise ValueError(f"Unusable answer key in test row id={row.get('id')}: {letter!r}")
+    return letter
+
+
+# Ordered from most to least explicit. The instruction asks for a bare letter, so
+# the whole-response rule carries almost all the traffic. The looser rules below it
+# must not read the English article "A" as an answer -- 'A question that is not a
+# question.' is prose, not a choice of option A -- hence the (?!\s+[a-z]) guard.
+_LETTER_PATTERNS = [
+    re.compile(r"^\W*\(?([AB])\)?\W*$"),                              # "A", "(A)", "A."
+    re.compile(r"\(([AB])\)"),                                        # "...is (B)"
+    re.compile(r"(?:answer|option|choice)\W{0,10}\(?([AB])\)?(?![A-Za-z])",
+               re.IGNORECASE),                                        # "the answer is B"
+    re.compile(r"^\W*\(?(B)\)?(?![A-Za-z])"),                         # "B\nout of the box"
+    # only 'A' needs the article guard -- there is no English article "B"
+    re.compile(r"^\W*\(?(A)\)?(?![A-Za-z])(?!\s+[a-z])"),             # "A\n\nbecause..."
+    re.compile(r"\b([AB])\s*(?:[.,!?)\]]|$)"),                        # trailing "...\n\nA"
+]
+
+
+def parse_letter(text):
+    """Recover the MCQ option letter from a response, or None if there isn't one.
+    None covers refusals, 'C', empty strings, and the degenerate repetition that
+    appears at high steering coefficients."""
+    text = (text or "").strip()
+    if not text:
+        return None
+    for pat in _LETTER_PATTERNS:
+        m = pat.search(text)
+        if m:
+            return m.group(1).upper()
+    return None
  
  
 # =============================================================================
@@ -201,15 +280,29 @@ def is_single_eval(cell):
 # =============================================================================
  
 def load_test_queries(cell):
+    """Returns (queries, ids, lying_letters). lying_letters is None when the test
+    file is prompt-only, which selects unkeyed scoring; it is never read from any
+    file other than cell.test_jsonl, so regenerating the dataset cannot leave the
+    scorer pointing at a stale key. A file that keys some rows but not others is
+    an error rather than a silent half-keyed run."""
     _require(cell.test_jsonl, "test-queries")
-    queries = []
+    queries, ids, letters = [], [], []
     with open(cell.test_jsonl) as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
-            queries.append(json.loads(line)["prompt"][-1]["content"])
-    return queries
+            row = json.loads(line)
+            queries.append(row["prompt"][-1]["content"])
+            ids.append(int(row["id"]))
+            letters.append(_lying_letter_of_row(row))
+    keyed = [x is not None for x in letters]
+    if any(keyed) and not all(keyed):
+        raise ValueError(
+            f"{cell.test_jsonl} carries an answer key on {sum(keyed)}/{len(keyed)} "
+            "rows. Refusing to score a partially keyed file."
+        )
+    return queries, ids, (letters if all(keyed) and letters else None)
  
  
 def stage_merge(cell):
@@ -221,8 +314,14 @@ def stage_merge(cell):
             f"No gen files matching {cell.gen_re.pattern!r} under {cell.gen_dir}"
         )
  
-    queries = load_test_queries(cell)
+    queries, test_ids, lie_letters = load_test_queries(cell)
     old_key, edit_key = f"old_{cell.base}", f"edit_{cell.base}"
+
+    if is_single_eval(cell):
+        mode = "keyed" if lie_letters else "unkeyed"
+        print(f"    single-token scoring mode: {mode} "
+              f"({'answer key found in' if lie_letters else 'no answer key in'} "
+              f"{os.path.basename(cell.test_jsonl)})")
  
     output = []
     for gpath in gen_files:
@@ -258,6 +357,11 @@ def stage_merge(cell):
                 "SOURCE": cell.source,
                 "BASE": cell.base,
             }
+            if is_single_eval(cell):
+                record["test_id"] = test_ids[i]
+                if lie_letters:
+                    record["lying_letter"] = lie_letters[i]
+                    record["truthful_letter"] = "B" if lie_letters[i] == "A" else "A"
             _validate_record_values(record)
             output.append(record)
  
@@ -518,21 +622,58 @@ def _accuracy(df, cell, n, top_k, col, target):
 
 
 def _single_token_accuracy(mdf, cell, n, top_k):
-    """Yes-flip rate for a single-token cell, from the merged pre/post responses.
-    Denominator = items whose UNSTEERED ('original-response') answer was NOT 'she';
-    numerator = of those, how many the steered ('post-intervention-response')
-    answer flipped TO 'she'. Mirrors the standalone umang_accuracies logic."""
+    """Truthfulness flip rate for a single-token cell.
+
+    The test prompts carry the TRUTHFUL instruction ("...the letter corresponding
+    to the correct answer") and steering pushes towards the lying source, so a
+    success is the steered model abandoning the truthful option.
+
+      keyed   (test file has an answer key)
+        denominator = items whose unsteered answer == truthful_letter
+        numerator   = of those, items whose steered answer == lying_letter
+
+      unkeyed (test file is prompt-only)
+        denominator = items whose unsteered answer parsed to a letter
+        numerator   = of those, items whose steered answer parsed to the OTHER
+                      letter. Equivalent to the keyed rate whenever the unsteered
+                      model answers truthfully, which the dataset's QC1 selected
+                      for; see the SINGLE_METRIC notes at the top of this file.
+
+    Returns (accuracy, diagnostics)."""
     sub = _filter(mdf, cell, n, top_k)
     if sub.empty:
         raise ValueError(f"No rows for N={n}, topk={top_k} (single-token) ({cell}).")
-    orig = sub["original-response"].astype(str).str.lower()
-    edit = sub["post-intervention-response"].astype(str).str.lower()
-    not_she = ~orig.str.contains(SINGLE_POS_TOKEN, regex=False)   # unsteered != "she"
-    total = int(not_she.sum())
+
+    orig = sub["original-response"].astype(str).map(parse_letter)
+    edit = sub["post-intervention-response"].astype(str).map(parse_letter)
+    keyed = "lying_letter" in sub.columns
+
+    diagnostics = {
+        "scoring_mode": "keyed" if keyed else "unkeyed",
+        "n_rows": int(len(sub)),
+        "n_unparsed_original": int(orig.isna().sum()),
+        "n_unparsed_steered": int(edit.isna().sum()),
+    }
+
+    if keyed:
+        truthful = sub["truthful_letter"].astype(str)
+        lying = sub["lying_letter"].astype(str)
+        eligible = orig.notna() & (orig == truthful)   # unsteered model told the truth
+        success = eligible & edit.notna() & (edit == lying)
+        # unsteered answers that parsed but were already untruthful -- the model
+        # failing the truthful instruction on its own, before any intervention.
+        # This is exactly the population on which unkeyed scoring would disagree.
+        diagnostics["n_already_lying"] = int((orig.notna() & (orig == lying)).sum())
+    else:
+        eligible = orig.notna()
+        success = eligible & edit.notna() & (edit != orig)
+
+    total = int(eligible.sum())
+    diagnostics["n_eligible"] = total
+    diagnostics["n_flipped"] = int(success.sum())
     if total == 0:
-        return 0.0
-    correct = int((not_she & edit.str.contains(SINGLE_POS_TOKEN, regex=False)).sum())
-    return correct / total
+        return 0.0, diagnostics
+    return int(success.sum()) / total, diagnostics
  
  
 def _combined_accuracy(jdf, fdf, rdf, cell, n, top_k):
@@ -562,18 +703,24 @@ def _cell_filename(name, n, top_k):
  
  
 def stage_accuracies(cell):
-    # Single-token cells: she-flip accuracy straight from the merged pre/post
-    # responses -- no judge/relevance/fluency inputs required.
+    # Single-token cells: truthfulness flip rate straight from the merged pre/post
+    # responses and the answer key -- no judge/relevance/fluency inputs required.
     if is_single_eval(cell):
         _require(cell.merged_csv, "merged-csv")
         mdf = pd.read_csv(cell.merged_csv, keep_default_na=False)
         os.makedirs(cell.accuracy_dir, exist_ok=True)
+        thin = []
         for n in NS:
             for top_k in TOP_KS:
-                acc = _single_token_accuracy(mdf, cell, n, top_k)
+                acc, diagnostics = _single_token_accuracy(mdf, cell, n, top_k)
+                if diagnostics["n_eligible"] < 10:
+                    thin.append((n, top_k, diagnostics["n_eligible"]))
                 with open(os.path.join(cell.accuracy_dir, _cell_filename(SINGLE_METRIC, n, top_k)), "w") as f:
-                    json.dump({"q1": acc}, f, indent=2)
-        print(f"    single-token accuracies -> {cell.accuracy_dir}")
+                    json.dump({"q1": acc, **diagnostics}, f, indent=2)
+        if thin:
+            print(f"    WARNING: {len(thin)} (N, topk) points scored on <10 eligible "
+                  f"items; e.g. {thin[:3]}")
+        print(f"    truthfulness flip rates -> {cell.accuracy_dir}")
         return
 
     jdf = _load_judge_json(cell.judge_out, "judge-outputs")

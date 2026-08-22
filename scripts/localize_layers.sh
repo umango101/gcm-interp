@@ -35,7 +35,7 @@ declare -a pairs=(
 )
 
 algo="atp"
-model_id="google/gemma-3-12b-it"
+model_id="Qwen/Qwen1.5-14B-Chat"
 device="cuda:0"
 
 for pair in "${pairs[@]}"; do

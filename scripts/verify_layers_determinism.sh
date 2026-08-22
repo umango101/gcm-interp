@@ -58,6 +58,11 @@ run_once () {
     --sdp_backend math \
     --strict_determinism
 
+  # This leg must mirror scripts/eval_layers_per_layer.sh flag for flag, apart
+  # from the sweep being cut down. A harness that verifies a configuration nobody
+  # runs proves nothing about the runs -- in particular the eval sweep uses
+  # --sdp_backend default (flash forward), which is precisely the setting most
+  # worth confirming, so pinning math here would test away the risk.
   python -m layers.run_layers \
     --model_id "$model_id" --batch_size 8 --patch_algo atp \
     --source "$source" --base "$base" --device "$device" \
@@ -67,9 +72,12 @@ run_once () {
     --steering_sub_path "${data}/female-long/male-long-steering.jsonl" \
     --results_root "$root" \
     --limit_items "$LIMIT" \
-    --topk_layers "3" --n_vals "5" --n_scale 0.1 \
+    --sweep_mode per_layer \
+    --n_vals "5" --n_scale 0.1 \
     --steering_scale relative \
-    --sdp_backend math \
+    --gen_mode prefill \
+    --gen_batch_size 25 \
+    --sdp_backend default \
     --strict_determinism
 }
 

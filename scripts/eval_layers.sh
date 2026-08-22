@@ -75,8 +75,10 @@ run_cell () {
     --steering_add_path "${data}/${steer_dir}/${steer_add}-steering.jsonl" \
     --steering_sub_path "${data}/${steer_dir}/${steer_sub}-steering.jsonl" \
     --results_root ./results_layers \
-    --sdp_backend math \
+    --sdp_backend default \
     --strict_determinism \
+    --gen_mode prefill \
+    --gen_batch_size 25 \
     --topk_layers "$TOPK_LAYERS" \
     --n_vals "$N_VALS" \
     --n_scale "$N_SCALE" \

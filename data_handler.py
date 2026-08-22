@@ -260,6 +260,11 @@ class DataHandler:
                     break
             assert response_start_position is not None, f"Marker {repr(marker)} not found in input {repr(tokenizer.decode(tok))}.\nTOKENS: {repr(tok)}\nMARKER: {repr(marker_tokens)}"
             response_start_positions.append(response_start_position)
+        tok_ids = tokens['input_ids'][0]
+        r = response_start_positions[0]
+        print("marker tokens:", self.model_handler.alignment_tokens.tolist())
+        print("token AT rsp :", repr(tokenizer.decode([tok_ids[r]])))
+        print("scored tokens:", repr(tokenizer.decode(tok_ids[r+1:])))
         return response_start_positions
     
     def tokenize_prompts(self, p, max_length=None):

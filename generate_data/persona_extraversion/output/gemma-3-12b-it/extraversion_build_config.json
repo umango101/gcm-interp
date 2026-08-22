@@ -1,0 +1,44 @@
+{
+  "config": {
+    "CHUNK_SIZE": 48,
+    "DATASET": "extraversion.jsonl",
+    "DTYPE": "bfloat16",
+    "GEN_MAX_TOKENS": 128,
+    "GEN_MODEL": "google/gemma-3-12b-it",
+    "GPU_MEM_UTIL": 0.9,
+    "LONG_MAX_TOKENS": 256,
+    "MAX_MODEL_LEN": 4096,
+    "OUTPUT_DIR": "output/gemma-3-12b-it",
+    "PROMPT_CKPT": "checkpoint/gemma-3-12b-it/extra_prompts.jsonl",
+    "QC_CKPT": "checkpoint/gemma-3-12b-it/extra_qc.jsonl",
+    "QC_MODEL": "google/gemma-3-12b-it",
+    "RETRY_TEMPERATURE": 0.8,
+    "SEED": 42,
+    "SHORT_MAX_TOKENS": 8,
+    "STAGES": "genprompt,qc,build",
+    "TEMPERATURE": 0.0,
+    "TENSOR_PARALLEL": 1,
+    "TRAIN_LIMIT": 100
+  },
+  "genprompt_signature": {
+    "CHUNK_SIZE": 48,
+    "DTYPE": "bfloat16",
+    "GEN_MAX_TOKENS": 128,
+    "GEN_MODEL": "google/gemma-3-12b-it",
+    "GEN_SYSTEM": "You write prompts for a personality-research dataset. Given a statement an social person might make, output exactly ONE open-ended prompt (a question or request, never a yes/no question) on the same theme. An social responder and an introverted responder should answer it very differently. Output only the prompt text itself: no quotation marks, no preamble, no explanation, no label.",
+    "GEN_USER": "Statement: \"{statement}\"\n\nWrite one open-ended prompt on this theme.",
+    "MAX_MODEL_LEN": 4096,
+    "RETRY_TEMPERATURE": 0.8,
+    "SEED": 42,
+    "TEMPERATURE": 0.0,
+    "TENSOR_PARALLEL": 1,
+    "dataset_sha256": "c51bf4fdc1e7d95c80f1f9b6b4f221ca2a55810930606e26f8bc4af581fbe8cb",
+    "n_lines": 500,
+    "stage": "genprompt"
+  },
+  "stages": [
+    "genprompt",
+    "qc",
+    "build"
+  ]
+}

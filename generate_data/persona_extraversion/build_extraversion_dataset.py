@@ -40,8 +40,10 @@ progress is checkpointed and the process exits 0 so SLURM --requeue resumes.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import random
 import re
 import signal
 import sys
@@ -50,6 +52,37 @@ from pathlib import Path
 
 # Native sampler -> no FlashInfer JIT (needs nvcc). Must precede any vllm import.
 os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
+# Pin the cuBLAS workspace so GEMM reductions take the same path every run. Must be
+# set before the first CUDA context, hence before vllm is imported below.
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+# PYTHONHASHSEED only takes effect if set before the interpreter starts, so setting
+# it here cannot help this process -- run_extraversion.sh exports it. We check it
+# instead of pretending it was handled.
+_HASHSEED = os.environ.get("PYTHONHASHSEED")
+
+
+def _seed_everything(seed):
+    """Seed every RNG that can influence the run. torch/numpy are seeded when
+    present (vllm pulls them in) but are not required for the CPU-only BUILD
+    stage, so their absence is not an error."""
+    random.seed(seed)
+    os.environ["VLLM_SEED"] = str(seed)
+    try:
+        import numpy as np
+        np.random.seed(seed)
+    except ImportError:
+        pass
+    try:
+        import torch
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        # warn_only: an op with no deterministic kernel warns instead of aborting
+        # mid-run inside a vllm kernel we do not control.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+    except ImportError:
+        pass
 
 
 def _env(key, default):
@@ -59,11 +92,11 @@ def _env(key, default):
 
 CONFIG = {
     "DATASET": _env("DATASET", "extraversion.jsonl"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_prompts.jsonl"),
-    "QC_CKPT": _env("QC_CKPT", "checkpoint/OLMo-2-1124-13B-DPO/extra_qc.jsonl"),
-    "GEN_MODEL": _env("GEN_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
-    "QC_MODEL": _env("QC_MODEL", "allenai/OLMo-2-1124-13B-DPO"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/Qwen1.5-32B-Chat"),
+    "PROMPT_CKPT": _env("PROMPT_CKPT", "checkpoint/Qwen1.5-32B-Chat/extra_prompts.jsonl"),
+    "QC_CKPT": _env("QC_CKPT", "checkpoint/Qwen1.5-32B-Chat/extra_qc.jsonl"),
+    "GEN_MODEL": _env("GEN_MODEL", "Qwen/Qwen1.5-32B-Chat"),
+    "QC_MODEL": _env("QC_MODEL", "Qwen/Qwen1.5-32B-Chat"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -73,7 +106,11 @@ CONFIG = {
     "LONG_MAX_TOKENS": int(_env("LONG_MAX_TOKENS", "256")),     # persona long responses
     "GEN_MAX_TOKENS": int(_env("GEN_MAX_TOKENS", "128")),       # reverse-engineered prompt
     "CHUNK_SIZE": int(_env("CHUNK_SIZE", "48")),
-    "SEED": int(_env("SEED", "1234")),
+    "SEED": int(_env("SEED", "42")),
+    # Temperature for the one retry of an empty reverse-engineered prompt. Greedy
+    # would just reproduce the empty output, so this has to be >0; it is seeded and
+    # the retry now runs at a fixed batch shape, so it is still reproducible.
+    "RETRY_TEMPERATURE": float(_env("RETRY_TEMPERATURE", "0.8")),
     "TRAIN_LIMIT": int(_env("TRAIN_LIMIT", "100")),
     "STAGES": _env("STAGES", "genprompt,qc,build"),
 }
@@ -146,6 +183,78 @@ def load_yes_lines(path):
     return yes
 
 
+def _sha(obj):
+    return hashlib.sha256(json.dumps(obj, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+
+
+def genprompt_signature(yes_lines):
+    """Everything that can change a reverse-engineered prompt.
+
+    CHUNK_SIZE is in here deliberately: vLLM batches a chunk in one forward pass and
+    batched GEMM reductions are batch-shape dependent, so the same statement handled
+    in a chunk of 48 and a chunk of 24 can produce a different prompt."""
+    return {
+        "stage": "genprompt",
+        "GEN_MODEL": CONFIG["GEN_MODEL"], "DTYPE": CONFIG["DTYPE"],
+        "SEED": CONFIG["SEED"], "TEMPERATURE": CONFIG["TEMPERATURE"],
+        "RETRY_TEMPERATURE": CONFIG["RETRY_TEMPERATURE"],
+        "GEN_MAX_TOKENS": CONFIG["GEN_MAX_TOKENS"], "CHUNK_SIZE": CONFIG["CHUNK_SIZE"],
+        "TENSOR_PARALLEL": CONFIG["TENSOR_PARALLEL"], "MAX_MODEL_LEN": CONFIG["MAX_MODEL_LEN"],
+        "GEN_SYSTEM": GEN_SYSTEM, "GEN_USER": GEN_USER,
+        "dataset_sha256": _sha([l["line_id"] for l in yes_lines] + [l["statement"] for l in yes_lines]),
+        "n_lines": len(yes_lines),
+    }
+
+
+def qc_signature(yes_lines, gen_prompts):
+    """As above, plus a hash of the generated prompts QC actually consumes. If
+    GENPROMPT is re-run under different settings, every QC result computed from the
+    old prompts is stale -- this makes that a hard error instead of a silent mix."""
+    return {
+        "stage": "qc",
+        "QC_MODEL": CONFIG["QC_MODEL"], "DTYPE": CONFIG["DTYPE"],
+        "SEED": CONFIG["SEED"], "TEMPERATURE": CONFIG["TEMPERATURE"],
+        "SHORT_MAX_TOKENS": CONFIG["SHORT_MAX_TOKENS"], "LONG_MAX_TOKENS": CONFIG["LONG_MAX_TOKENS"],
+        "CHUNK_SIZE": CONFIG["CHUNK_SIZE"], "TENSOR_PARALLEL": CONFIG["TENSOR_PARALLEL"],
+        "MAX_MODEL_LEN": CONFIG["MAX_MODEL_LEN"],
+        "EXTRO_TMPL": EXTRO_TMPL, "INTRO_TMPL": INTRO_TMPL,
+        "SOCIAL_SINGLE_TMPL": SOCIAL_SINGLE_TMPL, "SHY_SINGLE_TMPL": SHY_SINGLE_TMPL,
+        "JUDGE_SYSTEM": JUDGE_SYSTEM, "JUDGE_EXTRO": JUDGE_EXTRO, "JUDGE_INTRO": JUDGE_INTRO,
+        "dataset_sha256": _sha([l["line_id"] for l in yes_lines] + [l["question"] for l in yes_lines]),
+        "gen_prompts_sha256": _sha(sorted((int(k), v["gen_prompt"]) for k, v in gen_prompts.items())),
+        "n_lines": len(yes_lines),
+    }
+
+
+def check_or_write_signature(path, sig):
+    """Write the signature on a fresh checkpoint; verify it on a resume."""
+    p = Path(path)
+    if p.exists() and p.stat().st_size > 0:
+        with p.open() as f:
+            first = f.readline().strip()
+        stored = json.loads(first).get("__signature__") if first else None
+        if stored is None:
+            raise RuntimeError(
+                f"{p} has no run signature -- it was written by an older revision of "
+                "this script, whose chunk boundaries shifted on resume. Its contents "
+                "are not reproducible; move it aside and regenerate."
+            )
+        if stored != sig:
+            differing = sorted(k for k in set(stored) | set(sig) if stored.get(k) != sig.get(k))
+            raise RuntimeError(
+                f"Checkpoint {p} was written under a different configuration "
+                f"(differs in: {differing}). Resuming would mix two configurations in "
+                "one dataset. Use a fresh checkpoint path or restore the old settings."
+            )
+        return
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open("w") as f:
+        f.write(json.dumps({"__signature__": sig}, ensure_ascii=False, sort_keys=True) + "\n")
+        f.flush()
+        os.fsync(f.fileno())
+    print(f"[ckpt] fresh checkpoint; signature written to {p}", flush=True)
+
+
 def load_ckpt(path, required_keys):
     done = {}
     p = Path(path)
@@ -159,7 +268,15 @@ def load_ckpt(path, required_keys):
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:
+                # a line torn by preemption mid-write; the chunk it belonged to is
+                # regenerated whole, so dropping it is safe
                 continue
+            if "__signature__" in rec:
+                continue
+            # Last write wins. Chunks are regenerated whole after a preemption, so a
+            # line_id can legitimately appear twice; under a matching signature both
+            # copies are identical, so this is independent of how often the job was
+            # requeued.
             if all(k in rec for k in required_keys):
                 done[rec["line_id"]] = rec
     print(f"[ckpt] {len(done)} records loaded from {path}", flush=True)
@@ -194,8 +311,54 @@ def clean_generated_prompt(text):
     return " ".join(t.split())
 
 
+def _deterministic_engine_kwargs():
+    """Engine settings that remove run-to-run variation. Filtered against the
+    installed vLLM's accepted arguments, because these names have moved between
+    versions -- a silently-ignored kwarg would be worse than a reported one."""
+    wanted = {
+        # no CUDA graph capture / torch.compile: the compiled path can select
+        # different kernels than eager for the same shapes
+        "enforce_eager": True,
+        # prefix caching makes a prompt's numerics depend on what ran before it,
+        # which is precisely what breaks reproducibility across a resume. This
+        # script shares long persona/judge prefixes across every request, so it is
+        # more exposed to prefix caching than the gender script.
+        "enable_prefix_caching": False,
+        # chunked prefill splits a prompt across steps by scheduler state
+        "enable_chunked_prefill": False,
+        # QC issues 2*CHUNK_SIZE prompts in one generate() call, so the cap has to
+        # cover that or the scheduler splits the batch by memory pressure
+        "max_num_seqs": 2 * CONFIG["CHUNK_SIZE"],
+    }
+    if CONFIG["TENSOR_PARALLEL"] > 1:
+        # the custom all-reduce kernel reduces in a nondeterministic order
+        wanted["disable_custom_all_reduce"] = True
+
+    accepted, dropped = {}, []
+    try:
+        import dataclasses
+        from vllm.engine.arg_utils import EngineArgs
+        fields = {f.name for f in dataclasses.fields(EngineArgs)}
+    except Exception:
+        fields = None
+    for k, v in wanted.items():
+        if fields is None or k in fields:
+            accepted[k] = v
+        else:
+            dropped.append(k)
+    if dropped:
+        print(f"[model] WARNING: this vLLM build does not accept {dropped}; "
+              "determinism is not guaranteed for those settings.", flush=True)
+    return accepted
+
+
 def build_llm(model_key):
     from vllm import LLM
+    if CONFIG["TEMPERATURE"] != 0.0:
+        raise RuntimeError(
+            f"TEMPERATURE={CONFIG['TEMPERATURE']} is not greedy; this script's output "
+            "is only reproducible at temperature 0."
+        )
     print(f"[model] loading {CONFIG[model_key]} (tp={CONFIG['TENSOR_PARALLEL']}) ...", flush=True)
     t0 = time.time()
     llm = LLM(
@@ -206,6 +369,7 @@ def build_llm(model_key):
         dtype=CONFIG["DTYPE"],
         seed=CONFIG["SEED"],
         trust_remote_code=True,
+        **_deterministic_engine_kwargs(),
     )
     from transformers import AutoTokenizer
     tok = AutoTokenizer.from_pretrained(CONFIG[model_key], trust_remote_code=True)
@@ -227,29 +391,47 @@ def make_render(tok):
 # Stage 1: GENPROMPT                                                           #
 # --------------------------------------------------------------------------- #
 def stage_genprompt(yes_lines):
+    check_or_write_signature(CONFIG["PROMPT_CKPT"], genprompt_signature(yes_lines))
     done = load_ckpt(CONFIG["PROMPT_CKPT"], ["line_id", "gen_prompt"])
-    todo = [l for l in yes_lines if l["line_id"] not in done]
-    if not todo:
+
+    # Chunk over the FULL line list so boundaries are a function of the dataset and
+    # CHUNK_SIZE alone, never of how much happened to be finished when the job was
+    # preempted. A chunk is regenerated whole unless every line in it is cached.
+    all_chunks = list(chunked(yes_lines, CONFIG["CHUNK_SIZE"]))
+    todo_chunks = [c for c in all_chunks if any(l["line_id"] not in done for l in c)]
+    if not todo_chunks:
         print("[genprompt] all prompts cached.", flush=True)
         return
+    n_redo = sum(1 for c in todo_chunks for l in c if l["line_id"] in done)
+    print(f"[genprompt] {len(todo_chunks)}/{len(all_chunks)} chunks to run "
+          f"({n_redo} cached generations redone to keep batches identical)", flush=True)
 
     from vllm import SamplingParams
     llm, tok = build_llm("GEN_MODEL")
     render = make_render(tok)
-    sp = SamplingParams(temperature=CONFIG["TEMPERATURE"], max_tokens=CONFIG["GEN_MAX_TOKENS"], seed=CONFIG["SEED"])
-    sp_retry = SamplingParams(temperature=0.8, max_tokens=CONFIG["GEN_MAX_TOKENS"], seed=CONFIG["SEED"] + 1)
+    # temperature=0 is greedy, so top_p/top_k/seed are inert -- pinned anyway so a
+    # future edit to TEMPERATURE cannot quietly turn sampling back on.
+    sp = SamplingParams(temperature=CONFIG["TEMPERATURE"], top_p=1.0, top_k=-1, n=1,
+                        max_tokens=CONFIG["GEN_MAX_TOKENS"], seed=CONFIG["SEED"])
+    sp_retry = SamplingParams(temperature=CONFIG["RETRY_TEMPERATURE"], n=1,
+                              max_tokens=CONFIG["GEN_MAX_TOKENS"], seed=CONFIG["SEED"] + 1)
 
-    n_done = len(done)
-    for chunk in chunked(todo, CONFIG["CHUNK_SIZE"]):
+    n_chunks_done = 0
+    for chunk in todo_chunks:
         prompts = [render(GEN_SYSTEM, GEN_USER.format(statement=l["statement"])) for l in chunk]
         outs = llm.generate(prompts, sp)
         gen = [clean_generated_prompt(o.outputs[0].text) for o in outs]
 
         retry_idx = [i for i, g in enumerate(gen) if not g]
         if retry_idx:
-            r_outs = llm.generate([prompts[i] for i in retry_idx], sp_retry)
-            for j, i in enumerate(retry_idx):
-                gen[i] = clean_generated_prompt(r_outs[j].outputs[0].text)
+            # Retry the WHOLE chunk, not just the empty entries, and keep only the
+            # results we need. Submitting a sub-batch would change the batch shape,
+            # and at RETRY_TEMPERATURE>0 the sampled token depends on the logits,
+            # which are batch-shape dependent -- so a sub-batch retry would give a
+            # different prompt depending on how many siblings happened to be empty.
+            r_outs = llm.generate(prompts, sp_retry)
+            for i in retry_idx:
+                gen[i] = clean_generated_prompt(r_outs[i].outputs[0].text)
         for i, g in enumerate(gen):
             if not g:
                 raise RuntimeError(f"Empty generated prompt for line_id {chunk[i]['line_id']} "
@@ -259,9 +441,10 @@ def stage_genprompt(yes_lines):
                     "question": l["question"], "gen_prompt": g}
                    for l, g in zip(chunk, gen)]
         append_ckpt(CONFIG["PROMPT_CKPT"], records)
-        n_done += len(records)
-        print(f"[genprompt] {n_done}/{len(yes_lines)} prompts done", flush=True)
+        n_chunks_done += 1
+        print(f"[genprompt] {n_chunks_done}/{len(todo_chunks)} chunks done", flush=True)
         if _STOP:
+            print("[genprompt] stopping early due to preemption; progress checkpointed.", flush=True)
             sys.exit(0)
 
 
@@ -276,19 +459,27 @@ def stage_qc(yes_lines):
                            f"(e.g. {missing[:5]})")
 
     qc_done = load_ckpt(CONFIG["QC_CKPT"], ["line_id", "qc_all_ok"])
-    todo = [l for l in yes_lines if l["line_id"] not in qc_done]
-    if not todo:
+    check_or_write_signature(CONFIG["QC_CKPT"], qc_signature(yes_lines, prompts))
+
+    all_chunks = list(chunked(yes_lines, CONFIG["CHUNK_SIZE"]))
+    todo_chunks = [c for c in all_chunks if any(l["line_id"] not in qc_done for l in c)]
+    if not todo_chunks:
         print("[qc] all QC cached.", flush=True)
         return
+    n_redo = sum(1 for c in todo_chunks for l in c if l["line_id"] in qc_done)
+    print(f"[qc] {len(todo_chunks)}/{len(all_chunks)} chunks to run "
+          f"({n_redo} cached results redone to keep batches identical)", flush=True)
 
     from vllm import SamplingParams
     llm, tok = build_llm("QC_MODEL")
     render = make_render(tok)
-    sp_short = SamplingParams(temperature=CONFIG["TEMPERATURE"], max_tokens=CONFIG["SHORT_MAX_TOKENS"], seed=CONFIG["SEED"])
-    sp_long = SamplingParams(temperature=CONFIG["TEMPERATURE"], max_tokens=CONFIG["LONG_MAX_TOKENS"], seed=CONFIG["SEED"])
+    sp_short = SamplingParams(temperature=CONFIG["TEMPERATURE"], top_p=1.0, top_k=-1, n=1,
+                              max_tokens=CONFIG["SHORT_MAX_TOKENS"], seed=CONFIG["SEED"])
+    sp_long = SamplingParams(temperature=CONFIG["TEMPERATURE"], top_p=1.0, top_k=-1, n=1,
+                             max_tokens=CONFIG["LONG_MAX_TOKENS"], seed=CONFIG["SEED"])
 
-    n_done, n_kept = len(qc_done), sum(1 for r in qc_done.values() if r["qc_all_ok"])
-    for chunk in chunked(todo, CONFIG["CHUNK_SIZE"]):
+    n_chunks_done = 0
+    for chunk in todo_chunks:
         pr = [prompts[l["line_id"]]["gen_prompt"] for l in chunk]
         q = [l["question"] for l in chunk]
 
@@ -336,10 +527,12 @@ def stage_qc(yes_lines):
                 "extro_response": extro_resp[i], "intro_response": intro_resp[i],
             })
         append_ckpt(CONFIG["QC_CKPT"], records)
-        n_done += len(records)
-        n_kept += sum(1 for r in records if r["qc_all_ok"])
-        print(f"[qc] {n_done}/{len(yes_lines)} checked, {n_kept} passing all 4", flush=True)
+        n_chunks_done += 1
+        print(f"[qc] {n_chunks_done}/{len(todo_chunks)} chunks done, "
+              f"{sum(1 for r in records if r['qc_all_ok'])}/{len(records)} passing all 4 in this chunk",
+              flush=True)
         if _STOP:
+            print("[qc] stopping early due to preemption; progress checkpointed.", flush=True)
             sys.exit(0)
 
 
@@ -482,12 +675,25 @@ def stage_build(yes_lines):
 # Entry                                                                        #
 # --------------------------------------------------------------------------- #
 def main():
+    _seed_everything(CONFIG["SEED"])
+    if _HASHSEED != str(CONFIG["SEED"]):
+        print(f"[warn] PYTHONHASHSEED={_HASHSEED!r} (expected {CONFIG['SEED']!r}). "
+              "Set it in the launcher, before python starts -- it cannot be set from "
+              "inside this process. Nothing here currently depends on hash order, so "
+              "this is a guard against future edits, not a live bug.", flush=True)
+
     Path(CONFIG["PROMPT_CKPT"]).parent.mkdir(parents=True, exist_ok=True)
     Path(CONFIG["QC_CKPT"]).parent.mkdir(parents=True, exist_ok=True)
     Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
 
     stages = [s.strip() for s in CONFIG["STAGES"].split(",") if s.strip()]
     yes_lines = load_yes_lines(CONFIG["DATASET"])
+
+    # Record exactly what produced this output directory, so a run can be reproduced
+    # without reconstructing the environment by hand.
+    (Path(CONFIG["OUTPUT_DIR"]) / "extraversion_build_config.json").write_text(
+        json.dumps({"config": CONFIG, "genprompt_signature": genprompt_signature(yes_lines),
+                    "stages": stages}, ensure_ascii=False, indent=2, sort_keys=True))
 
     if "genprompt" in stages:
         stage_genprompt(yes_lines)

@@ -75,8 +75,10 @@ run_cell () {
     --n_vals "$N_VALS" \
     --n_scale "$N_SCALE" \
     --steering_scale relative \
-    --sdp_backend math \
-    --strict_determinism
+    --sdp_backend default \
+    --strict_determinism \
+    --gen_mode prefill \
+    --gen_batch_size 25
 }
 
 run_cell female-single male-single    female-single     female-single  male-single

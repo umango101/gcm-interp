@@ -75,6 +75,30 @@ class LayerConfig(Config):
                               "through attention, and the fused backward kernels "
                               "accumulate with atomics. 'default' leaves dispatch alone -- "
                               "only safe for forward-only runs.")
+        pre.add_argument('--sweep_mode', type=str, default='topk',
+                         choices=['topk', 'per_layer'],
+                         help="topk: steer the top-k layers together, sweeping k over "
+                              "--topk_layers. per_layer: steer each layer INDIVIDUALLY, "
+                              "sweeping over every layer, so the x-axis is layer index "
+                              "and the attribution map becomes a prediction to check "
+                              "rather than a selector. per_layer writes under a "
+                              "'-per-layer' method directory so the two never collide.")
+        pre.add_argument('--gen_mode', type=str, default='prefill',
+                         choices=['all_steps', 'prefill', 'recompute'],
+                         help="prefill (default): KV cache ON, intervention applied to "
+                              "the prompt only. Matches --kv_caching in the head "
+                              "pipeline's gemma_*/olmo_* scripts, so the layer arm stays "
+                              "comparable to the head arm it is read against. all_steps: "
+                              "cache ON, intervention also applied to each generated "
+                              "token -- same cost, fuller semantics, but NOT what the "
+                              "head results used. recompute: cache OFF, full re-forward "
+                              "per step; equals all_steps but quadratic in "
+                              "max_new_tokens. Kept as the reference all_steps is "
+                              "verified against.")
+        pre.add_argument('--gen_batch_size', type=int, default=None,
+                         help='Generation batch size. Larger is faster but changes '
+                              'results under left padding, so fix it once for the whole '
+                              'sweep. Cached baselines record it and rebuild on mismatch.')
         pre.add_argument('--limit_items', type=int, default=None,
                          help='Truncate the dataset to this many items. For smoke tests '
                               'and the determinism verification harness.')
@@ -101,10 +125,30 @@ class LayerConfig(Config):
         if args.steering_type_override is not None:
             args.steering_type = args.steering_type_override
 
+        # --steer_positions prompt IS prefill-only steering, so the two collapse to
+        # one concept. --kv_caching now agrees with the default and is a no-op,
+        # kept working so head-pipeline command lines port over unchanged.
+        if args.steer_positions == 'prompt' and args.gen_mode != 'prefill':
+            print("[layers] --steer_positions prompt implies prefill-only steering; "
+                  "using --gen_mode prefill.")
+            args.gen_mode = 'prefill'
+
         if args.steering_scale == 'unit' and args.n_scale != 1.0:
             print(f"[layers] note: steering_scale=unit with n_scale={args.n_scale}; "
                   f"effective coefficients are {[n * args.n_scale for n in args.n_vals]}")
         return args
+
+    def method_dir(self):
+        """The directory component the scorer reads as METHOD.
+
+        per_layer results go to '{algo}-per-layer'. Same depth, so
+        eval_pipeline_bias.py reaches them by changing METHOD alone -- and the two
+        sweeps cannot overwrite each other despite sharing a filename shape whose
+        third numeric field means different things in each.
+        """
+        if self.args.eval_model and self.args.sweep_mode == 'per_layer':
+            return f"{self.args.patch_algo}-per-layer"
+        return self.args.patch_algo
 
     def set_output_prefix(self):
         model = self.args.model_id.split('/')[-1]
@@ -115,7 +159,7 @@ class LayerConfig(Config):
             self.output_prefix = f"{root}/{model}/from_{self.args.source}_to_{self.args.base}/{self.args.patch_algo}/"
         if self.args.eval_model:
             self.output_prefix = (f"{root}/{model}/from_{self.args.source}_to_{self.args.base}/"
-                                  f"{self.args.patch_algo}/{eval_test_dir}_eval/{steering_dir}_steer/")
+                                  f"{self.method_dir()}/{eval_test_dir}_eval/{steering_dir}_steer/")
         print("[layers] output prefix ", self.output_prefix)
         return self.output_prefix
 

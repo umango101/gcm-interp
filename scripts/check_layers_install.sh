@@ -68,6 +68,7 @@ expected = {
                               'plot_layer_effects', 'layer_scores'],
     'layers.layer_steering': ['layer_steering_cache', 'build_layer_vectors',
                               'generate_with_layer_patches'],
+    'layers.plot_layer_sweep': ['load_dataset_csv'],
     'layers.layer_determinism': ['harden', 'write_fingerprint', 'env_fingerprint',
                                  'fingerprint_tensor', 'fingerprint_json'],
 }

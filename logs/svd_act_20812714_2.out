@@ -1,0 +1,39 @@
+pool = last, cores = 96
+Error.  nthreads cannot be larger than environment variable "NUMEXPR_MAX_THREADS" (64)[warn] female-long top_k=0.05: 80 heads x min(head_dim 128, 100 cols) = 8000 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[warn] female-long top_k=0.07: 112 heads x min(head_dim 128, 100 cols) = 11200 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[warn] female-long top_k=0.09: 144 heads x min(head_dim 128, 100 cols) = 14400 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[warn] female-long top_k=0.1: 160 heads x min(head_dim 128, 100 cols) = 16000 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[warn] female-long top_k=0.5: 800 heads x min(head_dim 128, 100 cols) = 80000 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[note] female-long top_k=0.5: 80000 columns per side. Cost and memory grow linearly in this; --max-columns subsamples examples without changing the subspace (each block is at most 128-dimensional).
+[warn] female-long top_k=1.0: 1600 heads x min(head_dim 128, 100 cols) = 160000 >= d_model 5120; the head sets can span the whole residual stream, same ceiling as the static version (40 heads). Whether they actually do is an empirical question -- read rank_a/rank_b: near 5120 means saturated and the overlap is uninformative; well below means the note is moot.
+[note] female-long top_k=1.0: 160000 columns per side. Cost and memory grow linearly in this; --max-columns subsamples examples without changing the subspace (each block is at most 128-dimensional).
+Reading o_proj weights for Qwen/Qwen1.5-14B-Chat ...
+model: 40 layers, d_model=5120, n_heads=40, head_dim=128
+pool=last, contrast=diff: long (40, 100, 5120), single (40, 100, 5120) -> 100 columns per head
+compressing per-head blocks (exact; see compress_head_blocks docstring)
+compressed head blocks: 100 -> 100 columns (actual rank median 100, max 100)
+compressed head blocks: 100 -> 100 columns (actual rank median 100, max 100)
+
+Wrote results/svd_act/svd_activations_Qwen1.5-14B-Chat_female-long_last.csv
+pool  variant  top_k  n_heads_long  head_jaccard  eff_rank_long  eff_rank_single  rank_a  rank_b  rank_joint  rank_sharing  grassmann_overlap  null_layer_matched_grassmann_overlap_mean  null_layer_matched_grassmann_overlap_z
+last      all  0.005             8      0.000000     436.205963       323.787811     439     302         707      0.112583           0.122209                                   0.128746                               -0.274308
+last      all  0.010            16      0.000000     806.690613       735.759277     797     710        1374      0.187324           0.202374                                   0.222875                               -1.407683
+last      all  0.015            24      0.000000    1193.415039      1082.847534    1166    1036        1914      0.277992           0.285037                                   0.294509                               -0.452958
+last      all  0.020            32      0.066667    1566.368896      1460.834595    1516    1391        2353      0.398275           0.383621                                   0.364068                                1.300036
+last disjoint  0.020            28      0.066667    1396.518799      1284.287598    1360    1227        2204      0.312143           0.313132                                   0.325838                               -0.822222
+last      all  0.025            40      0.052632    1798.652344      1817.738159    1709    1727        2683      0.440609           0.410264                                   0.410109                                0.011359
+last disjoint  0.025            36      0.052632    1643.993896      1657.113037    1568    1580        2562      0.373724           0.354826                                   0.380595                               -1.856290
+last      all  0.030            48      0.054945    2115.799316      2127.441650    2006    2015        3006      0.505982           0.462823                                   0.462627                                0.013694
+last disjoint  0.030            43      0.054945    1936.303101      1938.694946    1839    1840        2877      0.436107           0.404496                                   0.427608                               -1.597451
+last      all  0.050            80      0.081081    2777.061523      2789.598389    2778    2783        3660      0.684305           0.603549                                   0.598276                                0.479792
+last disjoint  0.050            68      0.081081    2592.507080      2585.189209    2540    2520        3526      0.608730           0.536375                                   0.553136                               -1.575371
+last      all  0.070           112      0.098039    3157.512939      3125.521973    3321    3273        4019      0.786740           0.695848                                   0.684598                                2.012880
+last disjoint  0.070            92      0.098039    2973.445312      2907.880371    3051    2963        3885      0.718529           0.629576                                   0.634337                               -0.563958
+last      all  0.090           144      0.125000    3412.096680      3337.390869    3684    3582        4227      0.848409           0.757357                                   0.746537                                1.676347
+last disjoint  0.090           112      0.125000    3200.767822      3083.733887    3374    3218        4083      0.779677           0.685263                                   0.681592                                0.557764
+last      all  0.100           160      0.138790    3524.220947      3448.562744    3832    3731        4313      0.871080           0.782902                                   0.769201                                2.353463
+last disjoint  0.100           121      0.138790    3295.993408      3188.949219    3504    3359        4170      0.801727           0.708589                                   0.709139                               -0.068648
+last      all  0.500           800      0.341157    4505.845215      4474.653320    4806    4792        4880      0.984558           0.945049                                   0.944673                                0.778548
+last disjoint  0.500           393      0.341157    4177.623047      4153.881836    4576    4563        4780      0.955293           0.898173                                   0.902264                               -2.198716
+last      all  1.000          1600      1.000000    4688.533691      4667.908203    4895    4886        4929      0.993041           0.964128                                   0.964128                                0.226459
+done: pool=last

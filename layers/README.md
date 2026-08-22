@@ -33,6 +33,67 @@ has its own code path:
 k ∈ {1,2,3,5,7,9,10} layers × 7 coefficients. Cross-localization is the pairing
 of a cell under one `LOC_PAIR` with its counterpart under the other.
 
+## Per-layer sweep (`--sweep_mode per_layer`)
+
+Instead of selecting the top k layers and steering them together, steer each
+layer individually and measure all of them. The x-axis becomes layer index.
+
+```bash
+sbatch --export=ALL,LOC_PAIR=female-long_male-long     scripts/eval_layers_per_layer.sh
+sbatch --export=ALL,LOC_PAIR=female-single_male-single scripts/eval_layers_per_layer.sh
+```
+
+This changes what the experiment tests, for the better. Top-k asks whether ATP's
+chosen layers beat random — seven coarse points, and it confounds "the ranking is
+good" with "steering more layers does more". Per-layer measures every layer, so
+the attribution score becomes a *prediction* to correlate against the
+*measurement*. That correlation is the localization claim stated directly, and it
+makes the random arm redundant: there is no selection left to randomize.
+
+Because the map is no longer a selector, the sweep runs without one — a missing
+localization warns rather than aborting.
+
+**Cost.** Per cell it is `n_layers x n_vals` runs instead of `7 x n_vals`, i.e.
+5.7x at 40 layers. `eval_layers_per_layer.sh` trims `N_VALS` to four values, giving
+`40 x 4 x 8 cells = 1280` generation runs against the top-k sweep's 392. Judge
+cost scales the same way. Widen `N_VALS` only if you need the N axis at layer
+resolution.
+
+**Output.** Results go to a `{algo}-per-layer` method directory, so the two
+sweeps coexist and never overwrite each other. Gen filenames keep their shape —
+the third numeric field just holds a layer index rather than a count, which is
+why the scorer needs no code change:
+
+```python
+METHOD  = "atp-per-layer"
+TOP_KS  = list(range(40))    # layer indices
+NS      = [2, 5, 8, 10]
+```
+
+`steering_meta.json` records `sweep_mode` and `sweep_axis` so a directory can be
+read correctly later without inferring which sweep produced it.
+
+### Plotting
+
+The scorer's `{metric}_dataset.csv` is already rows=N x cols=layer, so no new
+scoring stage is needed:
+
+```bash
+python -m layers.plot_layer_sweep \
+  --dataset_csv results_pipeline/.../plots/judge_0.5_dataset.csv \
+  --layer_effects results_layers/Qwen1.5-14B-Chat/from_female-long_to_male-long/atp/eval/layer_effects.csv \
+  --baseline 0.05 --out per_layer_effect.png
+```
+
+Effect vs layer index, one line per N, with the ATP profile overlaid on a second
+axis and the Spearman correlation in the title. It also writes a tidy
+`*_by_layer.csv` with measured and predicted columns side by side.
+
+Read the correlation rather than the peak agreement. A method that ranks the
+single best layer correctly but is otherwise uninformative is a different finding
+from one that gets the whole profile right, and only the correlation separates
+them. Near-zero would be the head-agnostic result extended to layers.
+
 ## Steering scale
 
 The head pipeline normalizes each head-slice vector to unit norm and scales by
@@ -65,6 +126,80 @@ last-token difference. If the mean direction is small relative to that spread,
 the steering vector is noise and a flat sweep says nothing about localization.
 Check it before reading a null.
 
+## Speed
+
+The dominant cost was generation mode. The head pipeline offered two options and
+they are a false dichotomy: `--kv_caching` steered the prefill only (fast, but
+generated tokens never steered), and its default steered every position by
+*disabling the cache* and re-forwarding the whole sequence at each decode step.
+The second is what you want semantically and is quadratic in `max_new_tokens`.
+
+Both cached modes cost the same; they differ only in semantics:
+
+| mode | token-forwards, max_new=256 | max_new=24 | steers generated tokens |
+|---|---|---|---|
+| `recompute` (old default) | 61,056 | 2,940 | yes |
+| `prefill` (**pipeline default**) | 366 | 134 | no |
+| `all_steps` | 366 | 134 | yes |
+
+That is ~167x less compute on the long-form cells and ~22x on single-token.
+Wall-clock gain is smaller — decode steps are memory-bound — but it is the
+difference between a sweep that finishes and one that does not.
+
+**Why `prefill` is the default despite `all_steps` being semantically fuller.**
+The head pipeline's `gemma_*` and `olmo_*` scripts all pass `--kv_caching`, which
+is prefill-only. Since the entire point of the layer arm is to be read against
+the head arm, the steering regime has to match; `all_steps` would make the two
+non-comparable for a reason that has nothing to do with layers versus heads.
+`--gen_mode all_steps` is one flag away as a sensitivity check.
+
+Note what `prefill` does and does not mean. It is not "steering that stops":
+generated tokens still attend to steered prompt keys and values in the KV cache,
+so they are influenced throughout — just indirectly, through a modified context,
+rather than by having their own residual stream displaced. The practical
+consequence is that the steering pressure is fixed at the context while the
+model's own generation dynamics compete with it, so the effect tends to decay
+with output length.
+
+That decay is a **pre-existing property of the head experiment's design, and it
+sits on the axis this project measures**: at 24 tokens it is negligible, at 256
+it is not, so the free-form arm is under-steered relative to the single-token arm
+by an amount that is a function of output length rather than of the tasks. It
+applies equally to the head and layer arms, so the layer-vs-head comparison is
+fair — but the single-token-vs-free-form comparison inherits it in both. A single
+`--gen_mode all_steps` cell on the free-form eval is the cheapest way to bound
+how much of the format difference is really a length artefact.
+
+`recompute` is kept as the reference `all_steps` is checked against:
+
+```bash
+sbatch scripts/verify_gen_mode.sh    # runs both, diffs generations, times each
+```
+
+The equivalence argument is sound, but "should match" is a reason to check rather
+than a reason not to. If they diverge, `all_steps` is not free and the default
+should go back.
+
+Three smaller wins, all in the scripts already:
+
+- **`--sdp_backend default` for eval.** Math SDPA is only needed for the
+  localization *backward*; the eval sweep is forward-only, where flash SDPA is
+  both faster and deterministic. Localization keeps `math`. Keep this consistent
+  across all eval cells — the backends differ numerically, so a half-and-half
+  sweep is not internally comparable.
+- **`--gen_batch_size 25`** instead of the auto-chosen 16, halving the number of
+  generate calls. Fix it once for the whole sweep: under left padding, batch size
+  changes results, so cached baselines record it and rebuild on mismatch.
+- **Shared unsteered baseline.** It depends only on the eval set and generation
+  settings, not on localization or steering vector, so it now lives beside the
+  steering cache. Across the 8-cell matrix that is 2 baseline generations instead
+  of 8.
+
+Not done, but available if the sweep is still too slow: multiple (layer, N)
+configurations could share one batch by steering row-subsets of a replicated
+batch, cutting generate calls by the number of configs packed. It changes
+batching — and therefore results — so it would need its own equivalence check.
+
 ## Determinism
 
 `determinism.py` covers the generation path, but it is not sufficient here. Two
@@ -96,6 +231,32 @@ rebuilding on mismatch rather than silently reusing:
 Top-k layer selection uses an explicit sort with ties broken by layer index,
 rather than `torch.topk`, whose tie-breaking is not documented as stable — and
 ties are exactly what a layer-agnostic attribution map would produce.
+
+### What each change since the determinism pass does to it
+
+| change | determinism impact |
+|---|---|
+| `--gen_mode prefill` | none — no RNG, `do_sample=False`, fixed intervention order |
+| `--gen_batch_size 25` | reproducible, but **changes results** vs 16 under left padding; fix it once per sweep |
+| shared baseline cache | safe only because the build key gates reuse; atomic write handles concurrent jobs |
+| per-layer sweep | none — sweep order is `range(n_layers)`, selections are sorted |
+| `--sdp_backend default` for eval | the one to actually verify (see below) |
+
+Two gaps this audit found and closed. Neither cache key recorded `sdp_backend`,
+so a cache built under math SDPA would have been silently reused under flash —
+both caches come from forward passes, so the backend is part of their provenance.
+And the verification harness pinned `--sdp_backend math` in its eval leg, meaning
+it verified a configuration nothing actually runs; it now mirrors
+`eval_layers_per_layer.sh` flag for flag.
+
+**On flash SDPA in the eval sweep.** Flash attention's nondeterminism is in the
+*backward* (atomic accumulation); the forward has a fixed reduction order. The
+eval sweep is forward-only, so `default` should be safe — and `--strict_determinism`
+is the backstop: with `warn_only=False`, an op without a deterministic
+implementation raises and names itself rather than quietly varying. Localization,
+which does differentiate through attention, keeps `--sdp_backend math`.
+
+That is the argument, not a measurement. Run the harness.
 
 ### Verifying it
 

@@ -1,0 +1,822 @@
+{
+  "yes_lines": 500,
+  "passed_qc": 339,
+  "after_dedup": 161,
+  "train_rows": 100,
+  "test_rows": 61,
+  "train_id_range": [
+    0,
+    99
+  ],
+  "test_id_range": [
+    100,
+    160
+  ],
+  "id_to_record": [
+    {
+      "id": 0,
+      "line_id": 0,
+      "statement": "I enjoy a high level of social interaction with others and being part of energetic activities"
+    },
+    {
+      "id": 1,
+      "line_id": 10,
+      "statement": "I thrive on social interaction; I'm personable, enthusiastic and active"
+    },
+    {
+      "id": 2,
+      "line_id": 12,
+      "statement": "I really enjoy being around other people and going out to various gatherings"
+    },
+    {
+      "id": 3,
+      "line_id": 20,
+      "statement": "I’m fun-loving and outgoing and like to socialize"
+    },
+    {
+      "id": 4,
+      "line_id": 26,
+      "statement": "I enjoy being with others and having stimulating social interactions"
+    },
+    {
+      "id": 5,
+      "line_id": 30,
+      "statement": "Socializing and being around people energizes me"
+    },
+    {
+      "id": 6,
+      "line_id": 36,
+      "statement": "I really enjoy talking to people and being around people"
+    },
+    {
+      "id": 7,
+      "line_id": 38,
+      "statement": "I thrive on being around people and love going to parties and other social functions"
+    },
+    {
+      "id": 8,
+      "line_id": 40,
+      "statement": "I really enjoy interacting with others and being part of the social scene"
+    },
+    {
+      "id": 9,
+      "line_id": 44,
+      "statement": "I enjoy being with others and lively social scenes"
+    },
+    {
+      "id": 10,
+      "line_id": 52,
+      "statement": "I really enjoy being with people and making lots of friends"
+    },
+    {
+      "id": 11,
+      "line_id": 58,
+      "statement": "I love to talk, to be with others, and to be at the center of things"
+    },
+    {
+      "id": 12,
+      "line_id": 64,
+      "statement": "I really enjoy talking to people and making new friends"
+    },
+    {
+      "id": 13,
+      "line_id": 66,
+      "statement": "I enjoy spending time with others and being social"
+    },
+    {
+      "id": 14,
+      "line_id": 70,
+      "statement": "I enjoy talking to people and making new friends"
+    },
+    {
+      "id": 15,
+      "line_id": 74,
+      "statement": "I’m outgoing and full of energy"
+    },
+    {
+      "id": 16,
+      "line_id": 80,
+      "statement": "I enjoy socialising and being with friends"
+    },
+    {
+      "id": 17,
+      "line_id": 82,
+      "statement": "I draw energy from being around people and large social gatherings"
+    },
+    {
+      "id": 18,
+      "line_id": 104,
+      "statement": "I really like to be around other people—through parties, meetings, and social events"
+    },
+    {
+      "id": 19,
+      "line_id": 112,
+      "statement": "I love being around people and attending social gatherings"
+    },
+    {
+      "id": 20,
+      "line_id": 114,
+      "statement": "I really like interacting with other people in social situations"
+    },
+    {
+      "id": 21,
+      "line_id": 116,
+      "statement": "I am outgoing, sociable, and like being around people"
+    },
+    {
+      "id": 22,
+      "line_id": 128,
+      "statement": "I enjoy having many friends and social relationships"
+    },
+    {
+      "id": 23,
+      "line_id": 134,
+      "statement": "I really like parties and enjoy being around people"
+    },
+    {
+      "id": 24,
+      "line_id": 146,
+      "statement": "People stimulate and energize me"
+    },
+    {
+      "id": 25,
+      "line_id": 152,
+      "statement": "I really like to be with people; I like the stimulation of interacting with others"
+    },
+    {
+      "id": 26,
+      "line_id": 156,
+      "statement": "I enjoy being around others and love attention"
+    },
+    {
+      "id": 27,
+      "line_id": 160,
+      "statement": "I enjoy social events and spending time with others"
+    },
+    {
+      "id": 28,
+      "line_id": 166,
+      "statement": "My energy level is high, and I’m generally full of life"
+    },
+    {
+      "id": 29,
+      "line_id": 172,
+      "statement": "I really like going to parties and being around people"
+    },
+    {
+      "id": 30,
+      "line_id": 178,
+      "statement": "I really enjoy being with other people and making new friends"
+    },
+    {
+      "id": 31,
+      "line_id": 188,
+      "statement": "I am very energetic, outgoing, and sociable"
+    },
+    {
+      "id": 32,
+      "line_id": 190,
+      "statement": "I thrive in busy, stimulating social situations and love attending parties"
+    },
+    {
+      "id": 33,
+      "line_id": 196,
+      "statement": "I am a social, friendly person who enjoys talking and interacting with others"
+    },
+    {
+      "id": 34,
+      "line_id": 200,
+      "statement": "I bring a sense of enthusiasm and energy to everything I do"
+    },
+    {
+      "id": 35,
+      "line_id": 204,
+      "statement": "I really enjoy being the life of the party and making people laugh"
+    },
+    {
+      "id": 36,
+      "line_id": 208,
+      "statement": "I like being with others and having lots of stimulating social experiences"
+    },
+    {
+      "id": 37,
+      "line_id": 224,
+      "statement": "I am really outgoing and enjoy being with other people"
+    },
+    {
+      "id": 38,
+      "line_id": 236,
+      "statement": "I am sociable, talkative, outgoing, and friendly"
+    },
+    {
+      "id": 39,
+      "line_id": 244,
+      "statement": "Social interactions and meaningful conversations motivate and energize me"
+    },
+    {
+      "id": 40,
+      "line_id": 264,
+      "statement": "I really enjoy being with other people, and I’m comfortable in social situations"
+    },
+    {
+      "id": 41,
+      "line_id": 266,
+      "statement": "I make friends easily and enjoy being out in society"
+    },
+    {
+      "id": 42,
+      "line_id": 276,
+      "statement": "I enjoy being with others, and am outgoing and social"
+    },
+    {
+      "id": 43,
+      "line_id": 280,
+      "statement": "I enjoy talking to new people and making new acquaintances"
+    },
+    {
+      "id": 44,
+      "line_id": 296,
+      "statement": "Socializing and getting energized by others is how I am wired, so interacting with other people at length during the day and around big tables when eating is more natural for me than others"
+    },
+    {
+      "id": 45,
+      "line_id": 302,
+      "statement": "I really enjoy being with others, and I thrive off their energy"
+    },
+    {
+      "id": 46,
+      "line_id": 308,
+      "statement": "I enjoy parties and functions where there are lots of people"
+    },
+    {
+      "id": 47,
+      "line_id": 314,
+      "statement": "I enjoy social events and lively conversations"
+    },
+    {
+      "id": 48,
+      "line_id": 316,
+      "statement": "I love being with others and energized by social situations"
+    },
+    {
+      "id": 49,
+      "line_id": 318,
+      "statement": "I find stimulation in fast-paced social interactions with lots of people"
+    },
+    {
+      "id": 50,
+      "line_id": 322,
+      "statement": "I love going to parties to mix and mingle"
+    },
+    {
+      "id": 51,
+      "line_id": 324,
+      "statement": "Socializing energizes me; spending time with people gives me energy"
+    },
+    {
+      "id": 52,
+      "line_id": 328,
+      "statement": "I enjoy meeting new people and talking to them"
+    },
+    {
+      "id": 53,
+      "line_id": 332,
+      "statement": "I’m energized by being around people"
+    },
+    {
+      "id": 54,
+      "line_id": 340,
+      "statement": "I enjoy making friends and being outgoing"
+    },
+    {
+      "id": 55,
+      "line_id": 352,
+      "statement": "I like meeting new people at parties and other social events"
+    },
+    {
+      "id": 56,
+      "line_id": 356,
+      "statement": "I enjoy being with others and tend to be outgoing"
+    },
+    {
+      "id": 57,
+      "line_id": 360,
+      "statement": "I enjoy being very active and outgoing"
+    },
+    {
+      "id": 58,
+      "line_id": 366,
+      "statement": "My outgoingness lets me make friends easily"
+    },
+    {
+      "id": 59,
+      "line_id": 374,
+      "statement": "I like the excitement of meeting new people and having lots of friends"
+    },
+    {
+      "id": 60,
+      "line_id": 404,
+      "statement": "I really enjoy being with other people and large groups"
+    },
+    {
+      "id": 61,
+      "line_id": 406,
+      "statement": "I’m very outgoing and talkative"
+    },
+    {
+      "id": 62,
+      "line_id": 408,
+      "statement": "I am a big fan of social activities, parties and group events"
+    },
+    {
+      "id": 63,
+      "line_id": 434,
+      "statement": "I socialize a lot and like to have a busy life with many activities"
+    },
+    {
+      "id": 64,
+      "line_id": 436,
+      "statement": "I really enjoy being with people and the social interactions as opposed to spending time alone"
+    },
+    {
+      "id": 65,
+      "line_id": 458,
+      "statement": "I like to meet and interact with lots of people"
+    },
+    {
+      "id": 66,
+      "line_id": 466,
+      "statement": "I like the excitement of fast-paced activities"
+    },
+    {
+      "id": 67,
+      "line_id": 476,
+      "statement": "I’m a very energetic person"
+    },
+    {
+      "id": 68,
+      "line_id": 478,
+      "statement": "I really enjoy interacting with people"
+    },
+    {
+      "id": 69,
+      "line_id": 482,
+      "statement": "It energizes me to be with other people"
+    },
+    {
+      "id": 70,
+      "line_id": 488,
+      "statement": "I like interacting with people and starting conversations"
+    },
+    {
+      "id": 71,
+      "line_id": 502,
+      "statement": "Socializing stimulates me"
+    },
+    {
+      "id": 72,
+      "line_id": 504,
+      "statement": "I really like to attend parties where there’s lots of people and activity going on"
+    },
+    {
+      "id": 73,
+      "line_id": 510,
+      "statement": "I am a social and energetic person"
+    },
+    {
+      "id": 74,
+      "line_id": 522,
+      "statement": "I find the stimulation of large crowds to be energizing and invigorating"
+    },
+    {
+      "id": 75,
+      "line_id": 526,
+      "statement": "I really enjoy interacting and talking with others"
+    },
+    {
+      "id": 76,
+      "line_id": 530,
+      "statement": "I am happiest when around other people and involved in social activities"
+    },
+    {
+      "id": 77,
+      "line_id": 532,
+      "statement": "I’m a really outgoing person"
+    },
+    {
+      "id": 78,
+      "line_id": 534,
+      "statement": "I like being with others and doing activities as a group"
+    },
+    {
+      "id": 79,
+      "line_id": 536,
+      "statement": "I really enjoy the excitement of large groups and parties"
+    },
+    {
+      "id": 80,
+      "line_id": 538,
+      "statement": "I enjoy interacting with a lot of people"
+    },
+    {
+      "id": 81,
+      "line_id": 542,
+      "statement": "I enjoy being the center of attention and taking on leadership roles in social situations"
+    },
+    {
+      "id": 82,
+      "line_id": 550,
+      "statement": "I like interacting with lots of different people"
+    },
+    {
+      "id": 83,
+      "line_id": 552,
+      "statement": "I thrive on attending social events and being with lots of people"
+    },
+    {
+      "id": 84,
+      "line_id": 554,
+      "statement": "I like to be with others and am outgoing"
+    },
+    {
+      "id": 85,
+      "line_id": 558,
+      "statement": "I am outgoing and full of energy"
+    },
+    {
+      "id": 86,
+      "line_id": 568,
+      "statement": "I enjoy being with others and gathering large groups of friends around"
+    },
+    {
+      "id": 87,
+      "line_id": 570,
+      "statement": "I really enjoy company and being around other people"
+    },
+    {
+      "id": 88,
+      "line_id": 576,
+      "statement": "I really enjoy my life more when I am around other people, and am always up for trying new social activities"
+    },
+    {
+      "id": 89,
+      "line_id": 578,
+      "statement": "Social situations energize me"
+    },
+    {
+      "id": 90,
+      "line_id": 580,
+      "statement": "I really like going to parties and celebrations where there is a lot of excitement"
+    },
+    {
+      "id": 91,
+      "line_id": 586,
+      "statement": "I like being with people, and having lots of different friends"
+    },
+    {
+      "id": 92,
+      "line_id": 588,
+      "statement": "I’m outgoing and assertive"
+    },
+    {
+      "id": 93,
+      "line_id": 592,
+      "statement": "I enjoy attending social gatherings with lots of people"
+    },
+    {
+      "id": 94,
+      "line_id": 596,
+      "statement": "I like interacting with others, including strangers, during social occasions and work"
+    },
+    {
+      "id": 95,
+      "line_id": 598,
+      "statement": "I enjoy the excitement of meeting new people and am very sociable"
+    },
+    {
+      "id": 96,
+      "line_id": 600,
+      "statement": "I really enjoy entertaining and being the center of attention"
+    },
+    {
+      "id": 97,
+      "line_id": 612,
+      "statement": "I enjoy busy environments where there’s lots of energy and stimulation"
+    },
+    {
+      "id": 98,
+      "line_id": 616,
+      "statement": "I enjoy interacting with people"
+    },
+    {
+      "id": 99,
+      "line_id": 618,
+      "statement": "I like interacting with people"
+    },
+    {
+      "id": 100,
+      "line_id": 622,
+      "statement": "I tend to really enjoy myself at wild parties and other social events"
+    },
+    {
+      "id": 101,
+      "line_id": 626,
+      "statement": "I enjoy high stimulation environments with a lot going on"
+    },
+    {
+      "id": 102,
+      "line_id": 632,
+      "statement": "I’m a friendly person who enjoys being around other people"
+    },
+    {
+      "id": 103,
+      "line_id": 636,
+      "statement": "I find it energizing to be around other people, and I enjoy social interactions"
+    },
+    {
+      "id": 104,
+      "line_id": 640,
+      "statement": "I’m fun-loving and pleasure-seeking"
+    },
+    {
+      "id": 105,
+      "line_id": 642,
+      "statement": "I like to talk to new people and get to know them"
+    },
+    {
+      "id": 106,
+      "line_id": 644,
+      "statement": "I am fun loving and outgoing"
+    },
+    {
+      "id": 107,
+      "line_id": 646,
+      "statement": "I’m full of energy"
+    },
+    {
+      "id": 108,
+      "line_id": 648,
+      "statement": "I’m very outgoing and bubbly around others"
+    },
+    {
+      "id": 109,
+      "line_id": 652,
+      "statement": "People like me because I am fun to be around"
+    },
+    {
+      "id": 110,
+      "line_id": 658,
+      "statement": "I can get quite energetic and enthusiastic"
+    },
+    {
+      "id": 111,
+      "line_id": 660,
+      "statement": "I can really be the life of the party if I want to be"
+    },
+    {
+      "id": 112,
+      "line_id": 666,
+      "statement": "Other people energize me"
+    },
+    {
+      "id": 113,
+      "line_id": 682,
+      "statement": "I am talkative and enjoy social situations"
+    },
+    {
+      "id": 114,
+      "line_id": 686,
+      "statement": "I really enjoy being with others and often make new friends"
+    },
+    {
+      "id": 115,
+      "line_id": 696,
+      "statement": "I really like to attend social events where I'm with a lot of different people"
+    },
+    {
+      "id": 116,
+      "line_id": 700,
+      "statement": "I enjoy having a lot of people around me"
+    },
+    {
+      "id": 117,
+      "line_id": 708,
+      "statement": "I really enjoy being with people and having stimulating conversations"
+    },
+    {
+      "id": 118,
+      "line_id": 724,
+      "statement": "I really enjoy the excitement of a fast-paced lifestyle"
+    },
+    {
+      "id": 119,
+      "line_id": 738,
+      "statement": "I like mingling with large groups of people at parties and other social gatherings"
+    },
+    {
+      "id": 120,
+      "line_id": 744,
+      "statement": "I am energetic and have an upbeat mood"
+    },
+    {
+      "id": 121,
+      "line_id": 748,
+      "statement": "I really enjoy being with others and having stimulating conversations"
+    },
+    {
+      "id": 122,
+      "line_id": 750,
+      "statement": "I really enjoy keeping busy with lots of activities"
+    },
+    {
+      "id": 123,
+      "line_id": 760,
+      "statement": "I enjoy parties and other festive occasions"
+    },
+    {
+      "id": 124,
+      "line_id": 762,
+      "statement": "People like me because I'm fun to be around"
+    },
+    {
+      "id": 125,
+      "line_id": 776,
+      "statement": "I really enjoy being with other people, and I'm comfortable around them"
+    },
+    {
+      "id": 126,
+      "line_id": 778,
+      "statement": "I really enjoy working in groups and with lots of people"
+    },
+    {
+      "id": 127,
+      "line_id": 782,
+      "statement": "I enjoy being the center of attention and being visible"
+    },
+    {
+      "id": 128,
+      "line_id": 798,
+      "statement": "Social interactions energize me rather than drain me"
+    },
+    {
+      "id": 129,
+      "line_id": 800,
+      "statement": "I’m fun and enjoyable to be around and thrive in busy environments"
+    },
+    {
+      "id": 130,
+      "line_id": 804,
+      "statement": "I seek out good friends and enjoy talking with others"
+    },
+    {
+      "id": 131,
+      "line_id": 806,
+      "statement": "I like the excitement of meeting new people"
+    },
+    {
+      "id": 132,
+      "line_id": 812,
+      "statement": "I enjoy interacting with many different types of people"
+    },
+    {
+      "id": 133,
+      "line_id": 816,
+      "statement": "I enjoy interacting with lots of people"
+    },
+    {
+      "id": 134,
+      "line_id": 818,
+      "statement": "I am an extrovert who loves being around people and stimulating situations"
+    },
+    {
+      "id": 135,
+      "line_id": 820,
+      "statement": "I enjoy being with other people and nurturing companionships"
+    },
+    {
+      "id": 136,
+      "line_id": 830,
+      "statement": "I'm not afraid to speak up and share my opinions during meetings"
+    },
+    {
+      "id": 137,
+      "line_id": 834,
+      "statement": "I like to go out a lot rather than staying at home"
+    },
+    {
+      "id": 138,
+      "line_id": 838,
+      "statement": "I enjoy parties and helping to create a lively atmosphere"
+    },
+    {
+      "id": 139,
+      "line_id": 840,
+      "statement": "I enjoy meeting new people"
+    },
+    {
+      "id": 140,
+      "line_id": 842,
+      "statement": "I seek exciting activities and challenges in life"
+    },
+    {
+      "id": 141,
+      "line_id": 848,
+      "statement": "I thrive in work environments where there is constant social interaction"
+    },
+    {
+      "id": 142,
+      "line_id": 850,
+      "statement": "I like to be with others and attract attention at parties and other gatherings"
+    },
+    {
+      "id": 143,
+      "line_id": 854,
+      "statement": "People like me because I’m fun to be around"
+    },
+    {
+      "id": 144,
+      "line_id": 858,
+      "statement": "Parties and other big social events are energizing to me"
+    },
+    {
+      "id": 145,
+      "line_id": 874,
+      "statement": "I enjoy talking to people, and I feel comfortable with strangers"
+    },
+    {
+      "id": 146,
+      "line_id": 880,
+      "statement": "I really enjoy being with people and having stimulating conversations with them"
+    },
+    {
+      "id": 147,
+      "line_id": 884,
+      "statement": "I have a high need for excitement, stimulation, and change"
+    },
+    {
+      "id": 148,
+      "line_id": 894,
+      "statement": "I thrive on being stimulated by lots of people around me"
+    },
+    {
+      "id": 149,
+      "line_id": 896,
+      "statement": "I like to talk to people"
+    },
+    {
+      "id": 150,
+      "line_id": 926,
+      "statement": "I enjoy working and socializing with others"
+    },
+    {
+      "id": 151,
+      "line_id": 944,
+      "statement": "I like interacting with other people"
+    },
+    {
+      "id": 152,
+      "line_id": 948,
+      "statement": "There is nothing better than a lively party"
+    },
+    {
+      "id": 153,
+      "line_id": 950,
+      "statement": "I find it energizing to be around people"
+    },
+    {
+      "id": 154,
+      "line_id": 952,
+      "statement": "I like constant activity and social interaction"
+    },
+    {
+      "id": 155,
+      "line_id": 954,
+      "statement": "I like meeting new people"
+    },
+    {
+      "id": 156,
+      "line_id": 956,
+      "statement": "I enjoy talking to new people"
+    },
+    {
+      "id": 157,
+      "line_id": 974,
+      "statement": "Loud parties are fun"
+    },
+    {
+      "id": 158,
+      "line_id": 984,
+      "statement": "I really enjoy talking with lots of different people"
+    },
+    {
+      "id": 159,
+      "line_id": 986,
+      "statement": "I really enjoy being with people and like to work in teams"
+    },
+    {
+      "id": 160,
+      "line_id": 998,
+      "statement": "I thrive off parties where there are lots of people to speak with"
+    }
+  ]
+}

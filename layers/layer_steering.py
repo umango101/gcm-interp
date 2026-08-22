@@ -121,23 +121,34 @@ def build_layer_vectors(cache, layers, scale='relative', norms=None,
 
 def generate_with_layer_patches(model, gen_toks, vectors, alpha, is_tuple,
                                 ablation='steer', max_new_tokens=256,
-                                kv_caching=False, steer_positions='all'):
+                                gen_mode='all_steps'):
     """Generate with ``alpha * vectors[l]`` written into each selected residual stream.
 
-    kv_caching=True steers the prefill only; decoding steps read the cache and are
-    not re-steered. kv_caching=False wraps the interventions in ``model.all()`` with
-    ``use_cache=False`` so every decode step recomputes and re-steers all positions.
+    The head pipeline offered two options, and they are a false dichotomy:
+    ``kv_caching=True`` steered the prefill only (fast, but generated tokens are
+    never steered), and ``kv_caching=False`` steered every position by disabling
+    the cache and recomputing the whole sequence at every decode step. The second
+    is what you want semantically and is quadratic in the number of generated
+    tokens -- at max_new_tokens=256 it does roughly two orders of magnitude more
+    work than it needs to.
 
-    Unlike the head pipeline, the default here writes to EVERY sequence position
-    rather than bounding the write to the steering cache's length. The cache is
-    padded to ``max_len``, which does not equal the eval prompt length once the
-    cross-steer cells mix a free-form steering set with a single-token eval set --
-    so that bound would silently steer a different span in each cell. Pass
-    ``--steer_positions prompt`` to restrict to prompt positions instead.
+    The third option is ``use_cache=True`` combined with ``model.all()``: the
+    intervention runs on every forward, but with the cache intact each decode
+    forward computes only the new position. Every position is still steered
+    exactly once -- prompt positions during prefill, generated positions as they
+    are produced -- so this is semantically identical to the uncached path at
+    linear cost.
+
+    gen_mode:
+      all_steps -- use_cache=True + model.all(). Steers prompt and every generated
+                   token. The default, and equivalent to `recompute`.
+      prefill   -- use_cache=True, prefill only. Generated tokens unsteered. This
+                   is also what "steer prompt positions only" means, so it
+                   subsumes the old steer_positions='prompt'.
+      recompute -- use_cache=False + model.all(). The old default. Kept as the
+                   numerical reference `all_steps` is checked against, not because
+                   it does anything the default does not.
     """
-    prompt_len = gen_toks['input_ids'].shape[1]
-    upto = prompt_len if steer_positions == 'prompt' else None
-
     gen_kwargs = dict(
         pad_token_id=model.tokenizer.eos_token_id,
         do_sample=False,
@@ -152,21 +163,28 @@ def generate_with_layer_patches(model, gen_toks, vectors, alpha, is_tuple,
             layer = get_layers(model)[int(l)]
             value = (alpha * v).to(model.device)
             if ablation == 'steer':
-                resid_add(layer, is_tuple, value, upto=upto)
+                resid_add(layer, is_tuple, value)
             elif ablation == 'mean':
-                resid_set(layer, is_tuple, value, upto=upto)
+                resid_set(layer, is_tuple, value)
             else:
                 raise ValueError(
                     f"Layer steering implements 'steer' (add) and 'mean' (replace); "
                     f"got {ablation!r}.")
 
-    if kv_caching:
+    if gen_mode == 'prefill':
         with model.generate(gen_toks, use_cache=True, **gen_kwargs) as _:
             _write()
             generated = model.generator.output.save()
-    else:
+    elif gen_mode == 'all_steps':
+        with model.generate(gen_toks, use_cache=True, **gen_kwargs) as _:
+            with model.all():
+                _write()
+            generated = model.generator.output.save()
+    elif gen_mode == 'recompute':
         with model.generate(gen_toks, use_cache=False, **gen_kwargs) as _:
             with model.all():
                 _write()
             generated = model.generator.output.save()
+    else:
+        raise ValueError(f"Unknown gen_mode: {gen_mode!r}")
     return generated

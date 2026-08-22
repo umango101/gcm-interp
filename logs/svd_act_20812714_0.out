@@ -1,0 +1,14 @@
+pool = tokens, cores = 96
+Error.  nthreads cannot be larger than environment variable "NUMEXPR_MAX_THREADS" (64)Reading o_proj weights for Qwen/Qwen1.5-14B-Chat ...
+model: 40 layers, d_model=5120, n_heads=40, head_dim=128
+pool=tokens, contrast=diff: long (40, 512, 5120), single (40, 512, 5120) -> 512 columns per head
+compressing per-head blocks (exact; see compress_head_blocks docstring)
+compressed head blocks: 512 -> 128 columns (actual rank median 128, max 128)
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/svd_head_activations.py", line 489, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/svd_head_activations.py", line 465, in main
+    blocks_single = compress_head_blocks(z_single, o_proj, n_heads, args.compress_energy,
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/svd_head_activations.py", line 191, in compress_head_blocks
+    evals, evecs = torch.linalg.eigh(K)
+torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated eigenvalues (error code: 246751).

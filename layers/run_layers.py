@@ -43,7 +43,7 @@ from layers.layer_determinism import (
 )
 from layers.layer_localize import (
     run_localization, reduce_layer_effects, get_top_k_layers,
-    retrieve_random_k_layers, plot_layer_effects,
+    retrieve_random_k_layers, plot_layer_effects, layer_scores,
 )
 from layers.layer_steering import (
     layer_steering_cache, build_layer_vectors, generate_with_layer_patches,
@@ -92,6 +92,21 @@ def _atomic_torch_save(obj, path):
     os.close(fd)
     try:
         torch.save(obj, tmp)
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
+def _atomic_json_dump(obj, path):
+    """Same atomicity as _atomic_torch_save; the baseline is now shared too."""
+    directory = os.path.dirname(path)
+    os.makedirs(directory, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=directory, suffix='.tmp')
+    os.close(fd)
+    try:
+        with open(tmp, 'w') as f:
+            json.dump(obj, f)
         os.replace(tmp, path)
     finally:
         if os.path.exists(tmp):
@@ -148,6 +163,11 @@ def _load_or_build_steering_cache(config, model, data_handler, is_tuple):
         'n_pairs': int(data_handler.steering_qs_toks['add']['input_ids'].shape[0]),
         'steering_type': config.args.steering_type,
         'model_id': config.args.model_id,
+        # The cache is produced by forward passes, so the attention backend is part
+        # of its provenance: a cache built under math SDPA is not the same tensor as
+        # one built under flash, and reusing one under the other mixes numerics
+        # across cells without any visible symptom.
+        'sdp_backend': config.args.sdp_backend,
     }
 
     if os.path.exists(path):
@@ -166,29 +186,44 @@ def _load_or_build_steering_cache(config, model, data_handler, is_tuple):
 
 
 def _unsteered_outputs(config, data_handler, model):
-    """Baseline generations, cached: they are deterministic and cell-invariant.
+    """Baseline generations, cached and SHARED across cells.
 
-    With left padding, batched generation is batch-size dependent -- the same
-    prompt in a batch of 8 and a batch of 16 can decode differently. The steered
-    and unsteered arms are compared item by item, so a baseline reused from a run
-    with a different batch size would produce a difference that is an artefact of
-    batching rather than of steering. The build conditions gate the reuse.
+    The baseline depends only on the eval set and the generation settings -- not on
+    the localization or the steering vector. Keying it per cell meant regenerating
+    it once per cell: eight times for two distinct eval sets. It now lives beside
+    the steering cache, keyed on what it actually depends on.
+
+    Those keys are load-bearing rather than bookkeeping. With left padding, batched
+    generation is batch-size dependent, and the steered and unsteered arms are
+    compared item by item -- so a baseline reused from a run with a different batch
+    size or gen_mode yields a difference that is an artefact of the settings rather
+    than of steering. A mismatch rebuilds.
     """
-    prefix = config.get_output_prefix().rstrip('/')
-    path = f"{prefix}/eval/unsteered_{config.args.test_dataset}.json"
+    model_name = config.args.model_id.split('/')[-1]
+    root = config.args.results_root.rstrip('/')
     build_key = {
         'batch_size': config.args.batch_size,
         'max_new_tokens': config.args.max_new_tokens,
         'n_items': int(data_handler.LEN),
+        'gen_mode': config.args.gen_mode,
+        'model_id': config.args.model_id,
+        'sdp_backend': config.args.sdp_backend,
     }
+    path = os.path.join(
+        root, model_name, '_baselines',
+        f"{config.args.test_dataset}__b{config.args.batch_size}"
+        f"__t{config.args.max_new_tokens}__{config.args.gen_mode}.json")
 
     if os.path.exists(path):
-        with open(path) as f:
-            blob = json.load(f)
-        if isinstance(blob, dict) and blob.get('build_key') == build_key:
-            return blob['outputs']
-        print(f"[layers] unsteered baseline at {path} does not match this run's "
-              f"conditions ({build_key}) -- regenerating.")
+        try:
+            with open(path) as f:
+                blob = json.load(f)
+            if isinstance(blob, dict) and blob.get('build_key') == build_key:
+                print(f"[layers] reusing unsteered baseline {path}")
+                return blob['outputs']
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"[layers] baseline at {path} unreadable ({type(e).__name__}); "
+                  f"regenerating.")
 
     outputs = []
     batch_handler = BatchHandler(config, data_handler)
@@ -198,16 +233,15 @@ def _unsteered_outputs(config, data_handler, model):
         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
         with model.generate(gen_qs_toks,
                             pad_token_id=model.tokenizer.eos_token_id,
-                            use_cache=True, do_sample=False, top_p=None, top_k=None,
+                            use_cache=(config.args.gen_mode != 'recompute'),
+                            do_sample=False, top_p=None, top_k=None,
                             temperature=None,
                             max_new_tokens=config.args.max_new_tokens) as _:
             op = model.generator.output.save()
         outputs += op.cpu().numpy().tolist()
         batch_handler.update()
 
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w') as f:
-        json.dump({'outputs': outputs, 'build_key': build_key}, f)
+    _atomic_json_dump({'outputs': outputs, 'build_key': build_key}, path)
     return outputs
 
 
@@ -220,15 +254,34 @@ def run_layer_eval(config, data_handler, model_handler, is_tuple):
     os.makedirs(eval_dir, exist_ok=True)
 
     is_random = config.args.patch_algo == 'random'
+    per_layer = config.args.sweep_mode == 'per_layer'
     reps_type = 'random' if is_random else 'targeted'
     logit_metric = 'random' if is_random else 'numerator_1'
     ablation = config.args.ablation
     num_layers = len(get_layers(model))
 
+    if per_layer and is_random:
+        sys.exit(
+            "[layers] --sweep_mode per_layer with --patch_algo random is not meaningful: "
+            "the per-layer sweep already measures every layer, so there is no selection "
+            "left to randomize. The random arm exists to give top-k selection something "
+            "to beat; the per-layer sweep replaces that comparison with a direct one "
+            "between predicted (ATP) and measured effect at each layer.")
+
     effects = None
     if not is_random:
-        effects = reduce_layer_effects(config, force=config.args.force_reduce)
-        plot_layer_effects(config, effects, eval_dir)
+        # In per-layer mode the map is a PREDICTION to be checked against the sweep,
+        # not an input that chooses layers -- so a missing map is a reason to warn,
+        # not to abort. The sweep is the ground truth and stands on its own.
+        try:
+            effects = reduce_layer_effects(config, force=config.args.force_reduce)
+            plot_layer_effects(config, effects, eval_dir)
+        except FileNotFoundError:
+            if not per_layer:
+                raise
+            print("[layers] no attribution map found; running the per-layer sweep "
+                  "without it. The ATP-vs-measured comparison will be unavailable "
+                  "until the localization pass has run.")
 
     cache, spread = _load_or_build_steering_cache(config, model, data_handler, is_tuple)
 
@@ -245,11 +298,19 @@ def run_layer_eval(config, data_handler, model_handler, is_tuple):
             'n_scale': config.args.n_scale,
             'n_vals': config.args.n_vals,
             'alphas': [n * config.args.n_scale for n in config.args.n_vals],
-            'topk_layers': config.args.topk_layers,
+            'sweep_mode': config.args.sweep_mode,
+            # What the third numeric field of each gen filename means. In topk mode
+            # it is a COUNT of layers steered together; in per_layer mode it is a
+            # single layer INDEX. Same filename shape, different meaning -- recorded
+            # here so a directory can be read correctly without guessing.
+            'sweep_axis': 'layer_index' if config.args.sweep_mode == 'per_layer' else 'top_k',
+            'topk_layers': (list(range(len(get_layers(model_handler.model))))
+                            if config.args.sweep_mode == 'per_layer'
+                            else config.args.topk_layers),
             'rank_by': config.args.rank_by,
             'steering_type': config.args.steering_type,
-            'steer_positions': config.args.steer_positions,
-            'kv_caching': bool(config.args.kv_caching),
+            'gen_mode': config.args.gen_mode,
+            'gen_batch_size': config.args.batch_size,
             'resid_norms': None if norms is None else norms.tolist(),
             'pair_spread': spread.tolist(),
             # Content hashes of every input to the sweep. Two runs that agree here
@@ -264,18 +325,40 @@ def run_layer_eval(config, data_handler, model_handler, is_tuple):
 
     original_outputs = _unsteered_outputs(config, data_handler, model)
 
-    for k in tqdm(config.args.topk_layers, desc="Layer counts"):
-        topk_csv = f"{eval_dir}/{logit_metric}_{reps_type}_{k}.csv"
+    # Both modes reduce to the same thing: a list of (label, layers) pairs. The label
+    # is what lands in the gen filename's third numeric field -- a layer count in topk
+    # mode, a layer index in per_layer mode -- so the sweep loop below is shared and
+    # the two modes cannot drift apart.
+    if per_layer:
+        sweep = [(layer, [layer]) for layer in range(num_layers)]
+        sweep_desc = "Layers"
+    else:
+        sweep = [(k, None) for k in config.args.topk_layers]
+        sweep_desc = "Layer counts"
+
+    for label, preselected in tqdm(sweep, desc=sweep_desc):
+        topk_csv = f"{eval_dir}/{logit_metric}_{reps_type}_{label}.csv"
         if os.path.exists(topk_csv):
             topk_df = pd.read_csv(topk_csv)
+        elif preselected is not None:
+            # Per-layer: the layer is given. Carry its attribution score alongside so
+            # the predicted and measured effects sit in one file per layer.
+            score = marginal = float('nan')
+            if effects is not None:
+                mean, marg, _ = layer_scores(effects, config.args.rank_by)
+                score, marginal = float(mean[label]), float(marg[label])
+            topk_df = pd.DataFrame({'layer': [label], 'value': [score],
+                                    'marginal': [marginal], 'rank_score': [score]})
+            topk_df.to_csv(topk_csv, index=False)
         else:
             if is_random:
-                topk_df = retrieve_random_k_layers(num_layers, k, seed=config.args.seed)
+                topk_df = retrieve_random_k_layers(num_layers, label, seed=config.args.seed)
             else:
-                topk_df = get_top_k_layers(effects, k, rank_by=config.args.rank_by)
+                topk_df = get_top_k_layers(effects, label, rank_by=config.args.rank_by)
             topk_df.to_csv(topk_csv, index=False)
         selected = [int(x) for x in topk_df['layer'].tolist()]
-        print(f"[layers] k={k} -> layers {selected}")
+        axis = 'layer' if per_layer else 'k'
+        print(f"[layers] {axis}={label} -> steering layers {selected}")
 
         vectors = build_layer_vectors(
             cache, selected,
@@ -284,16 +367,17 @@ def run_layer_eval(config, data_handler, model_handler, is_tuple):
             steering_type=config.args.steering_type,
             attention_mask=None)
 
-        for N in tqdm(config.args.n_vals, desc=f"N sweep (k={k})", leave=False):
-            gen_txt = (f"{eval_dir}/{N}_{reps_type}_{ablation}_{k}_"
+        for N in tqdm(config.args.n_vals, desc=f"N sweep ({axis}={label})", leave=False):
+            gen_txt = (f"{eval_dir}/{N}_{reps_type}_{ablation}_{label}_"
                        f"{config.args.test_dataset}_gen.txt")
             gen_json = gen_txt.replace('.txt', '.json')
             if os.path.exists(gen_txt) and os.path.exists(gen_json):
-                print(f"[layers] skipping k={k} N={N}; gen files present.")
+                print(f"[layers] skipping {axis}={label} N={N}; gen files present.")
                 continue
 
             alpha = N * config.args.n_scale
-            print(f"[layers] steer k={k} N={N} alpha={alpha:g} scale={config.args.steering_scale} "
+            print(f"[layers] steer {axis}={label} N={N} alpha={alpha:g} "
+                  f"scale={config.args.steering_scale} "
                   f"eval={config.args.test_dataset} "
                   f"loc=from_{config.args.source}_to_{config.args.base}")
 
@@ -307,8 +391,7 @@ def run_layer_eval(config, data_handler, model_handler, is_tuple):
                     model, gen_qs_toks, vectors, alpha, is_tuple,
                     ablation=ablation,
                     max_new_tokens=config.args.max_new_tokens,
-                    kv_caching=config.args.kv_caching,
-                    steer_positions=config.args.steer_positions)
+                    gen_mode=config.args.gen_mode)
                 decoded_all += decode_responses(
                     model, gen_qs_toks,
                     original_outputs[idx:idx + config.args.batch_size],
@@ -356,8 +439,21 @@ def main():
         plot_layer_effects(config, effects, f"{loc_dir}/eval")
 
     if config.args.eval_model:
-        config.args.batch_size = max(
-            x for x in range(16, 0, -1) if data_handler.LEN % x != 1)
+        # The original guard avoids a trailing batch of exactly 1, which the
+        # padding path handles badly. A user-supplied size is respected unless it
+        # would produce that remainder.
+        auto = max(x for x in range(16, 0, -1) if data_handler.LEN % x != 1)
+        requested = config.args.gen_batch_size
+        if requested is None:
+            config.args.batch_size = auto
+        elif data_handler.LEN % requested == 1:
+            print(f"[layers] --gen_batch_size {requested} leaves a trailing batch of 1 "
+                  f"for {data_handler.LEN} items; using {auto} instead.")
+            config.args.batch_size = auto
+        else:
+            config.args.batch_size = requested
+        print(f"[layers] generation batch size {config.args.batch_size}, "
+              f"gen_mode={config.args.gen_mode}")
         if not config.args.steering:
             sys.exit("[layers] --eval_model requires --steering for the layer pipeline.")
         run_layer_eval(config, data_handler, model_handler, is_tuple)

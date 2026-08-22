@@ -25,6 +25,13 @@ set -eu
 export VLLM_USE_FLASHINFER_SAMPLER=0
 export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:${LD_LIBRARY_PATH:-}"
 export TOKENIZERS_PARALLELISM=false
+
+# Determinism. PYTHONHASHSEED and CUBLAS_WORKSPACE_CONFIG must be exported here:
+# the first is read by the interpreter at startup, the second before the first
+# CUDA context, so neither can be set from inside build_extraversion_dataset.py.
+export SEED=42
+export PYTHONHASHSEED=42
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
 # export HF_TOKEN=...   # only if a gated model is selected (defaults are ungated)
 

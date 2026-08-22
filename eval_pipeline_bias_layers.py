@@ -58,8 +58,8 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (female -> male) -------------------------------
-MODEL_ID = "Qwen1.5-14B-Chat"
-METHOD   = "atp"
+MODEL_ID = "Qwen1.5-32B-Chat"
+METHOD   = "atp-per-layer"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
 LOCALIZATIONS = [
@@ -71,8 +71,10 @@ EVAL_SUB_DIRS  = ["female-long_eval",  "female-single_eval"]
 STEER_SUB_DIRS = ["female-long_steer", "female-single_steer"]
  
 # --- sweep grid (must match what was actually generated) ---------------------
-NS           = [1, 2, 4, 5, 6, 8, 10]
-TOP_KS       = [1, 2, 3, 5, 7, 9, 10]
+# NS           = [1, 2, 4, 5, 6, 8, 10]
+NS =           [2, 5, 8, 10]
+TOP_KS =       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+# TOP_KS       = [1, 2, 3, 5, 7, 9, 10]
 STEER_METHOD = "steer"          # 'steer' or 'mean'; part of the gen filename
  
 # --- judge thresholds --------------------------------------------------------
