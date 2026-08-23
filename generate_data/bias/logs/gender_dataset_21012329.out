@@ -1,0 +1,14 @@
+[slurm] job 21012329 on node4010 restart=0 Sun Aug 23 01:26:38 EDT 2026
+[load] 1648 professions from professions.json
+[ckpt] 1648 professions already complete
+[gen] nothing to generate; all professions cached.
+[ckpt] 1648 professions already complete
+[verify] kept 676/1648 (male=599, female=77); discarded 972
+[ckpt] 1648 professions already complete
+[build] 73 length-matched pairs (unpaired: 526 male, 4 female)
+[build] 526 unpaired male roles kept for the test files (ids 73..598)
+[build] wrote 8 files (73 rows each) + gender_pairs.json -> output/Falcon3-10B-Instruct
+[build] wrote 4 steering files (73 rows each) -> output/Falcon3-10B-Instruct
+[build] wrote 2 test files (526 rows each: 0 paired-remainder + 526 unpaired) -> output/Falcon3-10B-Instruct
+[done] stages complete: generate,verify,build
+[slurm] python exited rc=0 Sun Aug 23 01:26:48 EDT 2026

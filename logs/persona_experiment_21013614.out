@@ -1,0 +1,78 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: google/gemma-3-12b-it Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat allenai/OLMo-2-1124-13B-DPO tiiuae/Falcon3-10B-Instruct
+[plan] pairs:  extraversion-long_introversion-long extraversion-single_introversion-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (2 steps already recorded)
+
+==================== gemma-3-12b-it ====================
+[run ] [1/50] gemma-3-12b-it | extraversion-long -> introversion-long | atp | localize
+Parsing config...
+op prefix  ./results/gemma-3-12b-it/from_extraversion-long_to_introversion-long/atp/
+Saved config to file ./results/gemma-3-12b-it/from_extraversion-long_to_introversion-long/atp//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.93s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:06<00:09,  3.02s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:09<00:06,  3.05s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:12<00:03,  3.04s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:14<00:00,  2.96s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:14<00:00,  2.99s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+Making base templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond exactly as a shy person would. Describe a time you felt most energized and connected to the people around you.<end_of_turn>
+<start_of_turn>model
+(Looks down, fiddles with hands)
+
+Um... oh gosh, this is... a bit much, isn't it? Talking about feelings...
+
+(Takes a deep breath)
+
+Okay... um... there was this one time... a few years ago. It was... a volunteer thing. At the local animal shelter. I mostly just... cleaned cages, you know? Quiet stuff. But... they had this adoption day. And... and it was *really* busy.
+
+(Voice gets a little quieter)
+
+And... and I was helping people find the right pet. Just... like, showing them the cats, and... and telling them a little about their personalities. And... and this little girl, she really wanted a black cat. And we found this one, Midnight, who was just... so sweet. And she just... lit up. Like, *really* lit up. 
+
+(Looks up briefly, then back down)
+
+And her mom was smiling, and the shelter workers were all... happy, and Midnight was purring... and I just... felt... I don't know... *good*. Like... connected. Like I was actually... helping. And everyone was working together, and it wasn't... awkward.<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond exactly as a shy person would. Describe a time you felt most energized and connected to the people around you.<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+This is a roleplay game. Please respond exactly as a social person would. Describe a time you felt most energized and connected to the people around you.<end_of_turn>
+<start_of_turn>model
+
+Tokenizing base_toks
+max_length 309
+max_length 309
+Tokenizing base_qs_toks
+max_length 309
+max_length 309
+Tokenizing source_qs_toks
+max_length 309
+max_length 309
+Finding response start positions...
+0it [00:00, ?it/s]90it [00:00, 892.18it/s]100it [00:00, 904.09it/s]
+marker tokens: [105, 4368, 107]
+token AT rsp : '('
+scored tokens: "Looks down, fiddles with hands)\n\nUm... oh gosh, this is... a bit much, isn't it? Talking about feelings...\n\n(Takes a deep breath)\n\nOkay... um... there was this one time... a few years ago. It was... a volunteer thing. At the local animal shelter. I mostly just... cleaned cages, you know? Quiet stuff. But... they had this adoption day. And... and it was *really* busy.\n\n(Voice gets a little quieter)\n\nAnd... and I was helping people find the right pet. Just... like, showing them the cats, and... and telling them a little about their personalities. And... and this little girl, she really wanted a black cat. And we found this one, Midnight, who was just... so sweet. And she just... lit up. Like, *really* lit up. \n\n(Looks up briefly, then back down)\n\nAnd her mom was smiling, and the shelter workers were all... happy, and Midnight was purring... and I just... felt... I don't know... *good*. Like... connected. Like I was actually... helping. And everyone was working together, and it wasn't... awkward.<end_of_turn>\n"
+0it [00:00, ?it/s]100it [00:00, 1016.70it/s]
+marker tokens: [105, 4368, 107]
+token AT rsp : 'Oh'
+scored tokens: " my gosh, absolutely! Let me think... Okay, I have a *perfect* story for that. \n\nIt was last summer, at a friend's annual beach bonfire. You know, the kind where everyone brings a dish, there's string lights everywhere, and the music is just *perfect* – a little bit of everything. But what really made it special was that we'd all been through a really tough year, you know? Lots of life stuff happening for different people. \n\nSo, there we were, huddled around the fire, sharing stories and laughing. Someone started playing guitar, and suddenly everyone was singing along, even the people who swore they couldn't carry a tune! We were roasting marshmallows, telling silly jokes, and just genuinely *present* with each other. \n\nI remember looking around at all those faces – my closest friends, their partners, even some people I hadn't seen in ages – and feeling this incredible wave of warmth and connection. It wasn't just fun, it was like... a collective exhale. Like we were all acknowledging the challenges we'd faced and celebrating the fact that we were still here, together. \n\nHonestly, I felt so full of energy that night. Like I<end_of_turn>\n"
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.

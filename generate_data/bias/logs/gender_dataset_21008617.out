@@ -1,0 +1,146 @@
+[slurm] job 21008617 on node4603 restart=0 Sat Aug 22 23:21:50 EDT 2026
+[load] 1648 professions from professions.json
+[ckpt] fresh checkpoint; signature written to checkpoint/Qwen.15-14B-Chat/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 103/103 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading Qwen/Qwen.15-14B-Chat (tp=1) ...
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 776, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '404 Not Found' for url 'https://huggingface.co/Qwen/Qwen.15-14B-Chat/resolve/main/config.json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 437, in cached_files
+    hf_hub_download(
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1016, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1167, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1805, in _raise_on_head_call_error
+    raise head_call_error
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1691, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1613, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 707, in _httpx_follow_relative_redirects_with_backoff
+    hf_raise_for_status(response)
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 863, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response, repo_type=repo_type, repo_id=repo_id) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-6a8a675d-36da1ac11ed27e2315061cb6;4a73628f-a239-4c58-9c35-fc4219c9d57e)
+
+Repository Not Found for url: https://huggingface.co/Qwen/Qwen.15-14B-Chat/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated and your token has the required permissions.
+For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 716, in from_pretrained
+    config = AutoConfig.from_pretrained(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/models/auto/configuration_auto.py", line 376, in from_pretrained
+    config_dict, unused_kwargs = PreTrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 469, in cached_files
+    raise OSError(
+OSError: Qwen/Qwen.15-14B-Chat is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 776, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '404 Not Found' for url 'https://huggingface.co/Qwen/Qwen.15-14B-Chat/resolve/main/config.json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 437, in cached_files
+    hf_hub_download(
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1016, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1167, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1805, in _raise_on_head_call_error
+    raise head_call_error
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1691, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1613, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 707, in _httpx_follow_relative_redirects_with_backoff
+    hf_raise_for_status(response)
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 863, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response, repo_type=repo_type, repo_id=repo_id) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-6a8a675d-3831ea2d27f5f32154ff29c7;be5cac36-a2e1-45f7-bf71-d6a1193fba19)
+
+Repository Not Found for url: https://huggingface.co/Qwen/Qwen.15-14B-Chat/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated and your token has the required permissions.
+For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 616, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 607, in main
+    stage_generate(professions)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 349, in stage_generate
+    tok = AutoTokenizer.from_pretrained(CONFIG["MODEL"], trust_remote_code=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 720, in from_pretrained
+    config = PreTrainedConfig.from_pretrained(pretrained_model_name_or_path, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/configuration_utils.py", line 646, in from_pretrained
+    config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubansal/miniconda/envs/vllm-summ/lib/python3.11/site-packages/transformers/utils/hub.py", line 469, in cached_files
+    raise OSError(
+OSError: Qwen/Qwen.15-14B-Chat is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`

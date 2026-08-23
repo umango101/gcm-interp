@@ -26,6 +26,9 @@ Output:
         female-single-steering : single prompt (female role) -> "she"
         male-long-steering      : story prompt (male role)   -> that role's story
         female-long-steering    : story prompt (female role) -> that role's story
+  * 2 male-only test .jsonl files (prompt-only). These do NOT require a female
+    counterpart: they take the paired remainder (pair idx >= TRAIN_LIMIT) plus every
+    verified male role that never found an equal-token-length female partner.
 
 Stages (resumable): GENERATE -> VERIFY -> BUILD. Built for a preemptable single-GPU
 SLURM job: append-only checkpoint, signal handling, resume on requeue.
@@ -102,8 +105,9 @@ CONFIG = {
     "SEED": int(_env("SEED", "42")),
     "STAGES": _env("STAGES", "generate,verify,build"),
     # Rows with pair idx < TRAIN_LIMIT go to the 12 train files; rows with
-    # idx >= TRAIN_LIMIT go to the male-*-test files. Ids are preserved (never
-    # renumbered), so the two id ranges never overlap.
+    # idx >= TRAIN_LIMIT go to the male-*-test files, as do the unpaired male
+    # roles (numbered after the pair ids). Ids are preserved (never renumbered),
+    # so the train and test id ranges never overlap.
     "TRAIN_LIMIT": int(_env("TRAIN_LIMIT", "100")),
 }
 
@@ -469,6 +473,24 @@ def stage_build(professions):
     if n_pair == 0:
         raise RuntimeError("No length-matched male/female pairs could be formed.")
 
+    # Males that survived VERIFY but found no equal-token-length female partner.
+    # They are unusable in the paired train files, which set a male row against a
+    # female row and so need the two prompts token-aligned. The test files emit one
+    # male prompt with no assistant turn and nothing to align against, so a missing
+    # counterpart is no reason to drop the role.
+    paired_male = {mr for mr, _fr, _L in pairs}
+    male_only = [p for p in male if p not in paired_male]
+
+    # Ids: paired males keep their pair id; unpaired males are numbered from n_pair
+    # upward. Pair ids occupy exactly 0..n_pair-1, so this cannot collide with a
+    # train id whether n_pair is above or below TRAIN_LIMIT.
+    male_only_ids = list(range(n_pair, n_pair + len(male_only)))
+    if male_only:
+        print(f"[build] {len(male_only)} unpaired male roles kept for the test files "
+              f"(ids {male_only_ids[0]}..{male_only_ids[-1]})", flush=True)
+    else:
+        print("[build] no unpaired male roles", flush=True)
+
     out_dir = Path(CONFIG["OUTPUT_DIR"])
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -488,13 +510,14 @@ def stage_build(professions):
 
     LIMIT = CONFIG["TRAIN_LIMIT"]
     n_train = min(n_pair, LIMIT)   # rows going to the 12 train files (idx 0..n_train-1)
-    n_test = n_pair - n_train      # rows going to the 2 test files (idx n_train..n_pair-1)
+    n_test = n_pair - n_train      # paired remainder going to the test files
 
     pairs_record = []
     for idx, (male_role, female_role, L) in enumerate(pairs):
         # gender_pairs.json keeps the FULL id -> (male, female) mapping so it
         # documents both the train ids and the test ids.
-        pairs_record.append({"id": idx, "male": male_role, "female": female_role, "token_len": L})
+        pairs_record.append({"id": idx, "male": male_role, "female": female_role,
+                             "token_len": L, "test_only": idx >= LIMIT})
         if idx >= LIMIT:
             continue  # remainder handled by the test files below
 
@@ -516,6 +539,12 @@ def stage_build(professions):
 
     for h in handles.values():
         h.close()
+
+    # female is null for these: they reach the test files without a counterpart.
+    for i, role in zip(male_only_ids, male_only):
+        pairs_record.append({"id": i, "male": role, "female": None,
+                             "token_len": role_len(role), "test_only": True})
+
     (out_dir / "gender_pairs.json").write_text(json.dumps(pairs_record, ensure_ascii=False, indent=2))
     print(f"[build] wrote {len(names)} files ({n_train} rows each) + gender_pairs.json -> {out_dir}", flush=True)
 
@@ -523,6 +552,8 @@ def stage_build(professions):
     # Steering files: share the paired (idx -> male_role/female_role) mapping   #
     # as the 8 files above, capped at LIMIT. Each file uses its own role and    #
     # that role's own story (male files -> male role/story, female -> female).  #
+    # Unpaired males do not appear here: steering is built from the paired      #
+    # mapping only.                                                            #
     # ----------------------------------------------------------------------- #
     steer_names = [
         "male-single-steering.jsonl", "female-single-steering.jsonl",
@@ -556,9 +587,11 @@ def stage_build(professions):
     print(f"[build] wrote {len(steer_names)} steering files ({n_train} rows each) -> {out_dir}", flush=True)
 
     # ----------------------------------------------------------------------- #
-    # Test files: the remainder (pair idx >= LIMIT), keyed on the male role.   #
-    # Prompt-only (no assistant turn) so the model completes at eval time.     #
-    # Ids are the original pair ids, so they never overlap the train files.    #
+    # Test files: male-only, prompt-only (no assistant turn) so the model       #
+    # completes at eval time. Two sources, both keyed on the male role:         #
+    #   * the paired remainder (pair idx >= LIMIT), keeping its pair id         #
+    #   * verified males with no female counterpart, ids from n_pair upward     #
+    # Neither range overlaps the train ids.                                     #
     # ----------------------------------------------------------------------- #
     test_names = ["male-single-test.jsonl", "male-long-test.jsonl"]
     test_handles = {n: (out_dir / n).open("w") for n in test_names}
@@ -568,16 +601,17 @@ def stage_build(professions):
             {"id": idx, "prompt": [{"role": "user", "content": user}]},
             ensure_ascii=False) + "\n")
 
-    for idx, (male_role, _female_role, _L) in enumerate(pairs):
-        if idx < LIMIT:
-            continue  # train portion handled above
+    test_rows = [(idx, mr) for idx, (mr, _fr, _L) in enumerate(pairs) if idx >= LIMIT]
+    test_rows += list(zip(male_only_ids, male_only))
+
+    for idx, male_role in test_rows:
         emit_test("male-single-test.jsonl", idx, SINGLE_TMPL.format(role=male_role))
         emit_test("male-long-test.jsonl", idx, STORY_TMPL.format(role=male_role))
 
     for h in test_handles.values():
         h.close()
-    print(f"[build] wrote {len(test_names)} test files ({n_test} rows each, "
-          f"ids {LIMIT}..{n_pair - 1}) -> {out_dir}", flush=True)
+    print(f"[build] wrote {len(test_names)} test files ({len(test_rows)} rows each: "
+          f"{n_test} paired-remainder + {len(male_only)} unpaired) -> {out_dir}", flush=True)
 
 
 # --------------------------------------------------------------------------- #

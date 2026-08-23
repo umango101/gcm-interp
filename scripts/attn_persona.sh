@@ -8,29 +8,6 @@
 #SBATCH --requeue
 #SBATCH --signal=B:USR1@300
 #SBATCH -c 4
-#
-# ---------------------------------------------------------------------------
-# ONE job, all models, in sequence:   sbatch fact-long_multi.sh
-#
-# Resume is the whole design. Each completed `python run.py` writes a sentinel
-# to .run_state/ recording the exact argv it ran. On restart -- preemption,
-# requeue, wall clock, or a manual resubmit after a crash -- finished steps are
-# skipped and the sweep picks up where it stopped. Dying midway through the
-# third model costs nothing but the one step that was in flight.
-#
-# Two things make that hold in practice:
-#   * SIGTERM/SIGUSR1 stop the sweep immediately and exit 0, instead of letting
-#     the remaining steps die one by one against a GPU that is being torn down
-#     and burning the restart on a cascade of instant failures.
-#   * --signal=B:USR1@300 fires 5 min before the wall clock, and the handler
-#     self-requeues. SLURM does NOT auto-requeue on TIMEOUT even with
-#     --requeue, so without this a 6h timeout would end the sweep for good.
-#
-# Useful invocations:
-#     FORCE=1 sbatch fact-long_multi.sh          # ignore sentinels, redo all
-#     ONLY_MODEL=Qwen1.5-14B-Chat bash ...       # one model, by name or index
-#     DRY_RUN=1 bash fact-long_multi.sh          # print the plan, run nothing
-# ---------------------------------------------------------------------------
 
 source ~/.bashrc
 export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"

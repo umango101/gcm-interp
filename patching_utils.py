@@ -31,7 +31,7 @@ class PatchingUtils:
             log_probs = F.log_softmax(logits, dim=-1)
             toks = {'input_ids': toks['input_ids'], 'attention_mask': toks['attention_mask']}
             log_likelihoods = torch.stack([
-                log_probs[i, response_start_position:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
+                log_probs[i, response_start_position-1:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
                 for i, response_start_position in enumerate(resp_start_positions)
             ])
         else:
@@ -39,7 +39,7 @@ class PatchingUtils:
             log_probs = F.log_softmax(logits, dim=-1).detach().cpu()
             toks = {'input_ids': toks['input_ids'].detach().cpu(), 'attention_mask': toks['attention_mask'].detach().cpu()}
             log_likelihoods = torch.stack([
-                log_probs[i, response_start_position:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
+                log_probs[i, response_start_position-1:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
                 for i, response_start_position in enumerate(resp_start_positions)
             ]).detach().cpu()
         toks = {'input_ids': toks['input_ids'].to(self.model_handler.device), 'attention_mask': toks['attention_mask'].to(self.model_handler.device)}
