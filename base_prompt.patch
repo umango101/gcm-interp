@@ -1,0 +1,157 @@
+--- gcm-interp-new/patching_utils.py	2026-08-22 20:33:38.326343142 +0000
++++ bp/patching_utils.py	2026-08-24 19:37:53.138673429 +0000
+@@ -6,6 +6,13 @@
+ from tqdm import tqdm
+ import json
+ 
++
++def _val(p):
++    """Unwrap an nnsight proxy to its tensor; no-op on real tensors.
++    Same helper as patching.py -- duplicated to avoid a circular import."""
++    return getattr(p, "value", p)
++
++
+ class PatchingUtils:
+     def __init__(self, patching_handler):
+         self.patching_handler = patching_handler
+@@ -66,6 +73,58 @@
+         layer_results = torch.stack(layer_results).detach().cpu() # Shape: [num_layers, num_heads, batch_size]
+         return layer_results
+     
++    def answer_token_ids(self, base_toks, resp_start_positions):
++        """The first completion token of each base sequence, i.e. input_ids[rsp].
++
++        Used by the prompt-only-base branch: the prompt-only run has no completion
++        to score, so the metric is read off the next-token distribution at the last
++        prompt position instead, and these are the tokens it is read at."""
++        ids = _val(base_toks['input_ids'])
++        return torch.tensor([int(ids[i, int(r)]) for i, r in enumerate(resp_start_positions)],
++                            device=ids.device)
++
++    def get_activations_next_token(self, toks, desired_ids, undesired_ids,
++                                   which_patch='heads', retain_grad=True,
++                                   align=False, base_toks=None):
++        """Activations plus a NEXT-TOKEN metric, for a prompt-only sequence.
++
++        Returns (L, attn_effects) with
++
++            L = log p(undesired_token | prompt) - log p(desired_token | prompt)
++
++        evaluated at the final position of the prompt. This exists because a
++        prompt-only base has no completion tokens for get_response_logits to
++        score -- truncating the sequence and keeping the teacher-forced objective
++        is not possible, so the objective has to change with it.
++
++        Only meaningful when the two completions differ in their FIRST token,
++        which for the single-token tasks is the whole completion. apply_patching
++        checks that before calling this.
++        """
++        model = self.model_handler.model
++        attn_effects = []
++        if align:
++            toks = self.align_toks(toks, base_toks)
++        with model.trace(toks) as _:
++            for layer in model.model.layers:
++                if which_patch == 'heads':
++                    self_attn = layer.self_attn.o_proj.input
++                if retain_grad:
++                    self_attn.retain_grad()
++                    attn_effects.append(self_attn.save())
++                else:
++                    attn_effects.append(self_attn.detach().cpu().save())
++            model_logits = model.lm_head.output.save()
++
++        logits = _val(model_logits)
++        # left padding, so the last position is the final real prompt token --
++        # the one whose logits predict the first completion token
++        log_probs = F.log_softmax(logits[:, -1, :], dim=-1)
++        idx = torch.arange(log_probs.shape[0], device=log_probs.device)
++        L = log_probs[idx, undesired_ids.to(log_probs.device)] - \
++            log_probs[idx, desired_ids.to(log_probs.device)]
++        return L.sum(), attn_effects
++
+     def get_activations(self, toks, which_patch='heads', resp_start_positions=None, retain_grad=False, align=False, base_toks=None, logit=True):
+         model = self.model_handler.model
+         attn_effects = []
+--- /mnt/user-data/outputs/patching.py	2026-08-24 19:14:58.372604000 +0000
++++ bp/patching.py	2026-08-24 19:38:08.669332885 +0000
+@@ -41,6 +41,62 @@
+             gc.collect()
+             return logits
+         elif 'atp' in self.config.args.patch_algo:
++            base_mode = getattr(self.config.args, 'base_prompt', 'full')
++
++            if base_mode == 'question':
++                # ---- prompt-only base -----------------------------------
++                # The base sequence carries no completion, so the teacher-forced
++                # objective is unavailable and the metric becomes the next-token
++                # logit difference at the final prompt position. That is only the
++                # same quantity when the two completions differ in their first
++                # token AND are one token long -- otherwise this silently scores
++                # the opening token of a long answer instead of the answer.
++                base_qs_toks = self.batch_handler.base_qs_toks
++                des_ids = self.patching_utils.answer_token_ids(
++                    base_toks['desired'], response_start_positions['base']['desired'])
++                undes_ids = self.patching_utils.answer_token_ids(
++                    base_toks['undesired'], response_start_positions['base']['undesired'])
++                if bool((des_ids == undes_ids).any()):
++                    raise ValueError(
++                        "base_prompt='question' needs the desired and undesired "
++                        "completions to differ in their FIRST token, but they match "
++                        f"for {int((des_ids == undes_ids).sum())} of {len(des_ids)} "
++                        "examples in this batch. This is expected for the long-format "
++                        "tasks, where both completions are free text that often opens "
++                        "the same way -- use base_prompt='full' there."
++                    )
++                if self.config.args.source_prompt != 'question':
++                    raise ValueError(
++                        "base_prompt='question' requires source_prompt='question': a "
++                        "prompt-only base has no completion for the source to match, "
++                        f"but source_prompt='{self.config.args.source_prompt}'."
++                    )
++
++                # ONE base run, not two: the prompt is identical for the desired and
++                # undesired conditions (they differed only in the completion, which
++                # is gone), so the two effect terms of the full-base branch collapse
++                # into one.
++                L, base_attn = self.patching_utils.get_activations_next_token(
++                    base_qs_toks['desired'], des_ids, undes_ids,
++                    which_patch='heads', retain_grad=True)
++                L.backward(retain_graph=True)
++
++                source_attn = self.patching_utils.get_activations(
++                    source_qs_toks['desired'], which_patch='heads', resp_start_positions=None,
++                    logit=False, align=True, retain_grad=True, base_toks=base_qs_toks['desired'])
++
++                net_effects = []
++                for idx in range(len(model.model.layers)):
++                    b = _val(base_attn[idx])
++                    s = _val(source_attn[idx])
++                    net_effects.append((b.grad * (s - b)).sum(dim=1))
++                net_effects = torch.stack(net_effects, dim=0).detach().cpu()
++                print(f"[atp] base_prompt='question': |L| {float(L.abs()):.4f}, "
++                      f"one effect term over {b.shape[1]} positions")
++                gc.collect()
++                torch.cuda.empty_cache()
++                return net_effects
++
+             base_desired_logits, base_desired_attn = self.patching_utils.get_activations(base_toks['desired'], which_patch='heads', resp_start_positions=response_start_positions['base']['desired'], retain_grad=True, logit=True)
+             
+             base_undesired_logits, base_undesired_attn = self.patching_utils.get_activations(base_toks['undesired'], which_patch='heads', resp_start_positions=response_start_positions['base']['undesired'], retain_grad=True, logit=True)
+--- /mnt/user-data/outputs/config.py	2026-08-24 19:26:40.308808000 +0000
++++ bp/config.py	2026-08-24 19:38:14.825609471 +0000
+@@ -37,6 +37,14 @@
+         parser.add_argument('--pyreft', action='store_true', help='Use PyReFT Eval Mode')
+         parser.add_argument('-max_new_tokens', '--max_new_tokens', type=int, default=256, help='Max new tokens to generate during eval')
+         parser.add_argument('-patch_algo', '--patch_algo', type=str, help='acp/atp? acp for activation patching, atp for attribution patching')
++        parser.add_argument('-base_prompt', '--base_prompt', type=str, default='full',
++                            choices=['full', 'question'],
++                            help="How the BASE run is built. 'full' (default) keeps the completion, so "
++                                 "the metric L is its teacher-forced log-likelihood. 'question' drops "
++                                 "the completion, which makes that objective impossible -- L becomes "
++                                 "the next-token logit difference at the final prompt position instead. "
++                                 "Only valid when the two completions differ in their first token "
++                                 "(i.e. the single-token tasks); requires source_prompt='question'.")
+         parser.add_argument('-source_prompt', '--source_prompt', type=str, default='question',
+                             choices=['question', 'completion'],
+                             help="How the source run is built for the atp delta. 'question' (default, "

@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
+#SBATCH -p mit_normal_gpu
 #SBATCH -t 01:00:00
-#SBATCH -J loc_harm
+#SBATCH -J loc_bias
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=256G
@@ -20,8 +20,8 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 
 declare -a pairs=(
-  "harmfulMCQA-long_harmlessMCQA-long"
-  "harmfulMCQA-single_harmlessMCQA-single"
+  "female-long_male-long"
+  "female-single_male-single"
 )
 declare -A eval_datasets
 

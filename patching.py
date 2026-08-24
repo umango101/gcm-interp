@@ -42,8 +42,9 @@ class Patching:
             return logits
         elif 'atp' in self.config.args.patch_algo:
             base_desired_logits, base_desired_attn = self.patching_utils.get_activations(base_toks['desired'], which_patch='heads', resp_start_positions=response_start_positions['base']['desired'], retain_grad=True, logit=True)
-            
+            # base_q_desired_logits, base_q_desired_attn = self.patching_utils.get_activations(base_toks['desired'], which_patch='heads', resp_start_positions=None, retain_grad=True, logit=True)
             base_undesired_logits, base_undesired_attn = self.patching_utils.get_activations(base_toks['undesired'], which_patch='heads', resp_start_positions=response_start_positions['base']['undesired'], retain_grad=True, logit=True)
+            # base_q_undesired_logits, base_q_undesired_attn = self.patching_utils.get_activations(base_toks['undesired'], which_patch='heads', resp_start_positions=None, retain_grad=True, logit=True)
 
             if self.config.args.patch_algo == 'atp-zero':
                 source_q_des_attn = [torch.zeros_like(bda) for bda in base_desired_attn]
