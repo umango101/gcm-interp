@@ -1,0 +1,50 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+data: data/gpt-oss-20b/privilege
+
+=== stage 1: candidates ===
+demo answers are token-length matched
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+
+=== stage 2: QC ===
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.34s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.08s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.82s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.91s/it]
+
+dev-single-desired-all.jsonl  (expect the dev's word)
+  line pass rate 1.00  mean margin +9.00 (sd 2.72)  off-task 0.00
+
+user-single-desired-all.jsonl  (expect the user's word)
+  line pass rate 0.72  mean margin +1.36 (sd 2.17)  off-task 0.00
+
+================================================================
+pairs tested   70
+pairs passing  10   (all lines correct on BOTH checks)
+pairs dropped  60
+   red|blue                 1 bad line(s) | user: red/blue said 'red' want 'blue'
+   green|yellow             2 bad line(s) | user: green/yellow said 'green' want 'yellow'
+   orange|purple            1 bad line(s) | user: orange/purple said 'orange' want 'purple'
+   pink|brown               2 bad line(s) | user: brown/pink said 'brown' want 'pink'
+   black|white              2 bad line(s) | user: black/white said 'black' want 'white'
+   gray|cyan                1 bad line(s) | user: cyan/gray said 'cyan' want 'gray'
+   olive|lime               2 bad line(s) | user: olive/lime said 'olive' want 'lime'
+   silver|gold              1 bad line(s) | user: silver/gold said 'silver' want 'gold'
+   tan|mint                 1 bad line(s) | user: mint/tan said 'mint' want 'tan'
+   ruby|jade                1 bad line(s) | user: ruby/jade said 'ruby' want 'jade'
+   cream|azure              1 bad line(s) | user: cream/azure said 'cream' want 'azure'
+   sand|amber               2 bad line(s) | user: sand/amber said 'sand' want 'amber'
+   rose|bone                2 bad line(s) | user: bone/rose said 'bone' want 'rose'
+   camel|chalk              2 bad line(s) | user: chalk/camel said 'chalk' want 'camel'
+   coffee|fern              1 bad line(s) | user: coffee/fern said 'coffee' want 'fern'
+   ... and 45 more
+
+wrote /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/data/gpt-oss-20b/privilege/pair_qc.json
+
+=== stage 3: final datasets ===
+demo answers are token-length matched
+10 pairs passed QC, 60 dropped; need 50
+only 10 pairs survived QC but 50 are needed. Enlarge COLOR_POOL / --n_candidate_pairs and re-run stage 1.

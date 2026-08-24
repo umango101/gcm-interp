@@ -1,0 +1,17 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+data: data/gpt-oss-20b/privilege
+
+=== stage 1: candidates ===
+demo answers are token-length matched
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+
+=== stage 2: QC ===
+usage: qc_privilege_datasets.py [-h] --mode {candidates,final}
+                                [--out_dir OUT_DIR] [--tokenizer TOKENIZER]
+                                [--qc QC]
+                                [--n_candidate_pairs N_CANDIDATE_PAIRS]
+                                [--n_loc N_LOC] [--n_test N_TEST]
+qc_privilege_datasets.py: error: the following arguments are required: --mode

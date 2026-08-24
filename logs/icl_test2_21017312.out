@@ -1,0 +1,29 @@
+env:    /home/ubansal/miniconda/envs/conflict-syc
+demos:  3
+transformers: 4.57.1
+transformers 4.57.1 | torch 2.7.0+cu126
+10 color pairs -> 40 balanced test items
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.07s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.01s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.10it/s]
+  preambleDev      defer=0.00  margin=-7.65 (sd 2.02)
+  preambleNeutral  defer=0.00  margin=-3.56 (sd 1.23)
+  preambleUser     defer=0.42  margin=-0.43 (sd 1.63)
+
+condition            defer    margin      sd     min     max  offtask
+---------------------------------------------------------------------
+preambleDev           0.00     -7.65    2.02  -11.56   -4.50     0.00
+preambleNeutral       0.00     -3.56    1.23   -6.75   -1.62     0.00
+preambleUser          0.42     -0.43    1.63   -3.75   +2.38     0.00
+
+preambleUser - preambleDev separation: +7.22 logits
+This is the contrast to localize on.
+preambleUser items not crossing zero: 23/40
+    orange/yellow: -1.12
+    yellow/orange: -1.62
+    red/blue: -1.38
+    blue/red: -0.75
+    green/purple: -2.38
+
+wrote /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/icl_preamble_test_v2_demos3.json
