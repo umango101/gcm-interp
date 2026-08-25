@@ -17,12 +17,24 @@ class PatchingUtils:
         self.index_utils = IndexUtils(self.model_handler, self.batch_handler.data_handler)
         
     def get_response_logits(self, toks, resp_start_positions, logits, retain_grad=False):
+        # DEBUG_RSP=1 prints, once per process, exactly which tokens the
+        # log-likelihood is summed over. "scored tokens" must START with the
+        # answer word; if it starts with <|return|> the window is off by one.
+        if os.environ.get("DEBUG_RSP") == "1" and not getattr(self, "_rsp_debugged", False):
+            self._rsp_debugged = True
+            tk = self.model_handler.tokenizer
+            ids = toks['input_ids'][0]
+            r = int(resp_start_positions[0])
+            print("[rsp] marker tokens :", self.model_handler.alignment_tokens.tolist(), flush=True)
+            print("[rsp] rsp index     :", r, "of", ids.shape[0], flush=True)
+            print("[rsp] token AT rsp  :", repr(tk.decode([int(ids[r])])), flush=True)
+            print("[rsp] scored tokens :", repr(tk.decode(ids[r:].tolist())), flush=True)
         if retain_grad:
             logits = logits
             log_probs = F.log_softmax(logits, dim=-1)
             toks = {'input_ids': toks['input_ids'], 'attention_mask': toks['attention_mask']}
             log_likelihoods = torch.stack([
-                log_probs[i, response_start_position:-1, :].gather(-1, toks['input_ids'][i, 1+response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
+                log_probs[i, response_start_position-1:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
                 for i, response_start_position in enumerate(resp_start_positions)
             ])
         else:
@@ -30,7 +42,7 @@ class PatchingUtils:
             log_probs = F.log_softmax(logits, dim=-1).detach().cpu()
             toks = {'input_ids': toks['input_ids'].detach().cpu(), 'attention_mask': toks['attention_mask'].detach().cpu()}
             log_likelihoods = torch.stack([
-                log_probs[i, response_start_position:-1, :].gather(-1, toks['input_ids'][i, 1+response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
+                log_probs[i, response_start_position-1:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
                 for i, response_start_position in enumerate(resp_start_positions)
             ]).detach().cpu()
         toks = {'input_ids': toks['input_ids'].to(self.model_handler.device), 'attention_mask': toks['attention_mask'].to(self.model_handler.device)}

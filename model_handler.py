@@ -67,6 +67,28 @@ class ModelHandler:
             print("[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; "
                   "o_proj.output slicing would not correspond to heads.")
 
+        # Cross-check the config-derived geometry against the real module: a
+        # wrong head_dim mis-slices every head rather than raising.
+        if self.head_site == 'o_proj_input':
+            try:
+                _oproj = getattr(self.model, "_model", self.model).model.layers[0].self_attn.o_proj
+                _in_features = int(_oproj.in_features)
+                if _in_features % self.num_heads != 0:
+                    raise ValueError(
+                        f"o_proj.in_features={_in_features} is not divisible by "
+                        f"num_attention_heads={self.num_heads}; per-head slicing "
+                        f"would be meaningless.")
+                if _in_features // self.num_heads != self.head_dim:
+                    print(f"[head geometry] config head_dim {self.head_dim} disagrees with "
+                          f"o_proj.in_features//heads = {_in_features // self.num_heads}; "
+                          f"using the module's value.", flush=True)
+                    self.head_dim = _in_features // self.num_heads
+                    self.dim = self.head_dim
+                    self.head_width = self.num_heads * self.head_dim
+            except (AttributeError, IndexError) as _e:
+                print(f"[head geometry] could not read o_proj.in_features ({_e}); "
+                      f"keeping head_dim={self.head_dim} from config.", flush=True)
+
         # Per-format turn markers, used by index_utils to locate role spans.
         self.user_marker = "<|im_start|>user\n"
         self.developer_marker = None

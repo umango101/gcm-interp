@@ -116,7 +116,14 @@ def plot_layer_heads(pre_attn, post_attn, layer_head_list, seq_len_in, original_
 
 
 
-def get_attn_tensors(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, edit=True):
+def get_attn_tensors(model, gen_toks, patch_activations, topk_df, N, ablation_type, DIM, edit=True, head_site=None):
+    # Must match ModelHandler.head_site, or the steering vectors are written
+    # into a space they were never measured in.
+    def _head_site_proxy(layer_module):
+        if head_site == 'o_proj_input':
+            return layer_module.self_attn.o_proj.input
+        return layer_module.self_attn.o_proj.output
+
     with torch.no_grad():
         if edit:
             patch_activations = patch_activations['desired']
@@ -140,7 +147,7 @@ def get_attn_tensors(model, gen_toks, patch_activations, topk_df, N, ablation_ty
                         for head_idx in head_ids:
                             sl = slice(DIM * head_idx, DIM * (head_idx + 1))
                             if ablation_type == 'steer':
-                                layer.self_attn.o_proj.output[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
+                                _head_site_proxy(layer)[..., :patch_activations.shape[1], sl] += N * patch_activations[layer_idx][:, sl]
                     for i, layer in enumerate(model.model.layers):
                         q_hidden_states[i].append(layer.self_attn.q_proj.output)
                         k_hidden_states[i].append(layer.self_attn.k_proj.output)
