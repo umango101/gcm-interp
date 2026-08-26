@@ -37,6 +37,19 @@ class Experiment:
             self.batch_handler.update(start, stop)
             self.patching_logits = self.patching.apply_patching()
             self.save_logits(self.patching_logits, idx)
+            # apply_patching returns a CPU tensor, but do not hold even that
+            # across the next forward, and hand the allocator back anything the
+            # batch left behind. ATP_MEM=1 prints the per-batch peak: a flat
+            # number means the batch fits, a rising one means something is still
+            # being retained across iterations.
+            self.patching_logits = None
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                if os.environ.get('ATP_MEM') == '1':
+                    print(f'[mem] batch {idx}: peak {torch.cuda.max_memory_allocated()/2**30:.1f} GiB, '
+                          f'resident {torch.cuda.memory_allocated()/2**30:.1f} GiB', flush=True)
+                    torch.cuda.reset_peak_memory_stats()
 
     def save_logits(self, logits, idx):
         torch.save(logits, f'{self.config.get_output_prefix()}/{self.which_patch}_{idx}.pt')

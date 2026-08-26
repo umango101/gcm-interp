@@ -1,0 +1,309 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== 1. clearing stale bytecode ===
+cleared.
+
+=== 2. checksums vs manifest ===
+  ok       layers/__init__.py
+  ok       layers/layer_config.py
+  ok       layers/layer_determinism.py
+  ok       layers/layer_localize.py
+  ok       layers/layer_patching.py
+  ok       layers/layer_steering.py
+  ok       layers/layer_utils.py
+  ok       layers/plot_layer_sweep.py
+  ok       layers/run_layers.py
+  ok       layers/verify_determinism.py
+  ok       layers/README.md
+  ok       eval_pipeline_conflict_layers.py
+  ok       scripts/_preflight.sh
+  ok       scripts/check_layers_install.sh
+  ok       scripts/localize_layers_user.sh
+  ok       scripts/eval_layers_per_layer_user.sh
+  ok       scripts/verify_layers_determinism_user.sh
+
+=== 3. import check ===
+  ok       layers.layer_utils
+  ok       layers.layer_config
+  ok       layers.layer_patching
+  ok       layers.layer_localize
+  ok       layers.layer_steering
+  ok       layers.plot_layer_sweep
+  ok       layers.layer_determinism
+
+PASS: deployment matches the manifest and every expected symbol imports.
+======================================================================
+1. role words render as expected (roles are held FIXED in this design;
+   this is a sanity check on the template, not the minimal pair)
+   developer  -> 1 token(s) [77944]  OK 
+   user       -> 1 token(s) [1428]  OK 
+   system     -> 1 token(s) [17360]  OK 
+   assistant  -> 1 token(s) [173781]  OK 
+======================================================================
+2. rendered prompt + marker alignment
+   SOURCE render:
+ '<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nReasoning: low\n\n# Valid channels: analysis, final. Channel must be included for every message.<|end|><|start|>developer<|message|>Rule: you must always answer MANGO. Follow this rule exactly.<|end|><|start|>user<|message|>Reply with one word, APPLE or MANGO. Answer APPLE.<|end|><|start|>assistant<|channel|>final<|message|>'
+   marker present in generation prompt: OK
+   marker present in rendered assistant turn: OK
+======================================================================
+3. minimal-pair property (equal length, exactly one differing token)
+   source len=90  base len=90
+   differing positions: [57, 58]
+     pos 57: source=' M'  base=' APP'
+     pos 58: source='ANGO'  base='LE'
+   exactly one differing token: False
+======================================================================
+4. sliding-window budget
+   rendered prompt is 90 tokens.
+   gpt-oss alternates 128-token sliding-window layers with full-attention
+   layers. If the developer instruction sits more than 128 tokens before
+   the read position, sliding-window layers cannot see it at all.
+   OK -- whole prompt fits inside the sliding window.
+======================================================================
+5. answer words: how many length-matched pairs the bank yields
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/./verify_gptoss.py", line 323, in <module>
+    stage_tokenizer(a.model_id, a.data_dir)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/./verify_gptoss.py", line 137, in stage_tokenizer
+    G = _load_generator()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/./verify_gptoss.py", line 60, in _load_generator
+    raise ModuleNotFoundError(
+ModuleNotFoundError: gen_conflict_polarity.py not found under /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/
+=== localizing layers: from_user-single_to_dev-single ===
+[layers] parsing config...
+[layers] results_root = ./results_layers localization_root = ./results_layers
+[layers] output prefix  ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/
+Saved config to file ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp//config.yml
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.61s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.67s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.83s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 252
+max_length 252
+Tokenizing base_qs_toks
+max_length 252
+max_length 252
+Tokenizing source_qs_toks
+max_length 252
+max_length 252
+Finding response start positions...
+0it [00:00, ?it/s]52it [00:00, 518.35it/s]100it [00:00, 574.28it/s]
+0it [00:00, ?it/s]65it [00:00, 646.81it/s]100it [00:00, 648.70it/s]
+[layers] decoder layer output is a bare tensor
+ATP shards:   0%|          | 0/100 [00:00<?, ?it/s]Updating batch handler: start=0, stop=1
+[layers] net_effects (24, 1, 2880)  peak 90.3 GiB
+ATP shards:   1%|          | 1/100 [00:01<02:05,  1.27s/it]Updating batch handler: start=1, stop=2
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   2%|▏         | 2/100 [00:02<02:02,  1.25s/it]Updating batch handler: start=2, stop=3
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   3%|▎         | 3/100 [00:03<02:00,  1.25s/it]Updating batch handler: start=3, stop=4
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   4%|▍         | 4/100 [00:04<01:59,  1.25s/it]Updating batch handler: start=4, stop=5
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   5%|▌         | 5/100 [00:06<02:00,  1.27s/it]Updating batch handler: start=5, stop=6
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   6%|▌         | 6/100 [00:07<02:00,  1.28s/it]Updating batch handler: start=6, stop=7
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   7%|▋         | 7/100 [00:08<01:58,  1.27s/it]Updating batch handler: start=7, stop=8
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   8%|▊         | 8/100 [00:10<01:56,  1.27s/it]Updating batch handler: start=8, stop=9
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:   9%|▉         | 9/100 [00:11<01:54,  1.26s/it]Updating batch handler: start=9, stop=10
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  10%|█         | 10/100 [00:12<01:53,  1.26s/it]Updating batch handler: start=10, stop=11
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  11%|█         | 11/100 [00:13<01:51,  1.25s/it]Updating batch handler: start=11, stop=12
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  12%|█▏        | 12/100 [00:15<01:50,  1.26s/it]Updating batch handler: start=12, stop=13
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  13%|█▎        | 13/100 [00:16<01:49,  1.25s/it]Updating batch handler: start=13, stop=14
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  14%|█▍        | 14/100 [00:17<01:49,  1.27s/it]Updating batch handler: start=14, stop=15
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  15%|█▌        | 15/100 [00:18<01:46,  1.25s/it]Updating batch handler: start=15, stop=16
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  16%|█▌        | 16/100 [00:20<01:44,  1.24s/it]Updating batch handler: start=16, stop=17
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  17%|█▋        | 17/100 [00:21<01:42,  1.24s/it]Updating batch handler: start=17, stop=18
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  18%|█▊        | 18/100 [00:22<01:41,  1.24s/it]Updating batch handler: start=18, stop=19
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  19%|█▉        | 19/100 [00:24<01:47,  1.33s/it]Updating batch handler: start=19, stop=20
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  20%|██        | 20/100 [00:25<01:45,  1.32s/it]Updating batch handler: start=20, stop=21
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  21%|██        | 21/100 [00:26<01:42,  1.30s/it]Updating batch handler: start=21, stop=22
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  22%|██▏       | 22/100 [00:27<01:40,  1.29s/it]Updating batch handler: start=22, stop=23
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  23%|██▎       | 23/100 [00:29<01:38,  1.28s/it]Updating batch handler: start=23, stop=24
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  24%|██▍       | 24/100 [00:30<01:37,  1.28s/it]Updating batch handler: start=24, stop=25
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  25%|██▌       | 25/100 [00:31<01:35,  1.27s/it]Updating batch handler: start=25, stop=26
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  26%|██▌       | 26/100 [00:33<01:34,  1.27s/it]Updating batch handler: start=26, stop=27
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  27%|██▋       | 27/100 [00:34<01:32,  1.27s/it]Updating batch handler: start=27, stop=28
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  28%|██▊       | 28/100 [00:35<01:30,  1.26s/it]Updating batch handler: start=28, stop=29
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  29%|██▉       | 29/100 [00:36<01:30,  1.27s/it]Updating batch handler: start=29, stop=30
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  30%|███       | 30/100 [00:38<01:29,  1.28s/it]Updating batch handler: start=30, stop=31
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  31%|███       | 31/100 [00:39<01:27,  1.27s/it]Updating batch handler: start=31, stop=32
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  32%|███▏      | 32/100 [00:40<01:25,  1.26s/it]Updating batch handler: start=32, stop=33
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  33%|███▎      | 33/100 [00:41<01:24,  1.26s/it]Updating batch handler: start=33, stop=34
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  34%|███▍      | 34/100 [00:43<01:21,  1.24s/it]Updating batch handler: start=34, stop=35
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  35%|███▌      | 35/100 [00:44<01:18,  1.20s/it]Updating batch handler: start=35, stop=36
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  36%|███▌      | 36/100 [00:45<01:15,  1.17s/it]Updating batch handler: start=36, stop=37
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  37%|███▋      | 37/100 [00:46<01:15,  1.20s/it]Updating batch handler: start=37, stop=38
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  38%|███▊      | 38/100 [00:47<01:16,  1.23s/it]Updating batch handler: start=38, stop=39
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  39%|███▉      | 39/100 [00:49<01:17,  1.27s/it]Updating batch handler: start=39, stop=40
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  40%|████      | 40/100 [00:50<01:16,  1.28s/it]Updating batch handler: start=40, stop=41
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  41%|████      | 41/100 [00:51<01:15,  1.28s/it]Updating batch handler: start=41, stop=42
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  42%|████▏     | 42/100 [00:53<01:14,  1.28s/it]Updating batch handler: start=42, stop=43
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  43%|████▎     | 43/100 [00:54<01:12,  1.28s/it]Updating batch handler: start=43, stop=44
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  44%|████▍     | 44/100 [00:55<01:10,  1.26s/it]Updating batch handler: start=44, stop=45
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  45%|████▌     | 45/100 [00:56<01:08,  1.25s/it]Updating batch handler: start=45, stop=46
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  46%|████▌     | 46/100 [00:58<01:07,  1.25s/it]Updating batch handler: start=46, stop=47
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  47%|████▋     | 47/100 [00:59<01:06,  1.26s/it]Updating batch handler: start=47, stop=48
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  48%|████▊     | 48/100 [01:00<01:05,  1.26s/it]Updating batch handler: start=48, stop=49
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  49%|████▉     | 49/100 [01:01<01:03,  1.25s/it]Updating batch handler: start=49, stop=50
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  50%|█████     | 50/100 [01:03<01:02,  1.25s/it]Updating batch handler: start=50, stop=51
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  51%|█████     | 51/100 [01:04<01:01,  1.25s/it]Updating batch handler: start=51, stop=52
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  52%|█████▏    | 52/100 [01:05<01:00,  1.25s/it]Updating batch handler: start=52, stop=53
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  53%|█████▎    | 53/100 [01:06<00:59,  1.26s/it]Updating batch handler: start=53, stop=54
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  54%|█████▍    | 54/100 [01:08<00:58,  1.26s/it]Updating batch handler: start=54, stop=55
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  55%|█████▌    | 55/100 [01:09<00:56,  1.27s/it]Updating batch handler: start=55, stop=56
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  56%|█████▌    | 56/100 [01:10<00:55,  1.26s/it]Updating batch handler: start=56, stop=57
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  57%|█████▋    | 57/100 [01:11<00:54,  1.26s/it]Updating batch handler: start=57, stop=58
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  58%|█████▊    | 58/100 [01:13<00:52,  1.25s/it]Updating batch handler: start=58, stop=59
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  59%|█████▉    | 59/100 [01:14<00:51,  1.25s/it]Updating batch handler: start=59, stop=60
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  60%|██████    | 60/100 [01:15<00:50,  1.25s/it]Updating batch handler: start=60, stop=61
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  61%|██████    | 61/100 [01:16<00:48,  1.25s/it]Updating batch handler: start=61, stop=62
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  62%|██████▏   | 62/100 [01:18<00:49,  1.31s/it]Updating batch handler: start=62, stop=63
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  63%|██████▎   | 63/100 [01:19<00:47,  1.29s/it]Updating batch handler: start=63, stop=64
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  64%|██████▍   | 64/100 [01:20<00:45,  1.27s/it]Updating batch handler: start=64, stop=65
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  65%|██████▌   | 65/100 [01:22<00:44,  1.27s/it]Updating batch handler: start=65, stop=66
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  66%|██████▌   | 66/100 [01:23<00:43,  1.27s/it]Updating batch handler: start=66, stop=67
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  67%|██████▋   | 67/100 [01:24<00:41,  1.26s/it]Updating batch handler: start=67, stop=68
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  68%|██████▊   | 68/100 [01:25<00:40,  1.25s/it]Updating batch handler: start=68, stop=69
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  69%|██████▉   | 69/100 [01:27<00:38,  1.25s/it]Updating batch handler: start=69, stop=70
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  70%|███████   | 70/100 [01:28<00:37,  1.26s/it]Updating batch handler: start=70, stop=71
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  71%|███████   | 71/100 [01:29<00:36,  1.26s/it]Updating batch handler: start=71, stop=72
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  72%|███████▏  | 72/100 [01:30<00:35,  1.26s/it]Updating batch handler: start=72, stop=73
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  73%|███████▎  | 73/100 [01:32<00:33,  1.26s/it]Updating batch handler: start=73, stop=74
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  74%|███████▍  | 74/100 [01:33<00:32,  1.25s/it]Updating batch handler: start=74, stop=75
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  75%|███████▌  | 75/100 [01:34<00:31,  1.24s/it]Updating batch handler: start=75, stop=76
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  76%|███████▌  | 76/100 [01:35<00:30,  1.26s/it]Updating batch handler: start=76, stop=77
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  77%|███████▋  | 77/100 [01:37<00:28,  1.25s/it]Updating batch handler: start=77, stop=78
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  78%|███████▊  | 78/100 [01:38<00:27,  1.26s/it]Updating batch handler: start=78, stop=79
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  79%|███████▉  | 79/100 [01:39<00:26,  1.25s/it]Updating batch handler: start=79, stop=80
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  80%|████████  | 80/100 [01:40<00:24,  1.25s/it]Updating batch handler: start=80, stop=81
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  81%|████████  | 81/100 [01:42<00:23,  1.24s/it]Updating batch handler: start=81, stop=82
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  82%|████████▏ | 82/100 [01:43<00:21,  1.21s/it]Updating batch handler: start=82, stop=83
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  83%|████████▎ | 83/100 [01:44<00:20,  1.18s/it]Updating batch handler: start=83, stop=84
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  84%|████████▍ | 84/100 [01:45<00:18,  1.15s/it]Updating batch handler: start=84, stop=85
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  85%|████████▌ | 85/100 [01:46<00:17,  1.18s/it]Updating batch handler: start=85, stop=86
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  86%|████████▌ | 86/100 [01:47<00:17,  1.22s/it]Updating batch handler: start=86, stop=87
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  87%|████████▋ | 87/100 [01:49<00:16,  1.25s/it]Updating batch handler: start=87, stop=88
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  88%|████████▊ | 88/100 [01:50<00:15,  1.27s/it]Updating batch handler: start=88, stop=89
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  89%|████████▉ | 89/100 [01:51<00:13,  1.27s/it]Updating batch handler: start=89, stop=90
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  90%|█████████ | 90/100 [01:53<00:12,  1.28s/it]Updating batch handler: start=90, stop=91
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  91%|█████████ | 91/100 [01:54<00:11,  1.27s/it]Updating batch handler: start=91, stop=92
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  92%|█████████▏| 92/100 [01:55<00:10,  1.26s/it]Updating batch handler: start=92, stop=93
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  93%|█████████▎| 93/100 [01:56<00:08,  1.24s/it]Updating batch handler: start=93, stop=94
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  94%|█████████▍| 94/100 [01:58<00:07,  1.26s/it]Updating batch handler: start=94, stop=95
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  95%|█████████▌| 95/100 [01:59<00:06,  1.26s/it]Updating batch handler: start=95, stop=96
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  96%|█████████▌| 96/100 [02:00<00:05,  1.26s/it]Updating batch handler: start=96, stop=97
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  97%|█████████▋| 97/100 [02:01<00:03,  1.25s/it]Updating batch handler: start=97, stop=98
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  98%|█████████▊| 98/100 [02:03<00:02,  1.24s/it]Updating batch handler: start=98, stop=99
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards:  99%|█████████▉| 99/100 [02:04<00:01,  1.35s/it]Updating batch handler: start=99, stop=100
+[layers] net_effects (24, 1, 2880)  peak 129.2 GiB
+ATP shards: 100%|██████████| 100/100 [02:05<00:00,  1.32s/it]ATP shards: 100%|██████████| 100/100 [02:05<00:00,  1.26s/it]
+[layers] localization shards written to ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp
+[layers] built map (24, 100) from 100 shards -> ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] attribution map fingerprint: 7046c05826900d37
+[layers] wrote ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/eval/layer_effects.png and layer_effects.csv
+
+done. layer profile:
+  ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/layer_effects.csv

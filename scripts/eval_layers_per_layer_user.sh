@@ -34,7 +34,7 @@
 set +eu
 source ~/.bashrc
 source /home/ubansal/miniconda/etc/profile.d/conda.sh
-conda activate /home/ubansal/miniconda/envs/syc
+conda activate /home/ubansal/miniconda/envs/conflict-syc
 set -eu
 
 export RM_INTERP_REPO="/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp"
@@ -49,6 +49,10 @@ export HARMONY_SYSTEM=minimal
 export CUBLAS_WORKSPACE_CONFIG=":4096:8"
 export PYTHONHASHSEED="0"
 export TOKENIZERS_PARALLELISM="false"
+# Fragmentation, not just volume: the OOM that killed shard 1 asked for 508 MiB
+# with ~900 MiB reserved-but-unallocated. Expandable segments let the allocator
+# grow a segment instead of needing one contiguous free block.
+export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 export STRICT_DETERMINISM="1"
 export SEED=42
 

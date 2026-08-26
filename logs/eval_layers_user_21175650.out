@@ -1,0 +1,207 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+[preflight] CUDA OK: NVIDIA H200 NVL (149.5 GB free)
+=== per-layer sweep: layers from user-single, steering user-single ===
+[layers] parsing config...
+Steering dataset set to: user-single
+[layers] results_root = ./results_layers localization_root = ./results_layers
+[layers] output prefix  ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/
+Saved config to file ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer//config.yml
+[determinism] sdp_backend=default applied={} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.16s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.89s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.96s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making base_qs test templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer charcoal. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, charcoal or mustard. Answer mustard<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+max_length 251
+max_length 251
+max_length 251
+[layers] decoder layer output is a bare tensor
+[layers] generation batch size 25, gen_mode=prefill
+[layers] loaded cached map (24, 100) from ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/layer_effects.png and layer_effects.csv
+[layers] reusing steering cache ./results_layers/gpt-oss-20b/_steering_cache/user-single__last_token.pt
+Evaluating on test set.  50
+[layers] residual norms (mean over 50 prompts) min=172.2 max=32983.1
+[determinism] WARNING: a fused SDPA backend is still enabled. Its backward accumulates with atomics, so attribution values will move between runs. Pass --sdp_backend math for the localization pass.
+[layers] reusing unsteered baseline ./results_layers/gpt-oss-20b/_baselines/user-single__b25__t24__prefill.json
+Layers:   0%|          | 0/24 [00:00<?, ?it/s][layers] layer=0 -> steering layers [0]
+
+N sweep (layer=0):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=0 N=2; gen files present.
+[layers] skipping layer=0 N=5; gen files present.
+[layers] skipping layer=0 N=8; gen files present.
+[layers] skipping layer=0 N=10; gen files present.
+[layers] layer=1 -> steering layers [1]
+
+N sweep (layer=1):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=1 N=2; gen files present.
+[layers] skipping layer=1 N=5; gen files present.
+[layers] skipping layer=1 N=8; gen files present.
+[layers] skipping layer=1 N=10; gen files present.
+[layers] layer=2 -> steering layers [2]
+
+N sweep (layer=2):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=2 N=2; gen files present.
+[layers] skipping layer=2 N=5; gen files present.
+[layers] skipping layer=2 N=8; gen files present.
+[layers] skipping layer=2 N=10; gen files present.
+[layers] layer=3 -> steering layers [3]
+
+N sweep (layer=3):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=3 N=2; gen files present.
+[layers] skipping layer=3 N=5; gen files present.
+[layers] skipping layer=3 N=8; gen files present.
+[layers] skipping layer=3 N=10; gen files present.
+[layers] layer=4 -> steering layers [4]
+
+N sweep (layer=4):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=4 N=2; gen files present.
+[layers] skipping layer=4 N=5; gen files present.
+[layers] skipping layer=4 N=8; gen files present.
+[layers] skipping layer=4 N=10; gen files present.
+[layers] layer=5 -> steering layers [5]
+
+N sweep (layer=5):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=5 N=2; gen files present.
+[layers] skipping layer=5 N=5; gen files present.
+[layers] skipping layer=5 N=8; gen files present.
+[layers] skipping layer=5 N=10; gen files present.
+[layers] layer=6 -> steering layers [6]
+
+N sweep (layer=6):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=6 N=2; gen files present.
+[layers] skipping layer=6 N=5; gen files present.
+[layers] skipping layer=6 N=8; gen files present.
+[layers] skipping layer=6 N=10; gen files present.
+[layers] layer=7 -> steering layers [7]
+
+N sweep (layer=7):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=7 N=2; gen files present.
+[layers] skipping layer=7 N=5; gen files present.
+[layers] skipping layer=7 N=8; gen files present.
+[layers] skipping layer=7 N=10; gen files present.
+[layers] layer=8 -> steering layers [8]
+
+N sweep (layer=8):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=8 N=2; gen files present.
+[layers] skipping layer=8 N=5; gen files present.
+[layers] skipping layer=8 N=8; gen files present.
+[layers] skipping layer=8 N=10; gen files present.
+[layers] layer=9 -> steering layers [9]
+
+N sweep (layer=9):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                        [A[layers] skipping layer=9 N=2; gen files present.
+[layers] skipping layer=9 N=5; gen files present.
+[layers] skipping layer=9 N=8; gen files present.
+[layers] skipping layer=9 N=10; gen files present.
+[layers] layer=10 -> steering layers [10]
+
+N sweep (layer=10):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=10 N=2; gen files present.
+[layers] skipping layer=10 N=5; gen files present.
+[layers] skipping layer=10 N=8; gen files present.
+[layers] skipping layer=10 N=10; gen files present.
+[layers] layer=11 -> steering layers [11]
+
+N sweep (layer=11):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=11 N=2; gen files present.
+[layers] skipping layer=11 N=5; gen files present.
+[layers] skipping layer=11 N=8; gen files present.
+[layers] skipping layer=11 N=10; gen files present.
+[layers] layer=12 -> steering layers [12]
+
+N sweep (layer=12):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=12 N=2; gen files present.
+[layers] skipping layer=12 N=5; gen files present.
+[layers] skipping layer=12 N=8; gen files present.
+[layers] skipping layer=12 N=10; gen files present.
+[layers] layer=13 -> steering layers [13]
+
+N sweep (layer=13):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=13 N=2; gen files present.
+[layers] skipping layer=13 N=5; gen files present.
+[layers] skipping layer=13 N=8; gen files present.
+[layers] skipping layer=13 N=10; gen files present.
+[layers] layer=14 -> steering layers [14]
+
+N sweep (layer=14):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=14 N=2; gen files present.
+[layers] skipping layer=14 N=5; gen files present.
+[layers] skipping layer=14 N=8; gen files present.
+[layers] skipping layer=14 N=10; gen files present.
+[layers] layer=15 -> steering layers [15]
+
+N sweep (layer=15):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=15 N=2; gen files present.
+[layers] skipping layer=15 N=5; gen files present.
+[layers] skipping layer=15 N=8; gen files present.
+[layers] skipping layer=15 N=10; gen files present.
+[layers] layer=16 -> steering layers [16]
+
+N sweep (layer=16):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=16 N=2; gen files present.
+[layers] skipping layer=16 N=5; gen files present.
+[layers] skipping layer=16 N=8; gen files present.
+[layers] skipping layer=16 N=10; gen files present.
+[layers] layer=17 -> steering layers [17]
+
+N sweep (layer=17):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=17 N=2; gen files present.
+[layers] skipping layer=17 N=5; gen files present.
+[layers] skipping layer=17 N=8; gen files present.
+[layers] skipping layer=17 N=10; gen files present.
+[layers] layer=18 -> steering layers [18]
+
+N sweep (layer=18):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=18 N=2; gen files present.
+[layers] skipping layer=18 N=5; gen files present.
+[layers] skipping layer=18 N=8; gen files present.
+[layers] skipping layer=18 N=10; gen files present.
+[layers] layer=19 -> steering layers [19]
+
+N sweep (layer=19):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=19 N=2; gen files present.
+[layers] skipping layer=19 N=5; gen files present.
+[layers] skipping layer=19 N=8; gen files present.
+[layers] skipping layer=19 N=10; gen files present.
+[layers] layer=20 -> steering layers [20]
+
+N sweep (layer=20):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=20 N=2; gen files present.
+[layers] skipping layer=20 N=5; gen files present.
+[layers] skipping layer=20 N=8; gen files present.
+[layers] skipping layer=20 N=10; gen files present.
+[layers] layer=21 -> steering layers [21]
+
+N sweep (layer=21):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=21 N=2; gen files present.
+[layers] skipping layer=21 N=5; gen files present.
+[layers] skipping layer=21 N=8; gen files present.
+[layers] skipping layer=21 N=10; gen files present.
+[layers] layer=22 -> steering layers [22]
+
+N sweep (layer=22):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [A[layers] skipping layer=22 N=2; gen files present.
+[layers] skipping layer=22 N=5; gen files present.
+[layers] skipping layer=22 N=8; gen files present.
+[layers] skipping layer=22 N=10; gen files present.
+[layers] layer=23 -> steering layers [23]
+
+N sweep (layer=23):   0%|          | 0/4 [00:00<?, ?it/s][A
+                                                         [ALayers: 100%|██████████| 24/24 [00:00<00:00, 752.23it/s]
+[layers] skipping layer=23 N=2; gen files present.
+[layers] skipping layer=23 N=5; gen files present.
+[layers] skipping layer=23 N=8; gen files present.
+[layers] skipping layer=23 N=10; gen files present.
+[layers] evaluation complete.
+
+done. score with:
+  python eval_pipeline_conflict_layers.py --results_dir ./results_layers

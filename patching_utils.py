@@ -30,13 +30,24 @@ class PatchingUtils:
             print("[rsp] token AT rsp  :", repr(tk.decode([int(ids[r])])), flush=True)
             print("[rsp] scored tokens :", repr(tk.decode(ids[r:].tolist())), flush=True)
         if retain_grad:
-            logits = logits
-            log_probs = F.log_softmax(logits, dim=-1)
+            logits = getattr(logits, "value", logits)
             toks = {'input_ids': toks['input_ids'], 'attention_mask': toks['attention_mask']}
-            log_likelihoods = torch.stack([
-                log_probs[i, response_start_position-1:-1, :].gather(-1, toks['input_ids'][i, response_start_position:].unsqueeze(-1)).squeeze(-1).sum()
-                for i, response_start_position in enumerate(resp_start_positions)
-            ])
+            # Slice to the scored window BEFORE the softmax. log_softmax over the
+            # full sequence materialises a [seq, vocab] tensor -- ~1.2 GB at seq
+            # 1500 with gpt-oss's 201k vocab -- and autograd saves its output for
+            # the backward pass, so it stays resident. Every row but the response
+            # window is then discarded by the gather. Doing the reduction on the
+            # slice keeps the whole thing to a few rows, which also makes the
+            # float32 cast affordable (better numerics than bf16 log_softmax).
+            log_likelihoods = []
+            for i, response_start_position in enumerate(resp_start_positions):
+                r = int(response_start_position)
+                sel = logits[i, r-1:-1, :].float()
+                tgt = toks['input_ids'][i, r:].unsqueeze(-1).to(sel.device)
+                log_likelihoods.append(
+                    (sel.gather(-1, tgt).squeeze(-1) - sel.logsumexp(dim=-1)).sum()
+                )
+            log_likelihoods = torch.stack(log_likelihoods)
         else:
             logits = logits.detach().cpu()
             log_probs = F.log_softmax(logits, dim=-1).detach().cpu()

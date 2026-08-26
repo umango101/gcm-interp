@@ -14,6 +14,7 @@ export RM_INTERP_REPO="/home/ubansal/orcd/scratch/gcm-interp"
 export CUBLAS_WORKSPACE_CONFIG=":4096:8"
 export PYTHONHASHSEED="0"
 export TOKENIZERS_PARALLELISM="false"
+export ATP_MEM=1
 echo "RM_INTERP_REPO is $RM_INTERP_REPO"
 source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda info --envs

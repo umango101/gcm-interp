@@ -236,11 +236,20 @@ class DataHandler:
             if self.no_generation_prompt_for_eval_transfer:
                 print('Explicitly setting add_generation_prompt to False for eval_transfer dataset.')
                 add_generation_prompt = False
-            assistant_exists = any([p['role'] == 'assistant' for p in prompts[0]['prompt']])
-            if assistant_exists:
-                prompt_lengths = [len(p['prompt']) - 1 for p in prompts]
-            else:
-                prompt_lengths = [max(len(p['prompt']), 1) for p in prompts]
+            # Decide per row on the LAST message's role, not on whether an
+            # assistant turn appears anywhere. only_q wants "drop the answer if
+            # this row ends with one"; any() is only a proxy for that, and it
+            # breaks on ICL-preamble rows, where a *-test row ends with the USER
+            # question but contains eight demo answers earlier. Under any() that
+            # question was stripped and the model was asked to continue the demo
+            # pattern -- which is why every item answered with the last demo's
+            # word regardless of steering.
+            prompt_lengths = [
+                len(p['prompt']) - 1
+                if p['prompt'] and p['prompt'][-1]['role'] == 'assistant'
+                else max(len(p['prompt']), 1)
+                for p in prompts
+            ]
             return [
                 self.model_handler.tokenizer.apply_chat_template(
                     [p['prompt'][i] for i in range(prompt_lengths[pdx])],
@@ -352,12 +361,34 @@ class DataHandler:
     @staticmethod
     def load_from_jsonl(file_name):
         def load_json_line(line: str, i: int, file_name: str):
+            # json.loads FIRST. The original went straight to ast.literal_eval,
+            # which has no notion of JSON's null/true/false -- so a row carrying
+            # "target": null (every row of dev-single-test.jsonl) raised, was
+            # swallowed by the except, and vanished. literal_eval stays as a
+            # fallback for any legacy file written with Python repr syntax
+            # (single quotes, None) rather than JSON.
+            try:
+                return json.loads(line)
+            except Exception:
+                pass
             try:
                 return json.loads(json.dumps(ast.literal_eval(line)))
-            except Exception as e:
+            except Exception:
                 return None
-        
+
         with open(file_name, "r") as f:
-            data = [load_json_line(line, i, file_name) for i, line in enumerate(f)]
-            data = [d for d in data if d is not None]
+            raw = [load_json_line(line, i, file_name) for i, line in enumerate(f)
+                   if line.strip()]
+        data = [d for d in raw if d is not None]
+        # Silently dropping rows is how a 50-row test set became an empty list
+        # and surfaced 180 lines later as `prompts[0]` IndexError. Anything
+        # unparseable is a data bug: say so here, at the file that caused it.
+        if len(data) != len(raw):
+            bad = [i for i, d in enumerate(raw) if d is None]
+            raise ValueError(
+                f"{file_name}: {len(bad)} of {len(raw)} lines failed to parse "
+                f"(first at line {bad[0] + 1}). Refusing to continue with a "
+                f"partial dataset.")
+        if not data:
+            raise ValueError(f"{file_name}: parsed to zero rows.")
         return data

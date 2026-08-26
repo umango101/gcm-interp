@@ -12,6 +12,7 @@ Two deliberate departures from the head-level equivalents:
    only ~40 layers, so fractions are the wrong unit.
 """
 
+import gc
 import glob
 import json
 import os
@@ -48,6 +49,12 @@ def run_localization(config, data_handler, model_handler, is_tuple):
         batch_handler.update(idx, stop)
         effects = patching.apply_patching()
         torch.save(effects, shard)
+        # One LayerPatching instance serves every shard, so anything still bound
+        # here survives into the next backward. apply_patching drops its own
+        # locals; this drops the caller's.
+        del effects
+        gc.collect()
+        torch.cuda.empty_cache()
     print(f"[layers] localization shards written to {out_dir}")
 
 

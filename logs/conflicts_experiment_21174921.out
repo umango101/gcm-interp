@@ -1,0 +1,28 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: openai/gpt-oss-20b
+[plan] pairs:  user-long_dev-long user-single_dev-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/conflicts/gcm-interp.run_state (1 steps already recorded)
+[2026-08-25T02:52:31.157] error: *** JOB 21174921 ON node4900 CANCELLED AT 2026-08-25T02:52:31 DUE TO PREEMPTION ***
+
+[signal] caught TERM -- stopping after the current step.
+[signal] finished steps are recorded in /home/ubansal/orcd/scratch/conflicts/gcm-interp.run_state; resubmit to resume.
+
+==================== summary ====================
+steps complete: 0/4   (ran 0 this pass)
+stopped early (preemption or wall clock). Nothing is lost:
+  the interrupted step has no sentinel and will be retried.
+[exit] requeueing job 21174921 to continue the sweep
+Job is pending execution for job 21174921
+[exit] requeue failed; resubmit by hand

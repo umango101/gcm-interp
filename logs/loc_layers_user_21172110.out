@@ -1,0 +1,35 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+[preflight] CUDA OK: NVIDIA H200 NVL (149.5 GB free)
+=== 1. clearing stale bytecode ===
+cleared.
+
+=== 2. checksums vs manifest ===
+  ok       layers/__init__.py
+  ok       layers/layer_config.py
+  ok       layers/layer_determinism.py
+  ok       layers/layer_localize.py
+  ok       layers/layer_patching.py
+  ok       layers/layer_steering.py
+  ok       layers/layer_utils.py
+  ok       layers/plot_layer_sweep.py
+  ok       layers/run_layers.py
+  ok       layers/verify_determinism.py
+  ok       layers/README.md
+  ok       eval_pipeline_conflict_layers.py
+  ok       scripts/_preflight.sh
+  ok       scripts/check_layers_install.sh
+  ok       scripts/localize_layers_user.sh
+  ok       scripts/eval_layers_per_layer_user.sh
+  STALE    scripts/verify_layers_determinism_user.sh  (got 5dde14963603, want 89e6b0e18f2c, 104 lines)
+
+=== 3. import check ===
+  ok       layers.layer_utils
+  ok       layers.layer_config
+  ok       layers.layer_patching
+  ok       layers.layer_localize
+  ok       layers.layer_steering
+  ok       layers.plot_layer_sweep
+  ok       layers.layer_determinism
+
+FAIL: recopy the files listed above (all of layers/ and scripts/ is safest),
+      then rerun this check before resubmitting.

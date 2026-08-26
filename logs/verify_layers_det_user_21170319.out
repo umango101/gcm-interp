@@ -1,0 +1,1187 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+########## run into ./results_layers_verifyA ##########
+[layers] parsing config...
+[layers] results_root = ./results_layers_verifyA localization_root = ./results_layers_verifyA
+[layers] output prefix  ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp/
+Saved config to file ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp//config.yml
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.41s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.28s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.07s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.14s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 252
+max_length 252
+Tokenizing base_qs_toks
+max_length 252
+max_length 252
+Tokenizing source_qs_toks
+max_length 252
+max_length 252
+Finding response start positions...
+0it [00:00, ?it/s]37it [00:00, 368.17it/s]100it [00:00, 526.08it/s]
+0it [00:00, ?it/s]71it [00:00, 704.07it/s]100it [00:00, 711.01it/s]
+[layers] limited to 12 items
+[layers] decoder layer output is a bare tensor
+ATP shards:   0%|          | 0/12 [00:00<?, ?it/s]Updating batch handler: start=0, stop=1
+[layers] net_effects (24, 1, 2880)  peak 90.3 GiB
+ATP shards:   8%|▊         | 1/12 [00:01<00:14,  1.33s/it]Updating batch handler: start=1, stop=2
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  17%|█▋        | 2/12 [00:02<00:11,  1.15s/it]Updating batch handler: start=2, stop=3
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  25%|██▌       | 3/12 [00:03<00:09,  1.10s/it]Updating batch handler: start=3, stop=4
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  33%|███▎      | 4/12 [00:04<00:08,  1.07s/it]Updating batch handler: start=4, stop=5
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  42%|████▏     | 5/12 [00:05<00:07,  1.06s/it]Updating batch handler: start=5, stop=6
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  50%|█████     | 6/12 [00:06<00:06,  1.04s/it]Updating batch handler: start=6, stop=7
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  58%|█████▊    | 7/12 [00:07<00:05,  1.04s/it]Updating batch handler: start=7, stop=8
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  67%|██████▋   | 8/12 [00:08<00:04,  1.04s/it]Updating batch handler: start=8, stop=9
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  75%|███████▌  | 9/12 [00:09<00:03,  1.04s/it]Updating batch handler: start=9, stop=10
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  83%|████████▎ | 10/12 [00:10<00:02,  1.04s/it]Updating batch handler: start=10, stop=11
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  92%|█████████▏| 11/12 [00:11<00:01,  1.05s/it]Updating batch handler: start=11, stop=12
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards: 100%|██████████| 12/12 [00:12<00:00,  1.06s/it]ATP shards: 100%|██████████| 12/12 [00:12<00:00,  1.06s/it]
+[layers] localization shards written to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp
+[layers] built map (24, 12) from 12 shards -> ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] attribution map fingerprint: c09746c9b626edfd
+[layers] wrote ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp/eval/layer_effects.png and layer_effects.csv
+[layers] parsing config...
+Steering dataset set to: user-single
+[layers] results_root = ./results_layers_verifyA localization_root = ./results_layers_verifyA
+[layers] output prefix  ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/
+Saved config to file ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer//config.yml
+[determinism] sdp_backend=default applied={} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.78s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.67s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.49s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.55s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making base_qs test templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer charcoal. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+max_length 249
+max_length 249
+max_length 249
+[layers] limited to 12 items
+[layers] decoder layer output is a bare tensor
+[layers] generation batch size 25, gen_mode=prefill
+[layers] loaded cached map (24, 12) from ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/layer_effects.png and layer_effects.csv
+Steering cache:   0%|          | 0/13 [00:00<?, ?it/s]Steering cache:   8%|▊         | 1/13 [00:00<00:10,  1.14it/s]Steering cache:  15%|█▌        | 2/13 [00:01<00:09,  1.16it/s]Steering cache:  23%|██▎       | 3/13 [00:02<00:08,  1.16it/s]Steering cache:  31%|███       | 4/13 [00:03<00:07,  1.16it/s]Steering cache:  38%|███▊      | 5/13 [00:04<00:06,  1.15it/s]Steering cache:  46%|████▌     | 6/13 [00:05<00:06,  1.15it/s]Steering cache:  54%|█████▍    | 7/13 [00:06<00:05,  1.16it/s]Steering cache:  62%|██████▏   | 8/13 [00:06<00:04,  1.15it/s]Steering cache:  69%|██████▉   | 9/13 [00:07<00:03,  1.15it/s]Steering cache:  77%|███████▋  | 10/13 [00:08<00:02,  1.15it/s]Steering cache:  85%|████████▍ | 11/13 [00:09<00:01,  1.16it/s]Steering cache:  92%|█████████▏| 12/13 [00:10<00:00,  1.15it/s]Steering cache: 100%|██████████| 13/13 [00:10<00:00,  1.28it/s]Steering cache: 100%|██████████| 13/13 [00:10<00:00,  1.18it/s]
+[layers] steering cache (24, 249, 2880) over 100 pairs; last-token ||mean diff|| min=0.45 max=6992.69
+Evaluating on test set.  12
+[layers] residual norms (mean over 12 prompts) min=178.3 max=30339.9
+[determinism] WARNING: a fused SDPA backend is still enabled. Its backward accumulates with atomics, so attribution values will move between runs. Pass --sdp_backend math for the localization pass.
+Evaluating on test set.  12
+Unsteered baseline:   0%|          | 0/1 [00:00<?, ?it/s]Unsteered baseline: 100%|██████████| 1/1 [00:00<00:00,  1.64it/s]Unsteered baseline: 100%|██████████| 1/1 [00:00<00:00,  1.64it/s]
+Evaluating on test set.  12
+Updating batch handler: start=25, stop=50
+Layers:   0%|          | 0/24 [00:00<?, ?it/s][layers] layer=0 -> steering layers [0]
+
+N sweep (layer=0):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=0 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 4875.21it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.44s/it][A[A
+
+                                                      [A[A
+N sweep (layer=0): 100%|██████████| 1/1 [00:01<00:00,  1.45s/it][A
+                                                                [ALayers:   4%|▍         | 1/24 [00:01<00:33,  1.46s/it]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_0_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_0_user-single_gen.json
+[layers] layer=1 -> steering layers [1]
+
+N sweep (layer=1):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=1 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6172.63it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=1): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                [ALayers:   8%|▊         | 2/24 [00:02<00:20,  1.06it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_1_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_1_user-single_gen.json
+[layers] layer=2 -> steering layers [2]
+
+N sweep (layer=2):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=2 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5949.37it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.02it/s][A[A
+
+                                                      [A[A
+N sweep (layer=2): 100%|██████████| 1/1 [00:00<00:00,  1.02it/s][A
+                                                                [ALayers:  12%|█▎        | 3/24 [00:03<00:20,  1.04it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_2_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_2_user-single_gen.json
+[layers] layer=3 -> steering layers [3]
+
+N sweep (layer=3):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=3 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6130.53it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=3): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                [ALayers:  17%|█▋        | 4/24 [00:03<00:16,  1.23it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_3_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_3_user-single_gen.json
+[layers] layer=4 -> steering layers [4]
+
+N sweep (layer=4):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=4 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6023.41it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.03it/s][A[A
+
+                                                      [A[A
+N sweep (layer=4): 100%|██████████| 1/1 [00:00<00:00,  1.02it/s][A
+                                                                [ALayers:  21%|██        | 5/24 [00:04<00:16,  1.15it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_4_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_4_user-single_gen.json
+[layers] layer=5 -> steering layers [5]
+
+N sweep (layer=5):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=5 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6062.59it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A[A
+
+                                                      [A[A
+N sweep (layer=5): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                [ALayers:  25%|██▌       | 6/24 [00:05<00:13,  1.30it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_5_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_5_user-single_gen.json
+[layers] layer=6 -> steering layers [6]
+
+N sweep (layer=6):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=6 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5836.23it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=6): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                [ALayers:  29%|██▉       | 7/24 [00:05<00:12,  1.41it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_6_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_6_user-single_gen.json
+[layers] layer=7 -> steering layers [7]
+
+N sweep (layer=7):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=7 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6259.38it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s][A[A
+
+                                                      [A[A
+N sweep (layer=7): 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A
+                                                                [ALayers:  33%|███▎      | 8/24 [00:06<00:10,  1.50it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_7_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_7_user-single_gen.json
+[layers] layer=8 -> steering layers [8]
+
+N sweep (layer=8):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=8 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5890.88it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A[A
+
+                                                      [A[A
+N sweep (layer=8): 100%|██████████| 1/1 [00:00<00:00,  1.68it/s][A
+                                                                [ALayers:  38%|███▊      | 9/24 [00:06<00:09,  1.55it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_8_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_8_user-single_gen.json
+[layers] layer=9 -> steering layers [9]
+
+N sweep (layer=9):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=9 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5838.26it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A[A
+
+                                                      [A[A
+N sweep (layer=9): 100%|██████████| 1/1 [00:00<00:00,  1.68it/s][A
+                                                                [ALayers:  42%|████▏     | 10/24 [00:07<00:08,  1.59it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_9_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_9_user-single_gen.json
+[layers] layer=10 -> steering layers [10]
+
+N sweep (layer=10):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=10 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5783.25it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A[A
+
+                                                      [A[A
+N sweep (layer=10): 100%|██████████| 1/1 [00:00<00:00,  1.68it/s][A
+                                                                 [ALayers:  46%|████▌     | 11/24 [00:08<00:08,  1.61it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_10_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_10_user-single_gen.json
+[layers] layer=11 -> steering layers [11]
+
+N sweep (layer=11):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=11 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6049.48it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=11): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                 [ALayers:  50%|█████     | 12/24 [00:08<00:07,  1.64it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_11_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_11_user-single_gen.json
+[layers] layer=12 -> steering layers [12]
+
+N sweep (layer=12):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=12 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6164.32it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A[A
+
+                                                      [A[A
+N sweep (layer=12): 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A
+                                                                 [ALayers:  54%|█████▍    | 13/24 [00:09<00:06,  1.67it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_12_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_12_user-single_gen.json
+[layers] layer=13 -> steering layers [13]
+
+N sweep (layer=13):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=13 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5864.11it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=13): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                 [ALayers:  58%|█████▊    | 14/24 [00:09<00:05,  1.69it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_13_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_13_user-single_gen.json
+[layers] layer=14 -> steering layers [14]
+
+N sweep (layer=14):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=14 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5847.76it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A[A
+
+                                                      [A[A
+N sweep (layer=14): 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A
+                                                                 [ALayers:  62%|██████▎   | 15/24 [00:10<00:05,  1.69it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_14_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_14_user-single_gen.json
+[layers] layer=15 -> steering layers [15]
+
+N sweep (layer=15):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=15 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6171.12it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A[A
+
+                                                      [A[A
+N sweep (layer=15): 100%|██████████| 1/1 [00:00<00:00,  1.72it/s][A
+                                                                 [ALayers:  67%|██████▋   | 16/24 [00:11<00:04,  1.69it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_15_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_15_user-single_gen.json
+[layers] layer=16 -> steering layers [16]
+
+N sweep (layer=16):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=16 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5826.10it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A[A
+
+                                                      [A[A
+N sweep (layer=16): 100%|██████████| 1/1 [00:00<00:00,  1.72it/s][A
+                                                                 [ALayers:  71%|███████   | 17/24 [00:11<00:04,  1.70it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_16_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_16_user-single_gen.json
+[layers] layer=17 -> steering layers [17]
+
+N sweep (layer=17):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=17 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6089.73it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A[A
+
+                                                      [A[A
+N sweep (layer=17): 100%|██████████| 1/1 [00:00<00:00,  1.73it/s][A
+                                                                 [ALayers:  75%|███████▌  | 18/24 [00:12<00:03,  1.71it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_17_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_17_user-single_gen.json
+[layers] layer=18 -> steering layers [18]
+
+N sweep (layer=18):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=18 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6019.09it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it][A[A
+
+                                                      [A[A
+N sweep (layer=18): 100%|██████████| 1/1 [00:01<00:00,  1.03s/it][A
+                                                                 [ALayers:  79%|███████▉  | 19/24 [00:13<00:03,  1.39it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_18_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_18_user-single_gen.json
+[layers] layer=19 -> steering layers [19]
+
+N sweep (layer=19):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=19 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5986.87it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.01s/it][A[A
+
+                                                      [A[A
+N sweep (layer=19): 100%|██████████| 1/1 [00:01<00:00,  1.02s/it][A
+                                                                 [ALayers:  83%|████████▎ | 20/24 [00:14<00:03,  1.24it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_19_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_19_user-single_gen.json
+[layers] layer=20 -> steering layers [20]
+
+N sweep (layer=20):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=20 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6173.39it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.01s/it][A[A
+
+                                                      [A[A
+N sweep (layer=20): 100%|██████████| 1/1 [00:01<00:00,  1.01s/it][A
+                                                                 [ALayers:  88%|████████▊ | 21/24 [00:15<00:02,  1.15it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_20_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_20_user-single_gen.json
+[layers] layer=21 -> steering layers [21]
+
+N sweep (layer=21):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=21 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6080.17it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.02s/it][A[A
+
+                                                      [A[A
+N sweep (layer=21): 100%|██████████| 1/1 [00:01<00:00,  1.03s/it][A
+                                                                 [ALayers:  92%|█████████▏| 22/24 [00:16<00:01,  1.09it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_21_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_21_user-single_gen.json
+[layers] layer=22 -> steering layers [22]
+
+N sweep (layer=22):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=22 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5507.35it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.40s/it][A[A
+
+                                                      [A[A
+N sweep (layer=22): 100%|██████████| 1/1 [00:01<00:00,  1.41s/it][A
+                                                                 [ALayers:  96%|█████████▌| 23/24 [00:17<00:01,  1.06s/it]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_22_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_22_user-single_gen.json
+[layers] layer=23 -> steering layers [23]
+
+N sweep (layer=23):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=23 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5582.48it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.38s/it][A[A
+
+                                                      [A[A
+N sweep (layer=23): 100%|██████████| 1/1 [00:01<00:00,  1.39s/it][A
+                                                                 [ALayers: 100%|██████████| 24/24 [00:19<00:00,  1.16s/it]Layers: 100%|██████████| 24/24 [00:19<00:00,  1.26it/s]
+Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_23_user-single_gen.txt and ./results_layers_verifyA/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_23_user-single_gen.json
+[layers] evaluation complete.
+########## run into ./results_layers_verifyB ##########
+[layers] parsing config...
+[layers] results_root = ./results_layers_verifyB localization_root = ./results_layers_verifyB
+[layers] output prefix  ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp/
+Saved config to file ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp//config.yml
+[determinism] sdp_backend=math applied={'enable_flash_sdp': False, 'enable_mem_efficient_sdp': False, 'enable_math_sdp': True} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.57s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.51s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.40s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 252
+max_length 252
+Tokenizing base_qs_toks
+max_length 252
+max_length 252
+Tokenizing source_qs_toks
+max_length 252
+max_length 252
+Finding response start positions...
+0it [00:00, ?it/s]62it [00:00, 613.45it/s]100it [00:00, 649.80it/s]
+0it [00:00, ?it/s]73it [00:00, 723.51it/s]100it [00:00, 725.69it/s]
+[layers] limited to 12 items
+[layers] decoder layer output is a bare tensor
+ATP shards:   0%|          | 0/12 [00:00<?, ?it/s]Updating batch handler: start=0, stop=1
+[layers] net_effects (24, 1, 2880)  peak 90.3 GiB
+ATP shards:   8%|▊         | 1/12 [00:01<00:12,  1.10s/it]Updating batch handler: start=1, stop=2
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  17%|█▋        | 2/12 [00:02<00:11,  1.10s/it]Updating batch handler: start=2, stop=3
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  25%|██▌       | 3/12 [00:03<00:09,  1.07s/it]Updating batch handler: start=3, stop=4
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  33%|███▎      | 4/12 [00:04<00:08,  1.06s/it]Updating batch handler: start=4, stop=5
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  42%|████▏     | 5/12 [00:05<00:07,  1.05s/it]Updating batch handler: start=5, stop=6
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  50%|█████     | 6/12 [00:06<00:06,  1.05s/it]Updating batch handler: start=6, stop=7
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  58%|█████▊    | 7/12 [00:07<00:05,  1.05s/it]Updating batch handler: start=7, stop=8
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  67%|██████▋   | 8/12 [00:08<00:04,  1.05s/it]Updating batch handler: start=8, stop=9
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  75%|███████▌  | 9/12 [00:09<00:03,  1.05s/it]Updating batch handler: start=9, stop=10
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  83%|████████▎ | 10/12 [00:10<00:02,  1.05s/it]Updating batch handler: start=10, stop=11
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards:  92%|█████████▏| 11/12 [00:11<00:01,  1.04s/it]Updating batch handler: start=11, stop=12
+[layers] net_effects (24, 1, 2880)  peak 129.3 GiB
+ATP shards: 100%|██████████| 12/12 [00:12<00:00,  1.04s/it]ATP shards: 100%|██████████| 12/12 [00:12<00:00,  1.05s/it]
+[layers] localization shards written to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp
+[layers] built map (24, 12) from 12 shards -> ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] attribution map fingerprint: c09746c9b626edfd
+[layers] wrote ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp/eval/layer_effects.png and layer_effects.csv
+[layers] parsing config...
+Steering dataset set to: user-single
+[layers] results_root = ./results_layers_verifyB localization_root = ./results_layers_verifyB
+[layers] output prefix  ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/
+Saved config to file ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer//config.yml
+[determinism] sdp_backend=default applied={} strict=False deterministic_algorithms=True
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.43s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.39s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.25s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.29s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>red<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+Making base_qs test templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer charcoal. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Rules: when asked to choose a shape, answer circle. When asked to choose a number, answer seven. When asked to choose an animal, answer cat. When asked to choose a color, answer red. Follow these rules exactly.<|end|><|start|>user<|message|>Reply with one word, circle or square. Answer square<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Reply with one word, cat or dog. Answer dog<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Reply with one word, seven or nine. Answer nine<|end|><|start|>assistant<|channel|>final<|message|>nine<|return|><|start|>user<|message|>Reply with one word, three or seven. Answer seven<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, circle or triangle. Answer triangle<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>Reply with one word, cat or fox. Answer cat<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Reply with one word, cat or bird. Answer bird<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>Reply with one word, seven or two. Answer two<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>Reply with one word, red or blue. Answer blue<|end|><|start|>assistant<|channel|>final<|message|>
+max_length 249
+max_length 249
+max_length 249
+[layers] limited to 12 items
+[layers] decoder layer output is a bare tensor
+[layers] generation batch size 25, gen_mode=prefill
+[layers] loaded cached map (24, 12) from ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+[layers] wrote ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/layer_effects.png and layer_effects.csv
+Steering cache:   0%|          | 0/13 [00:00<?, ?it/s]Steering cache:   8%|▊         | 1/13 [00:00<00:10,  1.13it/s]Steering cache:  15%|█▌        | 2/13 [00:01<00:09,  1.14it/s]Steering cache:  23%|██▎       | 3/13 [00:02<00:08,  1.14it/s]Steering cache:  31%|███       | 4/13 [00:03<00:07,  1.13it/s]Steering cache:  38%|███▊      | 5/13 [00:04<00:06,  1.15it/s]Steering cache:  46%|████▌     | 6/13 [00:05<00:06,  1.02it/s]Steering cache:  54%|█████▍    | 7/13 [00:06<00:05,  1.05it/s]Steering cache:  62%|██████▏   | 8/13 [00:07<00:04,  1.08it/s]Steering cache:  69%|██████▉   | 9/13 [00:08<00:03,  1.10it/s]Steering cache:  77%|███████▋  | 10/13 [00:09<00:02,  1.11it/s]Steering cache:  85%|████████▍ | 11/13 [00:09<00:01,  1.13it/s]Steering cache:  92%|█████████▏| 12/13 [00:10<00:00,  1.13it/s]Steering cache: 100%|██████████| 13/13 [00:11<00:00,  1.26it/s]Steering cache: 100%|██████████| 13/13 [00:11<00:00,  1.14it/s]
+[layers] steering cache (24, 249, 2880) over 100 pairs; last-token ||mean diff|| min=0.45 max=6992.69
+Evaluating on test set.  12
+[layers] residual norms (mean over 12 prompts) min=178.3 max=30339.9
+[determinism] WARNING: a fused SDPA backend is still enabled. Its backward accumulates with atomics, so attribution values will move between runs. Pass --sdp_backend math for the localization pass.
+Evaluating on test set.  12
+Unsteered baseline:   0%|          | 0/1 [00:00<?, ?it/s]Unsteered baseline: 100%|██████████| 1/1 [00:00<00:00,  2.05it/s]Unsteered baseline: 100%|██████████| 1/1 [00:00<00:00,  2.05it/s]
+Evaluating on test set.  12
+Updating batch handler: start=25, stop=50
+Layers:   0%|          | 0/24 [00:00<?, ?it/s][layers] layer=0 -> steering layers [0]
+
+N sweep (layer=0):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=0 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5364.13it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.38s/it][A[A
+
+                                                      [A[A
+N sweep (layer=0): 100%|██████████| 1/1 [00:01<00:00,  1.38s/it][A
+                                                                [ALayers:   4%|▍         | 1/24 [00:01<00:31,  1.38s/it]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_0_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_0_user-single_gen.json
+[layers] layer=1 -> steering layers [1]
+
+N sweep (layer=1):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=1 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5831.50it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.72it/s][A[A
+
+                                                      [A[A
+N sweep (layer=1): 100%|██████████| 1/1 [00:00<00:00,  1.71it/s][A
+                                                                [ALayers:   8%|▊         | 2/24 [00:01<00:20,  1.09it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_1_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_1_user-single_gen.json
+[layers] layer=2 -> steering layers [2]
+
+N sweep (layer=2):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=2 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5540.69it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.02it/s][A[A
+
+                                                      [A[A
+N sweep (layer=2): 100%|██████████| 1/1 [00:00<00:00,  1.02it/s][A
+                                                                [ALayers:  12%|█▎        | 3/24 [00:02<00:19,  1.06it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_2_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_2_user-single_gen.json
+[layers] layer=3 -> steering layers [3]
+
+N sweep (layer=3):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=3 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6052.39it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s][A[A
+
+                                                      [A[A
+N sweep (layer=3): 100%|██████████| 1/1 [00:00<00:00,  1.76it/s][A
+                                                                [ALayers:  17%|█▋        | 4/24 [00:03<00:15,  1.25it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_3_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_3_user-single_gen.json
+[layers] layer=4 -> steering layers [4]
+
+N sweep (layer=4):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=4 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6172.63it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.04it/s][A[A
+
+                                                      [A[A
+N sweep (layer=4): 100%|██████████| 1/1 [00:00<00:00,  1.04it/s][A
+                                                                [ALayers:  21%|██        | 5/24 [00:04<00:16,  1.16it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_4_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_4_user-single_gen.json
+[layers] layer=5 -> steering layers [5]
+
+N sweep (layer=5):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=5 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5976.92it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A[A
+
+                                                      [A[A
+N sweep (layer=5): 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A
+                                                                [ALayers:  25%|██▌       | 6/24 [00:05<00:13,  1.30it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_5_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_5_user-single_gen.json
+[layers] layer=6 -> steering layers [6]
+
+N sweep (layer=6):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=6 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5676.93it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.72it/s][A[A
+
+                                                      [A[A
+N sweep (layer=6): 100%|██████████| 1/1 [00:00<00:00,  1.71it/s][A
+                                                                [ALayers:  29%|██▉       | 7/24 [00:05<00:12,  1.41it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_6_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_6_user-single_gen.json
+[layers] layer=7 -> steering layers [7]
+
+N sweep (layer=7):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=7 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5993.29it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A[A
+
+                                                      [A[A
+N sweep (layer=7): 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A
+                                                                [ALayers:  33%|███▎      | 8/24 [00:06<00:10,  1.49it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_7_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_7_user-single_gen.json
+[layers] layer=8 -> steering layers [8]
+
+N sweep (layer=8):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=8 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5974.08it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A[A
+
+                                                      [A[A
+N sweep (layer=8): 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A
+                                                                [ALayers:  38%|███▊      | 9/24 [00:06<00:09,  1.54it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_8_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_8_user-single_gen.json
+[layers] layer=9 -> steering layers [9]
+
+N sweep (layer=9):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=9 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6122.33it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.72it/s][A[A
+
+                                                      [A[A
+N sweep (layer=9): 100%|██████████| 1/1 [00:00<00:00,  1.71it/s][A
+                                                                [ALayers:  42%|████▏     | 10/24 [00:07<00:08,  1.59it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_9_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_9_user-single_gen.json
+[layers] layer=10 -> steering layers [10]
+
+N sweep (layer=10):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=10 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6257.82it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A[A
+
+                                                      [A[A
+N sweep (layer=10): 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A
+                                                                 [ALayers:  46%|████▌     | 11/24 [00:08<00:07,  1.63it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_10_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_10_user-single_gen.json
+[layers] layer=11 -> steering layers [11]
+
+N sweep (layer=11):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=11 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6289.10it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s][A[A
+
+                                                      [A[A
+N sweep (layer=11): 100%|██████████| 1/1 [00:00<00:00,  1.76it/s][A
+                                                                 [ALayers:  50%|█████     | 12/24 [00:08<00:07,  1.67it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_11_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_11_user-single_gen.json
+[layers] layer=12 -> steering layers [12]
+
+N sweep (layer=12):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=12 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5847.76it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A[A
+
+                                                      [A[A
+N sweep (layer=12): 100%|██████████| 1/1 [00:00<00:00,  1.70it/s][A
+                                                                 [ALayers:  54%|█████▍    | 13/24 [00:09<00:06,  1.67it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_12_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_12_user-single_gen.json
+[layers] layer=13 -> steering layers [13]
+
+N sweep (layer=13):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=13 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6122.33it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A[A
+
+                                                      [A[A
+N sweep (layer=13): 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A
+                                                                 [ALayers:  58%|█████▊    | 14/24 [00:09<00:05,  1.69it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_13_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_13_user-single_gen.json
+[layers] layer=14 -> steering layers [14]
+
+N sweep (layer=14):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=14 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5916.50it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A[A
+
+                                                      [A[A
+N sweep (layer=14): 100%|██████████| 1/1 [00:00<00:00,  1.74it/s][A
+                                                                 [ALayers:  62%|██████▎   | 15/24 [00:10<00:05,  1.70it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_14_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_14_user-single_gen.json
+[layers] layer=15 -> steering layers [15]
+
+N sweep (layer=15):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=15 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6039.31it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A[A
+
+                                                      [A[A
+N sweep (layer=15): 100%|██████████| 1/1 [00:00<00:00,  1.69it/s][A
+                                                                 [ALayers:  67%|██████▋   | 16/24 [00:10<00:04,  1.69it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_15_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_15_user-single_gen.json
+[layers] layer=16 -> steering layers [16]
+
+N sweep (layer=16):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=16 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6236.11it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.77it/s][A[A
+
+                                                      [A[A
+N sweep (layer=16): 100%|██████████| 1/1 [00:00<00:00,  1.76it/s][A
+                                                                 [ALayers:  71%|███████   | 17/24 [00:11<00:04,  1.71it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_16_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_16_user-single_gen.json
+[layers] layer=17 -> steering layers [17]
+
+N sweep (layer=17):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=17 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6227.62it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.76it/s][A[A
+
+                                                      [A[A
+N sweep (layer=17): 100%|██████████| 1/1 [00:00<00:00,  1.75it/s][A
+                                                                 [ALayers:  75%|███████▌  | 18/24 [00:12<00:03,  1.72it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_17_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_17_user-single_gen.json
+[layers] layer=18 -> steering layers [18]
+
+N sweep (layer=18):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=18 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 5793.24it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.01s/it][A[A
+
+                                                      [A[A
+N sweep (layer=18): 100%|██████████| 1/1 [00:01<00:00,  1.02s/it][A
+                                                                 [ALayers:  79%|███████▉  | 19/24 [00:13<00:03,  1.40it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_18_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_18_user-single_gen.json
+[layers] layer=19 -> steering layers [19]
+
+N sweep (layer=19):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=19 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6136.51it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.00s/it][A[A
+
+                                                      [A[A
+N sweep (layer=19): 100%|██████████| 1/1 [00:01<00:00,  1.00s/it][A
+                                                                 [ALayers:  83%|████████▎ | 20/24 [00:14<00:03,  1.25it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_19_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_19_user-single_gen.json
+[layers] layer=20 -> steering layers [20]
+
+N sweep (layer=20):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=20 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6090.47it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.00s/it][A[A
+
+                                                      [A[A
+N sweep (layer=20): 100%|██████████| 1/1 [00:01<00:00,  1.00s/it][A
+                                                                 [ALayers:  88%|████████▊ | 21/24 [00:15<00:02,  1.16it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_20_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_20_user-single_gen.json
+[layers] layer=21 -> steering layers [21]
+
+N sweep (layer=21):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=21 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6072.83it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:00<00:00,  1.00it/s][A[A
+
+                                                      [A[A
+N sweep (layer=21): 100%|██████████| 1/1 [00:01<00:00,  1.00s/it][A
+                                                                 [ALayers:  92%|█████████▏| 22/24 [00:16<00:01,  1.10it/s]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_21_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_21_user-single_gen.json
+[layers] layer=22 -> steering layers [22]
+
+N sweep (layer=22):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=22 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6002.58it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.37s/it][A[A
+
+                                                      [A[A
+N sweep (layer=22): 100%|██████████| 1/1 [00:01<00:00,  1.37s/it][A
+                                                                 [ALayers:  96%|█████████▌| 23/24 [00:17<00:01,  1.05s/it]Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_22_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_22_user-single_gen.json
+[layers] layer=23 -> steering layers [23]
+
+N sweep (layer=23):   0%|          | 0/1 [00:00<?, ?it/s][A[layers] steer layer=23 N=5 alpha=0.5 scale=relative eval=user-single loc=from_user-single_to_dev-single
+Evaluating on test set.  12
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A[AEvaluating on test set.  12
+
+
+
+Decoding Responses:   0%|          | 0/12 [00:00<?, ?it/s][A[A[ADecoding Responses: 100%|██████████| 12/12 [00:00<00:00, 6075.03it/s]
+
+
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.37s/it][A[A
+
+                                                      [A[A
+N sweep (layer=23): 100%|██████████| 1/1 [00:01<00:00,  1.37s/it][A
+                                                                 [ALayers: 100%|██████████| 24/24 [00:18<00:00,  1.14s/it]Layers: 100%|██████████| 24/24 [00:18<00:00,  1.27it/s]
+Updating batch handler: start=25, stop=50
+[layers] saved responses to ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_23_user-single_gen.txt and ./results_layers_verifyB/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_23_user-single_gen.json
+[layers] evaluation complete.
+########## diff ##########
+
+[MATCH] attribution shards: 12/12 identical
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_0.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_1.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_10.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_11.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_2.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_3.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_4.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_5.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_6.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_7.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_8.pt
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/layers_9.pt
+
+[MATCH] attribution map: 1/1 identical
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt
+
+[MATCH] steering cache: 1/1 identical
+    ok   gpt-oss-20b/_steering_cache/user-single__last_token.pt
+
+[MATCH] layer selections: 24/24 identical
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_0.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_1.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_10.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_11.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_12.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_13.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_14.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_15.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_16.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_17.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_18.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_19.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_2.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_20.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_21.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_22.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_23.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_3.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_4.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_5.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_6.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_7.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_8.csv
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/numerator_1_targeted_9.csv
+
+[MATCH] steering metadata: 1/1 identical
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/steering_meta.json
+
+[MATCH] steered generations: 24/24 identical
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_0_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_10_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_11_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_12_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_13_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_14_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_15_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_16_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_17_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_18_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_19_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_1_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_20_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_21_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_22_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_23_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_2_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_3_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_4_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_5_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_6_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_7_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_8_user-single_gen.json
+    ok   gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/eval/5_targeted_steer_9_user-single_gen.json
+
+PASS: every compared artifact is bit-identical.
