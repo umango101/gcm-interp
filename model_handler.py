@@ -76,6 +76,19 @@ class ModelHandler:
         elif 'olmo' in model_id.lower():
             self.marker = '<|assistant|>\n'
             self.alignment_tokens = self.tokenizer(self.marker, return_tensors="pt")["input_ids"][0]
+        elif 'falcon3' in model_id.lower():
+            # Falcon3's chat template closes an add_generation_prompt turn with
+            # '<|assistant|>\n'. Unlike OLMo and Qwen, '<|assistant|>' is NOT in
+            # Falcon3's special-token table (its added tokens are the legacy Falcon
+            # >>TITLE<< family plus <|endoftext|>/<|pad|>/<|startoftext|>), so the
+            # marker is ordinary text that the BPE is free to segment differently
+            # depending on what precedes it. data_handler.get_resp_start_pos and
+            # align_toks both look for alignment_tokens as an EXACT subsequence and
+            # hard-assert when it is absent, so a standalone tokenizer(marker) call
+            # that happens to segment differently is a startup crash, not a silent
+            # skew. Derive the tokens from the template itself instead.
+            self.marker = '<|assistant|>\n'
+            self.alignment_tokens = self._alignment_tokens_from_template(self.marker)
         elif 'gemma' in model_id.lower():
             self.marker = '<start_of_turn>model\n'
             # Standalone encoding prepends <bos>; drop it so alignment_tokens matches the
@@ -104,6 +117,52 @@ class ModelHandler:
         "{% endif %}{% endfor %}"
         "{% if add_generation_prompt %}{{ 'ASSISTANT:' }}{% endif %}"
     )
+
+    def _alignment_tokens_from_template(self, marker):
+        """In-context tokenization of the assistant generation prompt.
+
+        Renders one dummy turn twice -- with and without add_generation_prompt --
+        tokenizes both, and returns the tokens the generation-prompt version adds
+        past the longest common prefix. That tail is exactly the subsequence that
+        get_resp_start_pos and align_toks scan for in a real templated prompt,
+        including any BPE merge across the boundary with the character that
+        precedes the marker. A standalone tokenizer(marker) call cannot reproduce
+        that boundary, which is why models whose role tags are not special tokens
+        need this path rather than the hardcoded slices used elsewhere.
+
+        Falls back to the standalone encoding (minus a leading BOS, which the
+        template does not repeat in context) if the probe fails for any reason.
+        """
+        tok = self.tokenizer
+        msgs = [{"role": "user", "content": "x"}]
+        try:
+            without = tok(tok.apply_chat_template(
+                msgs, tokenize=False, add_generation_prompt=False))["input_ids"]
+            with_gen = tok(tok.apply_chat_template(
+                msgs, tokenize=False, add_generation_prompt=True))["input_ids"]
+        except Exception as e:
+            print(f"[model] chat-template probe failed ({e}); "
+                  f"falling back to standalone marker encoding.", flush=True)
+            without, with_gen = None, None
+
+        if with_gen is not None and len(with_gen) > len(without):
+            i = 0
+            while i < len(without) and without[i] == with_gen[i]:
+                i += 1
+            derived = with_gen[i:]
+            if derived:
+                print(f"[model] alignment tokens from template: {derived} -> "
+                      f"{tok.convert_ids_to_tokens(derived)}", flush=True)
+                return torch.tensor(derived)
+            print("[model] template probe produced an empty tail; "
+                  "falling back to standalone marker encoding.", flush=True)
+
+        ids = tok(marker, return_tensors="pt")["input_ids"][0]
+        if tok.bos_token_id is not None and ids.numel() and int(ids[0]) == tok.bos_token_id:
+            ids = ids[1:]
+        print(f"[model] alignment tokens (standalone): {ids.tolist()} -> "
+              f"{tok.convert_ids_to_tokens(ids.tolist())}", flush=True)
+        return ids
 
     def load_tokenizer(self, model_id):
         if 'qwen'  in model_id.lower():
@@ -183,4 +242,3 @@ class ModelHandler:
         print("params requiring grad:", sum(p.requires_grad for p in causal_lm.parameters()))
         return LanguageModel(causal_lm, tokenizer=self.tokenizer, dispatch=True,
                              **{cfg_kw: text_config})
-    

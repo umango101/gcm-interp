@@ -58,7 +58,7 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (female -> male) -------------------------------
-MODEL_ID = "gemma-3-12b-it"
+MODEL_ID = "Falcon3-10B-Instruct"
 METHOD   = "atp"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.

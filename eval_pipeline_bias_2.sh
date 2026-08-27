@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
+#SBATCH -p mit_normal_gpu
 #SBATCH -t 06:00:00
 #SBATCH -J bias_pipeline
 #SBATCH -o logs/%x_%j.out
@@ -20,4 +20,4 @@ source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda activate /home/ubansal/miniconda/envs/syc
 cd "$RM_INTERP_REPO"
 
-python eval_pipeline_bias.py --stages merge build_prompts judge accuracies plots --batch_size 32
+python eval_pipeline_bias_2.py --stages merge build_prompts judge accuracies plots --batch_size 32

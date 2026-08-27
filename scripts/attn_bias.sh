@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 48:00:00
+#SBATCH -t 12:00:00
 #SBATCH -J bias_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -20,10 +20,6 @@ cd "$RM_INTERP_REPO" || { echo "FATAL: cannot cd to $RM_INTERP_REPO"; exit 1; }
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubansal/orcd/scratch/gcm-interp/.venv/lib/python3.10/site-packages/nvidia/cu13/lib
 
 declare -a models=(
-  "google/gemma-3-12b-it"
-  "Qwen/Qwen1.5-14B-Chat"
-  "Qwen/Qwen1.5-32B-Chat"
-  "allenai/OLMo-2-1124-13B-DPO"
   "tiiuae/Falcon3-10B-Instruct"
 )
 

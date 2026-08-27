@@ -58,7 +58,7 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (lying -> truthful) -------------------------------
-MODEL_ID = "Qwen1.5-32B-Chat"
+MODEL_ID = "Falcon3-10B-Instruct"
 METHOD   = "atp"
  
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
