@@ -1,0 +1,8 @@
+repo   : /home/ubansal/orcd/scratch/gcm-interp
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/gcm-interp/data/gpt-oss-20b/first-single
+
+########## build: candidate corpus ##########
+python: can't open file '/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/positions/make_position_datasets.py': [Errno 2] No such file or directory

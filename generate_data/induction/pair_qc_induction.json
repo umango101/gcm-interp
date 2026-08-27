@@ -1,0 +1,1882 @@
+{
+  "args": {
+    "data_dir": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction/candidates",
+    "model": "openai/gpt-oss-20b",
+    "reasoning": "low",
+    "out": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/pair_qc_induction.json"
+  },
+  "passing_pairs": [
+    "demeik|tirof",
+    "viaramp|diasial",
+    "treitrag|galab",
+    "trastount|voutrar",
+    "fodrub|zukrad",
+    "vreisest|hoter",
+    "fidrat|gusoul",
+    "rebral|jiagem",
+    "taflok|skeinen",
+    "helaet|duteg",
+    "redriar|niaket",
+    "skeifiant|mirund",
+    "gestob|birar",
+    "vohed|kitarn",
+    "rusweb|lasolk",
+    "tiglel|lovov",
+    "jarosk|traker",
+    "jahoud|kahouf",
+    "seiheb|maeref",
+    "dapisk|brobran",
+    "durat|snoupes",
+    "gidop|junan",
+    "rebral|heleb",
+    "pusount|mastik",
+    "liher|nikend",
+    "siswend|motroup",
+    "hafiam|pleitar",
+    "lidrel|maeref",
+    "sigluv|hoband",
+    "betrimp|rigisk",
+    "neisent|meget",
+    "vreven|kosnat",
+    "vohed|riloum",
+    "losnim|jiatron",
+    "jesamp|braelum",
+    "foreind|hostam",
+    "donulk|beizar",
+    "keleis|traestan",
+    "voudat|gejel",
+    "ginav|mastik",
+    "divron|veresk",
+    "glelun|kaeris",
+    "liher|dufus",
+    "liatil|routeib",
+    "vusnav|miraz",
+    "vigond|hetolk",
+    "mehev|vegir",
+    "rusweb|bises",
+    "vidosk|tulot",
+    "nekraf|roneilk",
+    "biasib|kaeven",
+    "safeik|vakurk",
+    "rihut|zikros",
+    "boses|galab",
+    "lukel|miraz",
+    "glimer|douzeg",
+    "treitrag|gusoul",
+    "tranurk|denout",
+    "vapek|drorest",
+    "kukip|dumark",
+    "stosoun|gapas",
+    "touhael|stiavid",
+    "tezouf|flagleid",
+    "jaeven|kipim",
+    "stegan|heleb",
+    "stalof|veiret",
+    "raejev|tribit",
+    "tigend|zuroub",
+    "reisnias|jenev",
+    "voudat|giveit",
+    "lemeis|jusnez",
+    "pliapag|fiagun",
+    "tigend|metip",
+    "taflok|keplan",
+    "keleimp|tesnok",
+    "nouswik|tulot",
+    "keleimp|riflir",
+    "sesneg|plases",
+    "stalof|swahit",
+    "trufern|dumast",
+    "tipout|metip",
+    "kokorn|maeref",
+    "stavrek|peikian",
+    "jahost|kipim",
+    "tigend|liniv",
+    "ginav|pastib",
+    "taflok|hoter",
+    "nezer|begeg",
+    "bigup|rojoum",
+    "stalof|pereik",
+    "bekond|jiatron",
+    "vreisest|dojak",
+    "samiz|kaeven",
+    "movust|paswas",
+    "nekraf|duzos",
+    "plotork|hoter",
+    "gestob|meikot",
+    "jaeven|jiatron",
+    "donulk|dufus",
+    "donulk|tanep",
+    "tigend|diasial",
+    "duliar|maeref",
+    "sesneg|paswas",
+    "keleimp|mobork",
+    "begouk|kipim",
+    "refar|hojak",
+    "balourn|jerind",
+    "tokrian|figlun",
+    "nekraf|riabis",
+    "falob|keplan",
+    "tidrus|jiagem"
+  ],
+  "failing_pairs": {
+    "rebral|kujaf": [
+      "induction: kujaf/paswas said 'k' want 'kujaf'"
+    ],
+    "vaedef|rojoum": [
+      "induction: rojoum/homiz said 's' want 'rojoum'"
+    ],
+    "balourn|vrotraf": [
+      "induction: vrotraf/sekoug said 't' want 'vrotraf'"
+    ],
+    "nezer|birar": [
+      "induction: birar/zikros said 'b' want 'birar'"
+    ],
+    "koplet|botrup": [
+      "induction: botrup/drebag said 'g' want 'botrup'"
+    ],
+    "dukud|flokrif": [
+      "induction: flokrif/stiavid said 'fl' want 'flokrif'"
+    ],
+    "bebum|nagind": [
+      "induction: nagind/traestan said 'k' want 'nagind'"
+    ],
+    "trezant|dumast": [
+      "induction: dumast/jiatron said 'd' want 'dumast'"
+    ],
+    "taflok|swahit": [
+      "induction: swahit/dropost said 's' want 'swahit'"
+    ],
+    "betrimp|skalip": [
+      "induction: skalip/foturn said 'kal' want 'skalip'"
+    ],
+    "haraz|zialark": [
+      "induction: zialark/zirirk said 'z' want 'zialark'"
+    ],
+    "vepus|lotrod": [
+      "induction: lotrod/zufub said 't' want 'lotrod'"
+    ],
+    "mekiv|tokend": [
+      "induction: tokend/mozeit said 't' want 'tokend'"
+    ],
+    "voudat|kipim": [
+      "induction: kipim/pleisat said 'k' want 'kipim'"
+    ],
+    "gagun|punum": [
+      "induction: punum/magurk said 'p' want 'punum'"
+    ],
+    "jaeven|stestom": [
+      "induction: stestom/nounum said 't' want 'stestom'"
+    ],
+    "vapek|tumif": [
+      "induction: tumif/kopial said 't' want 'tumif'"
+    ],
+    "mekiv|stekrot": [
+      "induction: stekrot/zimag said 'tek' want 'stekrot'"
+    ],
+    "lepark|sutred": [
+      "induction: sutred/tisnon said 's' want 'sutred'"
+    ],
+    "bebum|vronit": [
+      "induction: vronit/halan said 'k' want 'vronit'"
+    ],
+    "hopov|trafap": [
+      "induction: trafap/lonont said 't' want 'trafap'"
+    ],
+    "tranurk|neraerk": [
+      "induction: neraerk/brahein said 'ner' want 'neraerk'"
+    ],
+    "zikar|glasulk": [
+      "induction: glasulk/miraz said 'gl' want 'glasulk'"
+    ],
+    "bukof|vrotraf": [
+      "induction: vrotraf/hatreib said 'z' want 'vrotraf'"
+    ],
+    "kruron|lomol": [
+      "induction: lomol/neraerk said 'l' want 'lomol'"
+    ],
+    "begouk|voumal": [
+      "induction: voumal/skimuv said 'v' want 'voumal'"
+    ],
+    "bekond|kratrol": [
+      "induction: kratrol/stekrot said 'k' want 'kratrol'"
+    ],
+    "lezis|reizun": [
+      "induction: reizun/jiraelk said 'rez' want 'reizun'"
+    ],
+    "kukark|hetolk": [
+      "induction: hetolk/plugous said 'k' want 'hetolk'"
+    ],
+    "tegit|vomouf": [
+      "induction: vomouf/stesof said 'k' want 'vomouf'"
+    ],
+    "boses|seraer": [
+      "induction: seraer/birar said 's' want 'seraer'"
+    ],
+    "haraz|bokul": [
+      "induction: bokul/lugleid said 'k' want 'bokul'"
+    ],
+    "liher|stestom": [
+      "induction: stestom/riabis said 'test' want 'stestom'"
+    ],
+    "tiheg|dumast": [
+      "induction: dumast/bamag said 'd' want 'dumast'"
+    ],
+    "mesneb|lusnis": [
+      "induction: lusnis/stestom said 'l' want 'lusnis'"
+    ],
+    "hugourn|hozlir": [
+      "induction: hozlir/veresk said 'h' want 'hozlir'"
+    ],
+    "depom|drugiaz": [
+      "induction: drugiaz/pereik said 'dr' want 'drugiaz'"
+    ],
+    "kukark|krivub": [
+      "induction: krivub/jusnez said 'k' want 'krivub'"
+    ],
+    "dutik|braelum": [
+      "induction: braelum/zirirk said 'b' want 'braelum'"
+    ],
+    "falob|teisoud": [
+      "induction: teisoud/heleb said 'te' want 'teisoud'"
+    ],
+    "gliatum|skalip": [
+      "induction: skalip/begeg said 'kal' want 'skalip'"
+    ],
+    "hugourn|nokent": [
+      "induction: nokent/voumal said 'k' want 'nokent'"
+    ],
+    "ginav|stesnit": [
+      "induction: stesnit/pavut said 't' want 'stesnit'"
+    ],
+    "dravos|kohurn": [
+      "induction: kohurn/nagind said 'k' want 'kohurn'"
+    ],
+    "tradez|hisud": [
+      "induction: hisud/deisir said 's' want 'hisud'"
+    ],
+    "bulos|vrotraf": [
+      "induction: vrotraf/hosan said 'k' want 'vrotraf'"
+    ],
+    "dukud|puteib": [
+      "induction: puteib/juboust said 't' want 'puteib'"
+    ],
+    "razer|mobork": [
+      "induction: mobork/gapas said 'm' want 'mobork'"
+    ],
+    "stegan|susast": [
+      "induction: susast/lotrod said 's' want 'susast'"
+    ]
+  },
+  "per_check": {
+    "induction-single-desired-all.jsonl": {
+      "target_role": "dev",
+      "n": 160,
+      "line_pass_rate": 0.69375,
+      "mean_margin": 5.5701171875,
+      "sd_margin": 2.852277556648144,
+      "offtask_rate": 0.30625,
+      "results": [
+        {
+          "pair_key": "rebral|kujaf",
+          "dev_word": "kujaf",
+          "user_word": "paswas",
+          "target": "kujaf",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 4.9375,
+          "offtask": true
+        },
+        {
+          "pair_key": "vaedef|rojoum",
+          "dev_word": "rojoum",
+          "user_word": "homiz",
+          "target": "rojoum",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 2.875,
+          "offtask": true
+        },
+        {
+          "pair_key": "demeik|tirof",
+          "dev_word": "tirof",
+          "user_word": "drugiaz",
+          "target": "tirof",
+          "argmax_token": "ti",
+          "correct": true,
+          "margin": 9.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "viaramp|diasial",
+          "dev_word": "diasial",
+          "user_word": "toutus",
+          "target": "diasial",
+          "argmax_token": "dias",
+          "correct": true,
+          "margin": 6.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "balourn|vrotraf",
+          "dev_word": "vrotraf",
+          "user_word": "sekoug",
+          "target": "vrotraf",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 4.1875,
+          "offtask": true
+        },
+        {
+          "pair_key": "treitrag|galab",
+          "dev_word": "galab",
+          "user_word": "hisud",
+          "target": "galab",
+          "argmax_token": "gal",
+          "correct": true,
+          "margin": 7.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "nezer|birar",
+          "dev_word": "birar",
+          "user_word": "zikros",
+          "target": "birar",
+          "argmax_token": "b",
+          "correct": false,
+          "margin": 4.8125,
+          "offtask": true
+        },
+        {
+          "pair_key": "trastount|voutrar",
+          "dev_word": "voutrar",
+          "user_word": "flagleid",
+          "target": "voutrar",
+          "argmax_token": "vou",
+          "correct": true,
+          "margin": 8.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "fodrub|zukrad",
+          "dev_word": "zukrad",
+          "user_word": "ratouv",
+          "target": "zukrad",
+          "argmax_token": "zuk",
+          "correct": true,
+          "margin": 5.4375,
+          "offtask": false
+        },
+        {
+          "pair_key": "vreisest|hoter",
+          "dev_word": "hoter",
+          "user_word": "zimag",
+          "target": "hoter",
+          "argmax_token": "h",
+          "correct": true,
+          "margin": 5.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "fidrat|gusoul",
+          "dev_word": "gusoul",
+          "user_word": "guriz",
+          "target": "gusoul",
+          "argmax_token": "gus",
+          "correct": true,
+          "margin": 1.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "koplet|botrup",
+          "dev_word": "botrup",
+          "user_word": "drebag",
+          "target": "botrup",
+          "argmax_token": "g",
+          "correct": false,
+          "margin": 4.0,
+          "offtask": true
+        },
+        {
+          "pair_key": "rebral|jiagem",
+          "dev_word": "jiagem",
+          "user_word": "trouvrez",
+          "target": "jiagem",
+          "argmax_token": "ji",
+          "correct": true,
+          "margin": 2.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "taflok|skeinen",
+          "dev_word": "skeinen",
+          "user_word": "riflir",
+          "target": "skeinen",
+          "argmax_token": "ske",
+          "correct": true,
+          "margin": 8.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "helaet|duteg",
+          "dev_word": "duteg",
+          "user_word": "brobran",
+          "target": "duteg",
+          "argmax_token": "dut",
+          "correct": true,
+          "margin": 4.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "redriar|niaket",
+          "dev_word": "niaket",
+          "user_word": "gleiban",
+          "target": "niaket",
+          "argmax_token": "ni",
+          "correct": true,
+          "margin": 7.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "skeifiant|mirund",
+          "dev_word": "mirund",
+          "user_word": "toutus",
+          "target": "mirund",
+          "argmax_token": "mir",
+          "correct": true,
+          "margin": 9.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "gestob|birar",
+          "dev_word": "birar",
+          "user_word": "kreisend",
+          "target": "birar",
+          "argmax_token": "bir",
+          "correct": true,
+          "margin": 6.1875,
+          "offtask": false
+        },
+        {
+          "pair_key": "vohed|kitarn",
+          "dev_word": "kitarn",
+          "user_word": "drebag",
+          "target": "kitarn",
+          "argmax_token": "kit",
+          "correct": true,
+          "margin": 7.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "rusweb|lasolk",
+          "dev_word": "lasolk",
+          "user_word": "tribit",
+          "target": "lasolk",
+          "argmax_token": "las",
+          "correct": true,
+          "margin": 4.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "tiglel|lovov",
+          "dev_word": "lovov",
+          "user_word": "lugleid",
+          "target": "lovov",
+          "argmax_token": "lov",
+          "correct": true,
+          "margin": 3.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "jarosk|traker",
+          "dev_word": "traker",
+          "user_word": "pineb",
+          "target": "traker",
+          "argmax_token": "tr",
+          "correct": true,
+          "margin": 7.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "dukud|flokrif",
+          "dev_word": "flokrif",
+          "user_word": "stiavid",
+          "target": "flokrif",
+          "argmax_token": "fl",
+          "correct": false,
+          "margin": 4.875,
+          "offtask": true
+        },
+        {
+          "pair_key": "jahoud|kahouf",
+          "dev_word": "kahouf",
+          "user_word": "nakon",
+          "target": "kahouf",
+          "argmax_token": "kah",
+          "correct": true,
+          "margin": 6.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "seiheb|maeref",
+          "dev_word": "maeref",
+          "user_word": "begeg",
+          "target": "maeref",
+          "argmax_token": "ma",
+          "correct": true,
+          "margin": 4.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "dapisk|brobran",
+          "dev_word": "brobran",
+          "user_word": "treper",
+          "target": "brobran",
+          "argmax_token": "bro",
+          "correct": true,
+          "margin": 4.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "durat|snoupes",
+          "dev_word": "snoupes",
+          "user_word": "pavut",
+          "target": "snoupes",
+          "argmax_token": "sn",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "gidop|junan",
+          "dev_word": "junan",
+          "user_word": "lesnip",
+          "target": "junan",
+          "argmax_token": "j",
+          "correct": true,
+          "margin": 6.1875,
+          "offtask": false
+        },
+        {
+          "pair_key": "bebum|nagind",
+          "dev_word": "nagind",
+          "user_word": "traestan",
+          "target": "nagind",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 2.375,
+          "offtask": true
+        },
+        {
+          "pair_key": "rebral|heleb",
+          "dev_word": "heleb",
+          "user_word": "heikan",
+          "target": "heleb",
+          "argmax_token": "he",
+          "correct": true,
+          "margin": 0.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "trezant|dumast",
+          "dev_word": "dumast",
+          "user_word": "jiatron",
+          "target": "dumast",
+          "argmax_token": "d",
+          "correct": false,
+          "margin": 5.25,
+          "offtask": true
+        },
+        {
+          "pair_key": "pusount|mastik",
+          "dev_word": "mastik",
+          "user_word": "pinif",
+          "target": "mastik",
+          "argmax_token": "mast",
+          "correct": true,
+          "margin": 7.4375,
+          "offtask": false
+        },
+        {
+          "pair_key": "liher|nikend",
+          "dev_word": "nikend",
+          "user_word": "hagos",
+          "target": "nikend",
+          "argmax_token": "nik",
+          "correct": true,
+          "margin": 4.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "siswend|motroup",
+          "dev_word": "motroup",
+          "user_word": "skalip",
+          "target": "motroup",
+          "argmax_token": "mot",
+          "correct": true,
+          "margin": 11.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "hafiam|pleitar",
+          "dev_word": "pleitar",
+          "user_word": "punum",
+          "target": "pleitar",
+          "argmax_token": "ple",
+          "correct": true,
+          "margin": 4.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "lidrel|maeref",
+          "dev_word": "maeref",
+          "user_word": "skalip",
+          "target": "maeref",
+          "argmax_token": "ma",
+          "correct": true,
+          "margin": 11.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "taflok|swahit",
+          "dev_word": "swahit",
+          "user_word": "dropost",
+          "target": "swahit",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 4.6875,
+          "offtask": true
+        },
+        {
+          "pair_key": "betrimp|skalip",
+          "dev_word": "skalip",
+          "user_word": "foturn",
+          "target": "skalip",
+          "argmax_token": "kal",
+          "correct": false,
+          "margin": 5.1875,
+          "offtask": true
+        },
+        {
+          "pair_key": "haraz|zialark",
+          "dev_word": "zialark",
+          "user_word": "zirirk",
+          "target": "zialark",
+          "argmax_token": "z",
+          "correct": false,
+          "margin": -2.375,
+          "offtask": true
+        },
+        {
+          "pair_key": "sigluv|hoband",
+          "dev_word": "hoband",
+          "user_word": "besov",
+          "target": "hoband",
+          "argmax_token": "hob",
+          "correct": true,
+          "margin": 6.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "betrimp|rigisk",
+          "dev_word": "rigisk",
+          "user_word": "gleiban",
+          "target": "rigisk",
+          "argmax_token": "rig",
+          "correct": true,
+          "margin": 5.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "neisent|meget",
+          "dev_word": "meget",
+          "user_word": "lomol",
+          "target": "meget",
+          "argmax_token": "me",
+          "correct": true,
+          "margin": 8.1875,
+          "offtask": false
+        },
+        {
+          "pair_key": "vreven|kosnat",
+          "dev_word": "kosnat",
+          "user_word": "riabis",
+          "target": "kosnat",
+          "argmax_token": "kos",
+          "correct": true,
+          "margin": 3.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "vohed|riloum",
+          "dev_word": "riloum",
+          "user_word": "braelum",
+          "target": "riloum",
+          "argmax_token": "ril",
+          "correct": true,
+          "margin": 6.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "vepus|lotrod",
+          "dev_word": "lotrod",
+          "user_word": "zufub",
+          "target": "lotrod",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 5.5,
+          "offtask": true
+        },
+        {
+          "pair_key": "losnim|jiatron",
+          "dev_word": "jiatron",
+          "user_word": "roneilk",
+          "target": "jiatron",
+          "argmax_token": "ji",
+          "correct": true,
+          "margin": 9.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "jesamp|braelum",
+          "dev_word": "braelum",
+          "user_word": "skimuv",
+          "target": "braelum",
+          "argmax_token": "bra",
+          "correct": true,
+          "margin": 9.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "mekiv|tokend",
+          "dev_word": "tokend",
+          "user_word": "mozeit",
+          "target": "tokend",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 3.4375,
+          "offtask": true
+        },
+        {
+          "pair_key": "foreind|hostam",
+          "dev_word": "hostam",
+          "user_word": "trouvrez",
+          "target": "hostam",
+          "argmax_token": "host",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "voudat|kipim",
+          "dev_word": "kipim",
+          "user_word": "pleisat",
+          "target": "kipim",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 3.25,
+          "offtask": true
+        },
+        {
+          "pair_key": "donulk|beizar",
+          "dev_word": "beizar",
+          "user_word": "tirof",
+          "target": "beizar",
+          "argmax_token": "be",
+          "correct": true,
+          "margin": 4.4375,
+          "offtask": false
+        },
+        {
+          "pair_key": "keleis|traestan",
+          "dev_word": "traestan",
+          "user_word": "krivub",
+          "target": "traestan",
+          "argmax_token": "tra",
+          "correct": true,
+          "margin": 8.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "gagun|punum",
+          "dev_word": "punum",
+          "user_word": "magurk",
+          "target": "punum",
+          "argmax_token": "p",
+          "correct": false,
+          "margin": 1.8125,
+          "offtask": true
+        },
+        {
+          "pair_key": "voudat|gejel",
+          "dev_word": "gejel",
+          "user_word": "lujus",
+          "target": "gejel",
+          "argmax_token": "ge",
+          "correct": true,
+          "margin": 4.6875,
+          "offtask": false
+        },
+        {
+          "pair_key": "jaeven|stestom",
+          "dev_word": "stestom",
+          "user_word": "nounum",
+          "target": "stestom",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 2.71875,
+          "offtask": true
+        },
+        {
+          "pair_key": "ginav|mastik",
+          "dev_word": "mastik",
+          "user_word": "meikot",
+          "target": "mastik",
+          "argmax_token": "mast",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "vapek|tumif",
+          "dev_word": "tumif",
+          "user_word": "kopial",
+          "target": "tumif",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 5.25,
+          "offtask": true
+        },
+        {
+          "pair_key": "divron|veresk",
+          "dev_word": "veresk",
+          "user_word": "stesnit",
+          "target": "veresk",
+          "argmax_token": "ver",
+          "correct": true,
+          "margin": 8.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "glelun|kaeris",
+          "dev_word": "kaeris",
+          "user_word": "skimuv",
+          "target": "kaeris",
+          "argmax_token": "ka",
+          "correct": true,
+          "margin": 9.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "liher|dufus",
+          "dev_word": "dufus",
+          "user_word": "krivub",
+          "target": "dufus",
+          "argmax_token": "du",
+          "correct": true,
+          "margin": 9.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "liatil|routeib",
+          "dev_word": "routeib",
+          "user_word": "plepor",
+          "target": "routeib",
+          "argmax_token": "route",
+          "correct": true,
+          "margin": 4.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "vusnav|miraz",
+          "dev_word": "miraz",
+          "user_word": "kahouf",
+          "target": "miraz",
+          "argmax_token": "mir",
+          "correct": true,
+          "margin": 6.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "vigond|hetolk",
+          "dev_word": "hetolk",
+          "user_word": "rujer",
+          "target": "hetolk",
+          "argmax_token": "het",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "mekiv|stekrot",
+          "dev_word": "stekrot",
+          "user_word": "zimag",
+          "target": "stekrot",
+          "argmax_token": "tek",
+          "correct": false,
+          "margin": 6.4375,
+          "offtask": true
+        },
+        {
+          "pair_key": "mehev|vegir",
+          "dev_word": "vegir",
+          "user_word": "fidrael",
+          "target": "vegir",
+          "argmax_token": "veg",
+          "correct": true,
+          "margin": 8.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "lepark|sutred",
+          "dev_word": "sutred",
+          "user_word": "tisnon",
+          "target": "sutred",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 4.8125,
+          "offtask": true
+        },
+        {
+          "pair_key": "rusweb|bises",
+          "dev_word": "bises",
+          "user_word": "trafap",
+          "target": "bises",
+          "argmax_token": "b",
+          "correct": true,
+          "margin": 9.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "vidosk|tulot",
+          "dev_word": "tulot",
+          "user_word": "naeheg",
+          "target": "tulot",
+          "argmax_token": "t",
+          "correct": true,
+          "margin": 7.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "bebum|vronit",
+          "dev_word": "vronit",
+          "user_word": "halan",
+          "target": "vronit",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": -1.9375,
+          "offtask": true
+        },
+        {
+          "pair_key": "nekraf|roneilk",
+          "dev_word": "roneilk",
+          "user_word": "foturn",
+          "target": "roneilk",
+          "argmax_token": "rone",
+          "correct": true,
+          "margin": 7.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "biasib|kaeven",
+          "dev_word": "kaeven",
+          "user_word": "deisir",
+          "target": "kaeven",
+          "argmax_token": "ka",
+          "correct": true,
+          "margin": 3.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "safeik|vakurk",
+          "dev_word": "vakurk",
+          "user_word": "mobork",
+          "target": "vakurk",
+          "argmax_token": "vak",
+          "correct": true,
+          "margin": 7.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "rihut|zikros",
+          "dev_word": "zikros",
+          "user_word": "bises",
+          "target": "zikros",
+          "argmax_token": "zik",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "boses|galab",
+          "dev_word": "galab",
+          "user_word": "bises",
+          "target": "galab",
+          "argmax_token": "gal",
+          "correct": true,
+          "margin": 1.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "lukel|miraz",
+          "dev_word": "miraz",
+          "user_word": "sohor",
+          "target": "miraz",
+          "argmax_token": "mir",
+          "correct": true,
+          "margin": 4.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "glimer|douzeg",
+          "dev_word": "douzeg",
+          "user_word": "kujost",
+          "target": "douzeg",
+          "argmax_token": "dou",
+          "correct": true,
+          "margin": 8.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "treitrag|gusoul",
+          "dev_word": "gusoul",
+          "user_word": "nounum",
+          "target": "gusoul",
+          "argmax_token": "gus",
+          "correct": true,
+          "margin": 6.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "tranurk|denout",
+          "dev_word": "denout",
+          "user_word": "kaeris",
+          "target": "denout",
+          "argmax_token": "den",
+          "correct": true,
+          "margin": 5.4375,
+          "offtask": false
+        },
+        {
+          "pair_key": "hopov|trafap",
+          "dev_word": "trafap",
+          "user_word": "lonont",
+          "target": "trafap",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 5.625,
+          "offtask": true
+        },
+        {
+          "pair_key": "vapek|drorest",
+          "dev_word": "drorest",
+          "user_word": "haswag",
+          "target": "drorest",
+          "argmax_token": "dro",
+          "correct": true,
+          "margin": 6.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "kukip|dumark",
+          "dev_word": "dumark",
+          "user_word": "zukrad",
+          "target": "dumark",
+          "argmax_token": "dum",
+          "correct": true,
+          "margin": 5.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "tranurk|neraerk",
+          "dev_word": "neraerk",
+          "user_word": "brahein",
+          "target": "neraerk",
+          "argmax_token": "ner",
+          "correct": false,
+          "margin": 3.625,
+          "offtask": true
+        },
+        {
+          "pair_key": "zikar|glasulk",
+          "dev_word": "glasulk",
+          "user_word": "miraz",
+          "target": "glasulk",
+          "argmax_token": "gl",
+          "correct": false,
+          "margin": 3.875,
+          "offtask": true
+        },
+        {
+          "pair_key": "stosoun|gapas",
+          "dev_word": "gapas",
+          "user_word": "stekrot",
+          "target": "gapas",
+          "argmax_token": "g",
+          "correct": true,
+          "margin": 9.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "touhael|stiavid",
+          "dev_word": "stiavid",
+          "user_word": "kostount",
+          "target": "stiavid",
+          "argmax_token": "sti",
+          "correct": true,
+          "margin": 6.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "bukof|vrotraf",
+          "dev_word": "vrotraf",
+          "user_word": "hatreib",
+          "target": "vrotraf",
+          "argmax_token": "z",
+          "correct": false,
+          "margin": 4.5625,
+          "offtask": true
+        },
+        {
+          "pair_key": "tezouf|flagleid",
+          "dev_word": "flagleid",
+          "user_word": "gived",
+          "target": "flagleid",
+          "argmax_token": "flag",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "jaeven|kipim",
+          "dev_word": "kipim",
+          "user_word": "meget",
+          "target": "kipim",
+          "argmax_token": "kip",
+          "correct": true,
+          "margin": 5.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "stegan|heleb",
+          "dev_word": "heleb",
+          "user_word": "brahein",
+          "target": "heleb",
+          "argmax_token": "he",
+          "correct": true,
+          "margin": 6.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "stalof|veiret",
+          "dev_word": "veiret",
+          "user_word": "tramurk",
+          "target": "veiret",
+          "argmax_token": "ve",
+          "correct": true,
+          "margin": 7.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "raejev|tribit",
+          "dev_word": "tribit",
+          "user_word": "joved",
+          "target": "tribit",
+          "argmax_token": "trib",
+          "correct": true,
+          "margin": 1.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "kruron|lomol",
+          "dev_word": "lomol",
+          "user_word": "neraerk",
+          "target": "lomol",
+          "argmax_token": "l",
+          "correct": false,
+          "margin": 5.6875,
+          "offtask": true
+        },
+        {
+          "pair_key": "tigend|zuroub",
+          "dev_word": "zuroub",
+          "user_word": "roneilk",
+          "target": "zuroub",
+          "argmax_token": "zur",
+          "correct": true,
+          "margin": 11.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "reisnias|jenev",
+          "dev_word": "jenev",
+          "user_word": "douzeg",
+          "target": "jenev",
+          "argmax_token": "jene",
+          "correct": true,
+          "margin": 9.1875,
+          "offtask": false
+        },
+        {
+          "pair_key": "voudat|giveit",
+          "dev_word": "giveit",
+          "user_word": "drugiaz",
+          "target": "giveit",
+          "argmax_token": "give",
+          "correct": true,
+          "margin": 6.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "lemeis|jusnez",
+          "dev_word": "jusnez",
+          "user_word": "puteib",
+          "target": "jusnez",
+          "argmax_token": "jus",
+          "correct": true,
+          "margin": 7.3125,
+          "offtask": false
+        },
+        {
+          "pair_key": "begouk|voumal",
+          "dev_word": "voumal",
+          "user_word": "skimuv",
+          "target": "voumal",
+          "argmax_token": "v",
+          "correct": false,
+          "margin": 7.9375,
+          "offtask": true
+        },
+        {
+          "pair_key": "pliapag|fiagun",
+          "dev_word": "fiagun",
+          "user_word": "homiz",
+          "target": "fiagun",
+          "argmax_token": "fi",
+          "correct": true,
+          "margin": 5.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "tigend|metip",
+          "dev_word": "metip",
+          "user_word": "nosnir",
+          "target": "metip",
+          "argmax_token": "met",
+          "correct": true,
+          "margin": 7.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "taflok|keplan",
+          "dev_word": "keplan",
+          "user_word": "vrotraf",
+          "target": "keplan",
+          "argmax_token": "ke",
+          "correct": true,
+          "margin": 10.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "keleimp|tesnok",
+          "dev_word": "tesnok",
+          "user_word": "dojak",
+          "target": "tesnok",
+          "argmax_token": "tes",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "bekond|kratrol",
+          "dev_word": "kratrol",
+          "user_word": "stekrot",
+          "target": "kratrol",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 4.8125,
+          "offtask": true
+        },
+        {
+          "pair_key": "nouswik|tulot",
+          "dev_word": "tulot",
+          "user_word": "paswas",
+          "target": "tulot",
+          "argmax_token": "t",
+          "correct": true,
+          "margin": 4.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "keleimp|riflir",
+          "dev_word": "riflir",
+          "user_word": "davrin",
+          "target": "riflir",
+          "argmax_token": "rif",
+          "correct": true,
+          "margin": 6.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "lezis|reizun",
+          "dev_word": "reizun",
+          "user_word": "jiraelk",
+          "target": "reizun",
+          "argmax_token": "rez",
+          "correct": false,
+          "margin": 10.25,
+          "offtask": true
+        },
+        {
+          "pair_key": "sesneg|plases",
+          "dev_word": "plases",
+          "user_word": "hostam",
+          "target": "plases",
+          "argmax_token": "pl",
+          "correct": true,
+          "margin": 10.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "stalof|swahit",
+          "dev_word": "swahit",
+          "user_word": "vohap",
+          "target": "swahit",
+          "argmax_token": "sw",
+          "correct": true,
+          "margin": 6.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "trufern|dumast",
+          "dev_word": "dumast",
+          "user_word": "kaeris",
+          "target": "dumast",
+          "argmax_token": "dum",
+          "correct": true,
+          "margin": 4.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "tipout|metip",
+          "dev_word": "metip",
+          "user_word": "lonont",
+          "target": "metip",
+          "argmax_token": "met",
+          "correct": true,
+          "margin": 7.6875,
+          "offtask": false
+        },
+        {
+          "pair_key": "kokorn|maeref",
+          "dev_word": "maeref",
+          "user_word": "nudrel",
+          "target": "maeref",
+          "argmax_token": "ma",
+          "correct": true,
+          "margin": 7.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "kukark|hetolk",
+          "dev_word": "hetolk",
+          "user_word": "plugous",
+          "target": "hetolk",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 6.75,
+          "offtask": true
+        },
+        {
+          "pair_key": "stavrek|peikian",
+          "dev_word": "peikian",
+          "user_word": "botrup",
+          "target": "peikian",
+          "argmax_token": "pe",
+          "correct": true,
+          "margin": 5.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "jahost|kipim",
+          "dev_word": "kipim",
+          "user_word": "reizun",
+          "target": "kipim",
+          "argmax_token": "kip",
+          "correct": true,
+          "margin": 11.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "tegit|vomouf",
+          "dev_word": "vomouf",
+          "user_word": "stesof",
+          "target": "vomouf",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 6.0625,
+          "offtask": true
+        },
+        {
+          "pair_key": "tigend|liniv",
+          "dev_word": "liniv",
+          "user_word": "sutred",
+          "target": "liniv",
+          "argmax_token": "lin",
+          "correct": true,
+          "margin": 7.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "boses|seraer",
+          "dev_word": "seraer",
+          "user_word": "birar",
+          "target": "seraer",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 3.375,
+          "offtask": true
+        },
+        {
+          "pair_key": "ginav|pastib",
+          "dev_word": "pastib",
+          "user_word": "mobork",
+          "target": "pastib",
+          "argmax_token": "past",
+          "correct": true,
+          "margin": 8.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "taflok|hoter",
+          "dev_word": "hoter",
+          "user_word": "kratrol",
+          "target": "hoter",
+          "argmax_token": "h",
+          "correct": true,
+          "margin": 7.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "nezer|begeg",
+          "dev_word": "begeg",
+          "user_word": "loupen",
+          "target": "begeg",
+          "argmax_token": "be",
+          "correct": true,
+          "margin": 6.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "haraz|bokul",
+          "dev_word": "bokul",
+          "user_word": "lugleid",
+          "target": "bokul",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 2.75,
+          "offtask": true
+        },
+        {
+          "pair_key": "liher|stestom",
+          "dev_word": "stestom",
+          "user_word": "riabis",
+          "target": "stestom",
+          "argmax_token": "test",
+          "correct": false,
+          "margin": 1.9375,
+          "offtask": true
+        },
+        {
+          "pair_key": "tiheg|dumast",
+          "dev_word": "dumast",
+          "user_word": "bamag",
+          "target": "dumast",
+          "argmax_token": "d",
+          "correct": false,
+          "margin": 0.375,
+          "offtask": true
+        },
+        {
+          "pair_key": "mesneb|lusnis",
+          "dev_word": "lusnis",
+          "user_word": "stestom",
+          "target": "lusnis",
+          "argmax_token": "l",
+          "correct": false,
+          "margin": 8.4375,
+          "offtask": true
+        },
+        {
+          "pair_key": "bigup|rojoum",
+          "dev_word": "rojoum",
+          "user_word": "gapas",
+          "target": "rojoum",
+          "argmax_token": "roj",
+          "correct": true,
+          "margin": 0.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "stalof|pereik",
+          "dev_word": "pereik",
+          "user_word": "joved",
+          "target": "pereik",
+          "argmax_token": "pere",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "hugourn|hozlir",
+          "dev_word": "hozlir",
+          "user_word": "veresk",
+          "target": "hozlir",
+          "argmax_token": "h",
+          "correct": false,
+          "margin": 1.5625,
+          "offtask": true
+        },
+        {
+          "pair_key": "depom|drugiaz",
+          "dev_word": "drugiaz",
+          "user_word": "pereik",
+          "target": "drugiaz",
+          "argmax_token": "dr",
+          "correct": false,
+          "margin": 5.75,
+          "offtask": true
+        },
+        {
+          "pair_key": "bekond|jiatron",
+          "dev_word": "jiatron",
+          "user_word": "veiret",
+          "target": "jiatron",
+          "argmax_token": "ji",
+          "correct": true,
+          "margin": 4.9375,
+          "offtask": false
+        },
+        {
+          "pair_key": "vreisest|dojak",
+          "dev_word": "dojak",
+          "user_word": "neraerk",
+          "target": "dojak",
+          "argmax_token": "do",
+          "correct": true,
+          "margin": 11.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "samiz|kaeven",
+          "dev_word": "kaeven",
+          "user_word": "rigisk",
+          "target": "kaeven",
+          "argmax_token": "ka",
+          "correct": true,
+          "margin": 5.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "kukark|krivub",
+          "dev_word": "krivub",
+          "user_word": "jusnez",
+          "target": "krivub",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 0.4375,
+          "offtask": true
+        },
+        {
+          "pair_key": "movust|paswas",
+          "dev_word": "paswas",
+          "user_word": "duteg",
+          "target": "paswas",
+          "argmax_token": "pas",
+          "correct": true,
+          "margin": 4.6875,
+          "offtask": false
+        },
+        {
+          "pair_key": "nekraf|duzos",
+          "dev_word": "duzos",
+          "user_word": "kosnat",
+          "target": "duzos",
+          "argmax_token": "du",
+          "correct": true,
+          "margin": 6.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "dutik|braelum",
+          "dev_word": "braelum",
+          "user_word": "zirirk",
+          "target": "braelum",
+          "argmax_token": "b",
+          "correct": false,
+          "margin": 4.25,
+          "offtask": true
+        },
+        {
+          "pair_key": "falob|teisoud",
+          "dev_word": "teisoud",
+          "user_word": "heleb",
+          "target": "teisoud",
+          "argmax_token": "te",
+          "correct": false,
+          "margin": 2.1875,
+          "offtask": true
+        },
+        {
+          "pair_key": "plotork|hoter",
+          "dev_word": "hoter",
+          "user_word": "skimuv",
+          "target": "hoter",
+          "argmax_token": "h",
+          "correct": true,
+          "margin": 9.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "gestob|meikot",
+          "dev_word": "meikot",
+          "user_word": "hozlir",
+          "target": "meikot",
+          "argmax_token": "me",
+          "correct": true,
+          "margin": 8.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "jaeven|jiatron",
+          "dev_word": "jiatron",
+          "user_word": "vohap",
+          "target": "jiatron",
+          "argmax_token": "ji",
+          "correct": true,
+          "margin": 5.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "donulk|dufus",
+          "dev_word": "dufus",
+          "user_word": "sizent",
+          "target": "dufus",
+          "argmax_token": "du",
+          "correct": true,
+          "margin": 7.1875,
+          "offtask": false
+        },
+        {
+          "pair_key": "gliatum|skalip",
+          "dev_word": "skalip",
+          "user_word": "begeg",
+          "target": "skalip",
+          "argmax_token": "kal",
+          "correct": false,
+          "margin": 2.5625,
+          "offtask": true
+        },
+        {
+          "pair_key": "hugourn|nokent",
+          "dev_word": "nokent",
+          "user_word": "voumal",
+          "target": "nokent",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 4.0625,
+          "offtask": true
+        },
+        {
+          "pair_key": "donulk|tanep",
+          "dev_word": "tanep",
+          "user_word": "droram",
+          "target": "tanep",
+          "argmax_token": "tan",
+          "correct": true,
+          "margin": 3.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "tigend|diasial",
+          "dev_word": "diasial",
+          "user_word": "peimos",
+          "target": "diasial",
+          "argmax_token": "dias",
+          "correct": true,
+          "margin": 5.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "duliar|maeref",
+          "dev_word": "maeref",
+          "user_word": "junan",
+          "target": "maeref",
+          "argmax_token": "ma",
+          "correct": true,
+          "margin": 3.6875,
+          "offtask": false
+        },
+        {
+          "pair_key": "sesneg|paswas",
+          "dev_word": "paswas",
+          "user_word": "hemeif",
+          "target": "paswas",
+          "argmax_token": "pas",
+          "correct": true,
+          "margin": 13.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "ginav|stesnit",
+          "dev_word": "stesnit",
+          "user_word": "pavut",
+          "target": "stesnit",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 0.5,
+          "offtask": true
+        },
+        {
+          "pair_key": "dravos|kohurn",
+          "dev_word": "kohurn",
+          "user_word": "nagind",
+          "target": "kohurn",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 1.75,
+          "offtask": true
+        },
+        {
+          "pair_key": "keleimp|mobork",
+          "dev_word": "mobork",
+          "user_word": "meikot",
+          "target": "mobork",
+          "argmax_token": "mob",
+          "correct": true,
+          "margin": 4.8125,
+          "offtask": false
+        },
+        {
+          "pair_key": "tradez|hisud",
+          "dev_word": "hisud",
+          "user_word": "deisir",
+          "target": "hisud",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 1.625,
+          "offtask": true
+        },
+        {
+          "pair_key": "bulos|vrotraf",
+          "dev_word": "vrotraf",
+          "user_word": "hosan",
+          "target": "vrotraf",
+          "argmax_token": "k",
+          "correct": false,
+          "margin": 4.875,
+          "offtask": true
+        },
+        {
+          "pair_key": "begouk|kipim",
+          "dev_word": "kipim",
+          "user_word": "kaeris",
+          "target": "kipim",
+          "argmax_token": "kip",
+          "correct": true,
+          "margin": 2.0625,
+          "offtask": false
+        },
+        {
+          "pair_key": "refar|hojak",
+          "dev_word": "hojak",
+          "user_word": "riflir",
+          "target": "hojak",
+          "argmax_token": "ho",
+          "correct": true,
+          "margin": 8.4375,
+          "offtask": false
+        },
+        {
+          "pair_key": "balourn|jerind",
+          "dev_word": "jerind",
+          "user_word": "bokul",
+          "target": "jerind",
+          "argmax_token": "jer",
+          "correct": true,
+          "margin": 5.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "dukud|puteib",
+          "dev_word": "puteib",
+          "user_word": "juboust",
+          "target": "puteib",
+          "argmax_token": "t",
+          "correct": false,
+          "margin": 3.5625,
+          "offtask": true
+        },
+        {
+          "pair_key": "tokrian|figlun",
+          "dev_word": "figlun",
+          "user_word": "traker",
+          "target": "figlun",
+          "argmax_token": "fig",
+          "correct": true,
+          "margin": 4.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "nekraf|riabis",
+          "dev_word": "riabis",
+          "user_word": "lotrod",
+          "target": "riabis",
+          "argmax_token": "ri",
+          "correct": true,
+          "margin": 8.5625,
+          "offtask": false
+        },
+        {
+          "pair_key": "falob|keplan",
+          "dev_word": "keplan",
+          "user_word": "bitrug",
+          "target": "keplan",
+          "argmax_token": "ke",
+          "correct": true,
+          "margin": 10.6875,
+          "offtask": false
+        },
+        {
+          "pair_key": "razer|mobork",
+          "dev_word": "mobork",
+          "user_word": "gapas",
+          "target": "mobork",
+          "argmax_token": "m",
+          "correct": false,
+          "margin": -1.1875,
+          "offtask": true
+        },
+        {
+          "pair_key": "tidrus|jiagem",
+          "dev_word": "jiagem",
+          "user_word": "hosan",
+          "target": "jiagem",
+          "argmax_token": "ji",
+          "correct": true,
+          "margin": 7.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "stegan|susast",
+          "dev_word": "susast",
+          "user_word": "lotrod",
+          "target": "susast",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": 5.375,
+          "offtask": true
+        }
+      ]
+    }
+  }
+}

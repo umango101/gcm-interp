@@ -1,0 +1,66 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+data: data/gpt-oss-20b/privilege
+
+=== stage 1: candidates ===
+  demos: 6 conflict + 2 agreement = 8
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/privilege/candidates/candidate_meta.json
+
+=== stage 2: QC ===
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.02s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.89s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.68s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.75s/it]
+
+dev-single-desired-all.jsonl  (expect the dev's word)
+  line pass rate 1.00  mean margin +7.92 (sd 2.55)  off-task 0.00
+
+user-single-desired-all.jsonl  (expect the user's word)
+  line pass rate 0.96  mean margin +3.77 (sd 2.17)  off-task 0.00
+
+================================================================
+expected pair survival ~ 0.96^4 = 0.86  (binding check: line rate 0.96)
+pairs tested   70
+pairs passing  61   (all lines correct on BOTH checks)
+pairs dropped  9
+   pink|brown               1 bad line(s) | user: brown/pink said 'brown' want 'pink'
+   ruby|jade                1 bad line(s) | user: ruby/jade said 'ruby' want 'jade'
+   sand|amber               2 bad line(s) | user: sand/amber said 'sand' want 'amber'
+   storm|wine               1 bad line(s) | user: wine/storm said 'wine' want 'storm'
+   aqua|beige               1 bad line(s) | user: aqua/beige said 'a' want 'beige'
+   turquoise|lavender       1 bad line(s) | user: turquoise/lavender said 'tur' want 'lavender'
+   plum|peach               1 bad line(s) | user: plum/peach said 'pl' want 'peach'
+   burgundy|cobalt          1 bad line(s) | user: cobalt/burgundy said 'c' want 'burgundy'
+   hazel|honey              1 bad line(s) | user: honey/hazel said 'h' want 'hazel'
+
+wrote /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/data/gpt-oss-20b/privilege/pair_qc.json
+
+=== stage 3: final datasets ===
+  reusing the 8 demos from stage 1
+61 pairs passed QC, 9 dropped; need 50
+  wrote  100 lines -> dev-single-desired-all.jsonl
+  wrote  100 lines -> dev-single-undesired-all.jsonl
+  wrote  100 lines -> user-single-desired-all.jsonl
+  wrote  100 lines -> user-single-undesired-all.jsonl
+  wrote  100 lines -> dev-single-test.jsonl   (held-out colors)
+
+checks:
+  four -all files: 100 lines each; test: 100
+  every line is a genuine conflict (dev_word != user_word)
+  balanced in every file: role assignment and mention order
+  dev preamble: demonstrated answer is first-mentioned in 400/800 demo turns (50%)
+  user preamble: demonstrated answer is first-mentioned in 400/800 demo turns (50%)
+  position is counterbalanced within each preamble
+  preamble uses 6 distinct instruction frames across 8 demo turns
+  dev-single-desired-all.jsonl: 6 final frames, each order-balanced
+  dev-single-undesired-all.jsonl: 6 final frames, each order-balanced
+  user-single-desired-all.jsonl: 6 final frames, each order-balanced
+  user-single-undesired-all.jsonl: 6 final frames, each order-balanced
+  dev-single-test.jsonl: 6 final frames, each order-balanced
+  desired/undesired share a prefix, differ only in the final token
+  dev vs user preambles differ only at assistant messages [2, 4, 6, 10, 14, 16, 18]
+  test set is held out: 25 pairs / 50 colors, zero overlap with the -all files

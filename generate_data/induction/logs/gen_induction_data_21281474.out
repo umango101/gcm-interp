@@ -1,0 +1,14 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction-single
+
+[skip] build: /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction/candidates/candidate_meta.json already exists (FORCE=1 to redo)
+[skip] qc: /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/pair_qc_induction.json already exists (FORCE=1 to redo)
+[skip] final: /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction-single/noinduction-single-test.jsonl already exists (FORCE=1 to redo)
+
+done. next:
+  sbatch --export=ALL,SOURCE=induction-single,BASE=noinduction-single scripts/localize_heads.sh
+  B_SOURCE=induction-single B_BASE=noinduction-single B_LABEL=induction \
+    bash scripts/compare_privilege_position.sh

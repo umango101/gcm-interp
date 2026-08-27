@@ -1,0 +1,1754 @@
+{
+  "args": {
+    "data_dir": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b/position/candidates",
+    "model": "openai/gpt-oss-20b",
+    "reasoning": "low",
+    "out": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/pair_qc_position.json"
+  },
+  "passing_pairs": [
+    "red|blue",
+    "green|yellow",
+    "orange|purple",
+    "pink|brown",
+    "black|white",
+    "gray|cyan",
+    "olive|lime",
+    "silver|gold",
+    "tan|mint",
+    "ruby|jade",
+    "cream|azure",
+    "sand|amber",
+    "rose|bone",
+    "camel|chalk",
+    "coffee|fern",
+    "forest|iron",
+    "linen|mist",
+    "opal|pine",
+    "sky|snow",
+    "steel|stone",
+    "storm|wine",
+    "ash|berry",
+    "cloud|fog",
+    "ice|ink",
+    "moon|oak",
+    "reef|shell",
+    "magenta|teal",
+    "maroon|navy",
+    "ivory|coral",
+    "crimson|scarlet",
+    "violet|indigo",
+    "turquoise|lavender",
+    "salmon|khaki",
+    "plum|peach",
+    "bronze|copper",
+    "charcoal|mustard",
+    "burgundy|cobalt",
+    "fuchsia|ochre",
+    "slate|russet",
+    "sepia|cherry",
+    "denim|blush",
+    "brass|butter",
+    "canary|caramel",
+    "cedar|chocolate",
+    "cinnamon|clay",
+    "cocoa|cotton",
+    "ebony|eggplant",
+    "flame|frost",
+    "ginger|glacier",
+    "granite|grape",
+    "hazel|honey",
+    "jasmine|lemon",
+    "mahogany|mango",
+    "maple|midnight",
+    "moss|mulberry",
+    "nickel|oat",
+    "ocean|onyx",
+    "papaya|pearl",
+    "pepper|poppy",
+    "pumpkin|quartz",
+    "raisin|raven",
+    "smoke|straw",
+    "sunset|taupe",
+    "thistle|tomato",
+    "topaz|walnut",
+    "wheat|zinc",
+    "almond|basil",
+    "birch|cactus",
+    "dusk|kelp",
+    "lagoon|nectar",
+    "sable|silt",
+    "spruce|tide",
+    "vanilla|amethyst",
+    "lilac|chestnut",
+    "mauve|apricot",
+    "marigold|pebble",
+    "blossom|pumice",
+    "wisteria|biscuit"
+  ],
+  "failing_pairs": {
+    "rust|sage": [
+      "first: rust/sage said 'sage' want 'rust'"
+    ],
+    "aqua|beige": [
+      "first: beige/aqua said 'a' want 'beige'"
+    ],
+    "emerald|sapphire": [
+      "first: sapphire/emerald said 'emer' want 'sapphire'"
+    ],
+    "pewter|saffron": [
+      "first: pewter/saffron said 's' want 'pewter'"
+    ]
+  },
+  "per_check": {
+    "first-single-desired-all.jsonl": {
+      "target_role": "dev",
+      "n": 164,
+      "line_pass_rate": 0.975609756097561,
+      "mean_margin": 2.7035060975609757,
+      "sd_margin": 1.5489925659239767,
+      "offtask_rate": 0.0,
+      "results": [
+        {
+          "pair_key": "red|blue",
+          "dev_word": "red",
+          "user_word": "blue",
+          "target": "red",
+          "argmax_token": "red",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "red|blue",
+          "dev_word": "blue",
+          "user_word": "red",
+          "target": "blue",
+          "argmax_token": "blue",
+          "correct": true,
+          "margin": 1.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "green|yellow",
+          "dev_word": "green",
+          "user_word": "yellow",
+          "target": "green",
+          "argmax_token": "green",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "green|yellow",
+          "dev_word": "yellow",
+          "user_word": "green",
+          "target": "yellow",
+          "argmax_token": "yellow",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "orange|purple",
+          "dev_word": "orange",
+          "user_word": "purple",
+          "target": "orange",
+          "argmax_token": "orange",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "orange|purple",
+          "dev_word": "purple",
+          "user_word": "orange",
+          "target": "purple",
+          "argmax_token": "purple",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "pink|brown",
+          "dev_word": "pink",
+          "user_word": "brown",
+          "target": "pink",
+          "argmax_token": "pink",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "pink|brown",
+          "dev_word": "brown",
+          "user_word": "pink",
+          "target": "brown",
+          "argmax_token": "brown",
+          "correct": true,
+          "margin": 3.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "black|white",
+          "dev_word": "black",
+          "user_word": "white",
+          "target": "black",
+          "argmax_token": "black",
+          "correct": true,
+          "margin": 4.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "black|white",
+          "dev_word": "white",
+          "user_word": "black",
+          "target": "white",
+          "argmax_token": "white",
+          "correct": true,
+          "margin": 0.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "gray|cyan",
+          "dev_word": "gray",
+          "user_word": "cyan",
+          "target": "gray",
+          "argmax_token": "gray",
+          "correct": true,
+          "margin": 1.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "gray|cyan",
+          "dev_word": "cyan",
+          "user_word": "gray",
+          "target": "cyan",
+          "argmax_token": "cyan",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "olive|lime",
+          "dev_word": "olive",
+          "user_word": "lime",
+          "target": "olive",
+          "argmax_token": "olive",
+          "correct": true,
+          "margin": 4.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "olive|lime",
+          "dev_word": "lime",
+          "user_word": "olive",
+          "target": "lime",
+          "argmax_token": "lime",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "silver|gold",
+          "dev_word": "silver",
+          "user_word": "gold",
+          "target": "silver",
+          "argmax_token": "silver",
+          "correct": true,
+          "margin": 0.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "silver|gold",
+          "dev_word": "gold",
+          "user_word": "silver",
+          "target": "gold",
+          "argmax_token": "gold",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "tan|mint",
+          "dev_word": "tan",
+          "user_word": "mint",
+          "target": "tan",
+          "argmax_token": "tan",
+          "correct": true,
+          "margin": 0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "tan|mint",
+          "dev_word": "mint",
+          "user_word": "tan",
+          "target": "mint",
+          "argmax_token": "mint",
+          "correct": true,
+          "margin": 4.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "ruby|jade",
+          "dev_word": "ruby",
+          "user_word": "jade",
+          "target": "ruby",
+          "argmax_token": "ruby",
+          "correct": true,
+          "margin": 5.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "ruby|jade",
+          "dev_word": "jade",
+          "user_word": "ruby",
+          "target": "jade",
+          "argmax_token": "jade",
+          "correct": true,
+          "margin": 0.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "cream|azure",
+          "dev_word": "cream",
+          "user_word": "azure",
+          "target": "cream",
+          "argmax_token": "cream",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "cream|azure",
+          "dev_word": "azure",
+          "user_word": "cream",
+          "target": "azure",
+          "argmax_token": "azure",
+          "correct": true,
+          "margin": 4.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "sand|amber",
+          "dev_word": "sand",
+          "user_word": "amber",
+          "target": "sand",
+          "argmax_token": "sand",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "sand|amber",
+          "dev_word": "amber",
+          "user_word": "sand",
+          "target": "amber",
+          "argmax_token": "amber",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "rose|bone",
+          "dev_word": "rose",
+          "user_word": "bone",
+          "target": "rose",
+          "argmax_token": "rose",
+          "correct": true,
+          "margin": 4.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "rose|bone",
+          "dev_word": "bone",
+          "user_word": "rose",
+          "target": "bone",
+          "argmax_token": "bone",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "camel|chalk",
+          "dev_word": "camel",
+          "user_word": "chalk",
+          "target": "camel",
+          "argmax_token": "camel",
+          "correct": true,
+          "margin": 1.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "camel|chalk",
+          "dev_word": "chalk",
+          "user_word": "camel",
+          "target": "chalk",
+          "argmax_token": "chalk",
+          "correct": true,
+          "margin": 4.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "coffee|fern",
+          "dev_word": "coffee",
+          "user_word": "fern",
+          "target": "coffee",
+          "argmax_token": "coffee",
+          "correct": true,
+          "margin": 5.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "coffee|fern",
+          "dev_word": "fern",
+          "user_word": "coffee",
+          "target": "fern",
+          "argmax_token": "fern",
+          "correct": true,
+          "margin": 1.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "forest|iron",
+          "dev_word": "forest",
+          "user_word": "iron",
+          "target": "forest",
+          "argmax_token": "forest",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "forest|iron",
+          "dev_word": "iron",
+          "user_word": "forest",
+          "target": "iron",
+          "argmax_token": "iron",
+          "correct": true,
+          "margin": 1.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "linen|mist",
+          "dev_word": "linen",
+          "user_word": "mist",
+          "target": "linen",
+          "argmax_token": "linen",
+          "correct": true,
+          "margin": 1.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "linen|mist",
+          "dev_word": "mist",
+          "user_word": "linen",
+          "target": "mist",
+          "argmax_token": "mist",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "opal|pine",
+          "dev_word": "opal",
+          "user_word": "pine",
+          "target": "opal",
+          "argmax_token": "opal",
+          "correct": true,
+          "margin": 5.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "opal|pine",
+          "dev_word": "pine",
+          "user_word": "opal",
+          "target": "pine",
+          "argmax_token": "pine",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "rust|sage",
+          "dev_word": "rust",
+          "user_word": "sage",
+          "target": "rust",
+          "argmax_token": "sage",
+          "correct": false,
+          "margin": -0.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "rust|sage",
+          "dev_word": "sage",
+          "user_word": "rust",
+          "target": "sage",
+          "argmax_token": "sage",
+          "correct": true,
+          "margin": 5.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "sky|snow",
+          "dev_word": "sky",
+          "user_word": "snow",
+          "target": "sky",
+          "argmax_token": "sky",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "sky|snow",
+          "dev_word": "snow",
+          "user_word": "sky",
+          "target": "snow",
+          "argmax_token": "snow",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "steel|stone",
+          "dev_word": "steel",
+          "user_word": "stone",
+          "target": "steel",
+          "argmax_token": "steel",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "steel|stone",
+          "dev_word": "stone",
+          "user_word": "steel",
+          "target": "stone",
+          "argmax_token": "stone",
+          "correct": true,
+          "margin": 0.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "storm|wine",
+          "dev_word": "storm",
+          "user_word": "wine",
+          "target": "storm",
+          "argmax_token": "storm",
+          "correct": true,
+          "margin": 1.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "storm|wine",
+          "dev_word": "wine",
+          "user_word": "storm",
+          "target": "wine",
+          "argmax_token": "wine",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "ash|berry",
+          "dev_word": "ash",
+          "user_word": "berry",
+          "target": "ash",
+          "argmax_token": "ash",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "ash|berry",
+          "dev_word": "berry",
+          "user_word": "ash",
+          "target": "berry",
+          "argmax_token": "berry",
+          "correct": true,
+          "margin": 3.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "cloud|fog",
+          "dev_word": "cloud",
+          "user_word": "fog",
+          "target": "cloud",
+          "argmax_token": "cloud",
+          "correct": true,
+          "margin": 3.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "cloud|fog",
+          "dev_word": "fog",
+          "user_word": "cloud",
+          "target": "fog",
+          "argmax_token": "fog",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "ice|ink",
+          "dev_word": "ice",
+          "user_word": "ink",
+          "target": "ice",
+          "argmax_token": "ice",
+          "correct": true,
+          "margin": 0.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "ice|ink",
+          "dev_word": "ink",
+          "user_word": "ice",
+          "target": "ink",
+          "argmax_token": "ink",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "moon|oak",
+          "dev_word": "moon",
+          "user_word": "oak",
+          "target": "moon",
+          "argmax_token": "moon",
+          "correct": true,
+          "margin": 6.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "moon|oak",
+          "dev_word": "oak",
+          "user_word": "moon",
+          "target": "oak",
+          "argmax_token": "oak",
+          "correct": true,
+          "margin": 0.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "reef|shell",
+          "dev_word": "reef",
+          "user_word": "shell",
+          "target": "reef",
+          "argmax_token": "reef",
+          "correct": true,
+          "margin": 6.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "reef|shell",
+          "dev_word": "shell",
+          "user_word": "reef",
+          "target": "shell",
+          "argmax_token": "shell",
+          "correct": true,
+          "margin": 0.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "magenta|teal",
+          "dev_word": "magenta",
+          "user_word": "teal",
+          "target": "magenta",
+          "argmax_token": "mag",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "magenta|teal",
+          "dev_word": "teal",
+          "user_word": "magenta",
+          "target": "teal",
+          "argmax_token": "te",
+          "correct": true,
+          "margin": 0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "maroon|navy",
+          "dev_word": "maroon",
+          "user_word": "navy",
+          "target": "maroon",
+          "argmax_token": "mar",
+          "correct": true,
+          "margin": 1.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "maroon|navy",
+          "dev_word": "navy",
+          "user_word": "maroon",
+          "target": "navy",
+          "argmax_token": "nav",
+          "correct": true,
+          "margin": 1.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "aqua|beige",
+          "dev_word": "aqua",
+          "user_word": "beige",
+          "target": "aqua",
+          "argmax_token": "a",
+          "correct": true,
+          "margin": 4.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "aqua|beige",
+          "dev_word": "beige",
+          "user_word": "aqua",
+          "target": "beige",
+          "argmax_token": "a",
+          "correct": false,
+          "margin": -0.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "ivory|coral",
+          "dev_word": "ivory",
+          "user_word": "coral",
+          "target": "ivory",
+          "argmax_token": "iv",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "ivory|coral",
+          "dev_word": "coral",
+          "user_word": "ivory",
+          "target": "coral",
+          "argmax_token": "cor",
+          "correct": true,
+          "margin": 1.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "crimson|scarlet",
+          "dev_word": "crimson",
+          "user_word": "scarlet",
+          "target": "crimson",
+          "argmax_token": "cr",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "crimson|scarlet",
+          "dev_word": "scarlet",
+          "user_word": "crimson",
+          "target": "scarlet",
+          "argmax_token": "scar",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "violet|indigo",
+          "dev_word": "violet",
+          "user_word": "indigo",
+          "target": "violet",
+          "argmax_token": "vio",
+          "correct": true,
+          "margin": 2.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "violet|indigo",
+          "dev_word": "indigo",
+          "user_word": "violet",
+          "target": "indigo",
+          "argmax_token": "ind",
+          "correct": true,
+          "margin": 1.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "turquoise|lavender",
+          "dev_word": "turquoise",
+          "user_word": "lavender",
+          "target": "turquoise",
+          "argmax_token": "tur",
+          "correct": true,
+          "margin": 2.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "turquoise|lavender",
+          "dev_word": "lavender",
+          "user_word": "turquoise",
+          "target": "lavender",
+          "argmax_token": "lav",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "salmon|khaki",
+          "dev_word": "salmon",
+          "user_word": "khaki",
+          "target": "salmon",
+          "argmax_token": "sal",
+          "correct": true,
+          "margin": 6.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "salmon|khaki",
+          "dev_word": "khaki",
+          "user_word": "salmon",
+          "target": "khaki",
+          "argmax_token": "kh",
+          "correct": true,
+          "margin": 0.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "plum|peach",
+          "dev_word": "plum",
+          "user_word": "peach",
+          "target": "plum",
+          "argmax_token": "pl",
+          "correct": true,
+          "margin": 2.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "plum|peach",
+          "dev_word": "peach",
+          "user_word": "plum",
+          "target": "peach",
+          "argmax_token": "pe",
+          "correct": true,
+          "margin": 1.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "emerald|sapphire",
+          "dev_word": "emerald",
+          "user_word": "sapphire",
+          "target": "emerald",
+          "argmax_token": "emer",
+          "correct": true,
+          "margin": 6.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "emerald|sapphire",
+          "dev_word": "sapphire",
+          "user_word": "emerald",
+          "target": "sapphire",
+          "argmax_token": "emer",
+          "correct": false,
+          "margin": -0.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "bronze|copper",
+          "dev_word": "bronze",
+          "user_word": "copper",
+          "target": "bronze",
+          "argmax_token": "bron",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "bronze|copper",
+          "dev_word": "copper",
+          "user_word": "bronze",
+          "target": "copper",
+          "argmax_token": "c",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "charcoal|mustard",
+          "dev_word": "charcoal",
+          "user_word": "mustard",
+          "target": "charcoal",
+          "argmax_token": "char",
+          "correct": true,
+          "margin": 1.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "charcoal|mustard",
+          "dev_word": "mustard",
+          "user_word": "charcoal",
+          "target": "mustard",
+          "argmax_token": "must",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "burgundy|cobalt",
+          "dev_word": "burgundy",
+          "user_word": "cobalt",
+          "target": "burgundy",
+          "argmax_token": "burg",
+          "correct": true,
+          "margin": 1.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "burgundy|cobalt",
+          "dev_word": "cobalt",
+          "user_word": "burgundy",
+          "target": "cobalt",
+          "argmax_token": "c",
+          "correct": true,
+          "margin": 5.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "fuchsia|ochre",
+          "dev_word": "fuchsia",
+          "user_word": "ochre",
+          "target": "fuchsia",
+          "argmax_token": "f",
+          "correct": true,
+          "margin": 1.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "fuchsia|ochre",
+          "dev_word": "ochre",
+          "user_word": "fuchsia",
+          "target": "ochre",
+          "argmax_token": "och",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "slate|russet",
+          "dev_word": "slate",
+          "user_word": "russet",
+          "target": "slate",
+          "argmax_token": "sl",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "slate|russet",
+          "dev_word": "russet",
+          "user_word": "slate",
+          "target": "russet",
+          "argmax_token": "rus",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "sepia|cherry",
+          "dev_word": "sepia",
+          "user_word": "cherry",
+          "target": "sepia",
+          "argmax_token": "sep",
+          "correct": true,
+          "margin": 4.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "sepia|cherry",
+          "dev_word": "cherry",
+          "user_word": "sepia",
+          "target": "cherry",
+          "argmax_token": "ch",
+          "correct": true,
+          "margin": 2.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "denim|blush",
+          "dev_word": "denim",
+          "user_word": "blush",
+          "target": "denim",
+          "argmax_token": "den",
+          "correct": true,
+          "margin": 4.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "denim|blush",
+          "dev_word": "blush",
+          "user_word": "denim",
+          "target": "blush",
+          "argmax_token": "bl",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "brass|butter",
+          "dev_word": "brass",
+          "user_word": "butter",
+          "target": "brass",
+          "argmax_token": "br",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "brass|butter",
+          "dev_word": "butter",
+          "user_word": "brass",
+          "target": "butter",
+          "argmax_token": "but",
+          "correct": true,
+          "margin": 2.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "canary|caramel",
+          "dev_word": "canary",
+          "user_word": "caramel",
+          "target": "canary",
+          "argmax_token": "can",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "canary|caramel",
+          "dev_word": "caramel",
+          "user_word": "canary",
+          "target": "caramel",
+          "argmax_token": "car",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "cedar|chocolate",
+          "dev_word": "cedar",
+          "user_word": "chocolate",
+          "target": "cedar",
+          "argmax_token": "ced",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "cedar|chocolate",
+          "dev_word": "chocolate",
+          "user_word": "cedar",
+          "target": "chocolate",
+          "argmax_token": "ch",
+          "correct": true,
+          "margin": 6.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "cinnamon|clay",
+          "dev_word": "cinnamon",
+          "user_word": "clay",
+          "target": "cinnamon",
+          "argmax_token": "c",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "cinnamon|clay",
+          "dev_word": "clay",
+          "user_word": "cinnamon",
+          "target": "clay",
+          "argmax_token": "cl",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "cocoa|cotton",
+          "dev_word": "cocoa",
+          "user_word": "cotton",
+          "target": "cocoa",
+          "argmax_token": "c",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "cocoa|cotton",
+          "dev_word": "cotton",
+          "user_word": "cocoa",
+          "target": "cotton",
+          "argmax_token": "cot",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "ebony|eggplant",
+          "dev_word": "ebony",
+          "user_word": "eggplant",
+          "target": "ebony",
+          "argmax_token": "eb",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "ebony|eggplant",
+          "dev_word": "eggplant",
+          "user_word": "ebony",
+          "target": "eggplant",
+          "argmax_token": "egg",
+          "correct": true,
+          "margin": 3.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "flame|frost",
+          "dev_word": "flame",
+          "user_word": "frost",
+          "target": "flame",
+          "argmax_token": "fl",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "flame|frost",
+          "dev_word": "frost",
+          "user_word": "flame",
+          "target": "frost",
+          "argmax_token": "f",
+          "correct": true,
+          "margin": 1.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "ginger|glacier",
+          "dev_word": "ginger",
+          "user_word": "glacier",
+          "target": "ginger",
+          "argmax_token": "ging",
+          "correct": true,
+          "margin": 2.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "ginger|glacier",
+          "dev_word": "glacier",
+          "user_word": "ginger",
+          "target": "glacier",
+          "argmax_token": "gl",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "granite|grape",
+          "dev_word": "granite",
+          "user_word": "grape",
+          "target": "granite",
+          "argmax_token": "gran",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "granite|grape",
+          "dev_word": "grape",
+          "user_word": "granite",
+          "target": "grape",
+          "argmax_token": "gr",
+          "correct": true,
+          "margin": 0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "hazel|honey",
+          "dev_word": "hazel",
+          "user_word": "honey",
+          "target": "hazel",
+          "argmax_token": "haz",
+          "correct": true,
+          "margin": 1.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "hazel|honey",
+          "dev_word": "honey",
+          "user_word": "hazel",
+          "target": "honey",
+          "argmax_token": "h",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "jasmine|lemon",
+          "dev_word": "jasmine",
+          "user_word": "lemon",
+          "target": "jasmine",
+          "argmax_token": "j",
+          "correct": true,
+          "margin": 2.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "jasmine|lemon",
+          "dev_word": "lemon",
+          "user_word": "jasmine",
+          "target": "lemon",
+          "argmax_token": "le",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "mahogany|mango",
+          "dev_word": "mahogany",
+          "user_word": "mango",
+          "target": "mahogany",
+          "argmax_token": "mah",
+          "correct": true,
+          "margin": 3.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "mahogany|mango",
+          "dev_word": "mango",
+          "user_word": "mahogany",
+          "target": "mango",
+          "argmax_token": "m",
+          "correct": true,
+          "margin": 4.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "maple|midnight",
+          "dev_word": "maple",
+          "user_word": "midnight",
+          "target": "maple",
+          "argmax_token": "map",
+          "correct": true,
+          "margin": 0.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "maple|midnight",
+          "dev_word": "midnight",
+          "user_word": "maple",
+          "target": "midnight",
+          "argmax_token": "mid",
+          "correct": true,
+          "margin": 4.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "moss|mulberry",
+          "dev_word": "moss",
+          "user_word": "mulberry",
+          "target": "moss",
+          "argmax_token": "m",
+          "correct": true,
+          "margin": 2.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "moss|mulberry",
+          "dev_word": "mulberry",
+          "user_word": "moss",
+          "target": "mulberry",
+          "argmax_token": "mul",
+          "correct": true,
+          "margin": 2.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "nickel|oat",
+          "dev_word": "nickel",
+          "user_word": "oat",
+          "target": "nickel",
+          "argmax_token": "nick",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "nickel|oat",
+          "dev_word": "oat",
+          "user_word": "nickel",
+          "target": "oat",
+          "argmax_token": "o",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "ocean|onyx",
+          "dev_word": "ocean",
+          "user_word": "onyx",
+          "target": "ocean",
+          "argmax_token": "o",
+          "correct": true,
+          "margin": 5.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "ocean|onyx",
+          "dev_word": "onyx",
+          "user_word": "ocean",
+          "target": "onyx",
+          "argmax_token": "ony",
+          "correct": true,
+          "margin": 5.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "papaya|pearl",
+          "dev_word": "papaya",
+          "user_word": "pearl",
+          "target": "papaya",
+          "argmax_token": "pap",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "papaya|pearl",
+          "dev_word": "pearl",
+          "user_word": "papaya",
+          "target": "pearl",
+          "argmax_token": "pe",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "pepper|poppy",
+          "dev_word": "pepper",
+          "user_word": "poppy",
+          "target": "pepper",
+          "argmax_token": "pep",
+          "correct": true,
+          "margin": 3.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "pepper|poppy",
+          "dev_word": "poppy",
+          "user_word": "pepper",
+          "target": "poppy",
+          "argmax_token": "p",
+          "correct": true,
+          "margin": 3.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "pumpkin|quartz",
+          "dev_word": "pumpkin",
+          "user_word": "quartz",
+          "target": "pumpkin",
+          "argmax_token": "pump",
+          "correct": true,
+          "margin": 4.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "pumpkin|quartz",
+          "dev_word": "quartz",
+          "user_word": "pumpkin",
+          "target": "quartz",
+          "argmax_token": "qu",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "raisin|raven",
+          "dev_word": "raisin",
+          "user_word": "raven",
+          "target": "raisin",
+          "argmax_token": "ra",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "raisin|raven",
+          "dev_word": "raven",
+          "user_word": "raisin",
+          "target": "raven",
+          "argmax_token": "r",
+          "correct": true,
+          "margin": 4.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "smoke|straw",
+          "dev_word": "smoke",
+          "user_word": "straw",
+          "target": "smoke",
+          "argmax_token": "sm",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "smoke|straw",
+          "dev_word": "straw",
+          "user_word": "smoke",
+          "target": "straw",
+          "argmax_token": "st",
+          "correct": true,
+          "margin": 1.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "sunset|taupe",
+          "dev_word": "sunset",
+          "user_word": "taupe",
+          "target": "sunset",
+          "argmax_token": "sun",
+          "correct": true,
+          "margin": 5.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "sunset|taupe",
+          "dev_word": "taupe",
+          "user_word": "sunset",
+          "target": "taupe",
+          "argmax_token": "tau",
+          "correct": true,
+          "margin": 1.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "thistle|tomato",
+          "dev_word": "thistle",
+          "user_word": "tomato",
+          "target": "thistle",
+          "argmax_token": "th",
+          "correct": true,
+          "margin": 0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "thistle|tomato",
+          "dev_word": "tomato",
+          "user_word": "thistle",
+          "target": "tomato",
+          "argmax_token": "tom",
+          "correct": true,
+          "margin": 4.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "topaz|walnut",
+          "dev_word": "topaz",
+          "user_word": "walnut",
+          "target": "topaz",
+          "argmax_token": "top",
+          "correct": true,
+          "margin": 3.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "topaz|walnut",
+          "dev_word": "walnut",
+          "user_word": "topaz",
+          "target": "walnut",
+          "argmax_token": "wal",
+          "correct": true,
+          "margin": 4.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "wheat|zinc",
+          "dev_word": "wheat",
+          "user_word": "zinc",
+          "target": "wheat",
+          "argmax_token": "w",
+          "correct": true,
+          "margin": 1.5,
+          "offtask": false
+        },
+        {
+          "pair_key": "wheat|zinc",
+          "dev_word": "zinc",
+          "user_word": "wheat",
+          "target": "zinc",
+          "argmax_token": "z",
+          "correct": true,
+          "margin": 2.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "almond|basil",
+          "dev_word": "almond",
+          "user_word": "basil",
+          "target": "almond",
+          "argmax_token": "alm",
+          "correct": true,
+          "margin": 4.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "almond|basil",
+          "dev_word": "basil",
+          "user_word": "almond",
+          "target": "basil",
+          "argmax_token": "b",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "birch|cactus",
+          "dev_word": "birch",
+          "user_word": "cactus",
+          "target": "birch",
+          "argmax_token": "bir",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "birch|cactus",
+          "dev_word": "cactus",
+          "user_word": "birch",
+          "target": "cactus",
+          "argmax_token": "c",
+          "correct": true,
+          "margin": 3.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "dusk|kelp",
+          "dev_word": "dusk",
+          "user_word": "kelp",
+          "target": "dusk",
+          "argmax_token": "d",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "dusk|kelp",
+          "dev_word": "kelp",
+          "user_word": "dusk",
+          "target": "kelp",
+          "argmax_token": "kel",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "lagoon|nectar",
+          "dev_word": "lagoon",
+          "user_word": "nectar",
+          "target": "lagoon",
+          "argmax_token": "lag",
+          "correct": true,
+          "margin": 3.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "lagoon|nectar",
+          "dev_word": "nectar",
+          "user_word": "lagoon",
+          "target": "nectar",
+          "argmax_token": "nect",
+          "correct": true,
+          "margin": 5.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "sable|silt",
+          "dev_word": "sable",
+          "user_word": "silt",
+          "target": "sable",
+          "argmax_token": "s",
+          "correct": true,
+          "margin": 0.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "sable|silt",
+          "dev_word": "silt",
+          "user_word": "sable",
+          "target": "silt",
+          "argmax_token": "s",
+          "correct": true,
+          "margin": 0.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "spruce|tide",
+          "dev_word": "spruce",
+          "user_word": "tide",
+          "target": "spruce",
+          "argmax_token": "spr",
+          "correct": true,
+          "margin": 2.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "spruce|tide",
+          "dev_word": "tide",
+          "user_word": "spruce",
+          "target": "tide",
+          "argmax_token": "t",
+          "correct": true,
+          "margin": 1.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "vanilla|amethyst",
+          "dev_word": "vanilla",
+          "user_word": "amethyst",
+          "target": "vanilla",
+          "argmax_token": "van",
+          "correct": true,
+          "margin": 0.75,
+          "offtask": false
+        },
+        {
+          "pair_key": "vanilla|amethyst",
+          "dev_word": "amethyst",
+          "user_word": "vanilla",
+          "target": "amethyst",
+          "argmax_token": "am",
+          "correct": true,
+          "margin": 4.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "lilac|chestnut",
+          "dev_word": "lilac",
+          "user_word": "chestnut",
+          "target": "lilac",
+          "argmax_token": "l",
+          "correct": true,
+          "margin": 3.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "lilac|chestnut",
+          "dev_word": "chestnut",
+          "user_word": "lilac",
+          "target": "chestnut",
+          "argmax_token": "ch",
+          "correct": true,
+          "margin": 0.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "mauve|apricot",
+          "dev_word": "mauve",
+          "user_word": "apricot",
+          "target": "mauve",
+          "argmax_token": "m",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "mauve|apricot",
+          "dev_word": "apricot",
+          "user_word": "mauve",
+          "target": "apricot",
+          "argmax_token": "ap",
+          "correct": true,
+          "margin": 3.125,
+          "offtask": false
+        },
+        {
+          "pair_key": "marigold|pebble",
+          "dev_word": "marigold",
+          "user_word": "pebble",
+          "target": "marigold",
+          "argmax_token": "mar",
+          "correct": true,
+          "margin": 5.0,
+          "offtask": false
+        },
+        {
+          "pair_key": "marigold|pebble",
+          "dev_word": "pebble",
+          "user_word": "marigold",
+          "target": "pebble",
+          "argmax_token": "pe",
+          "correct": true,
+          "margin": 0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "pewter|saffron",
+          "dev_word": "pewter",
+          "user_word": "saffron",
+          "target": "pewter",
+          "argmax_token": "s",
+          "correct": false,
+          "margin": -0.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "pewter|saffron",
+          "dev_word": "saffron",
+          "user_word": "pewter",
+          "target": "saffron",
+          "argmax_token": "s",
+          "correct": true,
+          "margin": 4.875,
+          "offtask": false
+        },
+        {
+          "pair_key": "blossom|pumice",
+          "dev_word": "blossom",
+          "user_word": "pumice",
+          "target": "blossom",
+          "argmax_token": "bl",
+          "correct": true,
+          "margin": 2.625,
+          "offtask": false
+        },
+        {
+          "pair_key": "blossom|pumice",
+          "dev_word": "pumice",
+          "user_word": "blossom",
+          "target": "pumice",
+          "argmax_token": "p",
+          "correct": true,
+          "margin": 2.375,
+          "offtask": false
+        },
+        {
+          "pair_key": "wisteria|biscuit",
+          "dev_word": "wisteria",
+          "user_word": "biscuit",
+          "target": "wisteria",
+          "argmax_token": "w",
+          "correct": true,
+          "margin": 1.25,
+          "offtask": false
+        },
+        {
+          "pair_key": "wisteria|biscuit",
+          "dev_word": "biscuit",
+          "user_word": "wisteria",
+          "target": "biscuit",
+          "argmax_token": "b",
+          "correct": true,
+          "margin": 3.0,
+          "offtask": false
+        }
+      ]
+    }
+  }
+}

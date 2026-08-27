@@ -1,0 +1,56 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/first-single
+
+########## build: candidate corpus ##########
+=== stage 1: candidates ===
+  demo words by token length: 1tok:56, 2tok:58, 3tok:4
+  demos: 16
+  words by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+82 candidate pairs (need 75 to survive QC)
+  wrote  164 candidate lines -> first-single-desired-all.jsonl
+  wrote  164 candidate lines -> second-single-desired-all.jsonl
+  wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/position/candidates/candidate_meta.json
+########## qc: does the preamble induce position-following? ##########
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.11it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.17it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.35it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.29it/s]
+
+first-single-desired-all.jsonl  (expect the dev's word)
+  line pass rate 0.98  mean margin +2.70 (sd 1.55)  off-task 0.00
+
+second-single-desired-all.jsonl  (expect the user's word)
+  line pass rate 0.45  mean margin -0.24 (sd 1.31)  off-task 0.00
+
+================================================================
+expected pair survival ~ 0.45^2 = 0.20  (binding check: line rate 0.45)
+pairs tested   82
+pairs passing  10   (all lines correct on BOTH checks)
+pairs dropped  72
+   rust|sage                2 bad line(s) | first: rust/sage said 'sage' want 'rust'
+   aqua|beige               2 bad line(s) | first: beige/aqua said 'a' want 'beige'
+   emerald|sapphire         2 bad line(s) | first: sapphire/emerald said 'emer' want 'sapphire'
+   pewter|saffron           2 bad line(s) | first: pewter/saffron said 's' want 'pewter'
+   red|blue                 1 bad line(s) | second: red/blue said 'red' want 'blue'
+   green|yellow             1 bad line(s) | second: green/yellow said 'green' want 'yellow'
+   pink|brown               1 bad line(s) | second: brown/pink said 'brown' want 'pink'
+   black|white              1 bad line(s) | second: black/white said 'black' want 'white'
+   olive|lime               1 bad line(s) | second: olive/lime said 'olive' want 'lime'
+   silver|gold              1 bad line(s) | second: gold/silver said 'gold' want 'silver'
+   tan|mint                 1 bad line(s) | second: mint/tan said 'mint' want 'tan'
+   ruby|jade                1 bad line(s) | second: ruby/jade said 'ruby' want 'jade'
+   cream|azure              1 bad line(s) | second: azure/cream said 'azure' want 'cream'
+   rose|bone                2 bad line(s) | second: rose/bone said 'rose' want 'bone'
+   camel|chalk              1 bad line(s) | second: chalk/camel said 'chalk' want 'camel'
+   ... and 57 more
+
+wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/pair_qc_position.json
+########## final: emit the four -all files + test ##########
+=== stage 2: final datasets ===
+  reusing the 16 demos from stage 1
+10 pairs passed QC; need 75
+only 10 pairs survived QC but 75 needed

@@ -1,0 +1,10 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/first-single
+
+########## build: candidate corpus ##########
+=== stage 1: candidates ===
+  skipped demo (length mismatch): 'triangle' vs 'hexagon'
+only 9 length-matched demos, need 12; add more to DEMO_POOL

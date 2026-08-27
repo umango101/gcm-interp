@@ -1,0 +1,41 @@
+{
+  "a": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_heads.pt",
+  "b": "/home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/from_first-single_to_second-single/atp/numerator_1_heads.pt",
+  "score": "abs",
+  "shape": [
+    24,
+    64
+  ],
+  "topk": [
+    {
+      "k": 10,
+      "shared": 5,
+      "chance": 0.06510416666666667,
+      "jaccard": 0.3333333333333333,
+      "p": 9.999000099990002e-05
+    },
+    {
+      "k": 20,
+      "shared": 9,
+      "chance": 0.2604166666666667,
+      "jaccard": 0.2903225806451613,
+      "p": 9.999000099990002e-05
+    },
+    {
+      "k": 50,
+      "shared": 25,
+      "chance": 1.6276041666666667,
+      "jaccard": 0.3333333333333333,
+      "p": 9.999000099990002e-05
+    },
+    {
+      "k": 100,
+      "shared": 54,
+      "chance": 6.510416666666667,
+      "jaccard": 0.3698630136986301,
+      "p": 9.999000099990002e-05
+    }
+  ],
+  "spearman_head": 0.5475336015057272,
+  "spearman_layer": 0.9478260869565217
+}

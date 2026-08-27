@@ -1,0 +1,342 @@
+repo root  : /home/ubansal/orcd/scratch/conflicts/gcm-interp
+python     : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+experiment : first-single
+contrast   : first-single -> second-single
+data dir   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b/first-single
+map        : /home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/from_first-single_to_second-single/atp/numerator_1_heads.pt
+
+########## localize: first-single -> second-single ##########
+Parsing config...
+op prefix  ./results/gpt-oss-20b/from_first-single_to_second-single/atp/
+Saved config to file ./results/gpt-oss-20b/from_first-single_to_second-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.18s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.11s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.00s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Making base templated prompts...
+<|start|>system<|message|>Answer with exactly one word. Do not explain.<|end|><|start|>user<|message|>Reply with one word, circle or square.<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Choose one: oval or triangle.<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>star or cube?<|end|><|start|>assistant<|channel|>final<|message|>cube<|return|><|start|>user<|message|>Pick either sphere or cone.<|end|><|start|>assistant<|channel|>final<|message|>cone<|return|><|start|>user<|message|>One word only, arch or ring.<|end|><|start|>assistant<|channel|>final<|message|>ring<|return|><|start|>user<|message|>Select diamond or cross.<|end|><|start|>assistant<|channel|>final<|message|>cross<|return|><|start|>user<|message|>Reply with one word, cat or dog.<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Choose one: fish or bird.<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>horse or mouse?<|end|><|start|>assistant<|channel|>final<|message|>mouse<|return|><|start|>user<|message|>Pick either bear or frog.<|end|><|start|>assistant<|channel|>final<|message|>frog<|return|><|start|>user<|message|>One word only, wolf or duck.<|end|><|start|>assistant<|channel|>final<|message|>duck<|return|><|start|>user<|message|>Select rabbit or lion.<|end|><|start|>assistant<|channel|>final<|message|>lion<|return|><|start|>user<|message|>Reply with one word, python or one.<|end|><|start|>assistant<|channel|>final<|message|>one<|return|><|start|>user<|message|>Choose one: three or two.<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>four or five?<|end|><|start|>assistant<|channel|>final<|message|>five<|return|><|start|>user<|message|>Pick either seven or six.<|end|><|start|>assistant<|channel|>final<|message|>six<|return|><|start|>user<|message|>Reply with one word, red or blue.<|end|><|start|>assistant<|channel|>final<|message|>blue<|return|>
+Making base_qs templated prompts...
+<|start|>system<|message|>Answer with exactly one word. Do not explain.<|end|><|start|>user<|message|>Reply with one word, circle or square.<|end|><|start|>assistant<|channel|>final<|message|>square<|return|><|start|>user<|message|>Choose one: oval or triangle.<|end|><|start|>assistant<|channel|>final<|message|>triangle<|return|><|start|>user<|message|>star or cube?<|end|><|start|>assistant<|channel|>final<|message|>cube<|return|><|start|>user<|message|>Pick either sphere or cone.<|end|><|start|>assistant<|channel|>final<|message|>cone<|return|><|start|>user<|message|>One word only, arch or ring.<|end|><|start|>assistant<|channel|>final<|message|>ring<|return|><|start|>user<|message|>Select diamond or cross.<|end|><|start|>assistant<|channel|>final<|message|>cross<|return|><|start|>user<|message|>Reply with one word, cat or dog.<|end|><|start|>assistant<|channel|>final<|message|>dog<|return|><|start|>user<|message|>Choose one: fish or bird.<|end|><|start|>assistant<|channel|>final<|message|>bird<|return|><|start|>user<|message|>horse or mouse?<|end|><|start|>assistant<|channel|>final<|message|>mouse<|return|><|start|>user<|message|>Pick either bear or frog.<|end|><|start|>assistant<|channel|>final<|message|>frog<|return|><|start|>user<|message|>One word only, wolf or duck.<|end|><|start|>assistant<|channel|>final<|message|>duck<|return|><|start|>user<|message|>Select rabbit or lion.<|end|><|start|>assistant<|channel|>final<|message|>lion<|return|><|start|>user<|message|>Reply with one word, python or one.<|end|><|start|>assistant<|channel|>final<|message|>one<|return|><|start|>user<|message|>Choose one: three or two.<|end|><|start|>assistant<|channel|>final<|message|>two<|return|><|start|>user<|message|>four or five?<|end|><|start|>assistant<|channel|>final<|message|>five<|return|><|start|>user<|message|>Pick either seven or six.<|end|><|start|>assistant<|channel|>final<|message|>six<|return|><|start|>user<|message|>Reply with one word, red or blue.<|end|><|start|>assistant<|channel|>final<|message|>
+Making source qs templated prompts...
+<|start|>system<|message|>Answer with exactly one word. Do not explain.<|end|><|start|>user<|message|>Reply with one word, circle or square.<|end|><|start|>assistant<|channel|>final<|message|>circle<|return|><|start|>user<|message|>Choose one: oval or triangle.<|end|><|start|>assistant<|channel|>final<|message|>oval<|return|><|start|>user<|message|>star or cube?<|end|><|start|>assistant<|channel|>final<|message|>star<|return|><|start|>user<|message|>Pick either sphere or cone.<|end|><|start|>assistant<|channel|>final<|message|>sphere<|return|><|start|>user<|message|>One word only, arch or ring.<|end|><|start|>assistant<|channel|>final<|message|>arch<|return|><|start|>user<|message|>Select diamond or cross.<|end|><|start|>assistant<|channel|>final<|message|>diamond<|return|><|start|>user<|message|>Reply with one word, cat or dog.<|end|><|start|>assistant<|channel|>final<|message|>cat<|return|><|start|>user<|message|>Choose one: fish or bird.<|end|><|start|>assistant<|channel|>final<|message|>fish<|return|><|start|>user<|message|>horse or mouse?<|end|><|start|>assistant<|channel|>final<|message|>horse<|return|><|start|>user<|message|>Pick either bear or frog.<|end|><|start|>assistant<|channel|>final<|message|>bear<|return|><|start|>user<|message|>One word only, wolf or duck.<|end|><|start|>assistant<|channel|>final<|message|>wolf<|return|><|start|>user<|message|>Select rabbit or lion.<|end|><|start|>assistant<|channel|>final<|message|>rabbit<|return|><|start|>user<|message|>Reply with one word, python or one.<|end|><|start|>assistant<|channel|>final<|message|>python<|return|><|start|>user<|message|>Choose one: three or two.<|end|><|start|>assistant<|channel|>final<|message|>three<|return|><|start|>user<|message|>four or five?<|end|><|start|>assistant<|channel|>final<|message|>four<|return|><|start|>user<|message|>Pick either seven or six.<|end|><|start|>assistant<|channel|>final<|message|>seven<|return|><|start|>user<|message|>Reply with one word, red or blue.<|end|><|start|>assistant<|channel|>final<|message|>
+Tokenizing base_toks
+max_length 316
+max_length 316
+Tokenizing base_qs_toks
+max_length 316
+max_length 316
+Tokenizing source_qs_toks
+max_length 316
+max_length 316
+Finding response start positions...
+0it [00:00, ?it/s]100it [00:00, 1136.34it/s]
+0it [00:00, ?it/s]100it [00:00, 1593.09it/s]
+Running patching on heads...
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [00:01<03:11,  1.94s/it]  2%|▏         | 2/100 [00:02<02:13,  1.36s/it]  3%|▎         | 3/100 [00:03<01:51,  1.15s/it]  4%|▍         | 4/100 [00:04<01:41,  1.06s/it]  5%|▌         | 5/100 [00:05<01:39,  1.04s/it]  6%|▌         | 6/100 [00:06<01:36,  1.02s/it]  7%|▋         | 7/100 [00:07<01:32,  1.01it/s]  8%|▊         | 8/100 [00:08<01:29,  1.03it/s]  9%|▉         | 9/100 [00:09<01:28,  1.03it/s] 10%|█         | 10/100 [00:10<01:26,  1.04it/s] 11%|█         | 11/100 [00:11<01:24,  1.05it/s] 12%|█▏        | 12/100 [00:12<01:22,  1.07it/s] 13%|█▎        | 13/100 [00:13<01:21,  1.07it/s] 14%|█▍        | 14/100 [00:14<01:21,  1.05it/s] 15%|█▌        | 15/100 [00:15<01:20,  1.05it/s] 16%|█▌        | 16/100 [00:16<01:19,  1.06it/s] 17%|█▋        | 17/100 [00:17<01:17,  1.07it/s] 18%|█▊        | 18/100 [00:17<01:16,  1.08it/s] 19%|█▉        | 19/100 [00:18<01:16,  1.06it/s] 20%|██        | 20/100 [00:19<01:15,  1.07it/s] 21%|██        | 21/100 [00:20<01:14,  1.07it/s] 22%|██▏       | 22/100 [00:21<01:12,  1.08it/s] 23%|██▎       | 23/100 [00:22<01:11,  1.08it/s] 24%|██▍       | 24/100 [00:23<01:12,  1.05it/s] 25%|██▌       | 25/100 [00:24<01:11,  1.04it/s] 26%|██▌       | 26/100 [00:25<01:09,  1.06it/s] 27%|██▋       | 27/100 [00:26<01:07,  1.07it/s] 28%|██▊       | 28/100 [00:27<01:08,  1.06it/s] 29%|██▉       | 29/100 [00:28<01:07,  1.06it/s] 30%|███       | 30/100 [00:29<01:06,  1.06it/s] 31%|███       | 31/100 [00:30<01:04,  1.06it/s] 32%|███▏      | 32/100 [00:31<01:02,  1.08it/s] 33%|███▎      | 33/100 [00:32<01:07,  1.01s/it] 34%|███▍      | 34/100 [00:33<01:06,  1.01s/it] 35%|███▌      | 35/100 [00:34<01:04,  1.01it/s] 36%|███▌      | 36/100 [00:35<01:01,  1.04it/s] 37%|███▋      | 37/100 [00:36<01:00,  1.05it/s] 38%|███▊      | 38/100 [00:37<00:59,  1.04it/s] 39%|███▉      | 39/100 [00:37<00:57,  1.06it/s] 40%|████      | 40/100 [00:38<00:56,  1.05it/s] 41%|████      | 41/100 [00:39<00:55,  1.07it/s] 42%|████▏     | 42/100 [00:40<00:54,  1.07it/s] 43%|████▎     | 43/100 [00:41<00:54,  1.05it/s] 44%|████▍     | 44/100 [00:42<00:52,  1.06it/s] 45%|████▌     | 45/100 [00:43<00:51,  1.07it/s] 46%|████▌     | 46/100 [00:44<00:49,  1.08it/s] 47%|████▋     | 47/100 [00:45<00:49,  1.08it/s] 48%|████▊     | 48/100 [00:46<00:47,  1.09it/s] 49%|████▉     | 49/100 [00:47<00:47,  1.08it/s] 50%|█████     | 50/100 [00:48<00:46,  1.09it/s] 51%|█████     | 51/100 [00:49<00:45,  1.09it/s] 52%|█████▏    | 52/100 [00:49<00:44,  1.09it/s] 53%|█████▎    | 53/100 [00:51<00:44,  1.05it/s] 54%|█████▍    | 54/100 [00:51<00:43,  1.06it/s] 55%|█████▌    | 55/100 [00:52<00:42,  1.07it/s] 56%|█████▌    | 56/100 [00:53<00:40,  1.08it/s] 57%|█████▋    | 57/100 [00:54<00:40,  1.06it/s] 58%|█████▊    | 58/100 [00:55<00:39,  1.07it/s] 59%|█████▉    | 59/100 [00:56<00:38,  1.07it/s] 60%|██████    | 60/100 [00:57<00:36,  1.08it/s] 61%|██████    | 61/100 [00:58<00:35,  1.08it/s] 62%|██████▏   | 62/100 [00:59<00:36,  1.05it/s] 63%|██████▎   | 63/100 [01:00<00:35,  1.05it/s] 64%|██████▍   | 64/100 [01:01<00:36,  1.02s/it] 65%|██████▌   | 65/100 [01:02<00:34,  1.00it/s] 66%|██████▌   | 66/100 [01:03<00:33,  1.01it/s] 67%|██████▋   | 67/100 [01:04<00:32,  1.03it/s] 68%|██████▊   | 68/100 [01:05<00:30,  1.04it/s] 69%|██████▉   | 69/100 [01:06<00:29,  1.06it/s] 70%|███████   | 70/100 [01:07<00:29,  1.03it/s] 71%|███████   | 71/100 [01:08<00:27,  1.04it/s] 72%|███████▏  | 72/100 [01:09<00:26,  1.05it/s] 73%|███████▎  | 73/100 [01:10<00:25,  1.07it/s] 74%|███████▍  | 74/100 [01:10<00:24,  1.07it/s] 75%|███████▌  | 75/100 [01:11<00:23,  1.06it/s] 76%|███████▌  | 76/100 [01:12<00:22,  1.06it/s] 77%|███████▋  | 77/100 [01:13<00:21,  1.07it/s] 78%|███████▊  | 78/100 [01:14<00:20,  1.08it/s] 79%|███████▉  | 79/100 [01:15<00:19,  1.05it/s] 80%|████████  | 80/100 [01:16<00:18,  1.06it/s] 81%|████████  | 81/100 [01:17<00:17,  1.06it/s] 82%|████████▏ | 82/100 [01:18<00:16,  1.07it/s] 83%|████████▎ | 83/100 [01:19<00:15,  1.07it/s] 84%|████████▍ | 84/100 [01:20<00:15,  1.02it/s] 85%|████████▌ | 85/100 [01:21<00:14,  1.06it/s] 86%|████████▌ | 86/100 [01:22<00:12,  1.08it/s] 87%|████████▋ | 87/100 [01:23<00:11,  1.10it/s] 88%|████████▊ | 88/100 [01:23<00:10,  1.11it/s] 89%|████████▉ | 89/100 [01:24<00:09,  1.12it/s] 90%|█████████ | 90/100 [01:25<00:08,  1.13it/s] 91%|█████████ | 91/100 [01:26<00:07,  1.14it/s] 92%|█████████▏| 92/100 [01:27<00:07,  1.14it/s] 93%|█████████▎| 93/100 [01:28<00:06,  1.14it/s] 94%|█████████▍| 94/100 [01:29<00:05,  1.14it/s] 95%|█████████▌| 95/100 [01:30<00:04,  1.14it/s] 96%|█████████▌| 96/100 [01:30<00:03,  1.14it/s] 97%|█████████▋| 97/100 [01:32<00:02,  1.06it/s] 98%|█████████▊| 98/100 [01:32<00:01,  1.09it/s] 99%|█████████▉| 99/100 [01:33<00:00,  1.10it/s]100%|██████████| 100/100 [01:34<00:00,  1.12it/s]100%|██████████| 100/100 [01:34<00:00,  1.06it/s]
+Running patching on heads from 0 to 1
+Updating batch handler: start=0, stop=1
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 1 to 2
+Updating batch handler: start=1, stop=2
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 2 to 3
+Updating batch handler: start=2, stop=3
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 3 to 4
+Updating batch handler: start=3, stop=4
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 4 to 5
+Updating batch handler: start=4, stop=5
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 5 to 6
+Updating batch handler: start=5, stop=6
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 6 to 7
+Updating batch handler: start=6, stop=7
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 7 to 8
+Updating batch handler: start=7, stop=8
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 8 to 9
+Updating batch handler: start=8, stop=9
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 9 to 10
+Updating batch handler: start=9, stop=10
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 10 to 11
+Updating batch handler: start=10, stop=11
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 11 to 12
+Updating batch handler: start=11, stop=12
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 12 to 13
+Updating batch handler: start=12, stop=13
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 13 to 14
+Updating batch handler: start=13, stop=14
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 14 to 15
+Updating batch handler: start=14, stop=15
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 15 to 16
+Updating batch handler: start=15, stop=16
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 16 to 17
+Updating batch handler: start=16, stop=17
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 17 to 18
+Updating batch handler: start=17, stop=18
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 18 to 19
+Updating batch handler: start=18, stop=19
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 19 to 20
+Updating batch handler: start=19, stop=20
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 20 to 21
+Updating batch handler: start=20, stop=21
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 21 to 22
+Updating batch handler: start=21, stop=22
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 22 to 23
+Updating batch handler: start=22, stop=23
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 23 to 24
+Updating batch handler: start=23, stop=24
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 24 to 25
+Updating batch handler: start=24, stop=25
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 25 to 26
+Updating batch handler: start=25, stop=26
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 26 to 27
+Updating batch handler: start=26, stop=27
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 27 to 28
+Updating batch handler: start=27, stop=28
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 28 to 29
+Updating batch handler: start=28, stop=29
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 29 to 30
+Updating batch handler: start=29, stop=30
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 30 to 31
+Updating batch handler: start=30, stop=31
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 31 to 32
+Updating batch handler: start=31, stop=32
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 32 to 33
+Updating batch handler: start=32, stop=33
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 33 to 34
+Updating batch handler: start=33, stop=34
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 34 to 35
+Updating batch handler: start=34, stop=35
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 35 to 36
+Updating batch handler: start=35, stop=36
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 36 to 37
+Updating batch handler: start=36, stop=37
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 37 to 38
+Updating batch handler: start=37, stop=38
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 38 to 39
+Updating batch handler: start=38, stop=39
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 39 to 40
+Updating batch handler: start=39, stop=40
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 40 to 41
+Updating batch handler: start=40, stop=41
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 41 to 42
+Updating batch handler: start=41, stop=42
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 42 to 43
+Updating batch handler: start=42, stop=43
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 43 to 44
+Updating batch handler: start=43, stop=44
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 44 to 45
+Updating batch handler: start=44, stop=45
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 45 to 46
+Updating batch handler: start=45, stop=46
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 46 to 47
+Updating batch handler: start=46, stop=47
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 47 to 48
+Updating batch handler: start=47, stop=48
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 48 to 49
+Updating batch handler: start=48, stop=49
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 49 to 50
+Updating batch handler: start=49, stop=50
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 50 to 51
+Updating batch handler: start=50, stop=51
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 51 to 52
+Updating batch handler: start=51, stop=52
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 52 to 53
+Updating batch handler: start=52, stop=53
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 53 to 54
+Updating batch handler: start=53, stop=54
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 54 to 55
+Updating batch handler: start=54, stop=55
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 55 to 56
+Updating batch handler: start=55, stop=56
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 56 to 57
+Updating batch handler: start=56, stop=57
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 57 to 58
+Updating batch handler: start=57, stop=58
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 58 to 59
+Updating batch handler: start=58, stop=59
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 59 to 60
+Updating batch handler: start=59, stop=60
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 60 to 61
+Updating batch handler: start=60, stop=61
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 61 to 62
+Updating batch handler: start=61, stop=62
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 62 to 63
+Updating batch handler: start=62, stop=63
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 63 to 64
+Updating batch handler: start=63, stop=64
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 64 to 65
+Updating batch handler: start=64, stop=65
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 65 to 66
+Updating batch handler: start=65, stop=66
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 66 to 67
+Updating batch handler: start=66, stop=67
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 67 to 68
+Updating batch handler: start=67, stop=68
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 68 to 69
+Updating batch handler: start=68, stop=69
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 69 to 70
+Updating batch handler: start=69, stop=70
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 70 to 71
+Updating batch handler: start=70, stop=71
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 71 to 72
+Updating batch handler: start=71, stop=72
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 72 to 73
+Updating batch handler: start=72, stop=73
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 73 to 74
+Updating batch handler: start=73, stop=74
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 74 to 75
+Updating batch handler: start=74, stop=75
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 75 to 76
+Updating batch handler: start=75, stop=76
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 76 to 77
+Updating batch handler: start=76, stop=77
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 77 to 78
+Updating batch handler: start=77, stop=78
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 78 to 79
+Updating batch handler: start=78, stop=79
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 79 to 80
+Updating batch handler: start=79, stop=80
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 80 to 81
+Updating batch handler: start=80, stop=81
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 81 to 82
+Updating batch handler: start=81, stop=82
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 82 to 83
+Updating batch handler: start=82, stop=83
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 83 to 84
+Updating batch handler: start=83, stop=84
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 84 to 85
+Updating batch handler: start=84, stop=85
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 85 to 86
+Updating batch handler: start=85, stop=86
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 86 to 87
+Updating batch handler: start=86, stop=87
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 87 to 88
+Updating batch handler: start=87, stop=88
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 88 to 89
+Updating batch handler: start=88, stop=89
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 89 to 90
+Updating batch handler: start=89, stop=90
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 90 to 91
+Updating batch handler: start=90, stop=91
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 91 to 92
+Updating batch handler: start=91, stop=92
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 92 to 93
+Updating batch handler: start=92, stop=93
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 93 to 94
+Updating batch handler: start=93, stop=94
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 94 to 95
+Updating batch handler: start=94, stop=95
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 95 to 96
+Updating batch handler: start=95, stop=96
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 96 to 97
+Updating batch handler: start=96, stop=97
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 97 to 98
+Updating batch handler: start=97, stop=98
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 98 to 99
+Updating batch handler: start=98, stop=99
+net_effects torch.Size([24, 1, 4096])
+Running patching on heads from 99 to 100
+Updating batch handler: start=99, stop=100
+net_effects torch.Size([24, 1, 4096])
+
+done: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/from_first-single_to_second-single/atp/numerator_1_heads.pt
+
+compare against the privilege map with:
+  B_SOURCE=first-single B_BASE=second-single B_LABEL=<label> \
+    bash scripts/compare_privilege_position.sh

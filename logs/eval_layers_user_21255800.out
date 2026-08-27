@@ -1,0 +1,46 @@
+RM_INTERP_REPO is /orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+NOTE: no attribution map at ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_layers.pt.
+      The sweep will run anyway; only the ATP-vs-measured correlation
+      will be unavailable. Run scripts/localize_layers_user.sh to get it.
+=== per-layer sweep: layers from user-single, steering user-single ===
+[layers] parsing config...
+Steering dataset set to: user-single
+[layers] results_root = ./results_layers localization_root = ./results_layers
+[layers] output prefix  ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer/
+Saved config to file ./results_layers/gpt-oss-20b/from_user-single_to_dev-single/atp-per-layer/user-single_eval/user-single_steer//config.yml
+[determinism] sdp_backend=default applied={} strict=False deterministic_algorithms=True
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1218, in from_pretrained
+    config_class = CONFIG_MAPPING[config_dict["model_type"]]
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 914, in __getitem__
+    raise KeyError(key)
+KeyError: 'gpt_oss'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/layers/run_layers.py", line 484, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/layers/run_layers.py", line 441, in main
+    model_handler = ModelHandler(config)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/model_handler.py", line 30, in __init__
+    self.model = self.load_model(model_id, self.device)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/model_handler.py", line 195, in load_model
+    return self._load_gpt_oss(model_id, device)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/model_handler.py", line 278, in _load_gpt_oss
+    hf_model = AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 547, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1220, in from_pretrained
+    raise ValueError(
+ValueError: The checkpoint you are trying to load has model type `gpt_oss` but Transformers does not recognize this architecture. This could be because of an issue with the checkpoint, or because your version of Transformers is out of date.
+
+You can update Transformers with the command `pip install --upgrade transformers`. If this does not work, and the checkpoint is very new, then there may not be a release version that supports this model yet. In this case, you can get the most up-to-date code by installing Transformers from source with the command `pip install git+https://github.com/huggingface/transformers.git`
+[layers] loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+[loader] Mxfp4Config unavailable; relying on implicit dequantization

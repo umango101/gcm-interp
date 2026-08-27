@@ -1,86 +1,93 @@
 #!/usr/bin/env python3
-"""Score the user-single per-layer sweep with the existing conflict scorer.
+"""Score the residual-stream (layer) sweep with the single-token conflict scorer.
 
-    python eval_pipeline_conflict_layers.py --results_dir ./results_layers
+    python eval_pipeline_conflict_layers.py --stages merge accuracies plots
 
-``eval_pipeline_conflict.py`` is imported and reconfigured rather than edited or
-copied. Edited, and the head arm's scoring changes underneath it; copied, and the
-two drift -- the judge prompt, the Harmony ``final``-channel extraction, and the
-three-way developer/user/neither labelling are exactly the parts that must NOT
-diverge from the head arm, because the point is to read one against the other.
+WHY THIS NOW IMPORTS eval_pipeline_conflict_single
+--------------------------------------------------
+It used to reconfigure `eval_pipeline_conflict` (the judge-based scorer). That
+was the right call when the layer arm's answers needed an LLM judge, but it is
+now the reason the layer figures are stale: every metric fix -- `user_net`, the
+flip-direction correction -- landed in `eval_pipeline_conflict_single`, so the
+layer arm kept plotting the old metric set from a different module.
 
-What differs, and nothing here is in the scoring logic:
+Importing the single scorer instead fixes three things at once:
 
-1. PAIRS gains a ``user`` entry (user-single -> dev-single). The stock table only
-   knows the role/within/inverted corpora.
-2. EXPERIMENT_SPECS becomes a single cell, named "" so that
-   ``os.path.join(name, MODEL_ID, ...)`` collapses to ``{MODEL_ID}/...``. The
-   stock nine conditions each own an ``{experiment}/`` directory level because
-   they would otherwise overwrite each other; with one condition there is
-   nothing to keep apart, so the layer run writes straight into ./results_layers
-   and no ``--localization_root`` split is needed.
-3. METHOD -> 'atp-per-layer' (LayerConfig.method_dir under --sweep_mode per_layer).
-4. TOP_KS -> layer indices; NS -> whatever --n_vals the sweep used.
+  * The layer figures pick up `user_net` and the corrected flip denominator
+    automatically, and will keep picking up future metric changes. There is one
+    definition of each metric in the tree, not two.
+  * The head arm and the layer arm are now scored by the SAME code on the same
+    labels, which is the precondition for reading one against the other. Two
+    scorers that agree today drift tomorrow.
+  * No judge, so no GPU and no vLLM. The layer arm's scoring is now a few seconds
+    of pandas on the login node. `scripts/judge_layers_user.sh` is obsolete --
+    it existed only to give the judge stage an allocation.
 
-The gen filename regex needs no change. It parses
-``{N}_targeted_{steer|mean}_{topk}_{eval_source}_gen.json`` with ``topk`` as
-``\\d+(\\.\\d+)?``; in per-layer mode that third field holds a layer index
-instead of a count, an integer either way.
+WHAT IS OVERRIDDEN
+------------------
+Four module globals, all read by Cell.__init__, so every override lands before
+all_cells():
 
-The scorer already handles the extended-preamble corpus without modification:
-``load_test_prompts`` accepts a ``system`` turn as the privileged instruction (the
-new rows use ``system`` where the role/within rows used ``developer``) and takes
-the LAST user turn, so it picks the final question rather than an ICL demo.
+  METHOD      'atp' -> 'atp-per-layer'   (LayerConfig.method_dir under per_layer)
+  RESULTS_DIR ./results -> ./results_layers
+  EVAL_ROOT / OUT_ROOT  -> *_layers, so the layer outputs cannot overwrite the
+                           head arm's under the identical relative path
+                           ({model}/{localization}/{method}/...). The method
+                           segment differs, but relying on that to keep two arms
+                           apart is one renamed constant away from silent
+                           clobbering.
+
+NOT overridden: NS and TOP_KS stay None, i.e. discovered from the gen filenames
+on disk. In per-layer mode the third numeric field of the filename is a layer
+index rather than a top-k fraction, and discovery handles that without being told
+-- the regex reads it as `\\d+(\\.\\d+)?` either way. Pinning TOP_KS to
+range(n_layers) would only create a way to be wrong about the layer count.
 """
 
 import argparse
+import os
 import sys
 
-import eval_pipeline_conflict as epc
-
-
-# (name, localization key, steering key, eval key). One cell: localize
-# user-single -> dev-single and steer on the same corpus. name="" keeps the
-# tree flat -- see the module docstring.
-LAYER_EXPERIMENT_SPECS = [("", "user", "user", "user")]
+import eval_pipeline_conflict_single as eps
 
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Score the user-single layer sweep via eval_pipeline_conflict's stages.")
+        description="Score the layer sweep via eval_pipeline_conflict_single's stages.")
     ap.add_argument("--stages", nargs="+",
-                    default=["merge", "prompts", "judge", "accuracies", "plots"])
-    ap.add_argument("--batch_size", type=int, default=16)
-    ap.add_argument("--repo_root", default=None)
-    ap.add_argument("--results_dir", default="./results_layers",
-                    help="Root of the layer results tree (holds {model}/from_.../).")
-    ap.add_argument("--data_dir", default=None)
-    ap.add_argument("--n_layers", type=int, default=24,
-                    help="Layer count for the model. Read it off the row count of "
-                         "layer_effects.csv rather than trusting this default -- a wrong "
-                         "value only produces a grid warning, not wrong numbers.")
-    ap.add_argument("--n_vals", type=str, default="2,5,8,10",
-                    help="Must match --n_vals from the sweep, or _check_grid reports "
-                         "the missing cells as gaps.")
-    ap.add_argument("--no-resume", action="store_true")
+                    choices=list(eps.PER_CELL_STAGES) + ["judge"],
+                    default=["merge", "accuracies", "plots"],
+                    help="Which stages to run, in order. build_prompts and judge "
+                         "are no-ops in the single-token scorer.")
+    ap.add_argument("--results_dir", default=None,
+                    help="Root holding {model}/from_.../ for the layer gen files. "
+                         "Default: <repo>/results_layers")
+    ap.add_argument("--method", default="atp-per-layer",
+                    help="Method directory segment. Default: atp-per-layer")
+    ap.add_argument("--cells", nargs="+", type=int, default=None,
+                    help="0-based cell indices to run. Default: all.")
     args = ap.parse_args()
 
-    # Order matters: Cell freezes its paths at construction and reads these
-    # module globals, so every override has to land before all_cells().
-    epc.set_roots(args.repo_root or epc.BASE_DIR, args.results_dir, args.data_dir)
-    epc.PAIRS = dict(epc.PAIRS, user=("user-single", "dev-single"))
-    epc.PRIMARY_OF = dict(epc.PRIMARY_OF, user="user")
-    epc.METHOD = "atp-per-layer"
-    epc.TOP_KS = list(range(args.n_layers))
-    epc.NS = [int(x) for x in args.n_vals.replace(",", " ").split()]
-    epc.EXPERIMENT_SPECS = LAYER_EXPERIMENT_SPECS
+    # Order matters: Cell freezes every path at construction from these globals.
+    eps.METHOD = args.method
+    eps.RESULTS_DIR = args.results_dir or os.path.join(eps.BASE_DIR, "results_layers")
+    eps.EVAL_ROOT = os.path.join(eps.BASE_DIR, "eval_pipeline_conflict_single_layers")
+    eps.OUT_ROOT = os.path.join(eps.BASE_DIR, "results_pipeline_conflict_single_layers")
 
-    cells = epc.all_cells()
+    cells = eps.all_cells()
+    if args.cells is not None:
+        bad = [i for i in args.cells if i < 0 or i >= len(cells)]
+        if bad:
+            raise IndexError(f"--cells {bad} out of range (have {len(cells)})")
+        cells = [cells[i] for i in args.cells]
 
-    print(f"Layer arm: user-single -> dev-single  model={epc.MODEL_ID} method={epc.METHOD}")
-    print(f"  gen input : {epc.RESULTS_DIR}")
-    print(f"  test data : {epc.DATA_DIR}")
-    print(f"  grid      : NS={epc.NS} layers=0..{args.n_layers - 1}")
+    print(f"Layer arm: user->dev instruction privilege  "
+          f"model={eps.MODEL_ID}  method={eps.METHOD}")
+    print(f"  gen input : {eps.RESULTS_DIR}")
+    print(f"  test data : {eps.DATA_DIR}")
+    print(f"  intermed. : {eps.EVAL_ROOT}")
+    print(f"  outputs   : {eps.OUT_ROOT}")
+    print(f"  metrics   : {eps.PLOT_METRICS}")
     for c in cells:
         print(f"  - {c}")
         print(f"    gen dir : {c.gen_dir}")
@@ -89,11 +96,11 @@ def main():
         print("=" * 70)
         print(f"STAGE: {stage}")
         if stage == "judge":
-            epc.stage_judge_all(cells, batch_size=args.batch_size,
-                                resume=not args.no_resume)
+            eps.stage_judge_all(cells)
         else:
-            fn = epc.PER_CELL_STAGES[stage]
+            fn = eps.PER_CELL_STAGES[stage]
             for cell in cells:
+                print(f"  cell: {cell}")
                 fn(cell)
 
     print("=" * 70)

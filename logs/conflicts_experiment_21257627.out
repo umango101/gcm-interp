@@ -1,0 +1,31 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: openai/gpt-oss-20b
+[plan] pairs:  user-long_dev-long user-single_dev-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/conflicts/gcm-interp.run_state (2 steps already recorded)
+
+==================== gpt-oss-20b ====================
+[skip] gpt-oss-20b / user-long -> dev-long: 4 data file(s) missing
+         gpt-oss-20b/user-long/dev-long-desired-all.jsonl
+         gpt-oss-20b/user-long/dev-long-undesired-all.jsonl
+         gpt-oss-20b/user-long/user-long-desired-all.jsonl
+         gpt-oss-20b/user-long/user-long-undesired-all.jsonl
+[skip] [1/4] gpt-oss-20b | user-single -> dev-single | atp | localize
+[skip] [2/4] gpt-oss-20b | user-single -> dev-single | atp | eval:single steer:single
+
+==================== summary ====================
+steps complete: 2/4   (ran 0 this pass)
+skipped (missing data):
+  gpt-oss-20b / user-long -> dev-long (4 files missing)
+all steps completed for: openai/gpt-oss-20b

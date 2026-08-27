@@ -1,0 +1,20 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/first-single
+
+########## build: candidate corpus ##########
+=== stage 1: candidates ===
+  skipped demo (length mismatch): 'triangle' vs 'hexagon'
+  demos: 8
+  words by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+82 candidate pairs (need 75 to survive QC)
+  wrote  164 candidate lines -> first-single-desired-all.jsonl
+  wrote  164 candidate lines -> second-single-desired-all.jsonl
+  wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/position/candidates/candidate_meta.json
+########## qc: does the preamble induce position-following? ##########
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/positions/qc_position_datasets.py", line 28, in <module>
+    import qc_privilege_datasets as qc
+ModuleNotFoundError: No module named 'qc_privilege_datasets'

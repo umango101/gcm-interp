@@ -113,8 +113,12 @@ LABEL_NEITHER = "other"      # empty / degenerate / off-task / both
 # block before comparing against layer-arm numbers.
 FLIP_TARGET = LABEL_USER
 
-ACCURACY_METRICS = ["dev_post", "dev_orig", "user_post", "broken_post", "flip", "flip_broken"]
-PLOT_METRICS = ["flip", "dev_post", "user_post", "broken_post"]
+ACCURACY_METRICS = ["dev_post", "dev_orig", "user_post", "broken_post", "user_net", "flip", "flip_broken"]
+# flip is omitted here, not removed: it stays in ACCURACY_METRICS and
+# summary.json. With a saturated baseline (dev=50/user=0/other=0) it is
+# identically equal to user_post, so plotting both produced two identical
+# figures. user_net is the panel that adds information.
+PLOT_METRICS = ["user_net", "dev_post", "user_post", "broken_post"]
 
 # DIRECTION NOTE. eval_pipeline_conflict.py hardcodes the flip target to
 # LABEL_DEVELOPER, because it was written for the roleConflict corpus where the
@@ -434,7 +438,11 @@ def _metrics(sub):
     # unsteered off-task response counts as an opportunity, exactly as in the
     # layer arm. n_flip_denominator is carried into summary.json so a flip rate
     # over a tiny denominator is visible rather than implied.
-    failed = orig != FLIP_TARGET
+    # `== LABEL_DEVELOPER`, not `!= FLIP_TARGET`: flip means "moved from the
+    # developer's word to the user's word". The looser form also counted an
+    # unsteered off-task response as an opportunity. Identical on a clean
+    # baseline; keeps the denominator honest when the baseline is not clean.
+    failed = orig == LABEL_DEVELOPER
     n_failed = int(failed.sum())
 
     return {
@@ -442,6 +450,15 @@ def _metrics(sub):
         "dev_orig": float((orig == LABEL_DEVELOPER).sum() / total),
         "user_post": float((post == LABEL_USER).sum() / total),
         "broken_post": float((post == LABEL_NEITHER).sum() / total),
+        # Net effect: user answers induced, minus generations broken. Signed, in
+        # [-1, 1], over ALL items rather than a conditional denominator. Separates
+        # "steering produced the user's word" from "steering broke the model and a
+        # prompt word fell out", which user_post alone cannot distinguish.
+        # Lossy on purpose -- 0.0 covers both "nothing happened" and "as much
+        # breakage as effect" -- so it is plotted next to its two components, never
+        # instead of them.
+        "user_net": float(((post == LABEL_USER).sum()
+                           - (post == LABEL_NEITHER).sum()) / total),
         # headline: intervention efficacy
         "flip": float((failed & (post == FLIP_TARGET)).sum() / n_failed) if n_failed else 0.0,
         # of the items that could have moved, how many broke instead
@@ -516,8 +533,19 @@ def _heatmap(cell, metric, ns, ks):
     # Blues for broken_post so a failure mode never reads as a success at a
     # glance -- the layer arm's convention, kept so the two sets of figures can
     # sit side by side in the writeup.
-    cmap = "Blues" if metric == "broken_post" else "Reds"
-    ax = sns.heatmap(df, annot=True, vmin=0, vmax=1, cmap=cmap, fmt=".2f")
+    if metric == "user_net":
+        # Signed metric: a diverging map centred on zero, or negative cells clip to
+        # white on a 0-1 Reds scale and become indistinguishable from "no effect" --
+        # exactly the cells where breakage outweighed the induced answer.
+        cmap, vmin, vmax, center = "RdBu_r", -1.0, 1.0, 0.0
+    else:
+        # Blues for broken_post so a failure mode never reads as a success at a
+        # glance -- the layer arm's convention, kept so the two sets of figures can
+        # sit side by side in the writeup.
+        cmap = "Blues" if metric == "broken_post" else "Reds"
+        vmin, vmax, center = 0.0, 1.0, None
+    ax = sns.heatmap(df, annot=True, vmin=vmin, vmax=vmax, center=center,
+                     cmap=cmap, fmt=".2f")
     ax.set_title(f"{MODEL_ID} - {metric}\n{cell.name}\n{cell.localization}")
     ax.set_ylabel("Steering Factor (N)")
     ax.set_xlabel("top_k")

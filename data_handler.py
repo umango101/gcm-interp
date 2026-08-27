@@ -194,7 +194,7 @@ class DataHandler:
             if self.config.args.eval_transfer:
                 self.LEN = 100
             else:
-                self.LEN = min(len(base['desired']), 50)
+                self.LEN = min(len(base['desired']), 100)
         else:
             self.LEN = min(len(base['desired']), 100)
 

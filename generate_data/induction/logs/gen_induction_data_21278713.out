@@ -1,0 +1,70 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction-single
+
+########## build: candidate corpus ##########
+=== stage 1: candidates ===
+  nonces by token length: 1tok:1, 2tok:734, 3tok:2471, 4tok:742, 5tok:52
+160 candidate rows
+  wrote  160 candidate lines -> induction-single-desired-all.jsonl
+  wrote  160 candidate lines -> noinduction-single-desired-all.jsonl
+  wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/data/gpt-oss-20b/induction/candidates/candidate_meta.json
+########## qc: does the model actually match-and-copy? ##########
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.06it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.25it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.20it/s]
+
+induction-single-desired-all.jsonl  (expect the dev's word)
+  line pass rate 0.69  mean margin +5.57 (sd 2.85)  off-task 0.31
+
+================================================================
+expected pair survival ~ 0.69^1 = 0.69  (binding check: line rate 0.69)
+pairs tested   160
+pairs passing  111   (all lines correct on BOTH checks)
+pairs dropped  49
+   rebral|kujaf             1 bad line(s) | induction: kujaf/paswas said 'k' want 'kujaf'
+   vaedef|rojoum            1 bad line(s) | induction: rojoum/homiz said 's' want 'rojoum'
+   balourn|vrotraf          1 bad line(s) | induction: vrotraf/sekoug said 't' want 'vrotraf'
+   nezer|birar              1 bad line(s) | induction: birar/zikros said 'b' want 'birar'
+   koplet|botrup            1 bad line(s) | induction: botrup/drebag said 'g' want 'botrup'
+   dukud|flokrif            1 bad line(s) | induction: flokrif/stiavid said 'fl' want 'flokrif'
+   bebum|nagind             1 bad line(s) | induction: nagind/traestan said 'k' want 'nagind'
+   trezant|dumast           1 bad line(s) | induction: dumast/jiatron said 'd' want 'dumast'
+   taflok|swahit            1 bad line(s) | induction: swahit/dropost said 's' want 'swahit'
+   betrimp|skalip           1 bad line(s) | induction: skalip/foturn said 'kal' want 'skalip'
+   haraz|zialark            1 bad line(s) | induction: zialark/zirirk said 'z' want 'zialark'
+   vepus|lotrod             1 bad line(s) | induction: lotrod/zufub said 't' want 'lotrod'
+   mekiv|tokend             1 bad line(s) | induction: tokend/mozeit said 't' want 'tokend'
+   voudat|kipim             1 bad line(s) | induction: kipim/pleisat said 'k' want 'kipim'
+   gagun|punum              1 bad line(s) | induction: punum/magurk said 'p' want 'punum'
+   ... and 34 more
+
+wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/induction/pair_qc_induction.json
+########## final: emit the four -all files + test ##########
+=== stage 2: final datasets ===
+111/160 rows passed QC; need 100
+  wrote  100 lines -> induction-single-desired-all.jsonl
+  wrote  100 lines -> induction-single-undesired-all.jsonl
+  wrote  100 lines -> noinduction-single-desired-all.jsonl
+  wrote  100 lines -> noinduction-single-undesired-all.jsonl
+  wrote   50 lines -> noinduction-single-test.jsonl   (held-out nonces)
+
+checks:
+  four -all files: 100 lines each; test: 50
+  answer and distractor are always distinct
+  induction vs noinduction differ at exactly one user turn [17] -- the query
+  induction: query matches an earlier key in 100/100 rows
+  noinduction: query matches an earlier key in 0/100 rows
+  answer AND distractor appear in the preamble under both conditions
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/induction/make_induction_datasets.py", line 415, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/induction/make_induction_datasets.py", line 411, in main
+    verify(args.out_dir, tok)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/induction/make_induction_datasets.py", line 260, in verify
+    assert spread <= 1, f"{cond}: match position is not uniform: {dict(sorted(c.items()))}"
+AssertionError: induction: match position is not uniform: {0: 13, 1: 12, 2: 15, 3: 14, 4: 11, 5: 13, 6: 8, 7: 14}

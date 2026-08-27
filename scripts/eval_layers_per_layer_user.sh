@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 12:00:00
+#SBATCH -t 36:00:00
 #SBATCH -J eval_layers_user
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -67,7 +67,13 @@ data="${RM_INTERP_REPO}/data/${model_name}"
 source_ds="user-single"
 base_ds="dev-single"
 
-N_VALS="${N_VALS:-2,5,8,10}"
+# 14 steering factors x 24 layers = 336 generation runs, up from 96. At
+# --n_scale 0.1 the alphas span 0.1 to 4.5 x the residual norm, so the tail
+# is well past the point where generation degrades -- that is the point: the
+# high end is what makes broken_post/user_net informative rather than a
+# formality. Scoring reads N from the filenames, so nothing downstream needs
+# changing; eval_pipeline_conflict_single discovers the grid from disk.
+N_VALS="${N_VALS:-1,2,4,5,6,8,10,15,20,25,30,35,40,45}"
 N_SCALE=0.1
 # Single-word answers, so the decode budget is small. The prompt is long (nine
 # turns), so prefill dominates the cost either way.
@@ -81,11 +87,22 @@ for f in "$eval_test" "$add_path" "$sub_path"; do
   [ -f "$f" ] || { echo "MISSING $f"; exit 1; }
 done
 
+# The map is OPTIONAL in per-layer mode and this is deliberately a warning, not
+# a gate. The sweep below steers all 24 layers individually and measures each --
+# that is the causal ground truth, and it needs neither a layer ranking (nothing
+# is selected) nor the map for its steering vectors (those are diff-in-means over
+# the steering sets). run_layers catches the missing map and continues.
+#
+# What the map buys is the ATP-vs-measured comparison: with every layer measured,
+# the attribution score becomes a prediction to correlate against the effect. Skip
+# the localization if the claim is "which layers causally carry this"; run it if
+# the claim is "cheap attribution predicts which layers do", which is what makes
+# the layer arm parallel to the head arm's top-k selection.
 LOC_MAP="./results_layers/${model_name}/from_${source_ds}_to_${base_ds}/atp/numerator_1_layers.pt"
 if [ ! -f "$LOC_MAP" ]; then
-  echo "No attribution map at ${LOC_MAP}."
-  echo "Run scripts/localize_layers_user.sh first."
-  exit 1
+  echo "NOTE: no attribution map at ${LOC_MAP}."
+  echo "      The sweep will run anyway; only the ATP-vs-measured correlation"
+  echo "      will be unavailable. Run scripts/localize_layers_user.sh to get it."
 fi
 
 echo "=== per-layer sweep: layers from ${source_ds}, steering ${source_ds} ==="

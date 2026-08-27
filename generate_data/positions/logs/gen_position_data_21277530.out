@@ -1,0 +1,8 @@
+repo   : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions
+python : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+model  : openai/gpt-oss-20b
+stages : build qc final
+out    : /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/positions/data/gpt-oss-20b/first-single
+
+########## build: candidate corpus ##########
+/var/spool/slurmd/job21277530/slurm_script: line 98: make_position_datasets: unbound variable
