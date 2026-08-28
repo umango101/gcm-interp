@@ -1,0 +1,2 @@
+2026-08-27T16:50:22-04:00
+--model_id google/gemma-3-12b-it --batch_size 1 --patch_algo atp --source paragraph-single --base sentence --device cuda:0 --eval_model --kv_caching --eval_test /home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/paragraph-single/sentence-test.jsonl --steering --ablation steer --steering_add_path /home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/paragraph-single/paragraph-single-desired-all.jsonl --steering_sub_path /home/ubansal/orcd/scratch/gcm-interp/data/gemma-3-12b-it/paragraph-single/sentence-desired-all.jsonl
