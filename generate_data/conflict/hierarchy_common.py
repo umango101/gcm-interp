@@ -264,9 +264,18 @@ CONFLICT_CATEGORIES = [
     ("shape",      "circle", "square"),
     ("number",     "seven",  "eight"),
     ("animal",     "cat",    "dog"),
-    ("fruit",      "apple",  "pear"),
+    ("fruit",      "apple",   "pear"),
     ("instrument", "piano",  "violin"),
     ("vehicle",    "truck",  "train"),
+    # Added so the demo count can go past 6. Any whose two words fail token
+    # length matching are dropped from the rules AND the questions together --
+    # see select_demos_rule -- so an unusable entry costs a demo slot, not a run.
+    ("season",     "summer", "winter"),
+    ("direction",  "north",  "south"),
+    ("sport",      "tennis", "soccer"),
+    ("bird",       "eagle",  "robin"),
+    ("material",   "glass",  "brick"),
+    ("weekday",    "Monday", "Friday"),
 ]
 
 # Categories both rules agree on. They keep the induced policy at "follow the
@@ -293,6 +302,19 @@ if _pool_clash:
         "a demonstrated one.")
 
 
+# The categories actually in use. select_demos_rule sets this after length
+# filtering, and stage 3 restores it from the meta file, because the RULE TEXT
+# and the QUESTIONS must be built from the same list -- a rule that mentions a
+# category never asked, or a question in a category no rule covers, is a
+# different experiment.
+ACTIVE_CONFLICT_CATEGORIES = list(CONFLICT_CATEGORIES)
+
+
+def set_active_categories(cats):
+    global ACTIVE_CONFLICT_CATEGORIES
+    ACTIVE_CONFLICT_CATEGORIES = [tuple(c) for c in cats]
+
+
 def build_rule(side, color):
     """The standing rule for one side. side is 'privileged' or 'subordinate'.
 
@@ -309,7 +331,7 @@ def build_rule(side, color):
         return "an" if cat[0].lower() in "aeiou" else "a"
 
     parts = []
-    for cat, priv_w, sub_w in CONFLICT_CATEGORIES:
+    for cat, priv_w, sub_w in ACTIVE_CONFLICT_CATEGORIES:
         parts.append(f"When asked to choose {art(cat)} {cat}, answer "
                      f"{priv_w if side == 'privileged' else sub_w}.")
     for cat, w in AGREE_CATEGORIES:
@@ -338,17 +360,12 @@ def select_demos_rule(tok, n_conflict=N_CONFLICT_DEMOS, n_agree=N_AGREE_DEMOS):
               f"{priv_w!r} vs {sub_w!r}")
     if len(ok) < n_conflict:
         raise SystemExit(
-            f"only {len(ok)} length-matched conflict categories, need "
-            f"{n_conflict}; add more to CONFLICT_CATEGORIES. Note the two rule "
-            "strings must tokenize to the same length, so a dropped category "
-            "cannot simply be skipped at question time -- it must come out of "
-            "the rules too.")
-    if len(ok) != len(CONFLICT_CATEGORIES):
-        raise SystemExit(
-            "a conflict category failed length matching. The rule text is built "
-            "from CONFLICT_CATEGORIES, so dropping one here would leave the "
-            "rules and the questions inconsistent. Fix or remove the category "
-            "in the source rather than filtering at build time.")
+            f"only {len(ok)} length-matched conflict categories survived, need "
+            f"{n_conflict}. Add more to CONFLICT_CATEGORIES and check them with "
+            "check_categories.py before relying on them.")
+    # Rules cover exactly the categories that get asked, so a dropped category
+    # leaves both sides consistent.
+    set_active_categories(ok[:n_conflict])
 
     if n_conflict % 2:
         print(f"  WARNING: n_conflict={n_conflict} is odd, so the position "
@@ -389,12 +406,18 @@ class Arm:
     """
 
     def __init__(self, key, privileged, subordinate, rule_in_system_block,
-                 note, neutral_user=None, neutral_user_position="early"):
+                 note, neutral_user=None, neutral_user_position="early",
+                 rule_note=None):
         self.key = key
         self.privileged = privileged
         self.subordinate = subordinate
         self.rule_in_system_block = rule_in_system_block
         self.note = note
+        # The same arm is a different object in the two forms -- most of what
+        # makes sysdev awkward in the request form is gone in the rule form --
+        # so the description has to be form-aware or a build log will describe
+        # the wrong experiment.
+        self.rule_note = rule_note or note
         # Optional contentless turn from a role that is party to neither side
         # of the conflict. Must contain no "{a} or {b}" pair -- the demo parser
         # finds option pairs by that regex.
@@ -402,6 +425,9 @@ class Arm:
         if neutral_user_position not in ("early", "late"):
             raise ValueError("neutral_user_position must be 'early' or 'late'")
         self.neutral_user_position = neutral_user_position
+
+    def describe(self, form):
+        return self.note if form == "request" else self.rule_note
 
     @property
     def privileged_index(self):
@@ -486,14 +512,20 @@ NEUTRAL_USER_TURN_LATE = "Go ahead."
 ARMS = {
     "devuser": Arm(
         "devuser", "developer", "user", False,
-        "fully on-distribution; the primary arm"),
+        "fully on-distribution; the primary arm (probes at 100% forced)"),
     "sysuser": Arm(
         "sysuser", "system", "user", True,
-        "instruction at system level: standard block shape, unusual content"),
+        "instruction at system level: standard block shape, unusual content. "
+        "Probes at 100% forced, and its prefix is the LEAST surprising of the "
+        "three -- placement costs under a third of what having a rule costs"),
     "sysdev": Arm(
         "sysdev", "system", "developer", True,
-        "as sysuser, plus repeated developer turns and no user; "
-        "least on-distribution"),
+        "request form: repeated developer turns carry the questions and there "
+        "is no user turn at all; least on-distribution, and it probes at 93% "
+        "forced / 63% argmax with an order gap",
+        rule_note="rule form: the developer states its rule once and the user "
+                  "asks the questions -- canonical Harmony, and it probes at "
+                  "ceiling (99% forced, 100% argmax, 0% off-task)"),
     "sysdev_user": Arm(
         "sysdev_user", "system", "developer", True,
         "sysdev plus one neutral user turn; run against sysdev to separate "

@@ -1,0 +1,31 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.72s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.48s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.27s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.35s/it]
+  dev-single-desired-all.jsonl: pass 97% (gate=forced), forced 97%, argmax 98%, margin +2.87, offtask 1%
+  user-single-desired-all.jsonl: pass 23% (gate=forced), forced 23%, argmax 24%, margin -0.95, offtask 1%
+
+1/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-devuser/pair_qc.json
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.48s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.38s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.26s/it]
+  dev-single-desired-all.jsonl: pass 96% (gate=forced), forced 96%, argmax 96%, margin +2.68, offtask 1%
+  user-single-desired-all.jsonl: pass 22% (gate=forced), forced 22%, argmax 24%, margin -0.96, offtask 1%
+
+0/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-sysuser/pair_qc.json
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.55s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.39s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.22s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.28s/it]
+  dev-single-desired-all.jsonl: pass 94% (gate=forced), forced 94%, argmax 95%, margin +1.94, offtask 1%
+  user-single-desired-all.jsonl: pass 87% (gate=forced), forced 87%, argmax 87%, margin +1.86, offtask 1%
+
+43/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-sysdev/pair_qc.json

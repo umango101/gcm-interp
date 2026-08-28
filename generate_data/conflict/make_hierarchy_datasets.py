@@ -70,8 +70,12 @@ import argparse
 from harmony_canonical import (
     canonical_system_block, DEFAULT_DATE, DEFAULT_REASONING,
 )
+# NOTE: import the MODULE for ACTIVE_CONFLICT_CATEGORIES, never the name. A
+# from-import binds the list object at import time, so set_active_categories()
+# would rebind the module global and this file would still write the old one.
+import hierarchy_common as H
 from hierarchy_common import (
-    ARMS, FORMS, COLOR_POOL, ALL_FILES, TEST_FILE,
+    ARMS, FORMS, COLOR_POOL, ALL_FILES, TEST_FILE, set_active_categories,
     N_CANDIDATE_PAIRS, N_LOC, N_TEST, N_CONFLICT_DEMOS, N_AGREE_DEMOS,
     build_pairs, select_demos, select_demos_rule, emit, pair_key, verify,
 )
@@ -114,7 +118,7 @@ def main():
             "has user turns throughout. Use --arm sysdev --form rule.")
     print(f"arm '{arm.key}' / form '{args.form}': {arm.privileged} "
           f"(privileged) vs {arm.subordinate} (subordinate)")
-    print(f"  {arm.note}")
+    print(f"  {arm.describe(args.form)}")
 
     tok = None
     if args.tokenizer:
@@ -144,6 +148,9 @@ def main():
         with open(meta_path, "w") as f:
             json.dump({"arm": arm.key,
                        "form": args.form,
+                       # Restored in stage 3: the rules and the questions must
+                       # be built from the same category list QC ran against.
+                       "categories": H.ACTIVE_CONFLICT_CATEGORIES,
                        "system_block": system_block,
                        "reasoning": args.reasoning,
                        "date": args.date,
@@ -174,6 +181,9 @@ def main():
             f"than this run (reasoning={args.reasoning!r}, date={args.date!r}). "
             "Rerun stage 1, or pass the original values.")
     demos = [tuple(d) for d in meta["demos"]]
+    if meta.get("categories"):
+        set_active_categories(meta["categories"])
+        print(f"  restored {len(meta['categories'])} categories from stage 1")
     print(f"  reusing the {len(demos)} demos from stage 1")
 
     with open(args.qc) as f:

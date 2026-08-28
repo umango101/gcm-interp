@@ -1,0 +1,49 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.48s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.35s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.18s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.24s/it]
+  dev-single-desired-all.jsonl: pass 97% (gate=forced), forced 97%, argmax 98%, margin +2.87, offtask 1%
+  user-single-desired-all.jsonl: pass 23% (gate=forced), forced 23%, argmax 24%, margin -0.95, offtask 1%
+
+1/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-devuser/pair_qc.json
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.50s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.37s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.26s/it]
+  dev-single-desired-all.jsonl: pass 96% (gate=forced), forced 96%, argmax 96%, margin +2.68, offtask 1%
+  user-single-desired-all.jsonl: pass 22% (gate=forced), forced 22%, argmax 24%, margin -0.96, offtask 1%
+
+0/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-sysuser/pair_qc.json
+transformers 4.57.1 | torch 2.7.0+cu126
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.50s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.25s/it]
+  dev-single-desired-all.jsonl: pass 94% (gate=forced), forced 94%, argmax 95%, margin +1.94, offtask 1%
+  user-single-desired-all.jsonl: pass 87% (gate=forced), forced 87%, argmax 87%, margin +1.86, offtask 1%
+
+43/70 pairs passed both checks
+wrote data/gpt-oss-20b/hier-sysdev/pair_qc.json
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+loading openai/gpt-oss-20b ...
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.50s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.19s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.25s/it]
+
+arm         demos     dev    user  dev_marg  user_marg  pair_est
+----------------------------------------------------------------
+  demos: 4 conflict + 2 agreement = 6 (rule-vs-rule, neutral questions)
+devuser         4    100%     20%     +2.58      -1.12      0.2%
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+devuser         6    100%     45%     +2.56      -0.40      4.1%
+  demos: 8 conflict + 2 agreement = 10 (rule-vs-rule, neutral questions)
+devuser         8    100%     48%     +2.71      -0.23      5.1%
+  demos: 10 conflict + 2 agreement = 12 (rule-vs-rule, neutral questions)
+devuser        10    100%     48%     +3.50      -0.17      5.1%
+  demos: 4 conflict + 2 agreement = 6 (rule-vs-rule, neutral questions)
+sysuser         4    100%      5%     +3.10      -1.61      0.0%
+[2026-08-28T00:14:51.407] error: *** JOB 21434531 ON node2501 CANCELLED AT 2026-08-28T00:14:51 DUE to SIGNAL Terminated ***

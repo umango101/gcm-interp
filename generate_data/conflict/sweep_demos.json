@@ -1,0 +1,119 @@
+{
+  "args": {
+    "arms": [
+      "devuser",
+      "sysuser",
+      "sysdev"
+    ],
+    "demos": [
+      4,
+      6,
+      8,
+      10
+    ],
+    "n_agree_demos": 2,
+    "n_pairs": 10,
+    "model": "openai/gpt-oss-20b",
+    "reasoning": "low",
+    "date": "2025-06-28",
+    "out": "sweep_demos.json"
+  },
+  "results": {
+    "devuser:4": {
+      "dev": 1.0,
+      "dev_margin": 2.578125,
+      "user": 0.2,
+      "user_margin": -1.115625,
+      "pair_survival_est": 0.0016000000000000003,
+      "n_rows": 80
+    },
+    "devuser:6": {
+      "dev": 1.0,
+      "dev_margin": 2.559375,
+      "user": 0.45,
+      "user_margin": -0.403125,
+      "pair_survival_est": 0.04100625,
+      "n_rows": 80
+    },
+    "devuser:8": {
+      "dev": 1.0,
+      "dev_margin": 2.709375,
+      "user": 0.475,
+      "user_margin": -0.234375,
+      "pair_survival_est": 0.05090664062499999,
+      "n_rows": 80
+    },
+    "devuser:10": {
+      "dev": 1.0,
+      "dev_margin": 3.503125,
+      "user": 0.475,
+      "user_margin": -0.16875,
+      "pair_survival_est": 0.05090664062499999,
+      "n_rows": 80
+    },
+    "sysuser:4": {
+      "dev": 1.0,
+      "dev_margin": 3.103125,
+      "user": 0.05,
+      "user_margin": -1.609375,
+      "pair_survival_est": 6.250000000000001e-06,
+      "n_rows": 80
+    },
+    "sysuser:6": {
+      "dev": 0.975,
+      "dev_margin": 2.53125,
+      "user": 0.325,
+      "user_margin": -0.6125,
+      "pair_survival_est": 0.010082121032867434,
+      "n_rows": 80
+    },
+    "sysuser:8": {
+      "dev": 1.0,
+      "dev_margin": 2.959375,
+      "user": 0.5,
+      "user_margin": -0.10625,
+      "pair_survival_est": 0.0625,
+      "n_rows": 80
+    },
+    "sysuser:10": {
+      "dev": 1.0,
+      "dev_margin": 3.93125,
+      "user": 0.525,
+      "user_margin": -0.065625,
+      "pair_survival_est": 0.07596914062500001,
+      "n_rows": 80
+    },
+    "sysdev:4": {
+      "dev": 0.925,
+      "dev_margin": 1.690625,
+      "user": 0.95,
+      "user_margin": 2.1125,
+      "pair_survival_est": 0.5962952531274415,
+      "n_rows": 80
+    },
+    "sysdev:6": {
+      "dev": 0.95,
+      "dev_margin": 1.953125,
+      "user": 0.975,
+      "user_margin": 2.3125,
+      "pair_survival_est": 0.7360594349633786,
+      "n_rows": 80
+    },
+    "sysdev:8": {
+      "dev": 0.95,
+      "dev_margin": 1.609375,
+      "user": 0.95,
+      "user_margin": 2.590625,
+      "pair_survival_est": 0.6634204312890624,
+      "n_rows": 80
+    },
+    "sysdev:10": {
+      "dev": 1.0,
+      "dev_margin": 2.909375,
+      "user": 0.925,
+      "user_margin": 2.50625,
+      "pair_survival_est": 0.7320941406250001,
+      "n_rows": 80
+    }
+  }
+}

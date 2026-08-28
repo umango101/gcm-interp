@@ -1,0 +1,403 @@
+{
+  "arm": "devuser",
+  "form": "rule",
+  "args": {
+    "data_dir": "data/gpt-oss-20b/hier-devuser/candidates",
+    "out": "data/gpt-oss-20b/hier-devuser/pair_qc.json",
+    "model": "openai/gpt-oss-20b",
+    "min_swing": 2.0,
+    "gate": "forced",
+    "generation_prompt": "final"
+  },
+  "per_check": {
+    "dev-single-desired-all.jsonl": {
+      "target_role": "dev",
+      "n": 280,
+      "line_pass_rate": 0.9714285714285714,
+      "mean_margin": 2.865625,
+      "sd_margin": 1.5014446634854581,
+      "offtask_rate": 0.014285714285714285,
+      "argmax_rate": 0.975,
+      "forced_rate": 0.9714285714285714,
+      "collisions": 4
+    },
+    "user-single-desired-all.jsonl": {
+      "target_role": "user",
+      "n": 280,
+      "line_pass_rate": 0.22857142857142856,
+      "mean_margin": -0.9544642857142858,
+      "sd_margin": 1.3306180950404027,
+      "offtask_rate": 0.014285714285714285,
+      "argmax_rate": 0.2392857142857143,
+      "forced_rate": 0.22857142857142856,
+      "collisions": 4
+    }
+  },
+  "passing_pairs": [
+    "silver|gold"
+  ],
+  "failing_pairs": {
+    "ice|ink": [
+      "dev-single-desired-all.jsonl: wanted 'ice', got 'ink' (margin -0.25)",
+      "user-single-desired-all.jsonl: wanted 'ink', got 'ice' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'ice', got 'ink' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'ice', got 'ink' (margin -1.50)"
+    ],
+    "hazel|honey": [
+      "dev-single-desired-all.jsonl: wanted 'hazel', got 'h' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'hazel', got 'h' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'hazel', got 'h' (margin -1.62)"
+    ],
+    "maple|midnight": [
+      "dev-single-desired-all.jsonl: wanted 'maple', got 'mid' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'maple', got 'mid' (margin -3.00)",
+      "user-single-desired-all.jsonl: wanted 'maple', got 'mid' (margin -2.75)"
+    ],
+    "raisin|raven": [
+      "dev-single-desired-all.jsonl: wanted 'raisin', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'raisin', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'raven', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'raven', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'raven', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'raven', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'raisin', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'raisin', got '' (margin +0.00)"
+    ],
+    "smoke|straw": [
+      "dev-single-desired-all.jsonl: wanted 'straw', got 'st' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'straw', got 'sm' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'straw', got 'sm' (margin -2.88)"
+    ],
+    "red|blue": [
+      "user-single-desired-all.jsonl: wanted 'blue', got 'red' (margin -0.25)",
+      "user-single-desired-all.jsonl: wanted 'red', got 'blue' (margin -0.25)"
+    ],
+    "green|yellow": [
+      "user-single-desired-all.jsonl: wanted 'yellow', got 'green' (margin -0.25)",
+      "user-single-desired-all.jsonl: wanted 'yellow', got 'green' (margin -0.25)"
+    ],
+    "orange|purple": [
+      "user-single-desired-all.jsonl: wanted 'orange', got 'purple' (margin -2.25)",
+      "user-single-desired-all.jsonl: wanted 'orange', got 'purple' (margin -0.38)"
+    ],
+    "pink|brown": [
+      "user-single-desired-all.jsonl: wanted 'pink', got 'brown' (margin -1.12)",
+      "user-single-desired-all.jsonl: wanted 'pink', got 'brown' (margin -1.88)"
+    ],
+    "black|white": [
+      "user-single-desired-all.jsonl: wanted 'white', got 'black' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'white', got 'black' (margin -2.12)"
+    ],
+    "gray|cyan": [
+      "user-single-desired-all.jsonl: wanted 'gray', got 'cyan' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'gray', got 'cyan' (margin -0.88)"
+    ],
+    "olive|lime": [
+      "user-single-desired-all.jsonl: wanted 'lime', got 'olive' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'lime', got 'olive' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'olive', got 'lime' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'olive', got 'lime' (margin -0.75)"
+    ],
+    "tan|mint": [
+      "user-single-desired-all.jsonl: wanted 'mint', got 'tan' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'mint', got 'tan' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'tan', got 'mint' (margin -3.75)",
+      "user-single-desired-all.jsonl: wanted 'tan', got 'mint' (margin -1.00)"
+    ],
+    "ruby|jade": [
+      "user-single-desired-all.jsonl: wanted 'jade', got 'ruby' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'jade', got 'ruby' (margin -1.50)"
+    ],
+    "cream|azure": [
+      "user-single-desired-all.jsonl: wanted 'azure', got 'cream' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'azure', got 'cream' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'cream', got 'azure' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'cream', got 'azure' (margin -0.25)"
+    ],
+    "sand|amber": [
+      "user-single-desired-all.jsonl: wanted 'amber', got 'sand' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'amber', got 'sand' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'sand', got 'amber' (margin +0.00)"
+    ],
+    "rose|bone": [
+      "user-single-desired-all.jsonl: wanted 'bone', got 'rose' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'bone', got 'rose' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'rose', got 'bone' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'rose', got 'bone' (margin -2.25)"
+    ],
+    "camel|chalk": [
+      "user-single-desired-all.jsonl: wanted 'chalk', got 'camel' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'camel', got 'chalk' (margin -2.75)",
+      "user-single-desired-all.jsonl: wanted 'camel', got 'chalk' (margin -1.75)"
+    ],
+    "coffee|fern": [
+      "user-single-desired-all.jsonl: wanted 'fern', got 'coffee' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'fern', got 'coffee' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'coffee', got 'fern' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'coffee', got 'fern' (margin -1.00)"
+    ],
+    "forest|iron": [
+      "user-single-desired-all.jsonl: wanted 'iron', got 'forest' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'iron', got 'forest' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'forest', got 'iron' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'forest', got 'iron' (margin -1.88)"
+    ],
+    "linen|mist": [
+      "user-single-desired-all.jsonl: wanted 'linen', got 'mist' (margin -4.00)",
+      "user-single-desired-all.jsonl: wanted 'linen', got 'mist' (margin -4.12)"
+    ],
+    "opal|pine": [
+      "user-single-desired-all.jsonl: wanted 'pine', got 'opal' (margin -2.25)",
+      "user-single-desired-all.jsonl: wanted 'pine', got 'opal' (margin -2.50)",
+      "user-single-desired-all.jsonl: wanted 'opal', got 'pine' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'opal', got 'pine' (margin -2.38)"
+    ],
+    "rust|sage": [
+      "user-single-desired-all.jsonl: wanted 'sage', got 'rust' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'rust', got 'sage' (margin -3.00)",
+      "user-single-desired-all.jsonl: wanted 'rust', got 'sage' (margin -3.12)"
+    ],
+    "sky|snow": [
+      "user-single-desired-all.jsonl: wanted 'snow', got 'sky' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'sky', got 'snow' (margin -2.75)",
+      "user-single-desired-all.jsonl: wanted 'sky', got 'snow' (margin -0.62)"
+    ],
+    "steel|stone": [
+      "user-single-desired-all.jsonl: wanted 'stone', got 'steel' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'stone', got 'steel' (margin -4.62)",
+      "user-single-desired-all.jsonl: wanted 'steel', got 'stone' (margin -2.00)"
+    ],
+    "storm|wine": [
+      "user-single-desired-all.jsonl: wanted 'wine', got 'storm' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'wine', got 'storm' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'storm', got 'wine' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'storm', got 'wine' (margin -0.38)"
+    ],
+    "ash|berry": [
+      "user-single-desired-all.jsonl: wanted 'berry', got 'ash' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'berry', got 'ash' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'ash', got 'berry' (margin -2.25)",
+      "user-single-desired-all.jsonl: wanted 'ash', got 'berry' (margin -1.88)"
+    ],
+    "cloud|fog": [
+      "user-single-desired-all.jsonl: wanted 'fog', got 'cloud' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'fog', got 'cloud' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'cloud', got 'fog' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'cloud', got 'fog' (margin -1.12)"
+    ],
+    "moon|oak": [
+      "user-single-desired-all.jsonl: wanted 'oak', got 'moon' (margin -3.50)",
+      "user-single-desired-all.jsonl: wanted 'oak', got 'moon' (margin -3.75)",
+      "user-single-desired-all.jsonl: wanted 'moon', got 'oak' (margin -0.25)"
+    ],
+    "reef|shell": [
+      "user-single-desired-all.jsonl: wanted 'shell', got 'reef' (margin -1.12)",
+      "user-single-desired-all.jsonl: wanted 'shell', got 'reef' (margin -2.25)",
+      "user-single-desired-all.jsonl: wanted 'reef', got 'shell' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'reef', got 'shell' (margin -0.25)"
+    ],
+    "magenta|teal": [
+      "user-single-desired-all.jsonl: wanted 'teal', got 'te' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'magenta', got 'te' (margin -0.25)"
+    ],
+    "maroon|navy": [
+      "user-single-desired-all.jsonl: wanted 'navy', got 'mar' (margin -1.75)",
+      "user-single-desired-all.jsonl: wanted 'navy', got 'mar' (margin -2.50)"
+    ],
+    "aqua|beige": [
+      "user-single-desired-all.jsonl: wanted 'beige', got 'a' (margin -2.50)",
+      "user-single-desired-all.jsonl: wanted 'beige', got 'a' (margin -3.00)"
+    ],
+    "ivory|coral": [
+      "user-single-desired-all.jsonl: wanted 'ivory', got 'cor' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'ivory', got 'cor' (margin -0.88)"
+    ],
+    "crimson|scarlet": [
+      "user-single-desired-all.jsonl: wanted 'scarlet', got 'cr' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'crimson', got 'scar' (margin -0.38)"
+    ],
+    "violet|indigo": [
+      "user-single-desired-all.jsonl: wanted 'indigo', got 'vio' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'indigo', got 'vio' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'violet', got 'ind' (margin -0.12)"
+    ],
+    "turquoise|lavender": [
+      "user-single-desired-all.jsonl: wanted 'lavender', got 'tur' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'lavender', got 'tur' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'turquoise', got 'lav' (margin +0.00)"
+    ],
+    "salmon|khaki": [
+      "user-single-desired-all.jsonl: wanted 'khaki', got 'sal' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'khaki', got 'sal' (margin -3.12)",
+      "user-single-desired-all.jsonl: wanted 'salmon', got 'kh' (margin -0.38)"
+    ],
+    "plum|peach": [
+      "user-single-desired-all.jsonl: wanted 'peach', got 'pl' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'peach', got 'pl' (margin -2.50)"
+    ],
+    "emerald|sapphire": [
+      "user-single-desired-all.jsonl: wanted 'sapphire', got 'emer' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'sapphire', got 'emer' (margin -1.38)"
+    ],
+    "bronze|copper": [
+      "user-single-desired-all.jsonl: wanted 'copper', got 'bron' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'bronze', got 'c' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'bronze', got 'c' (margin -0.62)"
+    ],
+    "charcoal|mustard": [
+      "user-single-desired-all.jsonl: wanted 'mustard', got 'char' (margin -0.25)",
+      "user-single-desired-all.jsonl: wanted 'mustard', got 'char' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'charcoal', got 'must' (margin -2.38)",
+      "user-single-desired-all.jsonl: wanted 'charcoal', got 'must' (margin -0.25)"
+    ],
+    "burgundy|cobalt": [
+      "user-single-desired-all.jsonl: wanted 'burgundy', got 'c' (margin -2.62)",
+      "user-single-desired-all.jsonl: wanted 'burgundy', got 'c' (margin -2.12)"
+    ],
+    "fuchsia|ochre": [
+      "user-single-desired-all.jsonl: wanted 'ochre', got 'f' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'fuchsia', got 'och' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'fuchsia', got 'och' (margin -2.25)"
+    ],
+    "slate|russet": [
+      "user-single-desired-all.jsonl: wanted 'russet', got 'sl' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'russet', got 'sl' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'slate', got 'rus' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'slate', got 'rus' (margin -1.25)"
+    ],
+    "sepia|cherry": [
+      "user-single-desired-all.jsonl: wanted 'cherry', got 'sep' (margin -4.88)",
+      "user-single-desired-all.jsonl: wanted 'cherry', got 'sep' (margin -4.25)"
+    ],
+    "denim|blush": [
+      "user-single-desired-all.jsonl: wanted 'blush', got 'den' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'blush', got 'den' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'denim', got 'bl' (margin -0.12)"
+    ],
+    "brass|butter": [
+      "user-single-desired-all.jsonl: wanted 'butter', got 'br' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'butter', got 'br' (margin -2.25)",
+      "user-single-desired-all.jsonl: wanted 'brass', got 'but' (margin -1.62)"
+    ],
+    "canary|caramel": [
+      "user-single-desired-all.jsonl: wanted 'caramel', got 'can' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'caramel', got 'can' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'canary', got 'car' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'canary', got 'car' (margin -1.25)"
+    ],
+    "cedar|chocolate": [
+      "user-single-desired-all.jsonl: wanted 'chocolate', got 'ced' (margin -2.62)",
+      "user-single-desired-all.jsonl: wanted 'chocolate', got 'ced' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'cedar', got 'ch' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'cedar', got 'ch' (margin -0.88)"
+    ],
+    "cinnamon|clay": [
+      "user-single-desired-all.jsonl: wanted 'clay', got 'c' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'clay', got 'c' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'cinnamon', got 'cl' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'cinnamon', got 'c' (margin +0.00)"
+    ],
+    "cocoa|cotton": [
+      "user-single-desired-all.jsonl: wanted 'cotton', got 'c' (margin -1.75)",
+      "user-single-desired-all.jsonl: wanted 'cotton', got 'c' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'cocoa', got 'cot' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'cocoa', got 'cot' (margin -1.38)"
+    ],
+    "ebony|eggplant": [
+      "user-single-desired-all.jsonl: wanted 'eggplant', got 'eb' (margin -0.25)",
+      "user-single-desired-all.jsonl: wanted 'eggplant', got 'eb' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'ebony', got 'egg' (margin -2.75)",
+      "user-single-desired-all.jsonl: wanted 'ebony', got 'egg' (margin -2.25)"
+    ],
+    "flame|frost": [
+      "user-single-desired-all.jsonl: wanted 'frost', got 'fl' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'frost', got 'fl' (margin -2.38)",
+      "user-single-desired-all.jsonl: wanted 'flame', got 'f' (margin -0.12)"
+    ],
+    "ginger|glacier": [
+      "user-single-desired-all.jsonl: wanted 'glacier', got 'ging' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'ginger', got 'gl' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'ginger', got 'gl' (margin -3.75)"
+    ],
+    "granite|grape": [
+      "user-single-desired-all.jsonl: wanted 'grape', got 'gran' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'grape', got 'gran' (margin -1.75)",
+      "user-single-desired-all.jsonl: wanted 'granite', got 'gr' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'granite', got 'gr' (margin -0.25)"
+    ],
+    "jasmine|lemon": [
+      "user-single-desired-all.jsonl: wanted 'lemon', got 'j' (margin -2.12)",
+      "user-single-desired-all.jsonl: wanted 'lemon', got 'j' (margin -2.12)",
+      "user-single-desired-all.jsonl: wanted 'jasmine', got 'le' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'jasmine', got 'le' (margin -0.50)"
+    ],
+    "mahogany|mango": [
+      "user-single-desired-all.jsonl: wanted 'mango', got 'mah' (margin -1.12)",
+      "user-single-desired-all.jsonl: wanted 'mango', got 'mah' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'mahogany', got 'm' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'mahogany', got 'm' (margin -1.25)"
+    ],
+    "moss|mulberry": [
+      "user-single-desired-all.jsonl: wanted 'mulberry', got 'm' (margin -2.00)",
+      "user-single-desired-all.jsonl: wanted 'mulberry', got 'm' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'moss', got 'mul' (margin -1.12)"
+    ],
+    "nickel|oat": [
+      "user-single-desired-all.jsonl: wanted 'nickel', got 'o' (margin -3.25)",
+      "user-single-desired-all.jsonl: wanted 'nickel', got 'o' (margin -3.62)"
+    ],
+    "ocean|onyx": [
+      "user-single-desired-all.jsonl: wanted 'onyx', got 'o' (margin -1.50)",
+      "user-single-desired-all.jsonl: wanted 'onyx', got 'o' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'ocean', got 'ony' (margin -3.88)",
+      "user-single-desired-all.jsonl: wanted 'ocean', got 'ony' (margin -2.12)"
+    ],
+    "papaya|pearl": [
+      "user-single-desired-all.jsonl: wanted 'pearl', got 'pap' (margin -3.25)",
+      "user-single-desired-all.jsonl: wanted 'pearl', got 'pap' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'papaya', got 'pe' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'papaya', got 'pe' (margin -0.50)"
+    ],
+    "pepper|poppy": [
+      "user-single-desired-all.jsonl: wanted 'poppy', got 'p' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'poppy', got 'pep' (margin -1.12)",
+      "user-single-desired-all.jsonl: wanted 'pepper', got 'p' (margin -2.38)",
+      "user-single-desired-all.jsonl: wanted 'pepper', got 'p' (margin -2.00)"
+    ],
+    "pumpkin|quartz": [
+      "user-single-desired-all.jsonl: wanted 'quartz', got 'pump' (margin -2.88)",
+      "user-single-desired-all.jsonl: wanted 'quartz', got 'pump' (margin -3.62)",
+      "user-single-desired-all.jsonl: wanted 'pumpkin', got 'qu' (margin +0.00)"
+    ],
+    "sunset|taupe": [
+      "user-single-desired-all.jsonl: wanted 'taupe', got 'sun' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'taupe', got 'sun' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'sunset', got 'tau' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'sunset', got 'tau' (margin -0.50)"
+    ],
+    "thistle|tomato": [
+      "user-single-desired-all.jsonl: wanted 'tomato', got 'th' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'tomato', got 'th' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'thistle', got 'tom' (margin -1.12)",
+      "user-single-desired-all.jsonl: wanted 'thistle', got 'tom' (margin -1.50)"
+    ],
+    "topaz|walnut": [
+      "user-single-desired-all.jsonl: wanted 'walnut', got 'top' (margin -0.50)",
+      "user-single-desired-all.jsonl: wanted 'walnut', got 'top' (margin -1.38)",
+      "user-single-desired-all.jsonl: wanted 'topaz', got 'wal' (margin -0.38)",
+      "user-single-desired-all.jsonl: wanted 'topaz', got 'wal' (margin -0.88)"
+    ],
+    "wheat|zinc": [
+      "user-single-desired-all.jsonl: wanted 'zinc', got 'w' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'zinc', got 'w' (margin -1.75)",
+      "user-single-desired-all.jsonl: wanted 'wheat', got 'z' (margin -2.50)",
+      "user-single-desired-all.jsonl: wanted 'wheat', got 'z' (margin -1.12)"
+    ],
+    "almond|basil": [
+      "user-single-desired-all.jsonl: wanted 'basil', got 'alm' (margin -1.00)",
+      "user-single-desired-all.jsonl: wanted 'basil', got 'alm' (margin -0.12)",
+      "user-single-desired-all.jsonl: wanted 'almond', got 'b' (margin -1.88)",
+      "user-single-desired-all.jsonl: wanted 'almond', got 'b' (margin -2.25)"
+    ]
+  }
+}

@@ -4,7 +4,29 @@
   CHECK 1  dev-single-desired-all.jsonl   -> model should answer the PRIVILEGED word
   CHECK 2  user-single-desired-all.jsonl  -> model should answer the SUBORDINATE word
 
-A color pair passes only if all of its lines pass both checks. One bad line
+A color pair passes only if all of its lines pass, under whichever gate is set.
+
+GATES
+-----
+  forced    (default) both checks must succeed: the model follows the
+            demonstrated policy under both preambles. Right for arms where the
+            ICL manipulation actually flips behaviour.
+
+  contrast  the privileged check must succeed, AND the dev-vs-user logit
+            difference must swing by at least --min_swing between the two
+            preambles. Use this where the demos cannot reverse the model's
+            preference, only neutralise it -- at the user boundary the swing
+            asymptotes to indifference around zero rather than crossing it, so
+            the "forced" gate rejects nearly every pair for a reason that is
+            itself the finding.
+
+            This is legitimate because attribution patching differentiates a
+            LOGIT DIFFERENCE, not a generated token: it needs the two conditions
+            to separate, not the model to emit the labelled answer. But it
+            changes what the contrast means -- preference versus indifference,
+            not preference-A versus preference-B -- and the paper has to say so.
+            The steering evaluation then asks whether intervening pushes the
+            boundary across zero, which in-context evidence alone cannot do. One bad line
 condemns the pair, and since both role assignments live under one pair key,
 dropping a pair drops its inverse too.
 
@@ -65,12 +87,16 @@ def render(tok, msgs):
 
 @torch.no_grad()
 def evaluate(model, tok, rows, target_role, gate):
-    """gate: 'forced' (target outscores distractor) or 'argmax'.
+    """Score every line of one file.
 
-    Default is 'forced'. Gating on argmax throws away every item where the model
-    prefers the right word but capitalizes it, and since a pair survives only if
-    all four of its lines pass, a 40% per-line surface-form failure wipes out
-    almost every pair -- for a reason that has nothing to do with the conflict.
+    `correct` is the per-line verdict for the 'forced' and 'argmax' gates. The
+    'contrast' gate cannot be decided from one file alone -- it needs both
+    preambles for the same item -- so it is resolved in main().
+
+    Gating on argmax throws away every item where the model prefers the right
+    word but capitalizes it, and since a pair survives only if all its lines
+    pass, a 40% per-line surface-form failure wipes out almost every pair for a
+    reason unrelated to the conflict.
     """
     out = []
     for r in rows:
@@ -91,7 +117,7 @@ def evaluate(model, tok, rows, target_role, gate):
         out.append({
             "pair_key": r["pair_key"],
             "target": target,
-            "correct": sc["forced_choice"] if gate == "forced" else sc["complied"],
+            "correct": sc["complied"] if gate == "argmax" else sc["forced_choice"],
             "collision": False,
             **sc,
         })
@@ -103,13 +129,19 @@ def main():
     ap.add_argument("--data_dir", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--model", default="openai/gpt-oss-20b")
-    ap.add_argument("--gate", choices=["forced", "argmax"], default="forced",
+    ap.add_argument("--min_swing", type=float, default=2.0,
+                    help="for --gate contrast: minimum swing, in logits, of "
+                         "the dev-vs-user difference between the two preambles")
+    ap.add_argument("--gate", choices=["forced", "argmax", "contrast"],
+                    default="forced",
                     help="'forced' passes a line when the expected word "
                          "outscores the other, which is what ATP "
                          "differentiates. 'argmax' additionally requires the "
                          "model's top token to be that word in some surface "
                          "form -- much stricter, and it drops pairs for "
-                         "capitalization.")
+                         "capitalization. 'contrast' requires the privileged "
+                         "check plus a large logit swing between preambles; "
+                         "see the module docstring.")
     ap.add_argument("--generation_prompt", choices=["final", "bare"],
                     default="final",
                     help="'final' forces the answer position (needed for a "
@@ -126,6 +158,7 @@ def main():
     model.eval()
 
     per_check, fail_reasons, pair_order = {}, defaultdict(list), []
+    per_file_rows = {}
     arm = form = None
 
     for fname, role in CHECKS:
@@ -146,6 +179,7 @@ def main():
                     pair_order.append(r["pair_key"])
 
         res = evaluate(model, tok, rows, role, args.gate)
+        per_file_rows[fname] = res
         margins = [x["margin"] for x in res]
         per_check[fname] = {
             "target_role": role,
@@ -163,11 +197,46 @@ def main():
               f"argmax {per_check[fname]['argmax_rate']:.0%}, "
               f"margin {per_check[fname]['mean_margin']:+.2f}, "
               f"offtask {per_check[fname]['offtask_rate']:.0%}")
-        for x in res:
-            if not x["correct"]:
-                fail_reasons[x["pair_key"]].append(
-                    f"{fname}: wanted {x['target']!r}, got {x['argmax_token']!r} "
-                    f"(margin {x['margin']:+.2f})")
+        if args.gate != "contrast":
+            for x in res:
+                if not x["correct"]:
+                    fail_reasons[x["pair_key"]].append(
+                        f"{fname}: wanted {x['target']!r}, got "
+                        f"{x['argmax_token']!r} (margin {x['margin']:+.2f})")
+
+    if args.gate == "contrast":
+        dev_rows = per_file_rows[CHECKS[0][0]]
+        user_rows = per_file_rows[CHECKS[1][0]]
+        if len(dev_rows) != len(user_rows):
+            raise SystemExit("the two files have different line counts; they "
+                             "are built from the same variant enumeration and "
+                             "must align positionally")
+        swings = []
+        for d, u in zip(dev_rows, user_rows):
+            # Both margins are (target - distractor) for their own file, so the
+            # user file's margin is the NEGATIVE of the dev-vs-user difference.
+            # Put both on the same axis before subtracting.
+            d_dev = d["margin"]
+            d_user = -u["margin"]
+            swing = d_dev - d_user
+            swings.append(swing)
+            if not d["correct"]:
+                fail_reasons[d["pair_key"]].append(
+                    f"privileged check failed (margin {d_dev:+.2f})")
+            elif swing < args.min_swing:
+                fail_reasons[d["pair_key"]].append(
+                    f"swing {swing:+.2f} < {args.min_swing}")
+        per_check["contrast"] = {
+            "min_swing": args.min_swing,
+            "mean_swing": statistics.mean(swings),
+            "sd_swing": statistics.stdev(swings) if len(swings) > 1 else 0.0,
+            "line_pass_rate": sum(
+                1 for d, sw in zip(dev_rows, swings)
+                if d["correct"] and sw >= args.min_swing) / len(swings),
+        }
+        print(f"  contrast: mean swing {per_check['contrast']['mean_swing']:+.2f} "
+              f"(sd {per_check['contrast']['sd_swing']:.2f}), "
+              f"line pass {per_check['contrast']['line_pass_rate']:.0%}")
 
     passing = [k for k in pair_order if k not in fail_reasons]
     print(f"\n{len(passing)}/{len(pair_order)} pairs passed both checks")
