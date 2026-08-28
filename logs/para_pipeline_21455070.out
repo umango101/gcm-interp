@@ -1,0 +1,149 @@
+Family: paragraph->sentence  method=atp
+Models (5): Falcon3-10B-Instruct, OLMo-2-1124-13B-DPO, Qwen1.5-14B-Chat, Qwen1.5-32B-Chat, gemma-3-12b-it
+Localizations: from_paragraph-long_to_sentence, from_paragraph-single_to_sentence
+Running 40 of 40 cells (5 models x 2 localizations x 2 eval x 2 steer):
+  [ 0] Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [ 1] Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [ 2] Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [ 3] Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [ 4] Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [ 5] Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [ 6] Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [ 7] Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [ 8] OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [ 9] OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [10] OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [11] OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [12] OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [13] OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [14] OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [15] OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [16] Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [17] Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [18] Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [19] Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [20] Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [21] Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [22] Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [23] Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [24] Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [25] Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [26] Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [27] Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [28] Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [29] Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [30] Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [31] Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [32] gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [33] gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [34] gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [35] gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+  [36] gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+  [37] gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+  [38] gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+  [39] gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+======================================================================
+STAGE: merge
+  cell: Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: OLMo-2-1124-13B-DPO | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/OLMo-2-1124-13B-DPO/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-long_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-long_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-long_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-long_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-single_to_sentence/atp/paragraph-long_eval/paragraph-single_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-long_steer/merged_eval_outputs.csv)
+  cell: gemma-3-12b-it | from_paragraph-single_to_sentence | paragraph-single_eval | paragraph-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/gemma-3-12b-it/from_paragraph-single_to_sentence/atp/paragraph-single_eval/paragraph-single_steer/merged_eval_outputs.csv)
+======================================================================
+STAGE: build_prompts
+  cell: Falcon3-10B-Instruct | from_paragraph-long_to_sentence | paragraph-long_eval | paragraph-long_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_paragraph.py", line 1001, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_paragraph.py", line 994, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_paragraph.py", line 591, in stage_build_prompts
+    df["judge_prompt"] = df.apply(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/core/frame.py", line 10401, in apply
+    return op.apply().__finalize__(self, method="apply")
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/core/apply.py", line 916, in apply
+    return self.apply_standard()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/core/apply.py", line 1063, in apply_standard
+    results, res_index = self.apply_series_generator()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/core/apply.py", line 1081, in apply_series_generator
+    results[i] = self.func(v, *self.args, **self.kwargs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_paragraph.py", line 592, in <lambda>
+    lambda r: judge_prompt(
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_paragraph.py", line 565, in judge_prompt
+    chat = [{"role": "user", "content": JUDGE_PROMPT.format(conversation=conv)}]
+AttributeError: 'tuple' object has no attribute 'format'

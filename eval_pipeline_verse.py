@@ -1,5 +1,5 @@
 """
-Consolidated paragraph->sentence evaluation pipeline (multi-cell).
+Consolidated verse->prose evaluation pipeline (multi-cell).
  
 Replaces the five-file chain:
     one-giant-eval-file.py
@@ -14,29 +14,48 @@ place, so you cannot cross experiment families by accident.
  
 Within that family the pipeline sweeps every CELL, where a cell is one
 combination of:
-    LOCALIZATION (from_{SOURCE}_to_{BASE})  x  EVAL_SUB_DIR  x  STEER_SUB_DIR
+    MODEL  x  LOCALIZATION (from_{SOURCE}_to_{BASE})  x  EVAL_SUB_DIR  x  STEER_SUB_DIR
  
-For paragraph->sentence that is the full 2 x 2 x 2 = 8 cells:
-    {verse-long, verse-single} localization
+For verse->prose that is the full 5 x 2 x 2 x 2 = 40 cells:
+    {Falcon3-10B-Instruct, OLMo-2-1124-13B-DPO, Qwen1.5-14B-Chat,
+     Qwen1.5-32B-Chat, gemma-3-12b-it}
+    x {from_verse-long_to_prose, from_verse-single_to_prose}
     x {verse-long_eval, verse-single_eval}
     x {verse-long_steer, verse-single_steer}
+ 
+Cells are enumerated model-major, so cells 0-7 are the first model, 8-15 the
+second, and so on; --models narrows the sweep and --cells shards it.
  
 Per-cell subtleties (verified against the data and handled below):
   * Gen-file KEYS  (old_/edit_X) track the LOCALIZATION base  -> drives BASE.
   * Gen FILENAME   suffix tracks the EVAL dir's source         -> drives regex.
   * Test QUERIES   come from the EVAL dir's source test jsonl.
  
+TWO EVALUATION METHODS -- the single/long split
+----------------------------------------------
+'single' and 'long' name the RESPONSE FORMAT, not verse-vs-prose:
+
+  *-long_eval    free generation -> scored by the vLLM 70B judge
+                 (is it in verse) plus the relevance and fluency judges.
+  *-single_eval  4-option MCQA answered with ONE letter -> no judge. Scored as
+                 accuracy against the TARGET letter, which for this family is the
+                 VERSE response to the question in the stem. See "MCQA ANSWER
+                 KEY" below for how that letter is derived and how the
+                 derivation is checked.
+
 Stages
 ------
 1. merge          : glob gen.json -> one merged_eval_outputs.csv PER CELL
-2. build_prompts  : add judge / relevance / fluency prompt columns PER CELL
-3. judge          : run the vLLM 70B judge over the prompt columns (needs GPU)
-4. accuracies     : sweep (N x topk) -> per-cell accuracy json
-5. plots          : per-cell json -> seaborn heatmaps
+2. verify_key     : re-derive the MCQA key over labelled data and check it
+3. build_prompts  : add judge / relevance / fluency prompt columns PER CELL
+4. judge          : run the vLLM 70B judge over the prompt columns (needs GPU)
+5. accuracies     : sweep (N x topk) -> per-cell accuracy json
+6. plots          : per-cell json -> seaborn heatmaps
  
-Run all stages, all cells:   python pipeline.py
-Run a subset of stages:      python pipeline.py --stages merge build_prompts
-Run only the GPU step:       python pipeline.py --stages judge
+Run all stages, all cells:   python eval_pipeline_verse.py
+Run one model:               python eval_pipeline_verse.py --models Qwen1.5-14B-Chat
+Run a subset of stages:      python eval_pipeline_verse.py --stages merge build_prompts
+Run only the GPU step:       python eval_pipeline_verse.py --stages judge
  
 Any missing input file or empty filter is a HARD ERROR (fail fast), by design.
 """
@@ -47,6 +66,7 @@ import glob
 import json
 import math
 import argparse
+import statistics
 from pathlib import Path
  
 import numpy as np
@@ -58,13 +78,28 @@ import pandas as pd
 # =============================================================================
  
 # --- experiment family (paragraph -> sentence) -------------------------------
-MODEL_ID = "gemma-3-12b-it"
+# Every model that has a results/{model}/from_verse-*_to_prose tree.
+# The full cell grid is MODEL_IDS x LOCALIZATIONS x EVAL_SUB_DIRS x STEER_SUB_DIRS.
+MODEL_IDS = [
+    "Falcon3-10B-Instruct",
+    "OLMo-2-1124-13B-DPO",
+    "Qwen1.5-14B-Chat",
+    "Qwen1.5-32B-Chat",
+    "gemma-3-12b-it",
+]
 METHOD   = "atp"
  
+# The base name shared by both localizations in this family. It drives BOTH the
+# gen-file keys ('old_prose'/'edit_prose') and the test filename
+# ('prose-test.jsonl') -- there is no per-format base in this family.
+FAMILY_BASE = "prose"
+ 
 # Localizations to sweep. Each is (SOURCE, BASE); BASE drives the gen keys.
+#   from_verse-long_to_prose
+#   from_verse-single_to_prose
 LOCALIZATIONS = [
-    ("verse-long",   "prose"),
-    ("verse-single", "prose"),
+    ("verse-long",   FAMILY_BASE),
+    ("verse-single", FAMILY_BASE),
 ]
 # Eval / steer subdirs to sweep (full cross product with the localizations).
 EVAL_SUB_DIRS  = ["verse-long_eval",  "verse-single_eval"]
@@ -83,12 +118,19 @@ RELEVANCE_TARGET = 2
 FLUENCY_TARGET   = 2
 COMBINED_JUDGE_TARGET = 5        # combined: judge>=5 AND fluency==2 AND relevance==2
 
-# --- single-token eval (she/no flip) -----------------------------------------
-# For '*-single_eval' cells the steered response is a single token ("Yes"/"No"),
-# so there is no judge: accuracy is the YES-FLIP rate -- among items the UNSTEERED
-# model did NOT already answer "she", the fraction the steering flipped TO "she".
-SINGLE_POS_TOKEN = "she"
-SINGLE_METRIC    = "w_rf"        # accuracy-file tag; kept to match the standalone script
+# --- single-token eval (MCQA accuracy) ---------------------------------------
+# '*-single_eval' cells are 4-option MCQA: the model answers with one letter, so
+# there is no judge. Accuracy = the fraction of test items whose POST-INTERVENTION
+# answer is the TARGET letter, where the target is the VERSE response to the
+# question in the stem. 'mcqa_pre' is the same measure on the UNSTEERED answer,
+# i.e. the baseline the steered number is read against.
+SINGLE_METRICS   = ["mcqa", "mcqa_pre"]
+SINGLE_POST_COL  = "post-intervention-response"
+SINGLE_PRE_COL   = "original-response"
+ 
+# Minimum agreement between the derived answer key and the labelled
+# *-desired-all/*-undesired-all files before 'verify_key' fails the run.
+KEY_AGREEMENT_MIN = 0.95
  
 # --- single source of truth for every directory ------------------------------
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
@@ -113,14 +155,18 @@ def eval_source_of(eval_sub_dir):
  
  
 def base_for_eval_source(eval_source):
-    """'verse-single' -> 'prose' (the eval dataset's base/test name)."""
-    return eval_source.replace("verse", "prose")
+    """'verse-single' -> 'prose' (the eval dataset's base/test name).
+    Both formats share one test file per eval dir: data/{model}/{eval_source}/prose-test.jsonl."""
+    if not eval_source.startswith("verse"):
+        raise ValueError(f"unexpected eval source for this family: {eval_source}")
+    return FAMILY_BASE
  
  
 class Cell:
     """One (localization x eval x steer) analysis cell. All paths derive from it."""
  
-    def __init__(self, source, base, eval_sub_dir, steer_sub_dir):
+    def __init__(self, model_id, source, base, eval_sub_dir, steer_sub_dir):
+        self.model_id = model_id            # which model's results tree this cell reads
         self.source = source                # localization source (gen keys' partner)
         self.base = base                    # localization base   (gen keys: old_/edit_{base})
         self.eval_sub_dir = eval_sub_dir
@@ -129,11 +175,11 @@ class Cell:
         self.eval_base = base_for_eval_source(self.eval_source)
  
         self.localization = f"from_{source}_to_{base}"
-        rel = os.path.join(MODEL_ID, self.localization, METHOD, eval_sub_dir, steer_sub_dir)
+        rel = os.path.join(model_id, self.localization, METHOD, eval_sub_dir, steer_sub_dir)
  
         # input: the one eval folder of gen files for this cell
         self.gen_dir = os.path.join(
-            RESULTS_DIR, MODEL_ID, self.localization, METHOD,
+            RESULTS_DIR, model_id, self.localization, METHOD,
             eval_sub_dir, steer_sub_dir, "eval",
         )
         # gen filename suffix tracks the EVAL source, not the localization
@@ -143,7 +189,7 @@ class Cell:
         )
         # test queries come from the EVAL source's dataset
         self.test_jsonl = os.path.join(
-            DATA_DIR, MODEL_ID, self.eval_source, f"{self.eval_base}-test.jsonl"
+            DATA_DIR, model_id, self.eval_source, f"{self.eval_base}-test.jsonl"
         )
  
         # outputs (one folder per cell -> never cross cells)
@@ -158,15 +204,18 @@ class Cell:
         self.plots_dir = os.path.join(self.out_dir, "plots")
  
     def __str__(self):
-        return f"{self.localization} | {self.eval_sub_dir} | {self.steer_sub_dir}"
+        return (f"{self.model_id} | {self.localization} | "
+                f"{self.eval_sub_dir} | {self.steer_sub_dir}")
  
  
-def all_cells():
+def all_cells(model_ids=None):
+    """Model-major cell order, so --cells indices stay contiguous per model."""
     cells = []
-    for source, base in LOCALIZATIONS:
-        for eval_sub_dir in EVAL_SUB_DIRS:
-            for steer_sub_dir in STEER_SUB_DIRS:
-                cells.append(Cell(source, base, eval_sub_dir, steer_sub_dir))
+    for model_id in (model_ids if model_ids is not None else MODEL_IDS):
+        for source, base in LOCALIZATIONS:
+            for eval_sub_dir in EVAL_SUB_DIRS:
+                for steer_sub_dir in STEER_SUB_DIRS:
+                    cells.append(Cell(model_id, source, base, eval_sub_dir, steer_sub_dir))
     return cells
  
  
@@ -197,19 +246,211 @@ def is_single_eval(cell):
  
  
 # =============================================================================
+#                    MCQA ANSWER KEY (single-token evals)
+#
+# '*-single_eval' cells ask a 4-option multiple-choice question and the model
+# answers with a single letter, so there is no judge: accuracy is just
+# "did the model answer the TARGET letter".
+#
+# The test jsonl carries no answer key for the target letter, so it is derived
+# from the option block itself. The option block always contains two
+# ANSWER PAIRS -- two options about the thing the stem asks about, and two
+# about an unrelated decoy -- with the four shuffled into A/B/C/D. See
+# `target_letter()` below for the per-family rule that names the target.
+#
+# The derivation is checked by the 'verify_key' stage, which re-derives the key
+# over the labelled *-desired-all/*-undesired-all files (which DO carry the
+# letter) in the same data dir and fails the run if agreement drops below
+# KEY_AGREEMENT_MIN.
+# =============================================================================
+
+LETTERS = ["A", "B", "C", "D"]
+_OPT_RE = re.compile(r"\n\((?P<L>[ABCD])\)[ \t]")
+_TRAILING_ANSWER_RE = re.compile(r"\n?Answer:\s*\(?\s*$")
+
+# A standalone A-D not glued to other letters: 'Answer: C' -> 'C', '(B)' -> 'B'.
+_CHOICE_RE = re.compile(r"(?<![A-Za-z])([ABCD])(?![A-Za-z])")
+
+_STOPWORDS = set(
+    "a an the and or of to in is are was were be been being it its this that with for on "
+    "at by as from not no yes but if then than we our us you your i they their them he she "
+    "his her can could may might will would should do does did have has had what how why "
+    "when where which who whom about into more most other others some such only own same so "
+    "too very now also both each few many much nor own too".split()
+)
+_SUFFIXES = ("ings", "ing", "ies", "ied", "es", "ed", "ly", "s")
+
+
+def parse_choice(text):
+    """Extract the model's A/B/C/D answer; '' when the response names none."""
+    if not isinstance(text, str):
+        return ""
+    m = _CHOICE_RE.search(text.strip())
+    return m.group(1) if m else ""
+
+
+def parse_mcqa(content):
+    """Split an MCQA prompt into its stem and its {letter: option text} block."""
+    matches = list(_OPT_RE.finditer(content))
+    if len(matches) != len(LETTERS):
+        raise ValueError(f"expected {len(LETTERS)} options, found {len(matches)}")
+    stem = content[: matches[0].start()]
+    opts = {}
+    for i, m in enumerate(matches):
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(content)
+        opts[m.group("L")] = content[m.end(): end].strip()
+    # some prompts end with a dangling 'Answer: (' after the last option
+    opts[LETTERS[-1]] = _TRAILING_ANSWER_RE.sub("", opts[LETTERS[-1]]).strip()
+    if sorted(opts) != LETTERS:
+        raise ValueError(f"option letters were {sorted(opts)}, expected {LETTERS}")
+    return stem, opts
+
+
+def _stem_word(w):
+    for suf in _SUFFIXES:
+        if w.endswith(suf) and len(w) - len(suf) >= 4:
+            return w[: -len(suf)]
+    return w
+
+
+def _tokens(text):
+    """Content words, possessives stripped ("solitude's" -> "solitude")."""
+    out = []
+    for w in re.findall(r"[a-z]+(?:'[a-z]+)?", text.lower().replace("\u2019", "'")):
+        w = re.sub(r"'s$", "", w).replace("'", "")
+        if len(w) > 2 and w not in _STOPWORDS:
+            out.append(_stem_word(w))
+    return out
+
+
+def _bag(text):
+    return set(_tokens(text))
+
+
+def _idf(documents):
+    """Rarity weight over this one question's options: shared filler words
+    ('life', 'world') get discounted, topic words carry the match."""
+    df = {}
+    for doc in documents:
+        for w in _bag(doc):
+            df[w] = df.get(w, 0) + 1
+    n = len(documents)
+    return lambda w: math.log(1.0 + n / (1.0 + df.get(w, 0)))
+
+
+def _overlap(a, b, weight):
+    """Weighted cosine-ish overlap of two option texts, in [0, 1]."""
+    ba, bb = _bag(a), _bag(b)
+    if not ba or not bb:
+        return 0.0
+    num = sum(weight(w) for w in ba & bb)
+    den = math.sqrt(sum(weight(w) for w in ba) * sum(weight(w) for w in bb))
+    return num / den if den else 0.0
+
+
+# --- family rule: the target is the VERSE response ---------------------------
+# The four options are {this question, a decoy question} x {prose, verse}. The
+# test row's own gold letter marks the PROSE answer to this question, so the
+# target is the verse option that answers the same question as that prose one.
+_QUESTION_RE = re.compile(r"^Question:\s*(.+?)\n", re.S)
+_CAP_AFTER_COMMA_RE = re.compile(r",\s+[A-Z]")
+
+
+def _verse_score(text):
+    """How verse-like an option reads. Short lines are the obvious tell; when a
+    stanza has had its newlines flattened the capitalised line-starts survive as
+    ', Capital', so score that too."""
+    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    median_len = statistics.median(len(l) for l in lines)
+    words = max(1, len(re.findall(r"\w+", text)))
+    line_starts = len(_CAP_AFTER_COMMA_RE.findall(text)) / words * 100.0
+    return (2.0 if median_len < 80 else 0.0) + line_starts
+
+
+def target_letter(content, gold=None):
+    """Letter of the VERSE response that answers the stem's question.
+
+    `gold` is the test row's own assistant turn: the PROSE answer to this
+    question, which anchors which of the two verse options is on-topic.
+    """
+    stem, opts = parse_mcqa(content)
+    m = _QUESTION_RE.search(stem)
+    if not m:
+        raise ValueError(f"could not find the question in stem: {stem[:120]!r}")
+    question = m.group(1).strip()
+    gold = (gold or "").strip()
+    if gold not in LETTERS:
+        raise ValueError(
+            "this family needs the test row's own gold letter (the prose answer) "
+            f"to place the verse target; got {gold!r}"
+        )
+
+    # 1. the two verse options -- ranked, not thresholded, so we always get two
+    ranked = sorted(LETTERS, key=lambda L: _verse_score(opts[L]), reverse=True)
+    verses = [L for L in ranked if L != gold][:2]      # the prose gold is never verse
+    others = [L for L in LETTERS if L not in verses and L != gold]
+    decoy_prose = others[0] if others else None
+
+    # 2. of the two, the one on the gold prose answer's topic and off the decoy's
+    weight = _idf(list(opts.values()) + [question])
+
+    def on_topic(L):
+        score = _overlap(opts[gold], opts[L], weight) + _overlap(question, opts[L], weight)
+        if decoy_prose is not None:
+            score -= _overlap(opts[decoy_prose], opts[L], weight)
+        return score
+
+    return max(verses, key=on_topic)
+
+
+def build_answer_key(cell):
+    """Target letter per test row, in test-file order (indexed by 'row_idx')."""
+    key = []
+    for i, row in enumerate(load_test_rows(cell)):
+        try:
+            key.append(target_letter(row["query"], row["gold"]))
+        except ValueError as e:
+            raise ValueError(f"{cell.test_jsonl} row {i}: {e}") from e
+    return key
+
+
+# --- key verification --------------------------------------------------------
+# data/{model}/verse-single/ carries the same option blocks WITH letters:
+# prose-desired-all.jsonl holds the prose prompt (its assistant turn is the prose
+# letter) and verse-single-desired-all.jsonl the verse letter for the same id.
+KEY_CHECK_PROMPTS = "prose-desired-all.jsonl"
+KEY_CHECK_LABELS  = "verse-single-desired-all.jsonl"
+
+
+# =============================================================================
 #                          STAGE 1 - MERGE GEN FILES
 # =============================================================================
  
-def load_test_queries(cell):
+def load_test_rows(cell):
+    """Test rows in file order: the QUERY is the last user turn (some test files
+    append an assistant turn holding the dataset's own gold letter, which is a
+    label, not part of the prompt), and 'gold' is that assistant turn if present."""
     _require(cell.test_jsonl, "test-queries")
-    queries = []
+    rows = []
     with open(cell.test_jsonl) as f:
-        for line in f:
+        for lineno, line in enumerate(f, 1):
             line = line.strip()
             if not line:
                 continue
-            queries.append(json.loads(line)["prompt"][-1]["content"])
-    return queries
+            turns = json.loads(line)["prompt"]
+            users = [t for t in turns if t.get("role") == "user"]
+            if not users:
+                raise ValueError(f"{cell.test_jsonl}:{lineno} has no user turn")
+            assistants = [t for t in turns if t.get("role") == "assistant"]
+            rows.append({
+                "query": users[-1]["content"],
+                "gold": assistants[-1]["content"].strip() if assistants else None,
+            })
+    return rows
+ 
+ 
+def load_test_queries(cell):
+    return [r["query"] for r in load_test_rows(cell)]
  
  
 def stage_merge(cell):
@@ -241,12 +482,15 @@ def stage_merge(cell):
             )
         for i, item in enumerate(items):
             record = {
+                # position in the test file -- the join key for the MCQA answer
+                # key, and the only alignment gen items and test rows share
+                "row_idx": i,
                 "query": item["query"].strip().replace("\r", "\n"),
                 "post-intervention-response": item[edit_key].strip().replace("\r", "\n"),
                 "original-response": item[old_key].strip().replace("\r", "\n"),
                 "filename": Path(gpath).name,
                 "data_path_query": queries[i].strip().replace("\r", "\n"),
-                "MODEL_ID": MODEL_ID,
+                "MODEL_ID": cell.model_id,
                 "METHOD": METHOD,
                 "LOCALIZATION": cell.localization,
                 "EVAL_SUB_DIR": cell.eval_sub_dir,
@@ -480,6 +724,75 @@ def stage_judge_all(cells, batch_size=16, resume=True):
  
  
 # =============================================================================
+#                     STAGE 0 - VERIFY THE MCQA ANSWER KEY
+# =============================================================================
+
+def _load_labelled_pairs(cell):
+    """(prompt, gold-letter, target-letter) triples from the labelled files that
+    sit beside the test file. Their assistant turns ARE the answer key, so they
+    are the ground truth `target_letter` is scored against."""
+    data_dir = os.path.dirname(cell.test_jsonl)
+    prompts_path = _require(os.path.join(data_dir, KEY_CHECK_PROMPTS), "key-check-prompts")
+    labels_path = _require(os.path.join(data_dir, KEY_CHECK_LABELS), "key-check-labels")
+
+    def read(path):
+        out = {}
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                row = json.loads(line)
+                turns = row["prompt"]
+                users = [t for t in turns if t.get("role") == "user"]
+                assistants = [t for t in turns if t.get("role") == "assistant"]
+                out[row["id"]] = (users[-1]["content"] if users else None,
+                                  assistants[-1]["content"].strip() if assistants else None)
+        return out
+
+    prompts, labels = read(prompts_path), read(labels_path)
+    shared = sorted(set(prompts) & set(labels))
+    if not shared:
+        raise ValueError(f"no shared ids between {prompts_path} and {labels_path}")
+    return [(prompts[i][0], prompts[i][1], labels[i][1]) for i in shared], shared
+
+
+def stage_verify_key(cell):
+    """Re-derive the answer key over the labelled files and fail if it disagrees.
+
+    The test rows have no key of their own, so this is the only check that the
+    derivation in `target_letter` is actually picking the intended option."""
+    if not is_single_eval(cell):
+        print("    verify_key: long-eval cell has no MCQA key; skipping")
+        return
+    triples, ids = _load_labelled_pairs(cell)
+    agree, mismatches = 0, []
+    for row_id, (prompt, gold, want) in zip(ids, triples):
+        try:
+            got = target_letter(prompt, gold)
+        except ValueError as e:
+            mismatches.append((row_id, f"error: {e}", want))
+            continue
+        if got == want:
+            agree += 1
+        else:
+            mismatches.append((row_id, got, want))
+    rate = agree / len(triples)
+    print(f"    verify_key: {agree}/{len(triples)} = {rate:.3f} agreement "
+          f"with {KEY_CHECK_LABELS}")
+    for row_id, got, want in mismatches[:10]:
+        print(f"      id={row_id}: derived {got!r}, labelled {want!r}")
+    if len(mismatches) > 10:
+        print(f"      ... and {len(mismatches) - 10} more")
+    if rate < KEY_AGREEMENT_MIN:
+        raise ValueError(
+            f"answer key agreement {rate:.3f} is below KEY_AGREEMENT_MIN "
+            f"({KEY_AGREEMENT_MIN}) for {cell}. The derivation in target_letter() "
+            "does not fit this data; fix it rather than scoring against it."
+        )
+
+
+# =============================================================================
 #                       STAGE 4 - COMPUTE ACCURACIES
 # =============================================================================
  
@@ -491,7 +804,8 @@ def _load_judge_json(path, what):
  
 def _filter(df, cell, n, top_k):
     mask = (
-        (df["EVAL_SUB_DIR"] == cell.eval_sub_dir)
+        (df["MODEL_ID"] == cell.model_id)
+        & (df["EVAL_SUB_DIR"] == cell.eval_sub_dir)
         & (df["STEER_SUB_DIR"] == cell.steer_sub_dir)
         & (df["SOURCE"] == cell.source)
         & (df["BASE"] == cell.base)
@@ -508,22 +822,27 @@ def _accuracy(df, cell, n, top_k, col, target):
     return float((sub[col] >= target).sum() / len(sub))
 
 
-def _single_token_accuracy(mdf, cell, n, top_k):
-    """Yes-flip rate for a single-token cell, from the merged pre/post responses.
-    Denominator = items whose UNSTEERED ('original-response') answer was NOT 'she';
-    numerator = of those, how many the steered ('post-intervention-response')
-    answer flipped TO 'she'. Mirrors the standalone umang_accuracies logic."""
+def _mcqa_accuracy(mdf, cell, n, top_k, answer_key, response_col):
+    """MCQA accuracy for a single-token cell: the fraction of test items whose
+    answer in `response_col` is the target letter. The answer key is joined by
+    'row_idx' (position in the test file), which is what stage_merge aligned the
+    gen items to in the first place."""
     sub = _filter(mdf, cell, n, top_k)
     if sub.empty:
         raise ValueError(f"No rows for N={n}, topk={top_k} (single-token) ({cell}).")
-    orig = sub["original-response"].astype(str).str.lower()
-    edit = sub["post-intervention-response"].astype(str).str.lower()
-    not_she = ~orig.str.contains(SINGLE_POS_TOKEN, regex=False)   # unsteered != "she"
-    total = int(not_she.sum())
-    if total == 0:
-        return 0.0
-    correct = int((not_she & edit.str.contains(SINGLE_POS_TOKEN, regex=False)).sum())
-    return correct / total
+    if "row_idx" not in sub.columns:
+        raise KeyError(
+            f"{cell.merged_csv} predates the MCQA answer key and has no 'row_idx' "
+            "column -- re-run with --stages merge."
+        )
+    idx = sub["row_idx"].astype(int)
+    if idx.max() >= len(answer_key) or idx.min() < 0:
+        raise IndexError(
+            f"row_idx out of range for the {len(answer_key)}-row answer key ({cell})."
+        )
+    targets = idx.map(lambda i: answer_key[i])
+    answers = sub[response_col].astype(str).map(parse_choice)
+    return float((answers == targets).sum() / len(sub))
  
  
 def _combined_accuracy(jdf, fdf, rdf, cell, n, top_k):
@@ -558,13 +877,17 @@ def stage_accuracies(cell):
     if is_single_eval(cell):
         _require(cell.merged_csv, "merged-csv")
         mdf = pd.read_csv(cell.merged_csv, keep_default_na=False)
+        answer_key = build_answer_key(cell)
         os.makedirs(cell.accuracy_dir, exist_ok=True)
+        columns = {"mcqa": SINGLE_POST_COL, "mcqa_pre": SINGLE_PRE_COL}
         for n in NS:
             for top_k in TOP_KS:
-                acc = _single_token_accuracy(mdf, cell, n, top_k)
-                with open(os.path.join(cell.accuracy_dir, _cell_filename(SINGLE_METRIC, n, top_k)), "w") as f:
-                    json.dump({"q1": acc}, f, indent=2)
-        print(f"    single-token accuracies -> {cell.accuracy_dir}")
+                for metric in SINGLE_METRICS:
+                    acc = _mcqa_accuracy(mdf, cell, n, top_k, answer_key, columns[metric])
+                    with open(os.path.join(cell.accuracy_dir,
+                                           _cell_filename(metric, n, top_k)), "w") as f:
+                        json.dump({"q1": acc}, f, indent=2)
+        print(f"    MCQA accuracies ({', '.join(SINGLE_METRICS)}) -> {cell.accuracy_dir}")
         return
 
     jdf = _load_judge_json(cell.judge_out, "judge-outputs")
@@ -611,7 +934,7 @@ def _heatmap(cell, metric):
  
     plt.figure(figsize=(8, 8))
     ax = sns.heatmap(df, annot=True, vmin=0, vmax=1, cmap="Reds", fmt=".1f")
-    ax.set_title(f"{MODEL_ID} - {metric}\n{cell.localization}\n"
+    ax.set_title(f"{cell.model_id} - {metric}\n{cell.localization}\n"
                  f"eval={cell.eval_sub_dir}  steer={cell.steer_sub_dir}")
     ax.set_ylabel("Steering Factor (N)")
     ax.set_xlabel("top_k")
@@ -622,7 +945,7 @@ def _heatmap(cell, metric):
  
 def stage_plots(cell):
     if is_single_eval(cell):
-        metrics = [SINGLE_METRIC]
+        metrics = list(SINGLE_METRICS)
     else:
         metrics = [f"judge_{t}" for t in JUDGE_THRESHOLDS] + ["rel", "flu", "comb"]
     for metric in metrics:
@@ -638,40 +961,49 @@ def stage_plots(cell):
 # 70B model is loaded only once across all cells.
 PER_CELL_STAGES = {
     "merge":         stage_merge,
+    "verify_key":    stage_verify_key,
     "build_prompts": stage_build_prompts,
     "accuracies":    stage_accuracies,
     "plots":         stage_plots,
 }
-DEFAULT_ORDER = ["merge", "build_prompts", "judge", "accuracies", "plots"]
+DEFAULT_ORDER = ["merge", "verify_key", "build_prompts", "judge", "accuracies", "plots"]
  
  
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--stages", nargs="+",
-                    choices=["merge", "build_prompts", "judge", "accuracies", "plots"],
+                    choices=["merge", "verify_key", "build_prompts", "judge",
+                             "accuracies", "plots"],
                     default=DEFAULT_ORDER, help="Which stages to run, in order. Default: all.")
     ap.add_argument("--batch_size", type=int, default=16, help="Judge batch size.")
+    ap.add_argument("--models", nargs="+", choices=MODEL_IDS, default=None,
+                    help="Restrict the sweep to these models. Default: all "
+                         f"{len(MODEL_IDS)} ({', '.join(MODEL_IDS)}).")
     ap.add_argument("--cells", nargs="+", type=int, default=None,
-                    help="0-based indices of cells to run (for SLURM array sharding). "
-                         "Default: all cells.")
+                    help="0-based indices of cells to run (for SLURM array sharding), "
+                         "indexed into the SELECTED models' cell list. Default: all cells.")
     ap.add_argument("--no-resume", action="store_true",
                     help="Re-run judge passes even if a complete output already exists.")
     args = ap.parse_args()
  
-    cells = all_cells()
+    model_ids = args.models if args.models else MODEL_IDS
+    cells = all_cells(model_ids)
+    total = len(cells)
     if args.cells is not None:
-        bad = [i for i in args.cells if i < 0 or i >= len(cells)]
+        bad = [i for i in args.cells if i < 0 or i >= total]
         if bad:
-            raise IndexError(f"--cells {bad} out of range (have {len(cells)} cells, 0..{len(cells)-1})")
+            raise IndexError(f"--cells {bad} out of range (have {total} cells, 0..{total-1})")
         cells = [cells[i] for i in args.cells]
  
-    print(f"Family: paragraph->sentence  model={MODEL_ID}  method={METHOD}")
-    print(f"Running {len(cells)} of {len(all_cells())} cells "
-          f"({len(LOCALIZATIONS)} localizations x {len(EVAL_SUB_DIRS)} eval "
-          f"x {len(STEER_SUB_DIRS)} steer):")
-    for c in cells:
-        print(f"  - {c}")
+    print(f"Family: verse->prose  method={METHOD}")
+    print(f"Models ({len(model_ids)}): {', '.join(model_ids)}")
+    print(f"Localizations: {', '.join('from_%s_to_%s' % lb for lb in LOCALIZATIONS)}")
+    print(f"Running {len(cells)} of {total} cells "
+          f"({len(model_ids)} models x {len(LOCALIZATIONS)} localizations x "
+          f"{len(EVAL_SUB_DIRS)} eval x {len(STEER_SUB_DIRS)} steer):")
+    for i, c in enumerate(cells):
+        print(f"  [{i:2d}] {c}")
  
     for stage in args.stages:
         print("=" * 70)
