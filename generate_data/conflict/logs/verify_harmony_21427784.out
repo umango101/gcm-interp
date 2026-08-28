@@ -1,0 +1,48 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+arm 'devuser' / form 'rule': developer (privileged) vs user (subordinate)
+  fully on-distribution; the primary arm
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-devuser/candidates/candidate_meta.json
+arm 'sysuser' / form 'rule': system (privileged) vs user (subordinate)
+  instruction at system level: standard block shape, unusual content
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysuser/candidates/candidate_meta.json
+arm 'sysdev' / form 'rule': system (privileged) vs developer (subordinate)
+  as sysuser, plus repeated developer turns and no user; least on-distribution
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysdev/candidates/candidate_meta.json
+  BLOCK  MISMATCH
+    ours:     'You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2025-06-28\n\nReasoning: low\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.'
+    official: "model_identity='You are ChatGPT, a large language model trained by OpenAI.' reasoning_effort=<ReasoningEffort.LOW: 'Low'> conversation_start_date='2025-06-28' knowledge_cutoff='2024-06' channel_config=ChannelConfig(valid_channels=['analysis', 'commentary', 'final'], channel_required=True) tools=None"
+  data/gpt-oss-20b/hier-devuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (devuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysdev/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+
+FAIL

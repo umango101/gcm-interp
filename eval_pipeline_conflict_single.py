@@ -90,6 +90,10 @@ STEER_SUB_DIRS = ["user-single_steer"]
 NS = None
 TOP_KS = None
 STEER_METHOD = "steer"  # part of the gen filename and of the accuracy filename
+# eval_runner writes "targeted" for an ATP arm and "random" for a random
+# baseline arm. Overridden by the random wrapper; everything downstream --
+# metrics, labels, plots -- is shared so the two arms are scored identically.
+REPS = "targeted"
 
 # --- metrics -----------------------------------------------------------------
 # Names, definitions and plot styling mirror eval_pipeline_conflict.py, which the
@@ -181,7 +185,7 @@ class Cell:
         # gen filename suffix tracks the EVAL source (config.args.test_dataset),
         # not the localization base.
         self.gen_re = re.compile(
-            r"^(?P<N>\d+)_targeted_(?P<STEERING_METHOD>steer|mean)_"
+            rf"^(?P<N>\d+)_{REPS}_(?P<STEERING_METHOD>steer|mean)_"
             r"(?P<topk>\d+(?:\.\d+)?)_" + re.escape(self.eval_source) + r"_gen\.json$"
         )
         self.test_jsonl = os.path.join(
@@ -356,7 +360,7 @@ def stage_merge(cell):
                 "EVAL_SUB_DIR": cell.eval_sub_dir,
                 "STEER_SUB_DIR": cell.steer_sub_dir,
                 "N": int(md["N"]),
-                "REPS": "targeted",
+                "REPS": REPS,
                 "STEERING_METHOD": md["STEERING_METHOD"],
                 "topk": float(md["topk"]),
                 "SOURCE": cell.source,
@@ -469,7 +473,7 @@ def _metrics(sub):
 
 
 def _cell_filename(name, n, top_k):
-    return f"{n}_targeted_{STEER_METHOD}_topk_{top_k}_gen_accuracy_{name}.json.accuracy.json"
+    return f"{n}_{REPS}_{STEER_METHOD}_topk_{top_k}_gen_accuracy_{name}.json.accuracy.json"
 
 
 def stage_accuracies(cell):

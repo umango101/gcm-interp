@@ -1,0 +1,14 @@
+repo root   : /home/ubansal/orcd/scratch/conflicts/gcm-interp
+python      : /home/ubansal/miniconda/envs/conflict-syc/bin/python
+contrast    : user-single -> dev-single
+baseline    : layer_matched (seed 42)
+matched to  : /home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/from_user-single_to_dev-single/atp/numerator_1_heads.pt
+writes to   : results/gpt-oss-20b/from_user-single_to_dev-single/random/
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 93
+    f"layer-matched random needs the targeted map, not found at
+    ^
+SyntaxError: unterminated string literal (detected at line 93)

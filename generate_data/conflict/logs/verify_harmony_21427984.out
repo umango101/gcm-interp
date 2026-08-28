@@ -1,0 +1,78 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+arm 'devuser' / form 'rule': developer (privileged) vs user (subordinate)
+  fully on-distribution; the primary arm
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-devuser/candidates/candidate_meta.json
+arm 'sysuser' / form 'rule': system (privileged) vs user (subordinate)
+  instruction at system level: standard block shape, unusual content
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysuser/candidates/candidate_meta.json
+arm 'sysdev' / form 'rule': system (privileged) vs developer (subordinate)
+  as sysuser, plus repeated developer turns and no user; least on-distribution
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysdev/candidates/candidate_meta.json
+  BLOCK  ok: system block is byte-identical to the renderer's
+  data/gpt-oss-20b/hier-devuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (devuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysdev/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+
+PASS
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+100 uncontested items over 25 pairs
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.26s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.24s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:06<00:03,  3.22s/it]
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/probe_level_compliance.py", line 251, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/probe_level_compliance.py", line 209, in main
+    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype="auto",
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5048, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5468, in _load_pretrained_model
+    _error_msgs, disk_offload_index = load_shard_file(args)
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 843, in load_shard_file
+    disk_offload_index = _load_state_dict_into_meta_model(
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/modeling_utils.py", line 774, in _load_state_dict_into_meta_model
+    hf_quantizer.create_quantized_param(model, param, param_name, param_device)
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/quantizers/quantizer_mxfp4.py", line 246, in create_quantized_param
+    dequantize(module, param_name, param_value, target_device, dq_param_name, **shard_kwargs)
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/integrations/mxfp4.py", line 351, in dequantize
+    dequantized = convert_moe_packed_tensors(getattr(module, blocks_attr), getattr(module, scales_attr))
+  File "/home/ubansal/miniconda/envs/conflict-syc/lib/python3.10/site-packages/transformers/integrations/mxfp4.py", line 140, in convert_moe_packed_tensors
+    idx_hi = (blk >> 4).to(torch.long)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.98 GiB. GPU 0 has a total capacity of 44.39 GiB of which 247.31 MiB is free. Including non-PyTorch memory, this process has 44.14 GiB memory in use. Of the allocated memory 41.46 GiB is allocated by PyTorch, and 2.20 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

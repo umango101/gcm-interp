@@ -1,6 +1,8 @@
 from asyncio import log
 from eval.setup import set_seed
-from eval.logits_handler import load_logits, get_top_k_layer_and_head, retrieve_random_k
+from eval.logits_handler import (load_logits, get_top_k_layer_and_head,
+                                 retrieve_random_k,
+                                 retrieve_layer_matched_random_k)
 from eval.activations import mean_ablations_cache, steering_reps_cache
 from eval.generation import select_gen_qs_toks, generate_with_patches, decode_responses
 from eval.pyreft_utils import get_reft_layers_config, reft_train, get_intervention_locations
@@ -69,11 +71,47 @@ def save_prompt_responses(responses, path):
 
 def save_top_k(reps_type, config, model, topk, logits, logit_metric):
     if reps_type == 'random':
-        topk_df = retrieve_random_k(
-            model.config.num_hidden_layers,
-            model.config.num_attention_heads,
-            topk
-        )
+        # RANDOM_BASELINE=layer_matched (default) holds the depth profile of the
+        # targeted set fixed and randomizes only which heads within each layer,
+        # so beating it is evidence about ATP's ranking rather than about late
+        # layers being more steerable. =uniform restores the original sampling.
+        mode = os.environ.get('RANDOM_BASELINE', 'layer_matched')
+        seed = int(os.environ.get('RANDOM_BASELINE_SEED', '42'))
+        if mode == 'layer_matched':
+            # run_eval passes logits=None when patch_algo == 'random', so the
+            # targeted set has to be recovered from the ATP map that lives in the
+            # SIBLING atp/ directory -- the random arm writes under random/ and
+            # never builds a map of its own.
+            _logits = logits
+            if _logits is None:
+                _algo_dir = '/'.join(config.get_output_prefix().rstrip('/').split('/')[:-2])
+                _atp_map = os.environ.get(
+                    'ATP_MAP',
+                    os.path.join(os.path.dirname(_algo_dir), 'atp', 'numerator_1_heads.pt'))
+                if not os.path.exists(_atp_map):
+                    raise SystemExit(
+                        f"layer-matched random needs the targeted map, not "
+                        f"found at\n  {_atp_map}\n"
+                        f"Point ATP_MAP at it, or use RANDOM_BASELINE=uniform.")
+                print(f"[random baseline] layer-matching against {_atp_map}")
+                _logits = torch.load(_atp_map, map_location='cpu')
+            targeted_df = get_top_k_layer_and_head(_logits, topk, 'atp')
+            topk_df = retrieve_layer_matched_random_k(
+                targeted_df, model.config.num_attention_heads, seed=seed)
+            print(f"[random baseline] layer-matched to the targeted top-{topk} set: "
+                  f"{len(topk_df)} heads, layer counts "
+                  f"{dict(sorted(targeted_df['layer'].value_counts().items()))}")
+        elif mode == 'uniform':
+            topk_df = retrieve_random_k(
+                model.config.num_hidden_layers,
+                model.config.num_attention_heads,
+                topk,
+                seed=seed
+            )
+            print(f"[random baseline] uniform over all heads: {len(topk_df)} heads")
+        else:
+            raise SystemExit(
+                f"RANDOM_BASELINE must be layer_matched|uniform, got {mode!r}")
     else:
         topk_df = get_top_k_layer_and_head(logits, topk, config.args.patch_algo)
 

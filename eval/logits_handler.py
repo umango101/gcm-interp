@@ -131,6 +131,32 @@ def retrieve_random_k(num_layers, num_heads, k, seed=42):
     df = pd.DataFrame(selected, columns=['layer', 'neuron'])
     return df.sort_values(by=['layer', 'neuron'])
 
+
+def retrieve_layer_matched_random_k(targeted_df, num_heads, seed=42):
+    """Random heads with the SAME per-layer counts as `targeted_df`.
+
+    Uniform-random selection differs from an ATP-selected set in two ways at
+    once -- which heads, and which layers -- because ATP concentrates in late
+    layers and steering effectiveness varies with depth. Matching the layer
+    histogram holds depth fixed so the comparison isolates the ranking.
+
+    Draws WITHOUT replacement within each layer, so the control cannot select
+    the same head twice; it may overlap the targeted set by chance, which is
+    correct -- the null is "any k heads at these depths", not "any k heads at
+    these depths that ATP did not pick".
+    """
+    rng = random.Random(seed)
+    rows = []
+    for layer, count in targeted_df['layer'].value_counts().items():
+        count = int(count)
+        if count > num_heads:
+            raise ValueError(
+                f"layer {layer} needs {count} heads but the model has {num_heads}")
+        for head in rng.sample(range(num_heads), count):
+            rows.append((int(layer), int(head)))
+    df = pd.DataFrame(rows, columns=['layer', 'neuron'])
+    return df.sort_values(by=['layer', 'neuron']).reset_index(drop=True)
+
 def plot_logit_metrics(config, model_handler, metric, name, which_patch):
     metric = metric.to(torch.float32)
     if config.args.patch_algo != 'probes':

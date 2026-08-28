@@ -1,0 +1,5 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+arm 'devuser' / form 'rule': developer (privileged) vs user (subordinate)
+  fully on-distribution; the primary arm
+  skipped category (length mismatch): fruit 'kiwi' vs 'pear'
+only 5 length-matched conflict categories, need 6; add more to CONFLICT_CATEGORIES. Note the two rule strings must tokenize to the same length, so a dropped category cannot simply be skipped at question time -- it must come out of the rules too.
