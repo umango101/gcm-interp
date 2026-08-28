@@ -1,10 +1,25 @@
 {
   "arm": "devuser",
   "form": "rule",
+  "fingerprint": {
+    "seed": 0,
+    "deterministic_algorithms": "strict",
+    "env_problems": [],
+    "python": "3.10.20",
+    "torch": "2.7.0+cu126",
+    "cuda_available": true,
+    "device_count": 1,
+    "device_names": [
+      "NVIDIA H100 80GB HBM3"
+    ],
+    "transformers": "4.57.1"
+  },
   "args": {
     "data_dir": "data/gpt-oss-20b/hier-devuser/candidates",
     "out": "data/gpt-oss-20b/hier-devuser/pair_qc.json",
     "model": "openai/gpt-oss-20b",
+    "seed": 0,
+    "allow_nondeterministic": false,
     "min_swing": 0.0,
     "gate": "privileged",
     "generation_prompt": "final"

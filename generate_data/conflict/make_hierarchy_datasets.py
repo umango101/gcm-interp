@@ -67,6 +67,7 @@ import os
 import json
 import argparse
 
+import determinism
 from harmony_canonical import (
     canonical_system_block, DEFAULT_DATE, DEFAULT_REASONING,
 )
@@ -230,6 +231,15 @@ def main():
                    "note": arm.note,
                    "n_loc_pairs": len(loc_pairs),
                    "n_test_pairs": len(test_pairs)}, f, indent=2)
+
+    # The builder is deterministic, but the QC gate feeding it is not, so a
+    # later rebuild can only be shown to match rather than assumed to.
+    man_path = os.path.join(args.out_dir, "arm_manifest.json")
+    with open(man_path) as f:
+        _man = json.load(f)
+    _man["sha256"] = determinism.hash_dir(args.out_dir)
+    with open(man_path, "w") as f:
+        json.dump(_man, f, indent=2)
 
     print("\nchecks:")
     verify(args.out_dir, arm, args.form, system_block, demos)

@@ -16,6 +16,9 @@ set -euo pipefail
 cd /home/ubansal/orcd/scratch/conflicts/gcm-interp/generate_data/conflict
 mkdir -p logs
 
+export CUBLAS_WORKSPACE_CONFIG=":4096:8"   
+export PYTHONHASHSEED="0"    
+export TOKENIZERS_PARALLELISM="false"   
 MODEL="${MODEL:-openai/gpt-oss-20b}"
 
 echo "env:  ${CONDA_PREFIX:-?}"

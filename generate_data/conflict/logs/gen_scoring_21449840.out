@@ -1,0 +1,18 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/check_generations.py", line 222, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/check_generations.py", line 164, in main
+    fingerprint = determinism.enforce(
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/determinism.py", line 60, in enforce
+    problems = check_env(strict=strict)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/determinism.py", line 49, in check_env
+    raise RuntimeError(
+RuntimeError: determinism env not set before interpreter start:
+  export CUBLAS_WORKSPACE_CONFIG=":4096:8"    (currently None)
+  export PYTHONHASHSEED="0"    (currently None)
+  export TOKENIZERS_PARALLELISM="false"    (currently None)
+
+These must be exported in the shell, not set in Python: cuBLAS reads its
+workspace config at initialisation and Python reads PYTHONHASHSEED at startup.
+Pass strict=False only if you accept that the run is not reproducible.

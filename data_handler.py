@@ -15,12 +15,15 @@ class DataHandler:
         self.no_generation_prompt_for_eval_transfer = False
         
         file_paths = {
-            'base_desired': f"{self.config.args.data_path}/{self.config.args.source}/{self.config.args.base}-desired-all.jsonl",
-            'base_undesired': f"{self.config.args.data_path}/{self.config.args.source}/{self.config.args.base}-undesired-all.jsonl",
-            'source_desired': f"{self.config.args.data_path}/{self.config.args.source}/{self.config.args.source}-desired-all.jsonl",
-            'source_undesired': f"{self.config.args.data_path}/{self.config.args.source}/{self.config.args.source}-undesired-all.jsonl",
+            # data_dir names the corpus DIRECTORY; source/base name the file
+            # prefixes inside it. These were the same string before, which is
+            # why one directory could not hold a differently named arm.
+            'base_desired': f"{self.config.args.data_path}/{self.config.args.data_dir}/{self.config.args.base}-desired-all.jsonl",
+            'base_undesired': f"{self.config.args.data_path}/{self.config.args.data_dir}/{self.config.args.base}-undesired-all.jsonl",
+            'source_desired': f"{self.config.args.data_path}/{self.config.args.data_dir}/{self.config.args.source}-desired-all.jsonl",
+            'source_undesired': f"{self.config.args.data_path}/{self.config.args.data_dir}/{self.config.args.source}-undesired-all.jsonl",
             'base_test': (
-                f"{self.config.args.data_path}/{self.config.args.source}/{self.config.args.base}-test.jsonl"
+                f"{self.config.args.data_path}/{self.config.args.data_dir}/{self.config.args.base}-test.jsonl"
                 if isinstance(self.config.args.eval_test, bool) and self.config.args.eval_test
                 else f"{self.config.args.eval_test}"
                 if isinstance(self.config.args.eval_test, str) and self.config.args.eval_test

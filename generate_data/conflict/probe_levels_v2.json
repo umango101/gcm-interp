@@ -5,8 +5,23 @@
     "date": "2025-06-28",
     "generation_prompt": "final",
     "n_pairs": 25,
+    "seed": 0,
+    "allow_nondeterministic": false,
     "out": "probe_levels_v2.json",
     "variants": "devuser,sysuser,sysdev_ruleform,norule"
+  },
+  "fingerprint": {
+    "seed": 0,
+    "deterministic_algorithms": "strict",
+    "env_problems": [],
+    "python": "3.10.20",
+    "torch": "2.7.0+cu126",
+    "cuda_available": true,
+    "device_count": 1,
+    "device_names": [
+      "NVIDIA H100 80GB HBM3"
+    ],
+    "transformers": "4.57.1"
   },
   "results": {
     "devuser": {

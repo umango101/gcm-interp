@@ -61,6 +61,7 @@ import statistics
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+import determinism
 import harmony_canonical as hc
 from answer_scoring import score, collision
 from harmony_canonical import canonical_system_block, developer_message
@@ -224,11 +225,15 @@ def main():
     ap.add_argument("--generation_prompt", choices=["final", "bare"],
                     default="final")
     ap.add_argument("--n_pairs", type=int, default=25, help="4 items per pair")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--allow_nondeterministic", action="store_true")
     ap.add_argument("--out", default="probe_levels.json")
     ap.add_argument("--variants", default=None,
                     help="comma-separated subset; default is all")
     args = ap.parse_args()
 
+    fingerprint = determinism.enforce(
+        args.seed, allow_nondeterministic=args.allow_nondeterministic)
     system_block = canonical_system_block(args.reasoning, args.date)
     tok = hc.install(AutoTokenizer.from_pretrained(args.model),
                      system_block, args.generation_prompt)
@@ -284,7 +289,7 @@ def main():
                   f"{s['mean_nll_final_turn'] - base['mean_nll_final_turn']:+.3f}")
 
     with open(args.out, "w") as f:
-        json.dump({"args": vars(args),
+        json.dump({"args": vars(args), "fingerprint": fingerprint,
                    "results": results}, f, indent=2)
     print(f"\nwrote {args.out}")
 

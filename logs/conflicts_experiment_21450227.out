@@ -1,0 +1,104 @@
+[plan] models: openai/gpt-oss-20b
+[plan] arms:   devuser sysuser sysdev
+[plan] tests:  dev-single-test devNaive-single-test
+[plan] steer_reduce=last cross_arm=0 full_precision=0
+[plan] data:   /home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b
+
+==================== gpt-oss-20b ====================
+[skip] [1/9] gpt-oss-20b | devuser | atp | localize
+[skip] [2/9] gpt-oss-20b | sysuser | atp | localize
+[skip] [3/9] gpt-oss-20b | sysdev | atp | localize
+[run ] [4/9] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir devuser --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | atp (exit 2)
+[run ] [4/9] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir devuser --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | atp (exit 2)
+[run ] [4/9] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir sysuser --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | atp (exit 2)
+[run ] [4/9] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir sysuser --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | atp (exit 2)
+[run ] [4/9] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir sysdev --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | atp (exit 2)
+[run ] [4/9] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | atp
+usage: run.py [-h] -d DEVICE -model_id MODEL_ID -batch_size BATCH_SIZE
+              [-seed SEED] [-ablation ABLATION] [-patch_model] [-eval_model]
+              [--eval_test [EVAL_TEST]] [-eval_train]
+              [-eval_transfer EVAL_TRANSFER] [--steering] [--pyreft]
+              [-max_new_tokens MAX_NEW_TOKENS] [-patch_algo PATCH_ALGO]
+              [-source SOURCE] [-base BASE]
+              [-steering_add_path STEERING_ADD_PATH]
+              [-steering_sub_path STEERING_SUB_PATH] [--full_precision]
+              [--head_site {auto,o_proj_input,o_proj_output}] [--kv_caching]
+              [--results_root RESULTS_ROOT]
+run.py: error: unrecognized arguments: --data_dir sysdev --steer_reduce last
+Parsing config...
+[FAIL] [4/9] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | atp (exit 2)
+
+==================== summary ====================
+steps complete: 3/9   (ran 0 this pass)
+FAILED steps:
+  [4/9] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | atp (exit 2)
+  [4/9] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | atp (exit 2)
+  [4/9] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | atp (exit 2)
+  [4/9] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | atp (exit 2)
+  [4/9] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | atp (exit 2)
+  [4/9] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | atp (exit 2)

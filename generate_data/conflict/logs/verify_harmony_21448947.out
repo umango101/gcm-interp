@@ -1,0 +1,124 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+arm 'devuser' / form 'rule': developer (privileged) vs user (subordinate)
+  fully on-distribution; the primary arm (probes at 100% forced)
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-devuser/candidates/candidate_meta.json
+arm 'sysuser' / form 'rule': system (privileged) vs user (subordinate)
+  instruction at system level: standard block shape, unusual content. Probes at 100% forced, and its prefix is the LEAST surprising of the three -- placement costs under a third of what having a rule costs
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysuser/candidates/candidate_meta.json
+arm 'sysdev' / form 'rule': system (privileged) vs developer (subordinate)
+  rule form: the developer states its rule once and the user asks the questions -- canonical Harmony, and it probes at ceiling (99% forced, 100% argmax, 0% off-task)
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysdev/candidates/candidate_meta.json
+  BLOCK  ok: system block is byte-identical to the renderer's
+  data/gpt-oss-20b/hier-devuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (devuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysdev/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+
+PASS
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+100 uncontested items over 25 pairs
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.40s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.21s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.26s/it]
+  devuser          forced 100% (first 100% / second 100%)  argmax 99%  margin +5.50  offtask 1%  nll_prefix 5.263
+  devuser_nohdr    forced 100% (first 100% / second 100%)  argmax 99%  margin +6.21  offtask 1%  nll_prefix 5.269
+  sysuser          forced 100% (first 100% / second 100%)  argmax 100%  margin +6.05  offtask 0%  nll_prefix 5.170
+  sysdev           forced 93% (first 98% / second 88%)  argmax 63%  margin +3.15  offtask 30%  nll_prefix 5.170
+  sysdev_user      forced 93% (first 96% / second 90%)  argmax 85%  margin +3.72  offtask 8%  nll_prefix 5.336
+  sysdev_user_late forced 89% (first 96% / second 82%)  argmax 57%  margin +3.08  offtask 35%  nll_prefix 5.548
+  sysdev_ruleform  forced 99% (first 98% / second 100%)  argmax 100%  margin +5.78  offtask 0%  nll_prefix 5.437
+  sysbare          forced 99% (first 100% / second 98%)  argmax 92%  margin +4.08  offtask 7%  nll_prefix 2.878
+  norule           forced 48% (first 66% / second 30%)  argmax 36%  margin +0.00  offtask 28%  nll_prefix 4.424
+
+relative to devuser (the on-distribution placement):
+  devuser          Dforced +0.00  Dargmax +0.00  Dnll_prefix +0.000  Dnll_final_turn +0.000
+  devuser_nohdr    Dforced +0.00  Dargmax +0.00  Dnll_prefix +0.006  Dnll_final_turn -0.156
+  sysuser          Dforced +0.00  Dargmax +0.01  Dnll_prefix -0.093  Dnll_final_turn +0.418
+  sysdev           Dforced -0.07  Dargmax -0.36  Dnll_prefix -0.093  Dnll_final_turn +0.880
+  sysdev_user      Dforced -0.07  Dargmax -0.14  Dnll_prefix +0.073  Dnll_final_turn +0.312
+  sysdev_user_late Dforced -0.11  Dargmax -0.42  Dnll_prefix +0.285  Dnll_final_turn -1.416
+  sysdev_ruleform  Dforced -0.01  Dargmax +0.01  Dnll_prefix +0.174  Dnll_final_turn -0.881
+  sysbare          Dforced -0.01  Dargmax -0.07  Dnll_prefix -2.385  Dnll_final_turn -2.473
+  norule           Dforced -0.52  Dargmax -0.63  Dnll_prefix -0.839  Dnll_final_turn +1.601
+
+wrote probe_levels.json
+
+HOW TO READ THIS
+  FORCED is the gate: it is the logit difference ATP differentiates,
+  so a level is usable if forced-choice is at ceiling and roughly
+  equal across mention orders. ARGMAX is the behavioural question --
+  would a generation emit it -- and a large forced/argmax gap means
+  the model prefers the right word but writes it in some other
+  surface form. sysbare vs sysuser measures what the suppressed
+  system block cost the existing runs; norule is the floor, where
+  any forced-choice above 50%% is position or lexical bias.
+  For off-distribution-ness read nll_prefix: the surprisal of the
+  system block, rule and any developer message -- the part whose
+  naturalness is in question. nll_final_turn measures how predictable
+  the QUESTION is given that prefix, which is a different thing: a
+  stripped-down prefix makes a color question MORE expected, so a
+  malformed variant can score lower on it.
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+100 uncontested items over 25 pairs
+loading openai/gpt-oss-20b ...
+`torch_dtype` is deprecated! Use `dtype` instead!
+MXFP4 quantization requires Triton and kernels installed: CUDA requires Triton >= 3.4.0, XPU requires Triton >= 3.5.0, we will default to dequantizing the model to bf16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.59s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.24s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.31s/it]
+  devuser          forced 100% (first 100% / second 100%)  argmax 99%  margin +5.50  offtask 1%  nll_prefix 5.263
+  sysuser          forced 100% (first 100% / second 100%)  argmax 100%  margin +6.05  offtask 0%  nll_prefix 5.170
+  sysdev_ruleform  forced 99% (first 98% / second 100%)  argmax 100%  margin +5.78  offtask 0%  nll_prefix 5.437
+  norule           forced 48% (first 66% / second 30%)  argmax 36%  margin +0.00  offtask 28%  nll_prefix 4.424
+
+relative to devuser (the on-distribution placement):
+  devuser          Dforced +0.00  Dargmax +0.00  Dnll_prefix +0.000  Dnll_final_turn +0.000
+  sysuser          Dforced +0.00  Dargmax +0.01  Dnll_prefix -0.093  Dnll_final_turn +0.418
+  sysdev_ruleform  Dforced -0.01  Dargmax +0.01  Dnll_prefix +0.174  Dnll_final_turn -0.881
+  norule           Dforced -0.52  Dargmax -0.63  Dnll_prefix -0.839  Dnll_final_turn +1.601
+
+wrote probe_levels_v2.json
+
+HOW TO READ THIS
+  FORCED is the gate: it is the logit difference ATP differentiates,
+  so a level is usable if forced-choice is at ceiling and roughly
+  equal across mention orders. ARGMAX is the behavioural question --
+  would a generation emit it -- and a large forced/argmax gap means
+  the model prefers the right word but writes it in some other
+  surface form. sysbare vs sysuser measures what the suppressed
+  system block cost the existing runs; norule is the floor, where
+  any forced-choice above 50%% is position or lexical bias.
+  For off-distribution-ness read nll_prefix: the surprisal of the
+  system block, rule and any developer message -- the part whose
+  naturalness is in question. nll_final_turn measures how predictable
+  the QUESTION is given that prefix, which is a different thing: a
+  stripped-down prefix makes a color question MORE expected, so a
+  malformed variant can score lower on it.

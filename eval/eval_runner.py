@@ -50,7 +50,19 @@ def load_patching_reps(data_handler, model_handler, mean=True):
 def get_patch_activations(model, data_handler, ablation_type, key='desired', mean=True, head_site=None):
     # Large models (e.g. 32B) OOM caching all-layer activations at the default
     # batch size of 9, so shrink the activation-caching batch for them.
+    #
+    # Model size is not the only thing that drives this: the cache holds
+    # batch x seq x hidden for every layer at once, so PROMPT LENGTH costs the
+    # same as batch size. The rule-form corpora carry two full rule lists plus
+    # an eight-demo preamble and are roughly twice as long as the request-form
+    # ones the default was chosen for, which is enough to OOM a 140GB card at
+    # batch 9. CACHE_BS overrides it without touching the default for anything
+    # else.
     cache_bs = 2 if '32B' in data_handler.config.args.model_id else 9
+    _env_bs = os.environ.get('CACHE_BS')
+    if _env_bs:
+        cache_bs = int(_env_bs)
+        print(f'[cache] CACHE_BS={cache_bs} (activation-caching batch size)')
     if ablation_type == 'mean':
         return mean_ablations_cache(model, data_handler, key=key, batch_size=cache_bs, head_site=head_site)
     elif ablation_type == 'steer':

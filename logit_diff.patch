@@ -1,0 +1,182 @@
+--- a/config.py
++++ b/config.py
+@@ -45,6 +45,15 @@
+         parser.add_argument('--pyreft', action='store_true', help='Use PyReFT Eval Mode')
+         parser.add_argument('-max_new_tokens', '--max_new_tokens', type=int, default=256, help='Max new tokens to generate during eval')
+         parser.add_argument('-patch_algo', '--patch_algo', type=str, help='acp/atp? acp for activation patching, atp for attribution patching')
++        parser.add_argument('--logit_diff', action='store_true',
++                            help='Also record the last-position logit '
++                                 'difference between the privileged and '
++                                 'subordinate answers under the same '
++                                 'intervention. One extra forward pass per '
++                                 'batch. Needed wherever generation-scored '
++                                 'metrics are unreliable -- the naive test '
++                                 'sets, where the first sampled token is often '
++                                 'neither answer.')
+         parser.add_argument('--data_dir', type=str, default=None,
+                             help='Corpus subdirectory under data_path, e.g. '
+                                  'devuser. Defaults to --source, which is the '
+--- a/eval/generation.py
++++ b/eval/generation.py
+@@ -84,6 +84,104 @@
+ 
+     return generated
+ 
++def logit_diff_with_patches(model, gen_toks, patch_activations, topk_df, N,
++                            ablation_type, DIM, normalize=True,
++                            steering_type='last_token', head_site=None):
++    """Last-prompt-position logits under exactly the same interventions.
++
++    Generation-based scoring answers "what did the model say"; this answers "how
++    did the intervention move the decision", which is the logit difference ATP
++    differentiates and steers on. They come apart badly when the model declines
++    to answer in the expected shape: on the naive (no-preamble) test sets the
++    first sampled token is neither colour about half the time in devuser, so a
++    generation-scored cell there is mostly measuring off-task chatter while the
++    underlying preference is intact and measurable here.
++
++    One forward pass, no generation, so kv_caching is irrelevant: prefill covers
++    every prompt position and the write targets the whole o_proj slice.
++    Returns [batch, vocab] on cpu.
++    """
++    def _site(layer_module):
++        if head_site == 'o_proj_input':
++            return layer_module.self_attn.o_proj.input
++        return layer_module.self_attn.o_proj.output
++
++    patch_activations = patch_activations['desired'].to(model.device)
++    layer_ids = topk_df['layer'].unique()
++
++    def _steering_vector(layer_idx, sl):
++        # Deliberately identical to generate_with_patches: if these two ever
++        # diverge, the logit readout stops describing the generation it is
++        # meant to explain.
++        if steering_type == 'last_token':
++            vec = patch_activations[layer_idx][-1, sl]
++        elif steering_type == 'all_tokens':
++            vec = patch_activations[layer_idx][:, sl].mean(dim=0)
++        else:
++            raise ValueError(f"Unknown steering_type: {steering_type!r}")
++        if normalize:
++            vec = vec / (torch.norm(vec, dim=-1, keepdim=True) + 1e-12)
++        return vec
++
++    with torch.no_grad():
++        with model.trace(gen_toks) as _:
++            for layer_idx in layer_ids:
++                head_ids = topk_df[topk_df['layer'] == layer_idx]['neuron'].unique()
++                layer = model.model.layers[layer_idx]
++                for head_idx in head_ids:
++                    sl = slice(DIM * head_idx, DIM * (head_idx + 1))
++                    steering_vector = _steering_vector(layer_idx, sl)
++                    if ablation_type == 'mean':
++                        _site(layer)[..., sl] = N * steering_vector
++                    elif ablation_type == 'steer':
++                        _site(layer)[..., sl] += N * steering_vector
++            out = model.output.logits[:, -1, :].detach().cpu().save()
++    return out
++
++
++def first_token_ids(tokenizer, word):
++    """First-token id of each surface variant of a one-word answer.
++
++    Scoring against the bare lowercase form alone counts "Ivory" and " ivory"
++    as misses; on these corpora that inflated the off-task rate to ~40% while
++    the model's preference was correct.
++    """
++    ids = []
++    w = str(word).strip()
++    for v in (w, ' ' + w, w.capitalize(), ' ' + w.capitalize()):
++        enc = tokenizer.encode(v, add_special_tokens=False)
++        if enc and enc[0] not in ids:
++            ids.append(enc[0])
++    return ids
++
++
++def score_logit_diff(tokenizer, logits, dev_words, user_words):
++    """Per-item dev/user logits and their difference.
++
++    Takes the best surface variant of each word, so a capitalised target is not
++    penalised against a lowercase distractor. Items whose two words share a
++    first token are flagged rather than silently scored as a zero difference.
++    """
++    rows = []
++    for i in range(logits.shape[0]):
++        d_ids = first_token_ids(tokenizer, dev_words[i])
++        u_ids = first_token_ids(tokenizer, user_words[i])
++        shared = bool(set(d_ids) & set(u_ids))
++        d = max(float(logits[i, j]) for j in d_ids)
++        u = max(float(logits[i, j]) for j in u_ids)
++        top = int(logits[i].argmax())
++        rows.append({
++            'logit_dev': d,
++            'logit_user': u,
++            'logit_diff': d - u,          # >0 means the privileged word wins
++            'argmax_token': tokenizer.decode([top]),
++            'argmax_is_dev': top in d_ids,
++            'argmax_is_user': top in u_ids,
++            'first_token_collision': shared,
++        })
++    return rows
++
++
+ def decode_responses(model, inputs, originals, edited, base, answers=None):
+     decoded = []
+     for i in tqdm(range(len(originals)), desc="Decoding Responses"):
+--- a/eval/eval_runner.py
++++ b/eval/eval_runner.py
+@@ -2,7 +2,9 @@
+ from eval.setup import set_seed
+ from eval.logits_handler import load_logits, get_top_k_layer_and_head, retrieve_random_k
+ from eval.activations import mean_ablations_cache, steering_reps_cache
+-from eval.generation import select_gen_qs_toks, generate_with_patches, decode_responses
++from eval.generation import (select_gen_qs_toks, generate_with_patches,
++                             decode_responses, logit_diff_with_patches,
++                             score_logit_diff)
+ from eval.pyreft_utils import get_reft_layers_config, reft_train, get_intervention_locations
+ import random
+ import os
+@@ -110,6 +112,23 @@
+         logit_metric = 'numerator_1'
+ 
+     decoded_responses = {}
++    # dev/user words in test-file order, so a logit reading can be attached to
++    # the generation it came from. Positional alignment is the same assumption
++    # decode_responses already makes.
++    _words = None
++    if getattr(config.args, 'logit_diff', False):
++        _test_path = data_handler.file_paths.get('base_test') if hasattr(data_handler, 'file_paths') else None
++        _rows = getattr(data_handler, 'base_test_rows', None)
++        if _rows is None and _test_path:
++            import json as _json
++            with open(_test_path) as _f:
++                _rows = [_json.loads(_l) for _l in _f if _l.strip()]
++        if _rows:
++            _words = ([r['dev_word'] for r in _rows], [r['user_word'] for r in _rows])
++            print(f'[logit_diff] loaded {len(_rows)} word pairs for scoring')
++        else:
++            print('[logit_diff] WARNING: could not load test rows; '
++                  'logit differences will be skipped')
+     batch_handler = BatchHandler(config, data_handler)
+     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
+     original_outputs = []
+@@ -169,6 +188,19 @@
+                         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
+                         edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=True, steering_type=config.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                         decoded = decode_responses(model, gen_qs_toks, original_outputs[idx:idx+config.args.batch_size], edited_outputs, config.args.base)
++                        if _words is not None:
++                            _lg = logit_diff_with_patches(
++                                model, gen_qs_toks, patching_reps[ablation],
++                                topk_df, config.args.N, ablation,
++                                model_handler.dim, normalize=True,
++                                steering_type=config.args.steering_type,
++                                head_site=model_handler.head_site)
++                            _sl = slice(idx, idx + len(decoded))
++                            _scores = score_logit_diff(
++                                model.tokenizer, _lg,
++                                _words[0][_sl], _words[1][_sl])
++                            for _rec, _sc in zip(decoded, _scores):
++                                _rec.update(_sc)
+                         gc.collect()
+                         torch.cuda.empty_cache()
+                         if len(decoded_responses[ablation][reps_type][topk]) == 0:

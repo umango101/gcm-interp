@@ -1,0 +1,48 @@
+[plan] models: openai/gpt-oss-20b
+[plan] arms:   devuser sysuser sysdev
+[plan] tests:  dev-single-test devNaive-single-test
+[plan] steer_reduce=last cross_arm=0 full_precision=0
+[plan] data:   /home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b
+
+==================== gpt-oss-20b ====================
+[skip] devuser: 6 data file(s) missing
+         devuser/dev-single-desired-all.jsonl
+         devuser/dev-single-undesired-all.jsonl
+         devuser/user-single-desired-all.jsonl
+         devuser/user-single-undesired-all.jsonl
+[skip] sysuser: 6 data file(s) missing
+         sysuser/dev-single-desired-all.jsonl
+         sysuser/dev-single-undesired-all.jsonl
+         sysuser/user-single-desired-all.jsonl
+         sysuser/user-single-undesired-all.jsonl
+[skip] sysdev: 6 data file(s) missing
+         sysdev/dev-single-desired-all.jsonl
+         sysdev/dev-single-undesired-all.jsonl
+         sysdev/user-single-desired-all.jsonl
+         sysdev/user-single-undesired-all.jsonl
+[skip] devuser: 6 data file(s) missing
+         devuser/dev-single-desired-all.jsonl
+         devuser/dev-single-undesired-all.jsonl
+         devuser/user-single-desired-all.jsonl
+         devuser/user-single-undesired-all.jsonl
+[skip] sysuser: 6 data file(s) missing
+         sysuser/dev-single-desired-all.jsonl
+         sysuser/dev-single-undesired-all.jsonl
+         sysuser/user-single-desired-all.jsonl
+         sysuser/user-single-undesired-all.jsonl
+[skip] sysdev: 6 data file(s) missing
+         sysdev/dev-single-desired-all.jsonl
+         sysdev/dev-single-undesired-all.jsonl
+         sysdev/user-single-desired-all.jsonl
+         sysdev/user-single-undesired-all.jsonl
+
+==================== summary ====================
+steps complete: 0/9   (ran 0 this pass)
+skipped (missing data):
+  devuser (6 files missing)
+  sysuser (6 files missing)
+  sysdev (6 files missing)
+  devuser (6 files missing)
+  sysuser (6 files missing)
+  sysdev (6 files missing)
+all steps completed for: openai/gpt-oss-20b

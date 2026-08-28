@@ -14,6 +14,10 @@ TWO METRICS, BOTH REPORTED
 --------------------------
   argmax    the model's actual top token is a surface variant of the target.
             This is the behavioural question: would a generation say it?
+  tie       target and distractor score EXACTLY equal. bf16 logits are spaced
+            0.125 apart at these magnitudes, so this happens often enough to
+            matter; such items are undecided, and `forced` counts them against
+            the target. Report the tie rate alongside any forced rate.
   forced    the target outscores the distractor, i.e. margin > 0. This is the
             quantity attribution patching differentiates -- a logit difference
             between two candidate answers at one prepared position -- so it is
@@ -67,11 +71,17 @@ def score(logits, tok, target, distractor):
     t = max(float(logits[i]) for i in t_ids)
     d = max(float(logits[i]) for i in d_ids)
     top = int(logits.argmax())
+    # Logits are bf16: at these magnitudes the mantissa spacing is 0.125, so
+    # exact ties are common rather than a measure-zero curiosity. `t > d` sends
+    # every tie to the distractor, which quietly deflates the target's rate.
+    # A tie is an undecided item and is reported as one.
+    tie = (t == d)
     return {
         "argmax_token": tok.decode([top]),
         "complied": top in t_ids,          # said the target, any surface form
         "chose_distractor": top in d_ids,
         "forced_choice": t > d,            # matches the ATP logit-difference
+        "tie": tie,                        # t == d exactly; see above
         "margin": t - d,
         "offtask": top not in t_ids and top not in d_ids,
     }

@@ -1,0 +1,63 @@
+env:  /home/ubansal/miniconda/envs/conflict-syc
+arm 'devuser' / form 'rule': developer (privileged) vs user (subordinate)
+  fully on-distribution; the primary arm (probes at 100% forced)
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-devuser/candidates/candidate_meta.json
+arm 'sysuser' / form 'rule': system (privileged) vs user (subordinate)
+  instruction at system level: standard block shape, unusual content. Probes at 100% forced, and its prefix is the LEAST surprising of the three -- placement costs under a third of what having a rule costs
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysuser/candidates/candidate_meta.json
+arm 'sysdev' / form 'rule': system (privileged) vs developer (subordinate)
+  rule form: the developer states its rule once and the user asks the questions -- canonical Harmony, and it probes at ceiling (99% forced, 100% argmax, 0% off-task)
+  demos: 6 conflict + 2 agreement = 8 (rule-vs-rule, neutral questions)
+  colors by token length: 1tok:55, 2tok:99, 3tok:13, 4tok:1
+70 candidate pairs (need 50 to survive QC)
+  wrote  280 candidate lines -> dev-single-desired-all.jsonl
+  wrote  280 candidate lines -> user-single-desired-all.jsonl
+  wrote data/gpt-oss-20b/hier-sysdev/candidates/candidate_meta.json
+  BLOCK  ok: system block is byte-identical to the renderer's
+  data/gpt-oss-20b/hier-devuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (devuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (devuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysuser/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysuser) + EXPECTED_SUFFIX (forced answer position)
+  data/gpt-oss-20b/hier-sysdev/candidates/dev-single-desired-all.jsonl
+    FRAME  ok   line 0 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 1 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 2 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 3 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+    FRAME  ok   line 4 (sysdev) + EXPECTED_SUFFIX (forced answer position)
+
+PASS
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/probe_level_compliance.py", line 314, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/probe_level_compliance.py", line 235, in main
+    fingerprint = determinism.enforce(
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/determinism.py", line 60, in enforce
+    problems = check_env(strict=strict)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/generate_data/conflict/determinism.py", line 49, in check_env
+    raise RuntimeError(
+RuntimeError: determinism env not set before interpreter start:
+  export CUBLAS_WORKSPACE_CONFIG=":4096:8"    (currently None)
+  export PYTHONHASHSEED="0"    (currently None)
+  export TOKENIZERS_PARALLELISM="false"    (currently None)
+
+These must be exported in the shell, not set in Python: cuBLAS reads its
+workspace config at initialisation and Python reads PYTHONHASHSEED at startup.
+Pass strict=False only if you accept that the run is not reproducible.

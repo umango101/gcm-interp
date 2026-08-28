@@ -49,22 +49,27 @@ def steering_reps_cache(model, data_handler, batch_size=9, key='desired', mean=T
     # print('source TOKS INPUT IDS ', source_toks['input_ids'][0])
     # print('source TOKS TOKENS ', model.tokenizer.convert_ids_to_tokens(source_toks['input_ids'][0]))
 
-    for i in range(0, source_toks['input_ids'].shape[0], batch_size):
-        s_slice = {
-            'input_ids': source_toks['input_ids'][i:i+batch_size].to(model.device),
-            'attention_mask': source_toks['attention_mask'][i:i+batch_size].to(model.device)
-        }
-        b_slice = {
-            'input_ids': base_toks['input_ids'][i:i+batch_size].to(model.device),
-            'attention_mask': base_toks['attention_mask'][i:i+batch_size].to(model.device)
-        }
+    # No gradients are needed to cache activations. Without this the
+    # autograd graph for every traced layer is held for the whole loop,
+    # which is what exhausts the card on the longer rule-form prompts.
+    # Numerically identical; memory only.
+    with torch.no_grad():
+        for i in range(0, source_toks['input_ids'].shape[0], batch_size):
+            s_slice = {
+                'input_ids': source_toks['input_ids'][i:i+batch_size].to(model.device),
+                'attention_mask': source_toks['attention_mask'][i:i+batch_size].to(model.device)
+            }
+            b_slice = {
+                'input_ids': base_toks['input_ids'][i:i+batch_size].to(model.device),
+                'attention_mask': base_toks['attention_mask'][i:i+batch_size].to(model.device)
+            }
 
-        with model.trace(s_slice) as _:
-            for idx, layer in enumerate(model.model.layers):
-                steer[idx].append(_head_site(layer, head_site).detach().cpu().save())
-        with model.trace(b_slice) as _:
-            for idx, layer in enumerate(model.model.layers):
-                base[idx].append(_head_site(layer, head_site).detach().cpu().save())
+            with model.trace(s_slice) as _:
+                for idx, layer in enumerate(model.model.layers):
+                    steer[idx].append(_head_site(layer, head_site).detach().cpu().save())
+            with model.trace(b_slice) as _:
+                for idx, layer in enumerate(model.model.layers):
+                    base[idx].append(_head_site(layer, head_site).detach().cpu().save())
 
     if mean:
         print('########### Mean steering cache ########### ', source_toks['input_ids'].shape[0], steer[0][0].shape, base[0][0].shape, len(steer[0]), len(base))

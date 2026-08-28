@@ -66,6 +66,7 @@ import torch
 import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+import determinism
 import harmony_canonical as hc
 from answer_scoring import score, collision
 
@@ -138,6 +139,11 @@ def main():
     ap.add_argument("--data_dir", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--model", default="openai/gpt-oss-20b")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--allow_nondeterministic", action="store_true",
+                    help="let ops without a deterministic kernel run anyway. "
+                         "Recorded in the fingerprint; such a run is not "
+                         "bitwise reproducible.")
     ap.add_argument("--min_swing", type=float, default=0.0,
                     help="for --gate contrast: minimum swing, in logits, of "
                          "the dev-vs-user difference between the two "
@@ -164,6 +170,10 @@ def main():
     args = ap.parse_args()
 
     preflight()
+    # QC picks which pairs enter the corpus from model logits, so an unpinned
+    # run makes the corpus irreproducible even though the builder is not.
+    fingerprint = determinism.enforce(args.seed,
+                                      allow_nondeterministic=args.allow_nondeterministic)
     tok = hc.install(AutoTokenizer.from_pretrained(args.model),
                      generation_prompt=args.generation_prompt)
     print(f"loading {args.model} ...", flush=True)
@@ -294,6 +304,7 @@ def main():
     with open(args.out, "w") as f:
         json.dump({"arm": arm,
                    "form": form,
+                   "fingerprint": fingerprint,
                    "args": vars(args),
                    "per_check": per_check,
                    "passing_pairs": passing,
