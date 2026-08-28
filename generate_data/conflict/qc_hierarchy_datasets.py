@@ -12,6 +12,15 @@ GATES
             demonstrated policy under both preambles. Right for arms where the
             ICL manipulation actually flips behaviour.
 
+  privileged  only the privileged check must succeed. Nothing is selected on
+            the strength of the manipulation, so the corpus carries the full
+            swing distribution and you report it rather than filter on it.
+            This is the right default for the user-boundary arms: the swing is
+            a continuous measure of how much the preamble moved the model, not
+            a correctness criterion, and thresholding it to hit a pair budget
+            is selection on the outcome. Items where the preamble did little
+            dilute the ATP gradient; they do not corrupt it.
+
   contrast  the privileged check must succeed, AND the dev-vs-user logit
             difference must swing by at least --min_swing between the two
             preambles. Use this where the demos cannot reverse the model's
@@ -129,19 +138,24 @@ def main():
     ap.add_argument("--data_dir", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--model", default="openai/gpt-oss-20b")
-    ap.add_argument("--min_swing", type=float, default=2.0,
+    ap.add_argument("--min_swing", type=float, default=0.0,
                     help="for --gate contrast: minimum swing, in logits, of "
-                         "the dev-vs-user difference between the two preambles")
-    ap.add_argument("--gate", choices=["forced", "argmax", "contrast"],
+                         "the dev-vs-user difference between the two "
+                         "preambles. Set it from the printed distribution, not "
+                         "from the pair count you need. 0.0 excludes only "
+                         "items the preamble pushed the WRONG way.")
+    ap.add_argument("--gate",
+                    choices=["forced", "argmax", "contrast", "privileged"],
                     default="forced",
                     help="'forced' passes a line when the expected word "
                          "outscores the other, which is what ATP "
                          "differentiates. 'argmax' additionally requires the "
                          "model's top token to be that word in some surface "
                          "form -- much stricter, and it drops pairs for "
-                         "capitalization. 'contrast' requires the privileged "
-                         "check plus a large logit swing between preambles; "
-                         "see the module docstring.")
+                         "capitalization. 'privileged' requires only the "
+                         "privileged check and selects nothing on the "
+                         "manipulation. 'contrast' adds a swing threshold. "
+                         "See the module docstring.")
     ap.add_argument("--generation_prompt", choices=["final", "bare"],
                     default="final",
                     help="'final' forces the answer position (needed for a "
@@ -197,14 +211,19 @@ def main():
               f"argmax {per_check[fname]['argmax_rate']:.0%}, "
               f"margin {per_check[fname]['mean_margin']:+.2f}, "
               f"offtask {per_check[fname]['offtask_rate']:.0%}")
-        if args.gate != "contrast":
+        # Only the single-file gates condemn pairs here. 'contrast' and
+        # 'privileged' both need the two files together and are resolved below;
+        # letting either fall through means the SUBORDINATE file's failures
+        # still kill pairs, which is exactly the thing those gates exist to
+        # avoid.
+        if args.gate in ("forced", "argmax"):
             for x in res:
                 if not x["correct"]:
                     fail_reasons[x["pair_key"]].append(
                         f"{fname}: wanted {x['target']!r}, got "
                         f"{x['argmax_token']!r} (margin {x['margin']:+.2f})")
 
-    if args.gate == "contrast":
+    if args.gate in ("contrast", "privileged"):
         dev_rows = per_file_rows[CHECKS[0][0]]
         user_rows = per_file_rows[CHECKS[1][0]]
         if len(dev_rows) != len(user_rows):
@@ -223,23 +242,54 @@ def main():
             if not d["correct"]:
                 fail_reasons[d["pair_key"]].append(
                     f"privileged check failed (margin {d_dev:+.2f})")
-            elif swing < args.min_swing:
+            elif args.gate == "contrast" and swing < args.min_swing:
                 fail_reasons[d["pair_key"]].append(
                     f"swing {swing:+.2f} < {args.min_swing}")
+        ordered = sorted(swings)
+        def pctile(q):
+            return ordered[min(len(ordered) - 1, int(q * len(ordered)))]
         per_check["contrast"] = {
-            "min_swing": args.min_swing,
+            "gate": args.gate,
+            "min_swing": args.min_swing if args.gate == "contrast" else None,
             "mean_swing": statistics.mean(swings),
             "sd_swing": statistics.stdev(swings) if len(swings) > 1 else 0.0,
+            "swing_percentiles": {str(q): pctile(q)
+                                  for q in (0.05, 0.10, 0.25, 0.50, 0.75, 0.95)},
+            "frac_swing_negative": sum(1 for x in swings if x < 0) / len(swings),
             "line_pass_rate": sum(
                 1 for d, sw in zip(dev_rows, swings)
-                if d["correct"] and sw >= args.min_swing) / len(swings),
+                if d["correct"] and (args.gate == "privileged"
+                                     or sw >= args.min_swing)) / len(swings),
         }
-        print(f"  contrast: mean swing {per_check['contrast']['mean_swing']:+.2f} "
-              f"(sd {per_check['contrast']['sd_swing']:.2f}), "
-              f"line pass {per_check['contrast']['line_pass_rate']:.0%}")
+        c = per_check["contrast"]
+        print(f"  swing: mean {c['mean_swing']:+.2f} (sd {c['sd_swing']:.2f}), "
+              f"{c['frac_swing_negative']:.1%} negative")
+        print("         percentiles " + "  ".join(
+            f"p{int(float(q) * 100)}={v:+.2f}"
+            for q, v in c["swing_percentiles"].items()))
+        print(f"  gate={args.gate}: line pass {c['line_pass_rate']:.0%}")
 
     passing = [k for k in pair_order if k not in fail_reasons]
-    print(f"\n{len(passing)}/{len(pair_order)} pairs passed both checks")
+    line_rate = None
+    if args.gate in ("contrast", "privileged"):
+        line_rate = per_check["contrast"]["line_pass_rate"]
+    elif per_check:
+        line_rate = min(v["line_pass_rate"] for v in per_check.values()
+                        if "line_pass_rate" in v)
+    obs = len(passing) / len(pair_order) if pair_order else 0.0
+    msg = f"\n{len(passing)}/{len(pair_order)} pairs passed (gate={args.gate})"
+    if line_rate is not None:
+        est = line_rate ** 4
+        msg += f"; line pass {line_rate:.0%}, independence estimate {est:.0%}"
+        # Failures cluster within a pair, so observed survival normally runs
+        # ABOVE the independence estimate. Coming in far below it means pairs
+        # are being condemned by something the gate is not supposed to consider.
+        if est > 0.05 and obs < 0.5 * est:
+            msg += ("\n  WARNING: survival is far below the estimate. Check "
+                    "that the gate is\n  actually being applied -- a gate that "
+                    "silently falls through to the\n  per-file loop will "
+                    "reproduce a stricter gate's numbers exactly.")
+    print(msg)
 
     with open(args.out, "w") as f:
         json.dump({"arm": arm,

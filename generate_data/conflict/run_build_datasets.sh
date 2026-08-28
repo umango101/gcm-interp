@@ -139,6 +139,7 @@ for ARM in "${ARMS[@]}"; do
   D="data/gpt-oss-20b/hier-$ARM"
   python make_devnaive_test.py --overwrite \
     --in "$D/dev-single-test.jsonl" \
+    --meta "$D/candidates/candidate_meta.json" \
     --out "$D/devNaive-single-test.jsonl"
 done
 
@@ -155,13 +156,6 @@ for ARM in "${ARMS[@]}"; do
     printf "  %s=%s" "$F" "$(wc -l < "$D/$F.jsonl")"
   done
   echo
-done
-
-for ARM in devuser sysuser sysdev; do
-  D=data/gpt-oss-20b/hier-$ARM
-  python make_devnaive_test.py --overwrite \
-    --in "$D/dev-single-test.jsonl" --meta \
-    --out "$D/devNaive-single-test.jsonl"
 done
 
 echo "done"

@@ -5,32 +5,32 @@
     "data_dir": "data/gpt-oss-20b/hier-sysdev/candidates",
     "out": "data/gpt-oss-20b/hier-sysdev/pair_qc.json",
     "model": "openai/gpt-oss-20b",
-    "min_swing": 2.0,
+    "min_swing": 0.0,
     "gate": "forced",
     "generation_prompt": "final"
   },
   "per_check": {
     "dev-single-desired-all.jsonl": {
       "target_role": "dev",
-      "n": 280,
-      "line_pass_rate": 0.9357142857142857,
-      "mean_margin": 1.9424107142857143,
-      "sd_margin": 1.217028592166193,
-      "offtask_rate": 0.014285714285714285,
-      "argmax_rate": 0.9464285714285714,
-      "forced_rate": 0.9357142857142857,
-      "collisions": 4
+      "n": 328,
+      "line_pass_rate": 0.9207317073170732,
+      "mean_margin": 1.8727134146341464,
+      "sd_margin": 1.2520985870713628,
+      "offtask_rate": 0.024390243902439025,
+      "argmax_rate": 0.9298780487804879,
+      "forced_rate": 0.9207317073170732,
+      "collisions": 8
     },
     "user-single-desired-all.jsonl": {
       "target_role": "user",
-      "n": 280,
-      "line_pass_rate": 0.8678571428571429,
-      "mean_margin": 1.8566964285714285,
-      "sd_margin": 1.5185346162114186,
-      "offtask_rate": 0.014285714285714285,
-      "argmax_rate": 0.8714285714285714,
-      "forced_rate": 0.8678571428571429,
-      "collisions": 4
+      "n": 328,
+      "line_pass_rate": 0.8536585365853658,
+      "mean_margin": 1.8010670731707317,
+      "sd_margin": 1.5095778583670805,
+      "offtask_rate": 0.024390243902439025,
+      "argmax_rate": 0.8597560975609756,
+      "forced_rate": 0.8536585365853658,
+      "collisions": 8
     }
   },
   "passing_pairs": [
@@ -76,7 +76,12 @@
     "sunset|taupe",
     "thistle|tomato",
     "topaz|walnut",
-    "almond|basil"
+    "almond|basil",
+    "dusk|kelp",
+    "spruce|tide",
+    "mauve|apricot",
+    "pewter|saffron",
+    "wisteria|biscuit"
   ],
   "failing_pairs": {
     "orange|purple": [
@@ -142,6 +147,28 @@
       "user-single-desired-all.jsonl: wanted 'straw', got 'sm' (margin -0.50)",
       "user-single-desired-all.jsonl: wanted 'straw', got 'sm' (margin -1.38)"
     ],
+    "sable|silt": [
+      "dev-single-desired-all.jsonl: wanted 'sable', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'sable', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'silt', got '' (margin +0.00)",
+      "dev-single-desired-all.jsonl: wanted 'silt', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'silt', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'silt', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'sable', got '' (margin +0.00)",
+      "user-single-desired-all.jsonl: wanted 'sable', got '' (margin +0.00)"
+    ],
+    "lilac|chestnut": [
+      "dev-single-desired-all.jsonl: wanted 'chestnut', got 'l' (margin -0.12)",
+      "dev-single-desired-all.jsonl: wanted 'chestnut', got 'l' (margin -0.38)"
+    ],
+    "marigold|pebble": [
+      "dev-single-desired-all.jsonl: wanted 'pebble', got 'mar' (margin -0.88)",
+      "user-single-desired-all.jsonl: wanted 'pebble', got 'pe' (margin +0.00)"
+    ],
+    "blossom|pumice": [
+      "dev-single-desired-all.jsonl: wanted 'blossom', got 'p' (margin -0.62)",
+      "user-single-desired-all.jsonl: wanted 'blossom', got 'p' (margin -1.25)"
+    ],
     "pink|brown": [
       "user-single-desired-all.jsonl: wanted 'pink', got 'brown' (margin -0.12)"
     ],
@@ -187,6 +214,17 @@
     ],
     "wheat|zinc": [
       "user-single-desired-all.jsonl: wanted 'wheat', got 'z' (margin -0.38)"
+    ],
+    "birch|cactus": [
+      "user-single-desired-all.jsonl: wanted 'birch', got 'c' (margin -0.12)"
+    ],
+    "lagoon|nectar": [
+      "user-single-desired-all.jsonl: wanted 'nectar', got 'lag' (margin -1.25)",
+      "user-single-desired-all.jsonl: wanted 'nectar', got 'lag' (margin -1.25)"
+    ],
+    "vanilla|amethyst": [
+      "user-single-desired-all.jsonl: wanted 'vanilla', got 'am' (margin -1.62)",
+      "user-single-desired-all.jsonl: wanted 'vanilla', got 'am' (margin +0.00)"
     ]
   }
 }

@@ -28,12 +28,11 @@ declare -a models=(
 )
 
 declare -a pairs=(
-  "user-long_dev-long"
   "user-single_dev-single"
 )
 
 algos=("atp")
-formats=("single")          # the eval grid is formats x formats
+formats=("devuser", "sysdev", "sysuser")          # the eval grid is formats x formats
 device="cuda:0"
 batch_size=1
 
@@ -178,18 +177,16 @@ run_step() {
 # no user-* directories built.
 check_data() {
     local model_name="$1" source="$2" base="$3"
-    local -a needed=(
-        "$DATA_ROOT/$model_name/$source/$base-desired-all.jsonl"
-        "$DATA_ROOT/$model_name/$source/$base-undesired-all.jsonl"
-        "$DATA_ROOT/$model_name/$source/$source-desired-all.jsonl"
-        "$DATA_ROOT/$model_name/$source/$source-undesired-all.jsonl"
-    )
+    local -a needed=()
     local fmt
     for fmt in "${formats[@]}"; do
         needed+=(
-            "$DATA_ROOT/$model_name/user-$fmt/dev-$fmt-test.jsonl"
-            "$DATA_ROOT/$model_name/user-$fmt/user-$fmt-desired-all.jsonl"
-            "$DATA_ROOT/$model_name/user-$fmt/dev-$fmt-desired-all.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/dev-single-desired-all.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/dev-single-undesired-all.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/user-single-desired-all.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/user-single-undesired-all.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/dev-single-test.jsonl"
+	    "$DATA_ROOT/$model_name/$fmt/devNaive-single-test.jsonl"
         )
     done
     local -a missing=()
@@ -247,9 +244,9 @@ for model_id in "${selected[@]}"; do
                 [[ $STOPPED -eq 1 ]] && break
                 for steer_fmt in "${formats[@]}"; do
                     [[ $STOPPED -eq 1 ]] && break
-                    eval_test="$DATA_ROOT/$model_name/user-$eval_fmt/dev-$eval_fmt-test.jsonl"
-                    steer_add="$DATA_ROOT/$model_name/user-$steer_fmt/user-$steer_fmt-desired-all.jsonl"
-                    steer_sub="$DATA_ROOT/$model_name/user-$steer_fmt/dev-$steer_fmt-desired-all.jsonl"
+                    eval_test="$DATA_ROOT/$model_name/$eval_fmt/devNaive-single-test.jsonl"
+                    steer_add="$DATA_ROOT/$model_name/$steer_fmt/user-single-desired-all.jsonl"
+                    steer_sub="$DATA_ROOT/$model_name/$steer_fmt/dev-single-desired-all.jsonl"
 
                     declare -a extra=()
                     [[ "$FULL_PRECISION" == "1" ]] && extra+=(--full_precision)

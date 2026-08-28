@@ -674,15 +674,22 @@ def build_line(arm, form, system_block, a, b, dev_word, user_word, first,
     msgs, prefix = design_messages(arm, form, dev_word, user_word, system_block)
     role = demo_role(arm, form)
     pick = CONDITIONS[condition]
-    for i, (turn, priv_a, sub_a) in enumerate(demos):
-        msgs.append({"role": role, "content": (prefix + turn) if i == 0 else turn})
+    # `prefix` is the subordinate's rule when it has to ride on a question turn
+    # (user-subordinate arms in the rule form). It attaches to the FIRST message
+    # the asker sends, which is demo 0 normally but the final question when
+    # demos is empty -- as in the naive no-preamble test set. Keying it to
+    # `i == 0` dropped the subordinate rule entirely in that case, leaving a
+    # "conflict" with only one rule in it.
+    for turn, priv_a, sub_a in demos:
+        msgs.append({"role": role, "content": prefix + turn})
+        prefix = ""
         msgs.append({"role": "assistant", "content": pick(priv_a, sub_a)})
     # The final question. In the request form it carries the subordinate's ask;
     # in the rule form it names both options and requests neither.
     final_q = (render_instruction(template, first, second, user_word)
                if form == "request" else
                render_instruction(template, first, second))
-    msgs.append({"role": role, "content": final_q})
+    msgs.append({"role": role, "content": prefix + final_q})
     msgs.extend(arm.trailing_messages())
     if final_answer is not None:
         msgs.append({"role": "assistant", "content": final_answer})
