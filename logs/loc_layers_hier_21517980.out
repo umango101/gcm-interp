@@ -1,0 +1,34 @@
+[preflight] CUDA OK: NVIDIA H200 (149.5 GB free)
+=== 1. clearing stale bytecode ===
+cleared.
+
+=== 2. checksums vs manifest ===
+  ok       layers/__init__.py
+  STALE    layers/layer_config.py  (got 7f50100d51fe, want af4322006bda, 221 lines)
+  ok       layers/layer_determinism.py
+  ok       layers/layer_localize.py
+  ok       layers/layer_patching.py
+  ok       layers/layer_steering.py
+  ok       layers/layer_utils.py
+  ok       layers/plot_layer_sweep.py
+  ok       layers/run_layers.py
+  ok       layers/verify_determinism.py
+  ok       layers/README.md
+  STALE    eval_pipeline_conflict_layers.py  (got 605db2d159cf, want 840ab71f53b4, 111 lines)
+  ok       scripts/_preflight.sh
+  ok       scripts/check_layers_install.sh
+  ok       scripts/localize_layers_user.sh
+  STALE    scripts/eval_layers_per_layer_user.sh  (got af17f8f9a8b4, want fe5b76e45125, 136 lines)
+  ok       scripts/verify_layers_determinism_user.sh
+
+=== 3. import check ===
+  ok       layers.layer_utils
+  ok       layers.layer_config
+  ok       layers.layer_patching
+  ok       layers.layer_localize
+  ok       layers.layer_steering
+  ok       layers.plot_layer_sweep
+  ok       layers.layer_determinism
+
+FAIL: recopy the files listed above (all of layers/ and scripts/ is safest),
+      then rerun this check before resubmitting.
