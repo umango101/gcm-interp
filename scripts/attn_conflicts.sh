@@ -46,7 +46,7 @@ arms=("devuser" "sysuser" "sysdev")
 test_files=("dev-single-test" "devNaive-single-test")
 
 device="cuda:0"
-batch_size=1
+batch_size=16
 FULL_PRECISION="${FULL_PRECISION:-0}"
 
 # Same-arm only by default (3 cells per test file). CROSS_ARM=1 runs the full

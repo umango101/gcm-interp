@@ -82,7 +82,7 @@ def save_prompt_responses(responses, path):
     print(f"Saved responses to {path} and {path.replace('.txt', '.json')}")
 
 def save_top_k(reps_type, config, model, topk, logits, logit_metric):
-    if reps_type == 'random':
+    if reps_type.startswith('random'):
         # RANDOM_BASELINE=layer_matched (default) holds the depth profile of the
         # targeted set fixed and randomizes only which heads within each layer,
         # so beating it is evidence about ATP's ranking rather than about late
@@ -146,7 +146,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
         logits = None
     patching_reps = load_patching_reps(data_handler, model_handler)
     ablations = [data_handler.config.args.ablation]
-    reps_types = ['random'] if config.args.patch_algo == 'random' else ['targeted']
+    reps_types = ([f"random-s{os.environ.get('RANDOM_BASELINE_SEED', '42')}"] if config.args.patch_algo == 'random' else ['targeted'])
 
     if topk_vals is None:
         topk_vals = [0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.25, 0.5, 0.75, 1.0]
@@ -179,7 +179,10 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
         original_outputs += op.cpu().numpy().tolist()
         batch_handler.update()
     print('Starting for loop ', config.args)
-    for N in [1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45]:
+    # eval_runner.py:182
+    _n_vals = os.environ.get('N_VALS')
+    for N in ([int(x) for x in _n_vals.split(',')] if _n_vals else [1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45]):
+    # for N in [1, 2, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45]:
         config.args.N = N
         for ablation in tqdm(ablations, desc="Ablations"):
             decoded_responses[ablation] = {}
@@ -217,7 +220,7 @@ def run_eval(config, data_handler, model_handler, batch_handler, patching_utils,
                     len_gen_qs = select_gen_qs_toks(config, data_handler)['input_ids'].shape[0]
                     for idx in tqdm(range(0, min(data_handler.LEN, len_gen_qs), config.args.batch_size)):
                         gen_qs_toks = select_gen_qs_toks(config, batch_handler)
-                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=True, steering_type=config.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                        edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=config.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
                         decoded = decode_responses(model, gen_qs_toks, original_outputs[idx:idx+config.args.batch_size], edited_outputs, config.args.base)
                         gc.collect()
                         torch.cuda.empty_cache()

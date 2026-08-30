@@ -1,0 +1,30 @@
+[plan] models: openai/gpt-oss-20b
+[plan] arms:   devuser sysuser sysdev
+[plan] tests:  dev-single-test devNaive-single-test
+[plan] seeds: 1 2 3  RANDOM_BASELINE=uniform
+[plan] cross_arm=0 full_precision=0
+[plan] data:   /home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b
+
+==================== gpt-oss-20b ====================
+[skip] [1/18] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | uniform s1
+[skip] [2/18] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | uniform s2
+[skip] [3/18] gpt-oss-20b | eval:devuser/dev-single-test steer:devuser | uniform s3
+[skip] [4/18] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | uniform s1
+[skip] [5/18] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | uniform s2
+[skip] [6/18] gpt-oss-20b | eval:devuser/devNaive-single-test steer:devuser | uniform s3
+[skip] [7/18] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | uniform s1
+[skip] [8/18] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | uniform s2
+[skip] [9/18] gpt-oss-20b | eval:sysuser/dev-single-test steer:sysuser | uniform s3
+[skip] [10/18] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | uniform s1
+[skip] [11/18] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | uniform s2
+[skip] [12/18] gpt-oss-20b | eval:sysuser/devNaive-single-test steer:sysuser | uniform s3
+[skip] [13/18] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | uniform s1
+[skip] [14/18] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | uniform s2
+[skip] [15/18] gpt-oss-20b | eval:sysdev/dev-single-test steer:sysdev | uniform s3
+[skip] [16/18] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | uniform s1
+[skip] [17/18] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | uniform s2
+[skip] [18/18] gpt-oss-20b | eval:sysdev/devNaive-single-test steer:sysdev | uniform s3
+
+==================== summary ====================
+steps complete: 18/18   (ran 0 this pass)
+all steps completed for: openai/gpt-oss-20b

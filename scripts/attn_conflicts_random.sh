@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 06:00:00
-#SBATCH -J conflicts_random
+#SBATCH -t 24:00:00
+#SBATCH -J random_conflicts
 #SBATCH -o /home/ubansal/orcd/scratch/conflicts/gcm-interp/logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=128G
@@ -40,12 +40,12 @@ algos=("random")
 # output filename, so the draws do not overwrite one another.
 IFS=',' read -r -a seeds <<< "${SEEDS:-1,2,3,4,5}"
 
-# Layer-matched by default. The ATP top-1% sits in a narrow band of layers, so a
-# uniform draw can fail because it picked the wrong DEPTHS rather than the wrong
-# heads within them -- which would support "depth matters" instead of "these
-# heads do". Set LAYER_MATCHED=0 for the uniform version; running both is the
-# strongest form, since the gap between them is the depth contribution.
-LAYER_MATCHED="${LAYER_MATCHED:-1}"
+# The repo already implements this: eval_runner reads RANDOM_BASELINE
+# (layer_matched|uniform) and RANDOM_BASELINE_SEED, and layer-matched mode
+# recovers the targeted set from the sibling atp/ map, erroring out if it is
+# missing. Running BOTH modes is the strongest form -- the gap between them is
+# the contribution of depth alone, separate from which heads within a layer.
+RANDOM_BASELINE="${RANDOM_BASELINE:-layer_matched}"
 
 # No commas: `("a", "b")` makes the elements `a,` and `b`, so every path built
 # from the first two gains a stray comma and check_data reports the whole sweep
@@ -58,7 +58,7 @@ arms=("devuser" "sysuser" "sysdev")
 test_files=("dev-single-test" "devNaive-single-test")
 
 device="cuda:0"
-batch_size=1
+batch_size=16
 FULL_PRECISION="${FULL_PRECISION:-0}"
 
 # Same-arm only by default (3 cells per test file). CROSS_ARM=1 runs the full
@@ -110,7 +110,7 @@ fi
 echo "[plan] models: ${selected[*]}"
 echo "[plan] arms:   ${arms[*]}"
 echo "[plan] tests:  ${test_files[*]}"
-echo "[plan] seeds: ${seeds[*]}  layer_matched=$LAYER_MATCHED"
+echo "[plan] seeds: ${seeds[*]}  RANDOM_BASELINE=$RANDOM_BASELINE"
 echo "[plan] cross_arm=$CROSS_ARM full_precision=$FULL_PRECISION"
 echo "[plan] data:   $DATA_ROOT"
 
@@ -146,6 +146,11 @@ run_step() {
     fi
 
     echo "[run ] $desc"
+    # Passed by environment, not argv: this is the repo's own interface for the
+    # random baseline. It is deliberately NOT in the sentinel argv either, so
+    # changing the mode does not invalidate finished cells of the other mode --
+    # they write to different filenames and are separate results.
+    export RANDOM_BASELINE RANDOM_BASELINE_SEED
     # Backgrounded with `wait`: bash defers traps until a foreground command
     # returns, so with `python run.py` in the foreground the USR1@300 preemption
     # warning was absorbed entirely and never stopped the sweep in time.
@@ -213,7 +218,12 @@ for model_id in "${selected[@]}"; do
             # size and stop being a matched comparison.
             for arm in "${arms[@]}"; do
                 MAP="results/${model_name}/${arm}__from_${source}_to_${base}/atp/numerator_1_heads.pt"
-                [[ -f "$MAP" ]] || echo "[warn] no atp map at $MAP -- ${arm} cells will not be matched"
+                if [[ ! -f "$MAP" ]]; then
+                    echo "[skip] no atp map at $MAP"
+                    echo "       layer_matched mode exits rather than silently"
+                    echo "       falling back, so wait for the atp sweep to"
+                    echo "       finish this arm's localization first."
+                fi
             done
 
             # ---- eval ------------------------------------------------------ #
@@ -230,16 +240,16 @@ for model_id in "${selected[@]}"; do
                     for tf in "${test_files[@]}"; do
                     for seed in "${seeds[@]}"; do
                         [[ $STOPPED -eq 1 ]] && break
+                        export RANDOM_BASELINE_SEED="$seed"
                         eval_test="$DATA_ROOT/$eval_arm/$tf.jsonl"
                         steer_add="$DATA_ROOT/$steer_arm/user-single-desired-all.jsonl"
                         steer_sub="$DATA_ROOT/$steer_arm/dev-single-desired-all.jsonl"
 
                         declare -a extra=()
                         [[ "$FULL_PRECISION" == "1" ]] && extra+=(--full_precision)
-                        [[ "$LAYER_MATCHED" == "1" ]] && extra+=(--random_layer_matched)
 
-                        run_step "${model_name}__${eval_arm}__${source}_to_${base}__${algo}__s${seed}__eval_${tf}__steer_${steer_arm}" \
-                                 "[$(( N_DONE + 1 ))/$N_TOTAL] $model_name | eval:$eval_arm/$tf steer:$steer_arm | random s${seed}" \
+                        run_step "${model_name}__${eval_arm}__${source}_to_${base}__${algo}_${RANDOM_BASELINE}__s${seed}__eval_${tf}__steer_${steer_arm}" \
+                                 "[$(( N_DONE + 1 ))/$N_TOTAL] $model_name | eval:$eval_arm/$tf steer:$steer_arm | ${RANDOM_BASELINE} s${seed}" \
                                  --model_id "$model_id" \
                                  --batch_size "$batch_size" \
                                  --patch_algo "$algo" \
@@ -253,7 +263,6 @@ for model_id in "${selected[@]}"; do
                                  --eval_test "$eval_test" \
                                  --steering \
                                  --ablation steer \
-                                 --random_seed "$seed" \
                                  --steering_add_path "$steer_add" \
                                  --steering_sub_path "$steer_sub"
                     done

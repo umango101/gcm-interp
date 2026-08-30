@@ -1,0 +1,73 @@
+[plan] models: openai/gpt-oss-20b
+[plan] arms:   devuser sysuser sysdev
+[plan] tests:  dev-single-test devNaive-single-test
+[plan] ablation=mean (interchange from the source corpus)
+[plan] N= STEER_NORMALIZE=0
+[plan] full_precision=0
+[plan] data:   /home/ubansal/orcd/scratch/conflicts/gcm-interp/data/gpt-oss-20b
+
+==================== gpt-oss-20b ====================
+[run ] [1/6] gpt-oss-20b | eval:devuser/dev-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:devuser/dev-single-test | mean-interchange ablation (exit 1)
+[run ] [1/6] gpt-oss-20b | eval:devuser/devNaive-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:devuser/devNaive-single-test | mean-interchange ablation (exit 1)
+[run ] [1/6] gpt-oss-20b | eval:sysuser/dev-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:sysuser/dev-single-test | mean-interchange ablation (exit 1)
+[run ] [1/6] gpt-oss-20b | eval:sysuser/devNaive-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:sysuser/devNaive-single-test | mean-interchange ablation (exit 1)
+[run ] [1/6] gpt-oss-20b | eval:sysdev/dev-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:sysdev/dev-single-test | mean-interchange ablation (exit 1)
+[run ] [1/6] gpt-oss-20b | eval:sysdev/devNaive-single-test | mean-interchange ablation
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 9, in <module>
+    from eval.eval_runner import *
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/eval/eval_runner.py", line 223
+    edited_outputs = generate_with_patches(model, gen_qs_toks, patching_reps[ablation], topk_df, config.args.N, ablation, model_handler.dim, max_new_tokens=config.args.max_new_tokens, normalize=os.environ.get('STEER_NORMALIZE', '1') == '1', steering_type=c nfig.args.steering_type, kv_caching=config.args.kv_caching, head_site=model_handler.head_site)
+                                                                                                                                                                                                                                                                 ^^^^
+SyntaxError: invalid syntax
+[FAIL] [1/6] gpt-oss-20b | eval:sysdev/devNaive-single-test | mean-interchange ablation (exit 1)
+
+==================== summary ====================
+steps complete: 0/6   (ran 0 this pass)
+FAILED steps:
+  [1/6] gpt-oss-20b | eval:devuser/dev-single-test | mean-interchange ablation (exit 1)
+  [1/6] gpt-oss-20b | eval:devuser/devNaive-single-test | mean-interchange ablation (exit 1)
+  [1/6] gpt-oss-20b | eval:sysuser/dev-single-test | mean-interchange ablation (exit 1)
+  [1/6] gpt-oss-20b | eval:sysuser/devNaive-single-test | mean-interchange ablation (exit 1)
+  [1/6] gpt-oss-20b | eval:sysdev/dev-single-test | mean-interchange ablation (exit 1)
+  [1/6] gpt-oss-20b | eval:sysdev/devNaive-single-test | mean-interchange ablation (exit 1)
