@@ -142,10 +142,13 @@ class Config:
         # from_user-single_to_dev-single/ and the localizations overwrite one
         # another. Depth is unchanged, so nothing that walks this path breaks.
         pair = f"{self.args.data_dir}__from_{self.args.source}_to_{self.args.base}"
+        algo = self.args.patch_algo
+        if algo == 'random':
+            algo = f"random-{os.environ.get('RANDOM_BASELINE', 'layer_matched')}"
         if self.args.patch_model:
-            self.output_prefix = f"{root}/{model}/{pair}/{self.args.patch_algo}/"
+            self.output_prefix = f"{root}/{model}/{pair}/{algo}/"
         if self.args.eval_model:
-            self.output_prefix = f"{root}/{model}/{pair}/{self.args.patch_algo}/{eval_test_dir}_eval/{steering_dir}_steer/"
+            self.output_prefix = f"{root}/{model}/{pair}/{algo}/{eval_test_dir}_eval/{steering_dir}_steer/"
         print("op prefix ", self.output_prefix)
         return self.output_prefix
     

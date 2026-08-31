@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
 #SBATCH -t 08:00:00
-#SBATCH -J rand_ablate_conflicts
+#SBATCH -J rand_ablate
 #SBATCH -o /home/ubansal/orcd/scratch/conflicts/gcm-interp/logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=128G
@@ -246,7 +246,6 @@ for model_id in "${selected[@]}"; do
                                  --kv_caching \
                                  "${extra[@]}" \
                                  --eval_test "$eval_test" \
-                                 --N "$N_VAL" \
                                  --steering \
                                  --ablation mean \
                                  --steering_add_path "$steer_add" \
