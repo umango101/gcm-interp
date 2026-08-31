@@ -93693,4 +93693,1685 @@ Generating for  torch.Size([16, 420])  with normalization set to  True  steering
 
 
 
- 14%|█▍        | 1/7 [00:10<01:00, 10.14s/it][A[A[A
+ 14%|█▍        | 1/7 [00:10<01:00, 10.14s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3406.37it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:50, 10.10s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3544.92it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:40, 10.09s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3040.73it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:40<00:30, 10.10s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2750.48it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:50<00:20, 10.09s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3083.91it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:00<00:10, 10.11s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2893.12it/s]
+
+
+
+100%|██████████| 7/7 [01:10<00:00,  9.88s/it][A[A[A100%|██████████| 7/7 [01:10<00:00, 10.00s/it]
+
+
+TopK Values:  80%|████████  | 8/10 [03:20<01:27, 43.60s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_0.5_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_0.5_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.75, N: 15, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2701.65it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:01, 10.27s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3330.46it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:51, 10.21s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2515.80it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:40, 10.24s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3322.22it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:40<00:30, 10.21s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2608.70it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:51<00:20, 10.23s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3262.78it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:01<00:10, 10.22s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2639.59it/s]
+
+
+
+100%|██████████| 7/7 [01:10<00:00, 10.00s/it][A[A[A100%|██████████| 7/7 [01:10<00:00, 10.13s/it]
+
+
+TopK Values:  90%|█████████ | 9/10 [04:31<00:52, 52.13s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_0.75_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_0.75_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 1.0, N: 15, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2781.25it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:01, 10.29s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3350.75it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:51, 10.29s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2590.58it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:41, 10.33s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3285.95it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:41<00:31, 10.34s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2516.83it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:51<00:20, 10.35s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3303.58it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:01<00:10, 10.34s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2804.62it/s]
+
+
+
+100%|██████████| 7/7 [01:11<00:00, 10.13s/it][A[A[A100%|██████████| 7/7 [01:11<00:00, 10.24s/it]
+
+
+TopK Values: 100%|██████████| 10/10 [05:43<00:00, 58.18s/it][A[ATopK Values: 100%|██████████| 10/10 [05:43<00:00, 34.32s/it]
+
+Reps Types: 100%|██████████| 1/1 [05:43<00:00, 343.19s/it][AReps Types: 100%|██████████| 1/1 [05:43<00:00, 343.19s/it]
+Ablations: 100%|██████████| 1/1 [05:43<00:00, 343.19s/it]Ablations: 100%|██████████| 1/1 [05:43<00:00, 343.19s/it]
+Updating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_1.0_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/15_random-s2_steer_1.0_sysuser_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/10 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.01, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4259.53it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:01<00:06,  1.10s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3320.08it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:02<00:05,  1.09s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4050.02it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:03<00:04,  1.09s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4006.02it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:04<00:03,  1.09s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4338.84it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:05<00:02,  1.09s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3973.53it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:06<00:01,  1.09s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3589.48it/s]
+
+
+
+100%|██████████| 7/7 [00:06<00:00,  1.16it/s][A[A[A100%|██████████| 7/7 [00:06<00:00,  1.01it/s]
+
+
+TopK Values:  10%|█         | 1/10 [00:06<01:02,  6.95s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.01_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.01_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.03, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4230.79it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:01<00:06,  1.09s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4226.53it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:02<00:05,  1.09s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4275.81it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:03<00:04,  1.09s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4445.77it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:04<00:03,  1.09s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4451.96it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:05<00:02,  1.09s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4438.42it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:06<00:01,  1.09s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3569.62it/s]
+
+
+
+100%|██████████| 7/7 [00:06<00:00,  1.14it/s][A[A[A100%|██████████| 7/7 [00:06<00:00,  1.00it/s]
+
+
+TopK Values:  20%|██        | 2/10 [00:13<00:55,  6.98s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.03_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.03_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.05, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4033.23it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59,  9.93s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4182.02it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:13<00:30,  6.15s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3512.63it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:14<00:15,  3.84s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4216.44it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:15<00:08,  2.76s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4295.24it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:16<00:04,  2.17s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4197.98it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:23<00:03,  3.59s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3559.77it/s]
+
+
+
+100%|██████████| 7/7 [00:23<00:00,  2.56s/it][A[A[A100%|██████████| 7/7 [00:23<00:00,  3.36s/it]
+
+
+TopK Values:  30%|███       | 3/10 [00:37<01:41, 14.55s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.05_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.05_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.07, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4107.78it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59,  9.87s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4377.05it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:10<00:23,  4.72s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4322.35it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:13<00:15,  3.91s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3497.80it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:16<00:10,  3.55s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4027.90it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:18<00:05,  2.69s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4293.32it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:21<00:02,  2.78s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3640.89it/s]
+
+
+
+100%|██████████| 7/7 [00:21<00:00,  2.02s/it][A[A[A100%|██████████| 7/7 [00:21<00:00,  3.07s/it]
+
+
+TopK Values:  40%|████      | 4/10 [00:59<01:43, 17.30s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.07_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.07_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.09, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4042.46it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59,  9.93s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4379.33it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:11<00:23,  4.75s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4469.45it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:12<00:12,  3.10s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4482.89it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:13<00:06,  2.32s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4452.85it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:14<00:03,  1.90s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4487.99it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:15<00:01,  1.63s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3747.42it/s]
+
+
+
+100%|██████████| 7/7 [00:16<00:00,  1.25s/it][A[A[A100%|██████████| 7/7 [00:16<00:00,  2.29s/it]
+
+
+TopK Values:  50%|█████     | 5/10 [01:15<01:24, 16.84s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.09_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.09_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.1, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3108.04it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:00, 10.02s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3640.30it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:19<00:49,  9.97s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2748.22it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:29<00:39,  9.98s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3453.35it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:39<00:29,  9.97s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3562.80it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:49<00:19,  9.97s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3175.10it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:59<00:09,  9.98s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2769.43it/s]
+
+
+
+100%|██████████| 7/7 [01:09<00:00,  9.74s/it][A[A[A100%|██████████| 7/7 [01:09<00:00,  9.87s/it]
+
+
+TopK Values:  60%|██████    | 6/10 [02:24<02:18, 34.62s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.1_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.1_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.25, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2818.75it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:00, 10.09s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3487.26it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:50, 10.04s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2763.96it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:40, 10.15s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3471.39it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:40<00:30, 10.10s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2732.00it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:50<00:20, 10.09s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3457.97it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:00<00:10, 10.05s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2702.08it/s]
+
+
+
+100%|██████████| 7/7 [01:09<00:00,  9.84s/it][A[A[A100%|██████████| 7/7 [01:09<00:00,  9.98s/it]
+
+
+TopK Values:  70%|███████   | 7/10 [03:34<02:18, 46.14s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.25_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.25_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.5, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3164.32it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:01, 10.17s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3342.74it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:50, 10.13s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2942.34it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:40, 10.15s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3511.53it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:40<00:30, 10.15s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2876.38it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:50<00:20, 10.17s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3429.17it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:00<00:10, 10.15s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2022.57it/s]
+
+
+
+100%|██████████| 7/7 [01:10<00:00,  9.94s/it][A[A[A100%|██████████| 7/7 [01:10<00:00, 10.06s/it]
+
+
+TopK Values:  80%|████████  | 8/10 [04:44<01:47, 53.88s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.5_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.5_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.75, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3197.64it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:01, 10.32s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3403.60it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:51, 10.29s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2782.87it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:41, 10.32s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3325.84it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:41<00:30, 10.31s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2721.59it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:51<00:20, 10.31s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3376.38it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:01<00:10, 10.29s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 1982.42it/s]
+
+
+
+100%|██████████| 7/7 [01:11<00:00, 10.08s/it][A[A[A100%|██████████| 7/7 [01:11<00:00, 10.21s/it]
+
+
+TopK Values:  90%|█████████ | 9/10 [05:55<00:59, 59.37s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.75_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_0.75_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 1.0, N: 20, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3330.13it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:01, 10.33s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2633.17it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:51, 10.36s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3300.49it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:31<00:41, 10.35s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3480.39it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:41<00:31, 10.35s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3075.85it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:51<00:20, 10.35s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3494.53it/s]
+
+
+
+ 86%|████████▌ | 6/7 [01:02<00:10, 10.35s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2064.38it/s]
+
+
+
+100%|██████████| 7/7 [01:11<00:00, 10.14s/it][A[A[A100%|██████████| 7/7 [01:11<00:00, 10.26s/it]
+
+
+TopK Values: 100%|██████████| 10/10 [07:07<00:00, 63.21s/it][A[ATopK Values: 100%|██████████| 10/10 [07:07<00:00, 42.78s/it]
+
+Reps Types: 100%|██████████| 1/1 [07:07<00:00, 427.75s/it][AReps Types: 100%|██████████| 1/1 [07:07<00:00, 427.75s/it]
+Ablations: 100%|██████████| 1/1 [07:07<00:00, 427.76s/it]Ablations: 100%|██████████| 1/1 [07:07<00:00, 427.76s/it]
+Updating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_1.0_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/20_random-s2_steer_1.0_sysuser_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/10 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.01, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3756.23it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:01<00:06,  1.08s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4009.37it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:02<00:05,  1.08s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4260.88it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:03<00:04,  1.08s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4320.13it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:04<00:03,  1.08s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4343.62it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:05<00:02,  1.08s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4345.58it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:06<00:01,  1.09s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3623.59it/s]
+
+
+
+100%|██████████| 7/7 [00:06<00:00,  1.15it/s][A[A[A100%|██████████| 7/7 [00:06<00:00,  1.01it/s]
+
+
+TopK Values:  10%|█         | 1/10 [00:06<01:02,  6.92s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.01_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.01_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.03, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4341.93it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:01<00:06,  1.09s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4343.90it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:02<00:05,  1.09s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4296.07it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:05<00:08,  2.13s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4374.76it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:06<00:05,  1.72s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4411.28it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:07<00:02,  1.49s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4388.78it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:08<00:01,  1.36s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 3362.17it/s]
+
+
+
+100%|██████████| 7/7 [00:09<00:00,  1.06s/it][A[A[A100%|██████████| 7/7 [00:09<00:00,  1.32s/it]
+
+
+TopK Values:  20%|██        | 2/10 [00:16<01:06,  8.30s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.03_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.03_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.05, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3200.69it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:10<01:00, 10.02s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3690.54it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:19<00:49,  9.93s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2969.55it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:29<00:39,  9.93s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3519.63it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:39<00:29,  9.90s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2908.29it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:49<00:19,  9.90s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3672.37it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:59<00:09,  9.89s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2708.19it/s]
+
+
+
+100%|██████████| 7/7 [01:08<00:00,  9.67s/it][A[A[A100%|██████████| 7/7 [01:08<00:00,  9.81s/it]
+
+
+TopK Values:  30%|███       | 3/10 [01:24<04:11, 35.87s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.05_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.05_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.07, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3472.82it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:01<00:06,  1.11s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4169.81it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:02<00:05,  1.11s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4112.57it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:09<00:14,  3.75s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4272.27it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:12<00:10,  3.61s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4288.65it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:15<00:07,  3.53s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3899.64it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:25<00:05,  5.70s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2441.74it/s]
+
+
+
+100%|██████████| 7/7 [00:26<00:00,  4.12s/it][A[A[A100%|██████████| 7/7 [00:26<00:00,  3.81s/it]
+
+
+TopK Values:  40%|████      | 4/10 [01:51<03:13, 32.25s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.07_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.07_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.09, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3576.66it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59,  9.89s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3791.46it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:19<00:49,  9.90s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3122.36it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:29<00:39,  9.93s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3688.72it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:39<00:29,  9.92s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3218.03it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:49<00:19,  9.94s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3609.17it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:59<00:09,  9.94s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 1927.53it/s]
+
+
+
+100%|██████████| 7/7 [01:08<00:00,  9.75s/it][A[A[A100%|██████████| 7/7 [01:08<00:00,  9.85s/it]
+
+
+TopK Values:  50%|█████     | 5/10 [03:00<03:47, 45.47s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.09_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.09_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.1, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3478.95it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59,  9.95s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3709.72it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:19<00:49,  9.93s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2884.17it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:29<00:39,  9.97s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3711.57it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:39<00:29,  9.98s/it][A[A[AUpdating batch handler: start=64, stop=80
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3030.84it/s]
+
+
+
+ 71%|███████▏  | 5/7 [00:49<00:19,  9.99s/it][A[A[AUpdating batch handler: start=80, stop=96
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3758.34it/s]
+
+
+
+ 86%|████████▌ | 6/7 [00:59<00:09,  9.98s/it][A[A[AUpdating batch handler: start=96, stop=112
+Evaluating on test set.  4
+Generating for  torch.Size([4, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/4 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 4/4 [00:00<00:00, 2070.75it/s]
+
+
+
+100%|██████████| 7/7 [01:09<00:00,  9.76s/it][A[A[A100%|██████████| 7/7 [01:09<00:00,  9.88s/it]
+
+
+TopK Values:  60%|██████    | 6/10 [04:09<03:34, 53.53s/it][A[AUpdating batch handler: start=112, stop=128
+Saved responses to ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.1_sysuser_gen.txt and ./results/gpt-oss-20b/sysuser__from_user-single_to_dev-single/random-layer_matched/sysuser-dev-single-test_eval/sysuser_steer//eval/25_random-s2_steer_0.1_sysuser_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: random-s2, TopK: 0.25, N: 25, algo: random, task: user-single -> dev-single
+Evaluating on test set.  100
+
+
+
+  0%|          | 0/7 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3406.71it/s]
+
+
+
+ 14%|█▍        | 1/7 [00:09<00:59, 10.00s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3562.99it/s]
+
+
+
+ 29%|██▊       | 2/7 [00:20<00:50, 10.02s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 2981.29it/s]
+
+
+
+ 43%|████▎     | 3/7 [00:30<00:40, 10.03s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  16
+Generating for  torch.Size([16, 420])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3554.12it/s]
+
+
+
+ 57%|█████▋    | 4/7 [00:40<00:30, 10.02s/it][A[A[A
