@@ -1,0 +1,80 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat google/gemma-3-12b-it allenai/OLMo-2-1124-13B-DPO tiiuae/Falcon3-10B-Instruct
+[plan] pairs:  female-long_male-long female-single_male-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (243 steps already recorded)
+
+==================== Qwen1.5-14B-Chat ====================
+[skip] [1/50] Qwen1.5-14B-Chat | female-long -> male-long | atp | localize
+[skip] [2/50] Qwen1.5-14B-Chat | female-long -> male-long | atp | eval:long steer:long
+[skip] [3/50] Qwen1.5-14B-Chat | female-long -> male-long | atp | eval:long steer:single
+[skip] [4/50] Qwen1.5-14B-Chat | female-long -> male-long | atp | eval:single steer:long
+[skip] [5/50] Qwen1.5-14B-Chat | female-long -> male-long | atp | eval:single steer:single
+[skip] [6/50] Qwen1.5-14B-Chat | female-single -> male-single | atp | localize
+[skip] [7/50] Qwen1.5-14B-Chat | female-single -> male-single | atp | eval:long steer:long
+[skip] [8/50] Qwen1.5-14B-Chat | female-single -> male-single | atp | eval:long steer:single
+[skip] [9/50] Qwen1.5-14B-Chat | female-single -> male-single | atp | eval:single steer:long
+[skip] [10/50] Qwen1.5-14B-Chat | female-single -> male-single | atp | eval:single steer:single
+
+==================== Qwen1.5-32B-Chat ====================
+[skip] [11/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | localize
+[skip] [12/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:long steer:long
+[skip] [13/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:long steer:single
+[skip] [14/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:single steer:long
+[skip] [15/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:single steer:single
+[skip] [16/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | localize
+[skip] [17/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:long steer:long
+[skip] [18/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:long steer:single
+[skip] [19/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:single steer:long
+[skip] [20/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:single steer:single
+
+==================== gemma-3-12b-it ====================
+[skip] [21/50] gemma-3-12b-it | female-long -> male-long | atp | localize
+[skip] [22/50] gemma-3-12b-it | female-long -> male-long | atp | eval:long steer:long
+[skip] [23/50] gemma-3-12b-it | female-long -> male-long | atp | eval:long steer:single
+[skip] [24/50] gemma-3-12b-it | female-long -> male-long | atp | eval:single steer:long
+[skip] [25/50] gemma-3-12b-it | female-long -> male-long | atp | eval:single steer:single
+[skip] [26/50] gemma-3-12b-it | female-single -> male-single | atp | localize
+[skip] [27/50] gemma-3-12b-it | female-single -> male-single | atp | eval:long steer:long
+[skip] [28/50] gemma-3-12b-it | female-single -> male-single | atp | eval:long steer:single
+[skip] [29/50] gemma-3-12b-it | female-single -> male-single | atp | eval:single steer:long
+[skip] [30/50] gemma-3-12b-it | female-single -> male-single | atp | eval:single steer:single
+
+==================== OLMo-2-1124-13B-DPO ====================
+[skip] [31/50] OLMo-2-1124-13B-DPO | female-long -> male-long | atp | localize
+[skip] [32/50] OLMo-2-1124-13B-DPO | female-long -> male-long | atp | eval:long steer:long
+[skip] [33/50] OLMo-2-1124-13B-DPO | female-long -> male-long | atp | eval:long steer:single
+[skip] [34/50] OLMo-2-1124-13B-DPO | female-long -> male-long | atp | eval:single steer:long
+[skip] [35/50] OLMo-2-1124-13B-DPO | female-long -> male-long | atp | eval:single steer:single
+[skip] [36/50] OLMo-2-1124-13B-DPO | female-single -> male-single | atp | localize
+[skip] [37/50] OLMo-2-1124-13B-DPO | female-single -> male-single | atp | eval:long steer:long
+[skip] [38/50] OLMo-2-1124-13B-DPO | female-single -> male-single | atp | eval:long steer:single
+[skip] [39/50] OLMo-2-1124-13B-DPO | female-single -> male-single | atp | eval:single steer:long
+[skip] [40/50] OLMo-2-1124-13B-DPO | female-single -> male-single | atp | eval:single steer:single
+
+==================== Falcon3-10B-Instruct ====================
+[skip] [41/50] Falcon3-10B-Instruct | female-long -> male-long | atp | localize
+[skip] [42/50] Falcon3-10B-Instruct | female-long -> male-long | atp | eval:long steer:long
+[skip] [43/50] Falcon3-10B-Instruct | female-long -> male-long | atp | eval:long steer:single
+[skip] [44/50] Falcon3-10B-Instruct | female-long -> male-long | atp | eval:single steer:long
+[skip] [45/50] Falcon3-10B-Instruct | female-long -> male-long | atp | eval:single steer:single
+[skip] [46/50] Falcon3-10B-Instruct | female-single -> male-single | atp | localize
+[skip] [47/50] Falcon3-10B-Instruct | female-single -> male-single | atp | eval:long steer:long
+[skip] [48/50] Falcon3-10B-Instruct | female-single -> male-single | atp | eval:long steer:single
+[skip] [49/50] Falcon3-10B-Instruct | female-single -> male-single | atp | eval:single steer:long
+[skip] [50/50] Falcon3-10B-Instruct | female-single -> male-single | atp | eval:single steer:single
+
+==================== summary ====================
+steps complete: 50/50   (ran 0 this pass)
+all steps completed for: Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat google/gemma-3-12b-it allenai/OLMo-2-1124-13B-DPO tiiuae/Falcon3-10B-Instruct

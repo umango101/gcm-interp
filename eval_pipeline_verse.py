@@ -580,14 +580,14 @@ def stage_build_prompts(cell):
     _require(cell.merged_csv, "merged-csv")
     df = pd.read_csv(cell.merged_csv, keep_default_na=False)
  
-    def judge_prompt(new_r, old_r, query):
-        for name, v in (("new", new_r), ("old", old_r), ("query", query)):
+    def judge_prompt(new_r, query):
+        for name, v in (("new", new_r), ("query", query)):
             if not isinstance(v, str):
-                raise TypeError(f"length judge: {name} is not a string: {v!r}")
-        conv = f"{query}\nResponse (1): {new_r}\nResponse (2): {old_r}"
+                raise TypeError(f"verse judge: {name} is not a string: {v!r}")
+        conv = f"{query}\nResponse: {new_r}"
         chat = [{"role": "user", "content": JUDGE_PROMPT.format(conversation=conv)}]
         return tok.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
- 
+
     def fluency_prompt(sentence):
         user = f"[Sentence Fragment Start]\n{sentence}\n[Sentence Fragment End]"
         chat = [
@@ -610,11 +610,9 @@ def stage_build_prompts(cell):
         ]
         p = tok.apply_chat_template(chat, tokenize=False, add_generation_prompt=False)
         return p[: -len("<|eot_id|>")]
- 
+
     df["judge_prompt"] = df.apply(
-        lambda r: judge_prompt(
-            r["post-intervention-response"], r["original-response"], r["query"]
-        ),
+        lambda r: judge_prompt(r["post-intervention-response"], r["query"]),
         axis=1,
     )
     df["fluency_prompt"] = df["post-intervention-response"].apply(fluency_prompt)
