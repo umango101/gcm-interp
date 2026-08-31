@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 08:00:00
+#SBATCH -t 24:00:00
 #SBATCH -J rand_ablate
 #SBATCH -o /home/ubansal/orcd/scratch/conflicts/gcm-interp/logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -56,6 +56,8 @@ algos=("random")
 # STEER_NORMALIZE.
 export STEER_NORMALIZE="${STEER_NORMALIZE:-0}"
 export N_VALS="${N_VALS:-1}"
+
+IFS=',' read -r -a seeds <<< "${SEEDS:-1,2,3}"
 
 # No commas: `("a", "b")` makes the elements `a,` and `b`, so every path built
 # from the first two gains a stray comma and check_data reports the whole sweep
@@ -151,7 +153,7 @@ run_step() {
     # random baseline. It is deliberately NOT in the sentinel argv either, so
     # changing the mode does not invalidate finished cells of the other mode --
     # they write to different filenames and are separate results.
-    export STEER_NORMALIZE N_VALS
+    export STEER_NORMALIZE N_VALS RANDOM_BASELINE_SEED
     # Backgrounded with `wait`: bash defers traps until a foreground command
     # returns, so with `python run.py` in the foreground the USR1@300 preemption
     # warning was absorbed entirely and never stopped the sweep in time.
@@ -225,6 +227,8 @@ for model_id in "${selected[@]}"; do
                 steer_arm="$eval_arm"
 
                 for tf in "${test_files[@]}"; do
+		for seed in "${seeds[@]}"; do
+		    export RANDOM_BASELINE_SEED="$seed"
                     [[ $STOPPED -eq 1 ]] && break
                         eval_test="$DATA_ROOT/$eval_arm/$tf.jsonl"
                         steer_add="$DATA_ROOT/$steer_arm/user-single-desired-all.jsonl"
@@ -233,7 +237,7 @@ for model_id in "${selected[@]}"; do
                         declare -a extra=()
                         [[ "$FULL_PRECISION" == "1" ]] && extra+=(--full_precision)
 
-                        run_step "${model_name}__${eval_arm}__${source}_to_${base}__${algo}__ablate_mean__eval_${tf}" \
+                        run_step "${model_name}__${eval_arm}__${source}_to_${base}__${algo}__ablate_mean__s${seed}__eval_${tf}" \
                                  "[$(( N_DONE + 1 ))/$N_TOTAL] $model_name | eval:$eval_arm/$tf | mean-interchange ablation" \
                                  --model_id "$model_id" \
                                  --batch_size "$batch_size" \
@@ -250,7 +254,8 @@ for model_id in "${selected[@]}"; do
                                  --ablation mean \
                                  --steering_add_path "$steer_add" \
                                  --steering_sub_path "$steer_sub"
-                done
+		done
+		done
             done
         done
     done
