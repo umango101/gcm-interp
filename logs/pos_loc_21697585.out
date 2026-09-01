@@ -1,0 +1,96 @@
+derived from data/gpt-oss-20b/devuser: 25 pairs, 8 demos, 6 categories
+position contrast | arm devuser | form rule | 25 pairs | 8 demos
+  wrote  100 lines -> dev-single-desired-all.jsonl  (first preamble, first-named answer)
+  wrote  100 lines -> dev-single-undesired-all.jsonl  (first preamble, second-named answer)
+  wrote  100 lines -> user-single-desired-all.jsonl  (second preamble, second-named answer)
+  wrote  100 lines -> user-single-undesired-all.jsonl  (second preamble, first-named answer)
+
+checks:
+  four -all files: 100 lines each
+  every record round-trips from its metadata
+  desired/undesired share a prefix, differ only in the final token
+  the two preambles differ only at assistant messages [3, 5, 7, 9, 11, 13, 15, 17, 19]
+  position demos: 900 parsed; first-named by construction
+  25 pairs / 50 colors
+derived from data/gpt-oss-20b/sysuser: 25 pairs, 8 demos, 6 categories
+position contrast | arm sysuser | form rule | 25 pairs | 8 demos
+  wrote  100 lines -> dev-single-desired-all.jsonl  (first preamble, first-named answer)
+  wrote  100 lines -> dev-single-undesired-all.jsonl  (first preamble, second-named answer)
+  wrote  100 lines -> user-single-desired-all.jsonl  (second preamble, second-named answer)
+  wrote  100 lines -> user-single-undesired-all.jsonl  (second preamble, first-named answer)
+
+checks:
+  four -all files: 100 lines each
+  every record round-trips from its metadata
+  desired/undesired share a prefix, differ only in the final token
+  the two preambles differ only at assistant messages [2, 4, 6, 8, 10, 12, 14, 16, 18]
+  position demos: 900 parsed; first-named by construction
+  25 pairs / 50 colors
+derived from data/gpt-oss-20b/sysdev: 24 pairs, 8 demos, 6 categories
+position contrast | arm sysdev | form rule | 24 pairs | 8 demos
+  wrote   96 lines -> dev-single-desired-all.jsonl  (first preamble, first-named answer)
+  wrote   96 lines -> dev-single-undesired-all.jsonl  (first preamble, second-named answer)
+  wrote   96 lines -> user-single-desired-all.jsonl  (second preamble, second-named answer)
+  wrote   96 lines -> user-single-undesired-all.jsonl  (second preamble, first-named answer)
+
+checks:
+  four -all files: 96 lines each
+  every record round-trips from its metadata
+  desired/undesired share a prefix, differ only in the final token
+  the two preambles differ only at assistant messages [3, 5, 7, 9, 11, 13, 15, 17, 19]
+  position demos: 864 parsed; first-named by construction
+  24 pairs / 48 colors
+Parsing config...
+op prefix  ./results/gpt-oss-20b/data/gpt-oss-20b/pos-devuser__from_user-single_to_dev-single/atp/
+Saved config to file ./results/gpt-oss-20b/data/gpt-oss-20b/pos-devuser__from_user-single_to_dev-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.47s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.49s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.46s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 21, in main
+    data_handler = DataHandler(config, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 38, in __init__
+    'base_desired': self.load_from_jsonl(file_paths['base_desired']),
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 382, in load_from_jsonl
+    with open(file_name, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: './data/gpt-oss-20b//data/gpt-oss-20b/pos-devuser/dev-single-desired-all.jsonl'
+Parsing config...
+op prefix  ./results/gpt-oss-20b/data/gpt-oss-20b/pos-sysuser__from_user-single_to_dev-single/atp/
+Saved config to file ./results/gpt-oss-20b/data/gpt-oss-20b/pos-sysuser__from_user-single_to_dev-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.60s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.59s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.46s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.50s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 21, in main
+    data_handler = DataHandler(config, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 38, in __init__
+    'base_desired': self.load_from_jsonl(file_paths['base_desired']),
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 382, in load_from_jsonl
+    with open(file_name, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: './data/gpt-oss-20b//data/gpt-oss-20b/pos-sysuser/dev-single-desired-all.jsonl'
+Parsing config...
+op prefix  ./results/gpt-oss-20b/data/gpt-oss-20b/pos-sysdev__from_user-single_to_dev-single/atp/
+Saved config to file ./results/gpt-oss-20b/data/gpt-oss-20b/pos-sysdev__from_user-single_to_dev-single/atp//config.yml
+Loading model...
+Tokenizer loaded (gpt-oss / Harmony), padding side is left
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:03,  1.62s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:03<00:01,  1.62s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.52s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.54s/it]
+[head geometry] n_heads=64 head_dim=64 hidden=2880 -> site=o_proj_input width=4096
+[head geometry] NOTE: n_heads*head_dim != hidden_size for this model; o_proj.output slicing would not correspond to heads.
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 54, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/run.py", line 21, in main
+    data_handler = DataHandler(config, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 38, in __init__
+    'base_desired': self.load_from_jsonl(file_paths['base_desired']),
+  File "/orcd/scratch/orcd/008/ubansal/conflicts/gcm-interp/data_handler.py", line 382, in load_from_jsonl
+    with open(file_name, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: './data/gpt-oss-20b//data/gpt-oss-20b/pos-sysdev/dev-single-desired-all.jsonl'

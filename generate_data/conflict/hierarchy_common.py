@@ -649,10 +649,36 @@ def _interleave(conflicts, agrees, n_conflict, n_agree):
 # =============================================================================
 
 # Which side's answer the assistant demonstrates throughout the preamble.
+def _named_options(turn):
+    """The two options a demo turn names, in the order it names them."""
+    m = _OPTIONS_RE.search(turn)
+    if not m:
+        raise ValueError(f"no option pair in demo turn: {turn!r}")
+    return m.group(1), m.group(2)
+
+
+# What the assistant demonstrates. The privilege pair tracks which RULE SOURCE
+# to follow; the position pair tracks MENTION ORDER instead.
+#
+# The position conditions exist so the position control can be built from the
+# very same prompts as the privilege contrast -- same rules, same questions,
+# same templates, same token lengths, same held-out colours -- with only the
+# demonstrated policy differing. A separate first-single/second-single corpus
+# cannot support that comparison: any overlap it shows between the two
+# attribution maps is confounded with the two corpora having different shapes.
+#
+# The two axes are orthogonal by construction, not merely different.
+# select_demos_rule alternates mention order by demo index, so the "dev" policy
+# (always the privileged word) and the "first" policy (always the first-named
+# word) agree on exactly half the demos.
 CONDITIONS = {
-    "dev":  lambda priv_a, sub_a: priv_a,     # follow the privileged level
-    "user": lambda priv_a, sub_a: sub_a,      # follow the subordinate level
+    "dev":    lambda turn, priv_a, sub_a: priv_a,   # follow the privileged level
+    "user":   lambda turn, priv_a, sub_a: sub_a,    # follow the subordinate level
+    "first":  lambda turn, priv_a, sub_a: _named_options(turn)[0],
+    "second": lambda turn, priv_a, sub_a: _named_options(turn)[1],
 }
+PRIVILEGE_CONDITIONS = ("dev", "user")
+POSITION_CONDITIONS = ("first", "second")
 
 # Filenames and record keys keep the dev/user vocabulary of the original corpus
 # so every downstream consumer -- localization, steering, the scorer -- works
@@ -683,7 +709,7 @@ def build_line(arm, form, system_block, a, b, dev_word, user_word, first,
     for turn, priv_a, sub_a in demos:
         msgs.append({"role": role, "content": prefix + turn})
         prefix = ""
-        msgs.append({"role": "assistant", "content": pick(priv_a, sub_a)})
+        msgs.append({"role": "assistant", "content": pick(turn, priv_a, sub_a)})
     # The final question. In the request form it carries the subordinate's ask;
     # in the rule form it names both options and requests neither.
     final_q = (render_instruction(template, first, second, user_word)

@@ -1,0 +1,84 @@
+{
+  "args": {
+    "induction": "induction_heads.json",
+    "results_dir": "results",
+    "arms": [
+      "devuser",
+      "sysuser",
+      "sysdev"
+    ],
+    "topk": "0.01",
+    "n_draws": 2000,
+    "seed": 0
+  },
+  "results": {
+    "devuser": {
+      "k": 15,
+      "layer_hist": {
+        "11": 1,
+        "12": 2,
+        "13": 2,
+        "15": 2,
+        "16": 2,
+        "17": 2,
+        "19": 1,
+        "20": 1,
+        "21": 1,
+        "23": 1
+      },
+      "observed": {
+        "median_rank": 294,
+        "overlap": 2
+      },
+      "uniform_median": 762.0,
+      "matched_median": 456.0,
+      "matched_overlap_mean": 0.188,
+      "p_median_rank": 0.0915,
+      "p_overlap": 0.011
+    },
+    "sysuser": {
+      "k": 15,
+      "layer_hist": {
+        "12": 3,
+        "13": 4,
+        "15": 2,
+        "16": 2,
+        "17": 2,
+        "19": 1,
+        "20": 1
+      },
+      "observed": {
+        "median_rank": 325,
+        "overlap": 1
+      },
+      "uniform_median": 759.5,
+      "matched_median": 539.0,
+      "matched_overlap_mean": 0.1545,
+      "p_median_rank": 0.061,
+      "p_overlap": 0.1475
+    },
+    "sysdev": {
+      "k": 15,
+      "layer_hist": {
+        "12": 1,
+        "13": 1,
+        "16": 2,
+        "17": 4,
+        "18": 1,
+        "19": 2,
+        "20": 1,
+        "21": 1,
+        "23": 2
+      },
+      "observed": {
+        "median_rank": 190,
+        "overlap": 2
+      },
+      "uniform_median": 775.0,
+      "matched_median": 353.0,
+      "matched_overlap_mean": 0.153,
+      "p_median_rank": 0.029,
+      "p_overlap": 0.008
+    }
+  }
+}
