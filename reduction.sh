@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
 #SBATCH -t 01:00:00
-#SBATCH -J pos_loc
+#SBATCH -J reduction
 #SBATCH -o /home/ubansal/orcd/scratch/conflicts/gcm-interp/logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=128G
@@ -25,29 +25,9 @@ export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 # layer at once, so prompt length costs the same as batch size: the rule-form
 # corpora are about twice as long as the request-form ones the default of 9 was
 # tuned for, which OOMs a 140GB card. Lower it further if a cell still fails.
-export CACHE_BS="${CACHE_BS:-3}"
 source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda activate /home/ubansal/miniconda/envs/conflict-syc
 cd "$RM_INTERP_REPO"
 mkdir -p logs
 
-declare -a models=("openai/gpt-oss-20b")
-algos=("atp")
-
-for ARM in devuser sysuser sysdev; do
-  PYTHONPATH=generate_data/conflict python make_position_datasets.py --arm $ARM \
-    --from_corpus data/gpt-oss-20b/$ARM \
-    --out_dir data/gpt-oss-20b/pos-$ARM
-done
-
-for ARM in devuser sysuser sysdev; do
-  python run.py --model_id openai/gpt-oss-20b --patch_algo atp \
-    --data_dir pos-$ARM --source user-single --base dev-single \
-    --device cuda:0 --patch_model --batch_size 1
-done
-
-# for ARM in devuser sysuser sysdev; do
-#   PYTHONPATH=generate_data/conflict python run.py --model_id openai/gpt-oss-20b --patch_algo atp \
-#     --data_dir pos-$ARM --source user-single --base dev-single \
-#     --device cuda:0 --patch_model --batch_size 1
-# done
+python reduction.py

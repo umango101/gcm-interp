@@ -1,0 +1,44 @@
+privilege: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/sysdev__from_user-single_to_dev-single/atp/numerator_1_heads.pt
+position: /home/ubansal/orcd/scratch/conflicts/gcm-interp/results/gpt-oss-20b/pos-sysdev__from_user-single_to_dev-single/atp/numerator_1_heads.pt
+shape: 24 layers x 64 heads = 1536 heads  (score=signed)
+
+    k  shared  chance  jaccard        p
+   10       6     0.1    0.429   0.0001
+   20      13     0.3    0.481   0.0001
+   50      31     1.6    0.449   0.0001
+  100      59     6.5    0.418   0.0001
+
+Spearman over all 1536 heads : +0.297
+Spearman over 24 layers     : +0.328
+
+layer    privilege     position
+    0      0.07016     -0.03716
+    1      0.01834     0.008427
+    2      0.01461      0.03637
+    3     -0.08769     -0.03008
+    4      0.03508      0.07313
+    5      -0.0375      0.03704
+    6     -0.06791     0.005128
+    7     -0.09781       0.1521
+    8      0.08208      0.09249
+    9     -0.08691      0.06073
+   10    -0.005551       0.1356
+   11       0.4216       0.1898
+   12       0.3993      0.02109
+   13       0.6212   -0.0001856
+   14        0.201        0.478
+   15      -0.2689       0.7599
+   16       0.5965        0.675
+   17       0.8557       0.6716
+   18      -0.0444       0.3196
+   19       0.6599       0.5651
+   20       0.1079       0.2764
+   21       0.6904       0.3878
+   22     -0.05422     -0.06961
+   23       0.3843      0.09836
+
+wrote /home/ubansal/orcd/scratch/conflicts/gcm-interp/results_head_overlap/sysdev/privilege_vs_position/signed/overlap.json and per_layer.csv
+
+Low overlap is the strong result (dissociation). High overlap is
+ambiguous until you have a same-surface-form control contrast to
+calibrate against -- see the module docstring.
