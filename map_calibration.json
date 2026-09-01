@@ -1,0 +1,133 @@
+{
+  "args": {
+    "results": "results/gpt-oss-20b",
+    "pair": "from_user-single_to_dev-single",
+    "arms": [
+      "devuser",
+      "sysuser",
+      "sysdev"
+    ],
+    "induction": "induction_heads.json",
+    "k": 15,
+    "draws": 2000,
+    "seed": 0,
+    "out": "map_calibration.json"
+  },
+  "results": {
+    "devuser:signed": {
+      "k": 15,
+      "ceiling_split_half": 12,
+      "observed_vs_position": 8,
+      "observed_vs_induction": 2,
+      "matched_null_mean": 0.3465,
+      "matched_null_p95": 1,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "13": 2,
+        "15": 2,
+        "20": 1,
+        "16": 2,
+        "21": 1,
+        "12": 2,
+        "23": 1,
+        "17": 2,
+        "19": 1,
+        "11": 1
+      }
+    },
+    "devuser:abs": {
+      "k": 15,
+      "ceiling_split_half": 13,
+      "observed_vs_position": 7,
+      "observed_vs_induction": 1,
+      "matched_null_mean": 0.4085,
+      "matched_null_p95": 2,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "13": 1,
+        "20": 1,
+        "16": 3,
+        "12": 2,
+        "23": 1,
+        "17": 3,
+        "19": 1,
+        "21": 1,
+        "15": 2
+      }
+    },
+    "sysuser:signed": {
+      "k": 15,
+      "ceiling_split_half": 14,
+      "observed_vs_position": 5,
+      "observed_vs_induction": 1,
+      "matched_null_mean": 0.3135,
+      "matched_null_p95": 1,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "13": 4,
+        "15": 2,
+        "20": 1,
+        "16": 2,
+        "19": 1,
+        "12": 3,
+        "17": 2
+      }
+    },
+    "sysuser:abs": {
+      "k": 15,
+      "ceiling_split_half": 14,
+      "observed_vs_position": 5,
+      "observed_vs_induction": 0,
+      "matched_null_mean": 0.2795,
+      "matched_null_p95": 1,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "13": 3,
+        "16": 3,
+        "12": 3,
+        "15": 2,
+        "19": 1,
+        "17": 2,
+        "21": 1
+      }
+    },
+    "sysdev:signed": {
+      "k": 15,
+      "ceiling_split_half": 13,
+      "observed_vs_position": 10,
+      "observed_vs_induction": 2,
+      "matched_null_mean": 0.3655,
+      "matched_null_p95": 1,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "13": 1,
+        "18": 1,
+        "20": 1,
+        "16": 2,
+        "21": 1,
+        "17": 4,
+        "23": 2,
+        "19": 2,
+        "12": 1
+      }
+    },
+    "sysdev:abs": {
+      "k": 15,
+      "ceiling_split_half": 12,
+      "observed_vs_position": 9,
+      "observed_vs_induction": 1,
+      "matched_null_mean": 0.426,
+      "matched_null_p95": 2,
+      "p_vs_matched_null": 0.0,
+      "privilege_layer_hist": {
+        "19": 3,
+        "20": 1,
+        "16": 3,
+        "21": 2,
+        "12": 2,
+        "23": 2,
+        "17": 2
+      }
+    }
+  }
+}
