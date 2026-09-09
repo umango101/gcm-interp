@@ -1,0 +1,55 @@
+Family: female->male  models=['gemma-3-12b-it', 'Qwen1.5-14B-Chat', 'Qwen1.5-32B-Chat', 'OLMo-2-1124-13B-DPO', 'Falcon3-10B-Instruct']  method=atp
+Running 40 of 40 cells (5 models x 2 localizations x 2 eval x 2 steer):
+  - gemma-3-12b-it | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - gemma-3-12b-it | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - gemma-3-12b-it | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - gemma-3-12b-it | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - gemma-3-12b-it | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - gemma-3-12b-it | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - gemma-3-12b-it | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - gemma-3-12b-it | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Qwen1.5-14B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Qwen1.5-32B-Chat | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - OLMo-2-1124-13B-DPO | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-single_eval | femaleGeneration-single_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-long_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-long_eval | femaleGeneration-single_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-long_steer
+  - Falcon3-10B-Instruct | from_femaleGeneration-single_to_maleGeneration-single | femaleGeneration-single_eval | femaleGeneration-single_steer
+======================================================================
+STAGE: merge
+  cell: gemma-3-12b-it | from_femaleGeneration-long_to_maleGeneration-long | femaleGeneration-long_eval | femaleGeneration-long_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_biasGeneration.py", line 726, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_biasGeneration.py", line 719, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_biasGeneration.py", line 240, in stage_merge
+    _require(cell.gen_dir, "results-eval-folder")
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_biasGeneration.py", line 203, in _require
+    raise FileNotFoundError(f"[{what}] required path does not exist: {path}")
+FileNotFoundError: [results-eval-folder] required path does not exist: /orcd/scratch/orcd/008/ubansal/gcm-interp/results/gemma-3-12b-it/from_femaleGeneration-long_to_maleGeneration-long/atp/femaleGeneration-long_eval/femaleGeneration-long_steer/eval

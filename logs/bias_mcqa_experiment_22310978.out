@@ -1,0 +1,79 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: tiiuae/Falcon3-10B-Instruct Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat google/gemma-3-12b-it allenai/OLMo-2-1124-13B-DPO
+[plan] pairs:  femaleMCQA-long_maleMCQA-long femaleMCQA-single_maleMCQA-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (388 steps already recorded)
+
+==================== Falcon3-10B-Instruct ====================
+[skip] [1/50] Falcon3-10B-Instruct | femaleMCQA-long -> maleMCQA-long | atp | localize
+[skip] [2/50] Falcon3-10B-Instruct | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:long
+[skip] [3/50] Falcon3-10B-Instruct | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:single
+[skip] [4/50] Falcon3-10B-Instruct | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:long
+[skip] [5/50] Falcon3-10B-Instruct | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:single
+[skip] Falcon3-10B-Instruct / femaleMCQA-single -> maleMCQA-single: 1 data file(s) missing
+         Falcon3-10B-Instruct/femaleMCQA-single/maleMCQA-single-desired-all.jsonl
+
+==================== Qwen1.5-14B-Chat ====================
+[skip] [6/50] Qwen1.5-14B-Chat | femaleMCQA-long -> maleMCQA-long | atp | localize
+[skip] [7/50] Qwen1.5-14B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:long
+[skip] [8/50] Qwen1.5-14B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:single
+[skip] [9/50] Qwen1.5-14B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:long
+[skip] [10/50] Qwen1.5-14B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:single
+[skip] [11/50] Qwen1.5-14B-Chat | femaleMCQA-single -> maleMCQA-single | atp | localize
+[skip] [12/50] Qwen1.5-14B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:long
+[skip] [13/50] Qwen1.5-14B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:single
+[skip] [14/50] Qwen1.5-14B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:long
+[skip] [15/50] Qwen1.5-14B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:single
+
+==================== Qwen1.5-32B-Chat ====================
+[skip] [16/50] Qwen1.5-32B-Chat | femaleMCQA-long -> maleMCQA-long | atp | localize
+[skip] [17/50] Qwen1.5-32B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:long
+[skip] [18/50] Qwen1.5-32B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:single
+[skip] [19/50] Qwen1.5-32B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:long
+[skip] [20/50] Qwen1.5-32B-Chat | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:single
+[skip] [21/50] Qwen1.5-32B-Chat | femaleMCQA-single -> maleMCQA-single | atp | localize
+[skip] [22/50] Qwen1.5-32B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:long
+[skip] [23/50] Qwen1.5-32B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:single
+[skip] [24/50] Qwen1.5-32B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:long
+[skip] [25/50] Qwen1.5-32B-Chat | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:single
+
+==================== gemma-3-12b-it ====================
+[skip] [26/50] gemma-3-12b-it | femaleMCQA-long -> maleMCQA-long | atp | localize
+[skip] [27/50] gemma-3-12b-it | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:long
+[skip] [28/50] gemma-3-12b-it | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:single
+[skip] [29/50] gemma-3-12b-it | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:long
+[skip] [30/50] gemma-3-12b-it | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:single
+[skip] [31/50] gemma-3-12b-it | femaleMCQA-single -> maleMCQA-single | atp | localize
+[skip] [32/50] gemma-3-12b-it | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:long
+[skip] [33/50] gemma-3-12b-it | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:single
+[skip] [34/50] gemma-3-12b-it | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:long
+[skip] [35/50] gemma-3-12b-it | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:single
+
+==================== OLMo-2-1124-13B-DPO ====================
+[skip] [36/50] OLMo-2-1124-13B-DPO | femaleMCQA-long -> maleMCQA-long | atp | localize
+[skip] [37/50] OLMo-2-1124-13B-DPO | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:long
+[skip] [38/50] OLMo-2-1124-13B-DPO | femaleMCQA-long -> maleMCQA-long | atp | eval:long steer:single
+[skip] [39/50] OLMo-2-1124-13B-DPO | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:long
+[skip] [40/50] OLMo-2-1124-13B-DPO | femaleMCQA-long -> maleMCQA-long | atp | eval:single steer:single
+[skip] [41/50] OLMo-2-1124-13B-DPO | femaleMCQA-single -> maleMCQA-single | atp | localize
+[skip] [42/50] OLMo-2-1124-13B-DPO | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:long
+[skip] [43/50] OLMo-2-1124-13B-DPO | femaleMCQA-single -> maleMCQA-single | atp | eval:long steer:single
+[skip] [44/50] OLMo-2-1124-13B-DPO | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:long
+[skip] [45/50] OLMo-2-1124-13B-DPO | femaleMCQA-single -> maleMCQA-single | atp | eval:single steer:single
+
+==================== summary ====================
+steps complete: 45/50   (ran 0 this pass)
+skipped (missing data):
+  Falcon3-10B-Instruct / femaleMCQA-single -> maleMCQA-single (1 files missing)
+all steps completed for: tiiuae/Falcon3-10B-Instruct Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat google/gemma-3-12b-it allenai/OLMo-2-1124-13B-DPO

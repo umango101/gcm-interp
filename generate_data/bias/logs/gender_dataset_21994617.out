@@ -1,0 +1,12 @@
+[slurm] job 21994617 on node5200 restart=0 Fri Sep  4 18:13:39 EDT 2026
+[load] 1648 professions from professions.json
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 650, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 641, in main
+    stage_generate(professions)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 329, in stage_generate
+    check_or_write_signature(professions)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/bias/build_gender_dataset.py", line 191, in check_or_write_signature
+    raise RuntimeError(
+RuntimeError: Checkpoint checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl was written under a different configuration (differs in: ['STORY_TMPL']). Resuming would mix two configurations in one dataset. Use a fresh CHECKPOINT path or restore the old settings.

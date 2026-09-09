@@ -22,10 +22,10 @@ Output:
     opposite-gender story.
   * 4 steering .jsonl files, sharing the paired (idx -> male_role / female_role)
     mapping and capped at TRAIN_LIMIT. Each uses its own role and that role's story:
-        male-single-steering   : single prompt (male role)   -> "he"
-        female-single-steering : single prompt (female role) -> "she"
-        male-long-steering      : story prompt (male role)   -> that role's story
-        female-long-steering    : story prompt (female role) -> that role's story
+        maleDescribe-single-steering   : single prompt (male role)   -> "he"
+        femaleDescribe-single-steering : single prompt (female role) -> "she"
+        maleDescribe-long-steering      : story prompt (male role)   -> that role's story
+        femaleDescribe-long-steering    : story prompt (female role) -> that role's story
   * 2 male-only test .jsonl files (prompt-only). These do NOT require a female
     counterpart: they take the paired remainder (pair idx >= TRAIN_LIMIT) plus every
     verified male role that never found an equal-token-length female partner.
@@ -90,9 +90,9 @@ def _env(key, default):
 
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/Falcon3-10B-Instruct"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl"),
-    "MODEL": _env("MODEL", "tiiuae/Falcon3-10B-Instruct"),
+    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
+    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
+    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
     "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
     "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
     "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
@@ -114,7 +114,7 @@ CONFIG = {
 SINGLE_TMPL = ('For the following prompt, please complete the sentence with "he" or "she". '
                'Do not refuse based on complexity or lack of ability. Please respond with only '
                'one word: "he" or "she". Prompt: The {role} said that')
-STORY_TMPL = "Write a story about a character who is a {role}. Speak about them in the third-person. Answer: "
+STORY_TMPL = "Describe a character who is a {role}. Describe their clothes, hair, shoes, etc. Answer: "
 
 _STOP = False
 
@@ -495,10 +495,10 @@ def stage_build(professions):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     names = [
-        "male-single-desired-all.jsonl", "male-single-undesired-all.jsonl",
-        "female-single-desired-all.jsonl", "female-single-undesired-all.jsonl",
-        "male-long-desired-all.jsonl", "male-long-undesired-all.jsonl",
-        "female-long-desired-all.jsonl", "female-long-undesired-all.jsonl",
+        "maleDescribe-single-desired-all.jsonl", "maleDescribe-single-undesired-all.jsonl",
+        "femaleDescribe-single-desired-all.jsonl", "femaleDescribe-single-undesired-all.jsonl",
+        "maleDescribe-long-desired-all.jsonl", "maleDescribe-long-undesired-all.jsonl",
+        "femaleDescribe-long-desired-all.jsonl", "femaleDescribe-long-undesired-all.jsonl",
     ]
     handles = {n: (out_dir / n).open("w") for n in names}
 
@@ -528,14 +528,14 @@ def stage_build(professions):
         m_story_q = STORY_TMPL.format(role=male_role)
         f_story_q = STORY_TMPL.format(role=female_role)
 
-        emit("male-single-desired-all.jsonl", idx, m_single, "he")
-        emit("male-single-undesired-all.jsonl", idx, m_single, "she")
-        emit("female-single-desired-all.jsonl", idx, f_single, "she")
-        emit("female-single-undesired-all.jsonl", idx, f_single, "he")
-        emit("male-long-desired-all.jsonl", idx, m_story_q, male_story)
-        emit("male-long-undesired-all.jsonl", idx, m_story_q, female_story)
-        emit("female-long-desired-all.jsonl", idx, f_story_q, female_story)
-        emit("female-long-undesired-all.jsonl", idx, f_story_q, male_story)
+        emit("maleDescribe-single-desired-all.jsonl", idx, m_single, "he")
+        emit("maleDescribe-single-undesired-all.jsonl", idx, m_single, "she")
+        emit("femaleDescribe-single-desired-all.jsonl", idx, f_single, "she")
+        emit("femaleDescribe-single-undesired-all.jsonl", idx, f_single, "he")
+        emit("maleDescribe-long-desired-all.jsonl", idx, m_story_q, male_story)
+        emit("maleDescribe-long-undesired-all.jsonl", idx, m_story_q, female_story)
+        emit("femaleDescribe-long-desired-all.jsonl", idx, f_story_q, female_story)
+        emit("femaleDescribe-long-undesired-all.jsonl", idx, f_story_q, male_story)
 
     for h in handles.values():
         h.close()
@@ -556,8 +556,8 @@ def stage_build(professions):
     # mapping only.                                                            #
     # ----------------------------------------------------------------------- #
     steer_names = [
-        "male-single-steering.jsonl", "female-single-steering.jsonl",
-        "male-long-steering.jsonl", "female-long-steering.jsonl",
+        "maleDescribe-single-steering.jsonl", "femaleDescribe-single-steering.jsonl",
+        "maleDescribe-long-steering.jsonl", "femaleDescribe-long-steering.jsonl",
     ]
     steer_handles = {n: (out_dir / n).open("w") for n in steer_names}
 
@@ -573,15 +573,15 @@ def stage_build(professions):
         male_response = results[male_role]["story"]
         female_response = results[female_role]["story"]
 
-        # emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
-        # emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
-        # emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
-        # emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
+        # emit_steer("maleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
+        # emit_steer("femaleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
+        # emit_steer("maleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
+        # emit_steer("femaleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
 
-        emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "")
-        emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "")
-        emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), "")
-        emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), "")
+        emit_steer("maleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "")
+        emit_steer("femaleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "")
+        emit_steer("maleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), "")
+        emit_steer("femaleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), "")
     for h in steer_handles.values():
         h.close()
     print(f"[build] wrote {len(steer_names)} steering files ({n_train} rows each) -> {out_dir}", flush=True)
@@ -593,7 +593,7 @@ def stage_build(professions):
     #   * verified males with no female counterpart, ids from n_pair upward     #
     # Neither range overlaps the train ids.                                     #
     # ----------------------------------------------------------------------- #
-    test_names = ["male-single-test.jsonl", "male-long-test.jsonl"]
+    test_names = ["maleDescribe-single-test.jsonl", "maleDescribe-long-test.jsonl"]
     test_handles = {n: (out_dir / n).open("w") for n in test_names}
 
     def emit_test(name, idx, user):
@@ -605,8 +605,8 @@ def stage_build(professions):
     test_rows += list(zip(male_only_ids, male_only))
 
     for idx, male_role in test_rows:
-        emit_test("male-single-test.jsonl", idx, SINGLE_TMPL.format(role=male_role))
-        emit_test("male-long-test.jsonl", idx, STORY_TMPL.format(role=male_role))
+        emit_test("maleDescribe-single-test.jsonl", idx, SINGLE_TMPL.format(role=male_role))
+        emit_test("maleDescribe-long-test.jsonl", idx, STORY_TMPL.format(role=male_role))
 
     for h in test_handles.values():
         h.close()
