@@ -1,0 +1,16 @@
+[slurm] job 22712356 on node4603 restart=0 Mon Sep 14 00:24:48 EDT 2026
+NVIDIA H200, 143771 MiB
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 1482, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 1418, in main
+    assert_determinism_env()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/factual_recall/build_truthfulqa_dataset.py", line 240, in assert_determinism_env
+    raise RuntimeError(msg)
+RuntimeError: determinism env not set before interpreter start (got, want): {'PYTHONHASHSEED': ('42', '0')}
+Export these in the launcher, e.g.
+  export PYTHONHASHSEED="0"
+  export TOKENIZERS_PARALLELISM="false"
+[slurm] python exited rc=1 Mon Sep 14 00:24:53 EDT 2026

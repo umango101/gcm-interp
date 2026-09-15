@@ -1,0 +1,11 @@
+[slurm] job 22713253 on node4601 restart=0 Mon Sep 14 00:44:29 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+usage: build_verse_dataset.py [-h] --model MODEL [--only ONLY] [--force FORCE]
+                              [--need NEED] [--max_q_rounds MAX_Q_ROUNDS]
+                              [--fill_rounds FILL_ROUNDS]
+                              [--hf_token HF_TOKEN] [--exclude_existing]
+                              [--max_new_tokens MAX_NEW_TOKENS]
+                              [--continue_on_error]
+build_verse_dataset.py: error: the following arguments are required: --model
+[slurm] python exited rc=2 Mon Sep 14 00:44:31 EDT 2026

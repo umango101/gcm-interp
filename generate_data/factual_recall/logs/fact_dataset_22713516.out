@@ -1,0 +1,38 @@
+[slurm] job 22713516 on node4603 restart=0 Mon Sep 14 00:50:16 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] env OK: {'PYTHONHASHSEED': '0', 'TOKENIZERS_PARALLELISM': 'false'} + CUBLAS_WORKSPACE_CONFIG=:4096:8
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] seed=42 strict=1
+[load] 686 rows with Best Answer > 4 words from TruthfulQA.csv
+[main] 1 QC model(s): allenai/OLMo-2-1124-13B-DPO
+[main] judge: unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit
+
+==============================================================================
+[qcgen] allenai/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[qcgen] all responses + MCQ cached.
+[determinism] seed=42 strict=1
+[ckpt] 230 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[qcjudge] allenai/OLMo-2-1124-13B-DPO: nothing to judge (all cached, or no QC1&QC2 survivors).
+[qcjudge] nothing to do for any QC model; judge not loaded.
+
+==============================================================================
+[build] allenai/OLMo-2-1124-13B-DPO -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/output/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 230 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[build] 75/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 49, 'B': 26}; train 26 per letter (52 rows), 23 to test
+[build] NOTE: wanted 50 per letter (TRAIN_LIMIT=100) but the scarcest letter has only 26 survivors, so the train set is 52 rows rather than 100. Balance is kept; size is what gives.
+[build] wrote 12 train files (52 rows each) and 2 test files (23 rows each, ids 52..74) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/output/OLMo-2-1124-13B-DPO
+
+[done] stages complete: qcgen,qcjudge,build
+[done]   allenai/OLMo-2-1124-13B-DPO: passed_qc=75, train_rows=52, test_rows=23, per_letter=26 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/output/OLMo-2-1124-13B-DPO
+[slurm] python exited rc=0 Mon Sep 14 00:50:31 EDT 2026

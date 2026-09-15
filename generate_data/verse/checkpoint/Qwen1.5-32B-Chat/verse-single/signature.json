@@ -1,0 +1,27 @@
+{
+  "BACKEND": "transformers",
+  "MODEL": "Qwen/Qwen1.5-32B-Chat",
+  "DTYPE": "bfloat16",
+  "DEVICE_MAP": "auto",
+  "ATTN_IMPL": "eager",
+  "BATCH_SIZE": 32,
+  "MAX_MODEL_LEN": 4096,
+  "SEED": 42,
+  "NEED": 650,
+  "MAX_Q_ROUNDS": 8,
+  "EXCLUDE_EXISTING": false,
+  "MCQA_LAYOUT_SCHEME": "v2: cycle, prose=qid%4, verse=(prose+1+(qid//4)%3)%4",
+  "MCQA_STEM": "Which of the following responses is written in {medium} and correctly answers the question? Please respond with only \"A\", \"B\", \"C\", or \"D\".",
+  "PROMPT_MODE": "chat",
+  "DETERMINISM": {
+    "deterministic_algorithms": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "matmul_allow_tf32": true,
+    "cudnn_allow_tf32": true,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "themes_sha256": "bdb13ecf81ae9fe535547ec6c2fc43b3e36da6f2fabcaba23a77f3fe613a25b9",
+  "n_train": 100,
+  "n_test": 50
+}

@@ -1,0 +1,94 @@
+[slurm] job 22713847 on node3401-c1 restart=0 Mon Sep 14 09:52:17 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[load] 1648 professions from professions.json
+[main] 5 model(s): allenai/OLMo-2-1124-13B-DPO, tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat
+
+==============================================================================
+[model] allenai/OLMo-2-1124-13B-DPO
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/OLMo-2-1124-13B-DPO
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl
+==============================================================================
+[error] allenai/OLMo-2-1124-13B-DPO failed: RuntimeError("Checkpoint /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl was written under a different configuration (differs in: ['JUDGE_MAX_TOKENS', 'JUDGE_MODE', 'JUDGE_TMPL', 'STORY_TMPL']). Resuming would mix two configurations in one dataset. Use a fresh CHECKPOINT path or restore the old settings."); continuing (CONTINUE_ON_ERROR=1)
+
+==============================================================================
+[model] tiiuae/Falcon3-10B-Instruct
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Falcon3-10B-Instruct
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl
+==============================================================================
+[ckpt] 1648 professions already complete
+[gen] nothing to generate; all professions cached.
+[ckpt] 1648 professions already complete
+[verify] kept 272/1648 (male=207, female=65); discarded 1376
+[verify] story signals: {'unresolved': 1558, 'self_id': 88, 'pronoun_count': 2}; partner split found in 1120/1648
+[verify] heuristic vs judge: {'disagree': 591, 'agree': 1057}
+[ckpt] 1648 professions already complete
+[build] 57 length-matched pairs (unpaired: 150 male, 8 female)
+[build] 150 unpaired male roles kept for the test files (ids 57..206)
+[build] wrote 8 files (57 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Falcon3-10B-Instruct
+[build] wrote 4 steering files (57 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Falcon3-10B-Instruct
+[build] wrote 2 test files (150 rows each: 0 paired-remainder + 150 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Falcon3-10B-Instruct
+
+==============================================================================
+[model] google/gemma-3-12b-it
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/gemma-3-12b-it
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/gemma-3-12b-it/gender_responses.jsonl
+==============================================================================
+[ckpt] 1648 professions already complete
+[gen] nothing to generate; all professions cached.
+[ckpt] 1648 professions already complete
+[verify] kept 566/1648 (male=193, female=373); discarded 1082
+[verify] story signals: {'unresolved': 1475, 'self_id': 162, 'pronoun_count': 11}; partner split found in 433/1648
+[verify] heuristic vs judge: {'disagree': 827, 'agree': 821}
+[ckpt] 1648 professions already complete
+[build] 152 length-matched pairs (unpaired: 41 male, 221 female)
+[build] 41 unpaired male roles kept for the test files (ids 152..192)
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/gemma-3-12b-it
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/gemma-3-12b-it
+[build] wrote 2 test files (93 rows each: 52 paired-remainder + 41 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/gemma-3-12b-it
+
+==============================================================================
+[model] Qwen/Qwen1.5-14B-Chat
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-14B-Chat
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/Qwen1.5-14B-Chat/gender_responses.jsonl
+==============================================================================
+[ckpt] 1648 professions already complete
+[gen] nothing to generate; all professions cached.
+[ckpt] 1648 professions already complete
+[verify] kept 1288/1648 (male=796, female=492); discarded 360
+[verify] story signals: {'unresolved': 1469, 'pronoun_count': 7, 'self_id': 172}; partner split found in 1594/1648
+[verify] heuristic vs judge: {'disagree': 1390, 'agree': 258}
+[ckpt] 1648 professions already complete
+[build] 464 length-matched pairs (unpaired: 332 male, 28 female)
+[build] 332 unpaired male roles kept for the test files (ids 464..795)
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-14B-Chat
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-14B-Chat
+[build] wrote 2 test files (696 rows each: 364 paired-remainder + 332 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-14B-Chat
+
+==============================================================================
+[model] Qwen/Qwen1.5-32B-Chat
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-32B-Chat
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/Qwen1.5-32B-Chat/gender_responses.jsonl
+==============================================================================
+[ckpt] 1648 professions already complete
+[gen] nothing to generate; all professions cached.
+[ckpt] 1648 professions already complete
+[verify] kept 584/1648 (male=179, female=405); discarded 1064
+[verify] story signals: {'unresolved': 1601, 'self_id': 47}; partner split found in 1083/1648
+[verify] heuristic vs judge: {'agree': 1099, 'disagree': 549}
+[ckpt] 1648 professions already complete
+[build] 161 length-matched pairs (unpaired: 18 male, 244 female)
+[build] 18 unpaired male roles kept for the test files (ids 161..178)
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-32B-Chat
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-32B-Chat
+[build] wrote 2 test files (79 rows each: 61 paired-remainder + 18 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-32B-Chat
+
+[done] stages complete: generate,verify,build
+[done]   tiiuae/Falcon3-10B-Instruct: male=207, female=65, discarded=1376, pairs=57, train_rows=57, test_rows=150 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Falcon3-10B-Instruct
+[done]   google/gemma-3-12b-it: male=193, female=373, discarded=1082, pairs=152, train_rows=100, test_rows=93 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/gemma-3-12b-it
+[done]   Qwen/Qwen1.5-14B-Chat: male=796, female=492, discarded=360, pairs=464, train_rows=100, test_rows=696 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-14B-Chat
+[done]   Qwen/Qwen1.5-32B-Chat: male=179, female=405, discarded=1064, pairs=161, train_rows=100, test_rows=79 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/output/Qwen1.5-32B-Chat
+[done] 1 model(s) failed:
+[done]   allenai/OLMo-2-1124-13B-DPO: RuntimeError("Checkpoint /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_dating/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl was written under a different configuration (differs in: ['JUDGE_MAX_TOKENS', 'JUDGE_MODE', 'JUDGE_TMPL', 'STORY_TMPL']). Resuming would mix two configurations in one dataset. Use a fresh CHECKPOINT path or restore the old settings.")
+[slurm] python exited rc=1 Mon Sep 14 09:52:37 EDT 2026

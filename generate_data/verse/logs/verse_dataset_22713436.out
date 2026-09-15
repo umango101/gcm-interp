@@ -1,0 +1,102 @@
+[slurm] job 22713436 on node4602 restart=0 Mon Sep 14 00:49:38 EDT 2026
+NVIDIA H200, 143771 MiB
+NVIDIA H200, 143771 MiB
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] WARNING: PYTHONHASHSEED='0' (expected '42'); export it in the launcher, before python starts.
+[main] 5 model(s): OLMo-2-1124-13B-DPO, Falcon3-10B-Instruct, gemma-3-12b-it, Qwen1.5-14B-Chat, Qwen1.5-32B-Chat | stages: ['long', 'single', 'test']
+
+==============================================================================
+[main] OLMo-2-1124-13B-DPO
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/verse-single/signature.json
+[verse-single] checkpoint dir: /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/OLMo-2-1124-13B-DPO/verse-single
+[model] loading allenai/OLMo-2-1124-13B-DPO (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:02<00:10,  2.02s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:04<00:08,  2.06s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:06<00:06,  2.03s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:08<00:04,  2.05s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:10<00:02,  2.06s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:11<00:00,  1.76s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:11<00:00,  1.91s/it]
+[model] ready
+[verse-single] existing questions to exclude: 0 (--exclude_existing off: rebuild is reproducible)
+  questions: 708 (round 1)
+  responses: 1416 pairs, 45 windows to run (0 cached values recomputed to keep batches identical)
+  responses: window 1/45 done
+  responses: window 2/45 done
+  responses: window 3/45 done
+  responses: window 4/45 done
+  responses: window 5/45 done
+  responses: window 6/45 done
+  responses: window 7/45 done
+  responses: window 8/45 done
+  responses: window 9/45 done
+  responses: window 10/45 done
+  responses: window 11/45 done
+  responses: window 12/45 done
+  responses: window 13/45 done
+  responses: window 14/45 done
+  responses: window 15/45 done
+  responses: window 16/45 done
+  responses: window 17/45 done
+  responses: window 18/45 done
+  responses: window 19/45 done
+  responses: window 20/45 done
+  responses: window 21/45 done
+  responses: window 22/45 done
+  responses: window 23/45 done
+  responses: window 24/45 done
+  responses: window 25/45 done
+  responses: window 26/45 done
+  responses: window 27/45 done
+  responses: window 28/45 done
+  responses: window 29/45 done
+  responses: window 30/45 done
+  responses: window 31/45 done
+  responses: window 32/45 done
+  responses: window 33/45 done
+  responses: window 34/45 done
+  responses: window 35/45 done
+  responses: window 36/45 done
+  responses: window 37/45 done
+  responses: window 38/45 done
+  responses: window 39/45 done
+  responses: window 40/45 done
+  responses: window 41/45 done
+  responses: window 42/45 done
+  responses: window 43/45 done
+  responses: window 44/45 done
+  responses: window 45/45 done
+[verse-single] slot-filling train (100)...
+  [train] round 0: clean 23/100, retry 77
+  [train] round 1: clean 35/100, retry 65
+  [train] round 2: clean 44/100, retry 56
+  [train] round 3: clean 49/100, retry 51
+  [train] round 4: clean 51/100, retry 49
+  [train] round 5: clean 56/100, retry 44
+  [train] round 6: clean 62/100, retry 38
+  [train] round 7: clean 64/100, retry 36
+  [train] round 8: clean 66/100, retry 34
+  [train] round 9: clean 67/100, retry 33
+  [train] round 10: clean 72/100, retry 28
+  [train] round 11: clean 72/100, retry 28
+  [train] round 12: clean 74/100, retry 26
+[error] OLMo-2-1124-13B-DPO failed: RuntimeError('ran out of candidates filling train (648 used)'); continuing (--continue_on_error)
+
+==============================================================================
+[main] Falcon3-10B-Instruct
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/Falcon3-10B-Instruct/verse-single/signature.json
+[verse-single] checkpoint dir: /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias/checkpoint/Falcon3-10B-Instruct/verse-single
+[model] loading tiiuae/Falcon3-10B-Instruct (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.78s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:03,  1.23s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:03<00:02,  1.01s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:04<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:04<00:00,  1.51it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:04<00:00,  1.15it/s]
+[model] ready
+[verse-single] existing questions to exclude: 0 (--exclude_existing off: rebuild is reproducible)
+  questions: 766 (round 1)
+  responses: 1532 pairs, 48 windows to run (0 cached values recomputed to keep batches identical)
+  responses: window 1/48 done
+  responses: window 2/48 done
+  responses: window 3/48 done
+  responses: window 4/48 done
+[2026-09-14T00:56:27.921] error: *** JOB 22713436 ON node4602 CANCELLED AT 2026-09-14T00:56:27 DUE to SIGNAL Terminated ***
+[slurm] relaying TERM -> 1869345
+[signal] received SIGTERM; will checkpoint and exit at the next round boundary.
+  responses: window 5/48 done
+[signal] stopping after response window 5/48; progress checkpointed.
+[slurm] python exited rc=0 Mon Sep 14 00:56:29 EDT 2026

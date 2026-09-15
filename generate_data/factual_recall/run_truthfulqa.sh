@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
-#SBATCH -t 02:00:00
+#SBATCH -t 12:00:00
 #SBATCH -J fact_dataset
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -9,75 +9,83 @@
 #SBATCH --signal=B:USR1@120
 #SBATCH -c 8
 
+# Five models generate sequentially in one allocation, so 2h is not enough: each
+# model is ~2k generations (971 professions x single+story) through eager HF
+# generate, and the 32B is the slow one. The job is resumable per model, so a
+# preemption costs at most one chunk -- but a wall-clock timeout mid-sweep just
+# burns a requeue.
+
 set -euo pipefail
-mkdir -p logs checkpoint output
+mkdir -p logs
 
-# ---- environment (matches your working vLLM stack) ----
-# System /etc/bashrc and conda activation scripts are NOT nounset-safe, so relax
-# errexit+nounset just while sourcing them, then restore strict mode.
+echo "[slurm] job $SLURM_JOB_ID on $(hostname) restart=${SLURM_RESTART_COUNT:-0} $(date)"
+nvidia-smi --query-gpu=name,memory.total --format=csv,noheader || true
+
+# The interp env, not `vllm-summ`: this script is plain transformers now, and
+# device_map="auto" needs accelerate. `syc` has torch 2.7.0+cu126 / accelerate
+# 1.11.0 / transformers 4.53.3, which covers every model in MODELS below (gemma-3
+# needs >= 4.50). Note 4.53.3 predates the torch_dtype -> dtype rename; the script
+# tries both, so nothing to do here.
+#
+# set +eu around activate: the conda hook trips `set -u` on unbound vars.
 set +eu
-source ~/.bashrc
-conda activate vllm-summ
+source /home/ubansal/miniconda/etc/profile.d/conda.sh 2>/dev/null || eval "$(conda shell.bash hook)"
+conda activate "${GEN_ENV:-syc}"
 set -eu
+echo "[slurm] env=${CONDA_DEFAULT_ENV:-?} python=$(which python)"
 
-# Avoid FlashInfer JIT (needs nvcc) and the known GLIBCXX ABI mismatch on Engaging.
-export VLLM_USE_FLASHINFER_SAMPLER=0
-export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:${LD_LIBRARY_PATH:-}"
-export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
+export HF_HOME="${HF_HOME:-$HOME/orcd/scratch/hf_home}"
 
-# ---- determinism ----------------------------------------------------------
-# Read at process start (by cuBLAS, by the interpreter, by the rust tokenizer),
-# so setting them from inside python has no effect -- build_truthfulqa_dataset.py
-# asserts them instead of setting them. Same contract as eval/setup.py.
-export CUBLAS_WORKSPACE_CONFIG=":4096:8"
+# Determinism. PYTHONHASHSEED and CUBLAS_WORKSPACE_CONFIG must be exported here:
+# the first is read by the interpreter at startup, the second before the first CUDA
+# context. Everything else (deterministic algorithms, cudnn flags, TF32) is set by
+# enable_determinism() inside the script and read back into the run signature.
+export SEED=42
+export PYTHONHASHSEED=42
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export PYTHONHASHSEED="0"
 export TOKENIZERS_PARALLELISM="false"
-export VLLM_ENABLE_V1_MULTIPROCESSING="0"
-# 0 = warn, 1 = assert the env (default), 2 = also hard-fail on any torch op with
-#     no deterministic implementation. Use 2 to find the offending op, not for
-#     production runs.
-export STRICT_DETERMINISM="${STRICT_DETERMINISM:-1}"
-# Part of the dataset identity: SEED decides which of A/B holds the truthful
-# answer for every row. Existing checkpoints under checkpoint/ are only valid
-# for the seed that produced them.
-export SEED="${SEED:-42}"
+# NVIDIA_TF32_OVERRIDE=0 disables TF32 at the driver level regardless of the torch
+# flags, which would leave the signature recording matmul_allow_tf32=True while the
+# hardware quietly did something else. Clear it if a module file set it.
+unset NVIDIA_TF32_OVERRIDE
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 
-# STAGES is a LIST, and each entry gets its OWN python process below. vLLM does
-# not reliably hand back a model's memory, so a single process that loads QC_MODEL
-# and then JUDGE_MODEL dies on free memory at the second load; one process per
-# stage sidesteps that and keeps each engine's KV cache sized against an empty
-# GPU. Override to run a single stage, e.g. STAGES=qcjudge sbatch run_truthfulqa.sh
-export STAGES="${STAGES:-qcgen,qcjudge,build}"
-# export HF_TOKEN=...   # only if a gated model is selected (defaults are ungated)
+REPO="$HOME/orcd/scratch/gcm-interp"
+export OUTPUT_ROOT="${OUTPUT_ROOT:-$REPO/generate_data/factual_recall/output}"
+export CHECKPOINT_ROOT="${CHECKPOINT_ROOT:-$REPO/generate_data/factual_recall/checkpoint}"
+export MODELS="allenai/OLMo-2-1124-13B-DPO,tiiuae/Falcon3-10B-Instruct,google/gemma-3-12b-it,Qwen/Qwen1.5-14B-Chat,Qwen/Qwen1.5-32B-Chat"
+# One bad model does not cost the other four; the job still exits 1 at the end.
+export CONTINUE_ON_ERROR=1
 
-# Stages are resumable and skip completed work on requeue; the Python process
-# also traps SIGUSR1/SIGTERM to checkpoint the current chunk and exit cleanly.
-if [[ -n "${SLURM_JOB_ID:-}" ]]; then
-    # Under SLURM: forward SIGUSR1 to requeue, and launch via srun.
-    requeue_handler() {
-        echo "[run] caught SIGUSR1 -> requeueing $SLURM_JOB_ID"
-        scontrol requeue "$SLURM_JOB_ID" || true
-        exit 0
-    }
-    trap requeue_handler USR1
-fi
+mkdir -p "$OUTPUT_ROOT" "$CHECKPOINT_ROOT"
 
-# One python process per stage, in order. Each exits before the next starts, so
-# the GPU is empty when the next engine sizes itself -- and a stage that dies
-# leaves the earlier stages' checkpoints intact, so a rerun resumes rather than
-# repeating them.
-IFS=',' read -r -a _stages <<< "$STAGES"
-for stage in "${_stages[@]}"; do
-    stage="$(echo "$stage" | tr -d '[:space:]')"
-    [[ -z "$stage" ]] && continue
-    echo "[run] === stage: $stage ==="
-    if [[ -n "${SLURM_JOB_ID:-}" ]]; then
-        STAGES="$stage" srun --unbuffered python build_truthfulqa_dataset.py &
-        wait $!
-    else
-        STAGES="$stage" python build_truthfulqa_dataset.py
-    fi
-    echo "[run] === stage $stage done ==="
+python build_truthfulqa_dataset.py &
+PY_PID=$!
+
+relay() { echo "[slurm] relaying $1 -> $PY_PID"; kill -"$1" "$PY_PID" 2>/dev/null || true; }
+trap 'relay USR1' USR1
+trap 'relay TERM' TERM
+
+# Two things this loop fixes:
+#  * `wait` returns 128+N as soon as a trapped signal arrives, while python is still
+#    writing its checkpoint. A single wait would let the script exit out from under
+#    it. Loop until the child is actually gone.
+#  * a bare `wait "$PY_PID"; rc=$?` never reaches the assignment under `set -e` --
+#    the failing wait exits the script first, so a nonzero rc was silently turned
+#    into an unreported exit.
+rc=0
+while true; do
+  # Not `set -e`-triggering: wait is the left side of an && list.
+  wait "$PY_PID" && { rc=0; break; }
+  rc=$?
+  # A status over 128 means either a trapped signal interrupted wait (python still
+  # running -- go round again and let it finish checkpointing) or the child itself
+  # was killed by a signal (child gone -- report it). kill -0 tells them apart.
+  if [ "$rc" -le 128 ] || ! kill -0 "$PY_PID" 2>/dev/null; then
+    break
+  fi
 done
 
-echo "[run] finished"
+echo "[slurm] python exited rc=$rc $(date)"
+exit $rc

@@ -1,0 +1,26 @@
+[slurm] job 22724963 on node5201 restart=0 Mon Sep 14 08:12:04 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+verse file : /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/verse-long-desired-all.jsonl
+prose file : /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/prose-desired-all.jsonl
+rows parsed: 100 (prompts all match the 'Respond in {verse|prose} and concisely. <q>' frame)
+
+' verse' -> 1 token(s), ' prose' -> 1 token(s)
+format-aligned rows (verse/prose prompts equal length): 100/100
+
+templated verse-prompt lengths: 33-47 tokens across 14 buckets
+length-matched pairs: 47  (0 candidates rejected as too lexically similar)
+  of those, format-aligned on both sides: 47
+position-set alignment failures among those pairs: 0
+
+example pair (38, 46), similarity 0.0, 34 prompt tokens
+  Q1: How does suffering shape our character?
+  Q2: Can true freedom exist without boundaries?
+  fmt          1 tok  [16]  ' verse'
+  question     7 tok  [22, 23, 24, '...', 27, 28]  ' How does suffering shape our character?'
+  suffix       5 tok  [29, 30, 31, 32, 33]  '<|im_end|>\n<|im_start|>assistant\n'
+  last         1 tok  [33]  '\n'
+  prompt      34 tok  [0, 1, 2, '...', 32, 33]  '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|'
+  concisely    3 tok  [18, 19, 20]  ' concisely'
+  reference answer lengths (tokens): {'q1_verse': 128, 'q1_prose': 128, 'q2_verse': 128, 'q2_prose': 128}
+python: can't open file '/orcd/scratch/orcd/008/ubansal/gcm-interp/generate_data/verse_long_abstraction/build_pairs.py': [Errno 2] No such file or directory
+[slurm] python exited rc=2 Mon Sep 14 08:12:39 EDT 2026

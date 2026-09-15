@@ -1,0 +1,91 @@
+[slurm] job 22725166 on node3400 restart=0 Mon Sep 14 08:16:49 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+verse file : /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/verse-long-desired-all.jsonl
+prose file : /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/prose-desired-all.jsonl
+rows parsed: 100 (prompts all match the 'Respond in {verse|prose} and concisely. <q>' frame)
+
+' verse' -> 1 token(s), ' prose' -> 1 token(s)
+format-aligned rows (verse/prose prompts equal length): 100/100
+
+templated verse-prompt lengths: 33-47 tokens across 14 buckets
+length-matched pairs: 47  (0 candidates rejected as too lexically similar)
+  of those, format-aligned on both sides: 47
+position-set alignment failures among those pairs: 0
+
+example pair (38, 46), similarity 0.0, 34 prompt tokens
+  Q1: How does suffering shape our character?
+  Q2: Can true freedom exist without boundaries?
+  fmt          1 tok  [16]  ' verse'
+  question     7 tok  [22, 23, 24, '...', 27, 28]  ' How does suffering shape our character?'
+  suffix       5 tok  [29, 30, 31, 32, 33]  '<|im_end|>\n<|im_start|>assistant\n'
+  last         1 tok  [33]  '\n'
+  prompt      34 tok  [0, 1, 2, '...', 32, 33]  '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|'
+  concisely    3 tok  [18, 19, 20]  ' concisely'
+  reference answer lengths (tokens): {'q1_verse': 128, 'q1_prose': 128, 'q2_verse': 128, 'q2_prose': 128}
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+100 rows from verse-long-desired-all.jsonl / prose-desired-all.jsonl
+verse/prose token lengths match for 100/100 rows
+47 length-matched pairs (0 rejected as too similar)
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:24,  1.51s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:02<00:22,  1.48s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:20,  1.45s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:05<00:18,  1.46s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:07<00:17,  1.46s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:08<00:15,  1.45s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:10<00:14,  1.44s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:11<00:13,  1.44s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:13<00:11,  1.45s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:14<00:10,  1.44s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:15<00:08,  1.45s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:17<00:07,  1.45s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:19<00:05,  1.50s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:20<00:04,  1.51s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:22<00:02,  1.49s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:23<00:01,  1.48s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:24<00:00,  1.39s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:24<00:00,  1.45s/it]
+  [1/47] pair (38,46) margins=[1.446, 1.155, 0.905] ok
+  [2/47] pair (89,92) margins=[0.746, 1.075, 0.894] ok
+  [3/47] pair (93,98) margins=[0.754, 0.96, 0.897] ok
+  [4/47] pair (17,21) margins=[0.913, 1.265, 1.151] ok
+  [5/47] pair (23,56) margins=[1.034, 1.279, 0.919] ok
+  [6/47] pair (24,59) margins=[1.492, 1.238, 0.713] ok
+  [7/47] pair (67,77) margins=[0.882, 0.982, 1.515] ok
+  [8/47] pair (84,85) margins=[1.083, 0.835, 0.764] ok
+  [9/47] pair (3,6) margins=[1.014, 0.846, 0.801] ok
+  [10/47] pair (9,13) margins=[0.992, 0.909, 0.826] ok
+  [11/47] pair (26,37) margins=[0.796, 0.874, 0.788] ok
+  [12/47] pair (40,50) margins=[1.266, 1.007, 0.834] ok
+  [13/47] pair (48,70) margins=[1.306, 1.062, 0.829] ok
+  [14/47] pair (75,83) margins=[1.233, 1.063, 0.822] ok
+  [15/47] pair (0,14) margins=[0.879, 0.99, 0.834] ok
+  [16/47] pair (28,34) margins=[0.885, 1.048, 0.831] ok
+  [17/47] pair (30,44) margins=[0.945, 1.141, 0.812] ok
+  [18/47] pair (42,45) margins=[1.529, 1.332, 0.996] ok
+  [19/47] pair (53,58) margins=[1.071, 1.244, 0.88] ok
+  [20/47] pair (60,66) margins=[0.954, 1.016, 1.228] ok
+  [21/47] pair (72,74) margins=[0.785, 1.188, 1.077] ok
+  [22/47] pair (78,95) margins=[1.011, 1.222, 0.982] ok
+  [23/47] pair (1,16) margins=[1.095, 1.154, 0.99] ok
+  [24/47] pair (12,27) margins=[1.303, 1.06, 0.968] ok
+  [25/47] pair (32,47) margins=[1.081, 0.861, 0.868] ok
+  [26/47] pair (49,54) margins=[1.093, 1.202, 0.869] ok
+  [27/47] pair (62,63) margins=[1.162, 1.054, 0.869] ok
+  [28/47] pair (68,73) margins=[0.68, 1.252, 0.919] ok
+  [29/47] pair (88,91) margins=[1.196, 1.424, 0.758] ok
+  [30/47] pair (2,4) margins=[1.272, 1.737, 1.019] ok
+  [31/47] pair (5,8) margins=[0.934, 0.76, 0.699] ok
+  [32/47] pair (10,11) margins=[1.053, 1.118, 0.922] ok
+  [33/47] pair (15,20) margins=[0.552, 0.692, 0.923] ok
+  [34/47] pair (31,35) margins=[1.153, 1.863, 1.454] ok
+  [35/47] pair (36,51) margins=[1.461, 1.367, 1.142] ok
+  [36/47] pair (52,57) margins=[1.161, 0.931, 0.867] ok
+  [37/47] pair (65,69) margins=[0.9, 1.351, 0.991] ok
+  [38/47] pair (76,82) margins=[0.914, 0.999, 1.116] ok
+  [39/47] pair (87,94) margins=[1.405, 1.236, 0.835] ok
+  [40/47] pair (25,39) margins=[1.008, 1.067, 1.009] ok
+  [41/47] pair (71,86) margins=[0.905, 0.663, 0.882] ok
+  [42/47] pair (7,19) margins=[1.149, 0.725, 1.072] ok
+  [43/47] pair (22,55) margins=[0.879, 1.034, 0.715] ok
+  [44/47] pair (64,79) margins=[1.135, 1.562, 0.93] ok
+  [45/47] pair (81,90) margins=[1.0, 1.375, 1.872] ok
+  [46/47] pair (18,29) margins=[1.478, 1.294, 1.081] ok
+  [47/47] pair (33,43) margins=[1.073, 0.838, 0.926] ok
+{
+  "model": "Qwen/Qwen1.5-32B-Chat",
+  "verse_path": "/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/verse-long-desired-all.jsonl",
+  "prose_path": "/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long/prose-desired-all.jsonl",
+  "n_rows": 100,
+  "n_pairs_length_matched": 47,
+  "n_pairs_kept": 47,
+  "n_format_aligned": 47,
+  "max_similarity": 0.2,
+  "min_margin": 0.0,
+  "max_ref_tokens": 128,
+  "qc_enabled": true
+}
+wrote /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long-abstraction/pairs.jsonl
+[slurm] python exited rc=0 Mon Sep 14 08:17:54 EDT 2026

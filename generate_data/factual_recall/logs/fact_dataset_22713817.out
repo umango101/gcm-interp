@@ -1,0 +1,69 @@
+[slurm] job 22713817 on node4602 restart=0 Mon Sep 14 00:57:49 EDT 2026
+NVIDIA H200, 143771 MiB
+NVIDIA H200, 143771 MiB
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] env OK: {'PYTHONHASHSEED': '0', 'TOKENIZERS_PARALLELISM': 'false'} + CUBLAS_WORKSPACE_CONFIG=:4096:8
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] seed=42 strict=1
+[load] 686 rows with Best Answer > 4 words from TruthfulQA.csv
+[main] 1 QC model(s): allenai/OLMo-2-1124-13B-DPO
+[main] judge: unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit
+
+==============================================================================
+[qcgen] allenai/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[model] loading allenai/OLMo-2-1124-13B-DPO (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:01<00:05,  1.10s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:02<00:04,  1.08s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:03<00:03,  1.06s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:04<00:02,  1.07s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:05<00:01,  1.07s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:05<00:00,  1.11it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:05<00:00,  1.01it/s]
+[model] ready in 8.0s
+[qcgen] chunk 0: 48/686 generated, 15 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 1: 96/686 generated, 27 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 2: 144/686 generated, 42 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 3: 192/686 generated, 58 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 4: 240/686 generated, 73 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 5: 288/686 generated, 83 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 6: 336/686 generated, 99 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 7: 384/686 generated, 119 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 8: 432/686 generated, 132 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 9: 480/686 generated, 147 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 10: 528/686 generated, 164 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 11: 576/686 generated, 181 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 12: 624/686 generated, 205 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 13: 672/686 generated, 224 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 14: 686/686 generated, 230 passing QC1&QC2 (-> sent to judge)
+[model] released: free 96.3 -> 131.1 GiB of 139.8
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[model] unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit is pre-quantized; using its own quantization_config
+[model] loading unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit (device_map=auto, dtype=bfloat16, attn=eager, quant=bitsandbytes) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:03<00:17,  3.51s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:06<00:13,  3.37s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:10<00:09,  3.31s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:12<00:06,  3.14s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:15<00:03,  3.04s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:17<00:00,  2.68s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:17<00:00,  2.96s/it]
+[model] ready in 37.5s
+[qcjudge] === allenai/OLMo-2-1124-13B-DPO -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl ===
+[qcjudge] chunk 0: 48 judged (+18/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 1: 96 judged (+15/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 2: 144 judged (+16/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 3: 192 judged (+17/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 4: 230 judged (+9/38 passed QC3&QC4 this chunk)
+[model] released: free 114.1 -> 122.2 GiB of 139.8
+
+==============================================================================
+[build] allenai/OLMo-2-1124-13B-DPO -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 230 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[build] 75/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 49, 'B': 26}; train 26 per letter (52 rows), 23 to test
+[build] NOTE: wanted 50 per letter (TRAIN_LIMIT=100) but the scarcest letter has only 26 survivors, so the train set is 52 rows rather than 100. Balance is kept; size is what gives.
+[build] wrote 12 train files (52 rows each) and 2 test files (23 rows each, ids 52..74) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+
+[done] stages complete: qcgen,qcjudge,build
+[done]   allenai/OLMo-2-1124-13B-DPO: passed_qc=75, train_rows=52, test_rows=23, per_letter=26 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+[slurm] python exited rc=0 Mon Sep 14 01:00:17 EDT 2026

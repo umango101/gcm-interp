@@ -1,0 +1,43 @@
+[slurm] job 22437989 on node4400 restart=0 Wed Sep  9 23:35:39 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[load] 1648 professions from professions.json
+[main] 5 model(s): allenai/OLMo-2-1124-13B-DPO, tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat
+
+==============================================================================
+[model] allenai/OLMo-2-1124-13B-DPO
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_generate/output/OLMo-2-1124-13B-DPO
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_generate/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_generate/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading allenai/OLMo-2-1124-13B-DPO (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:03<00:16,  3.27s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:06<00:13,  3.42s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:10<00:10,  3.58s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:14<00:07,  3.76s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:19<00:04,  4.05s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:21<00:00,  3.56s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:21<00:00,  3.63s/it]
+[gen] model ready in 25.4s
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done

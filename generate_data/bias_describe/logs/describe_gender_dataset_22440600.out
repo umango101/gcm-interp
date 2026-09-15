@@ -1,0 +1,457 @@
+[slurm] job 22440600 on node3401-c1 restart=0 Thu Sep 10 08:44:53 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[load] 1648 professions from professions.json
+[main] 5 model(s): allenai/OLMo-2-1124-13B-DPO, tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat
+
+==============================================================================
+[model] allenai/OLMo-2-1124-13B-DPO
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/OLMo-2-1124-13B-DPO
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading allenai/OLMo-2-1124-13B-DPO (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:02<00:12,  2.48s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:05<00:10,  2.52s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:07<00:07,  2.52s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:10<00:05,  2.53s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:12<00:02,  2.54s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:14<00:00,  2.23s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:14<00:00,  2.38s/it]
+[gen] model ready in 18.7s
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done
+[gen] 26/35 chunks done
+[gen] 27/35 chunks done
+[gen] 28/35 chunks done
+[gen] 29/35 chunks done
+[gen] 30/35 chunks done
+[gen] 31/35 chunks done
+[gen] 32/35 chunks done
+[gen] 33/35 chunks done
+[gen] 34/35 chunks done
+[gen] 35/35 chunks done
+[ckpt] 1648 professions already complete
+[verify] kept 236/1648 (male=114, female=122); discarded 1412
+[ckpt] 1648 professions already complete
+[build] 86 length-matched pairs (unpaired: 28 male, 36 female)
+[build] 28 unpaired male roles kept for the test files (ids 86..113)
+[build] wrote 8 files (86 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/OLMo-2-1124-13B-DPO
+[build] wrote 4 steering files (86 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/OLMo-2-1124-13B-DPO
+[build] wrote 2 test files (28 rows each: 0 paired-remainder + 28 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/OLMo-2-1124-13B-DPO
+
+==============================================================================
+[model] tiiuae/Falcon3-10B-Instruct
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Falcon3-10B-Instruct
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading tiiuae/Falcon3-10B-Instruct (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.23s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.31s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.28s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.32s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.66s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:09<00:00,  1.94s/it]
+[gen] model ready in 11.0s
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done
+[gen] 26/35 chunks done
+[gen] 27/35 chunks done
+[gen] 28/35 chunks done
+[gen] 29/35 chunks done
+[gen] 30/35 chunks done
+[gen] 31/35 chunks done
+[gen] 32/35 chunks done
+[gen] 33/35 chunks done
+[gen] 34/35 chunks done
+[gen] 35/35 chunks done
+[ckpt] 1648 professions already complete
+[verify] kept 380/1648 (male=311, female=69); discarded 1268
+[ckpt] 1648 professions already complete
+[build] 61 length-matched pairs (unpaired: 250 male, 8 female)
+[build] 250 unpaired male roles kept for the test files (ids 61..310)
+[build] wrote 8 files (61 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Falcon3-10B-Instruct
+[build] wrote 4 steering files (61 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Falcon3-10B-Instruct
+[build] wrote 2 test files (250 rows each: 0 paired-remainder + 250 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Falcon3-10B-Instruct
+
+==============================================================================
+[model] google/gemma-3-12b-it
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/gemma-3-12b-it
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/gemma-3-12b-it/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/gemma-3-12b-it/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading google/gemma-3-12b-it (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.13s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.09s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.16s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:02,  2.18s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.15s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:10<00:00,  2.15s/it]
+[gen] model ready in 13.7s
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done
+[gen] 26/35 chunks done
+[gen] 27/35 chunks done
+[gen] 28/35 chunks done
+[gen] 29/35 chunks done
+[gen] 30/35 chunks done
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[gen] 31/35 chunks done
+[gen] 32/35 chunks done
+[gen] 33/35 chunks done
+[gen] 34/35 chunks done
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[gen] 35/35 chunks done
+[ckpt] 1648 professions already complete
+[verify] kept 1233/1648 (male=109, female=1124); discarded 415
+[ckpt] 1648 professions already complete
+[build] 109 length-matched pairs (unpaired: 0 male, 1015 female)
+[build] no unpaired male roles
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/gemma-3-12b-it
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/gemma-3-12b-it
+[build] wrote 2 test files (9 rows each: 9 paired-remainder + 0 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/gemma-3-12b-it
+
+==============================================================================
+[model] Qwen/Qwen1.5-14B-Chat
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-14B-Chat
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Qwen1.5-14B-Chat/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Qwen1.5-14B-Chat/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading Qwen/Qwen1.5-14B-Chat (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:09,  1.38s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:08,  1.38s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:04<00:06,  1.36s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:05<00:05,  1.35s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:06<00:04,  1.35s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:08<00:02,  1.36s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:09<00:01,  1.27s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:09<00:00,  1.06s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:09<00:00,  1.23s/it]
+[gen] model ready in 10.8s
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done
+[gen] 26/35 chunks done
+[gen] 27/35 chunks done
+[gen] 28/35 chunks done
+[gen] 29/35 chunks done
+[gen] 30/35 chunks done
+[gen] 31/35 chunks done
+[gen] 32/35 chunks done
+[gen] 33/35 chunks done
+[gen] 34/35 chunks done
+[gen] 35/35 chunks done
+[ckpt] 1648 professions already complete
+[verify] kept 923/1648 (male=416, female=507); discarded 725
+[ckpt] 1648 professions already complete
+[build] 358 length-matched pairs (unpaired: 58 male, 149 female)
+[build] 58 unpaired male roles kept for the test files (ids 358..415)
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-14B-Chat
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-14B-Chat
+[build] wrote 2 test files (316 rows each: 258 paired-remainder + 58 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-14B-Chat
+
+==============================================================================
+[model] Qwen/Qwen1.5-32B-Chat
+[model] output     -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-32B-Chat
+[model] checkpoint -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Qwen1.5-32B-Chat/gender_responses.jsonl
+==============================================================================
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/checkpoint/Qwen1.5-32B-Chat/gender_responses.jsonl
+[ckpt] 0 professions already complete
+[gen] 35/35 chunks to run (0 cached generations will be redone to keep batches identical)
+[gen] loading Qwen/Qwen1.5-32B-Chat (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:20,  1.26s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:02<00:19,  1.33s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:04<00:20,  1.47s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:05<00:20,  1.57s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:07<00:19,  1.63s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:09<00:18,  1.66s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:11<00:16,  1.66s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:12<00:15,  1.67s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:14<00:13,  1.69s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:16<00:11,  1.71s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:18<00:10,  1.72s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:19<00:08,  1.69s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:21<00:06,  1.68s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:23<00:05,  1.70s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:24<00:03,  1.72s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:26<00:01,  1.74s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:28<00:00,  1.64s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:28<00:00,  1.65s/it]
+[gen] model ready in 30.9s
+[gen] 1/35 chunks done
+[gen] 2/35 chunks done
+[gen] 3/35 chunks done
+[gen] 4/35 chunks done
+[gen] 5/35 chunks done
+[gen] 6/35 chunks done
+[gen] 7/35 chunks done
+[gen] 8/35 chunks done
+[gen] 9/35 chunks done
+[gen] 10/35 chunks done
+[gen] 11/35 chunks done
+[gen] 12/35 chunks done
+[gen] 13/35 chunks done
+[gen] 14/35 chunks done
+[gen] 15/35 chunks done
+[gen] 16/35 chunks done
+[gen] 17/35 chunks done
+[gen] 18/35 chunks done
+[gen] 19/35 chunks done
+[gen] 20/35 chunks done
+[gen] 21/35 chunks done
+[gen] 22/35 chunks done
+[gen] 23/35 chunks done
+[gen] 24/35 chunks done
+[gen] 25/35 chunks done
+[gen] 26/35 chunks done
+[gen] 27/35 chunks done
+[gen] 28/35 chunks done
+[gen] 29/35 chunks done
+[gen] 30/35 chunks done
+[gen] 31/35 chunks done
+[gen] 32/35 chunks done
+[gen] 33/35 chunks done
+[gen] 34/35 chunks done
+[gen] 35/35 chunks done
+[ckpt] 1648 professions already complete
+[verify] kept 822/1648 (male=260, female=562); discarded 826
+[ckpt] 1648 professions already complete
+[build] 243 length-matched pairs (unpaired: 17 male, 319 female)
+[build] 17 unpaired male roles kept for the test files (ids 243..259)
+[build] wrote 8 files (100 rows each) + gender_pairs.json -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-32B-Chat
+[build] wrote 4 steering files (100 rows each) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-32B-Chat
+[build] wrote 2 test files (160 rows each: 143 paired-remainder + 17 unpaired) -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-32B-Chat
+
+[done] stages complete: generate,verify,build
+[done]   allenai/OLMo-2-1124-13B-DPO: male=114, female=122, discarded=1412, pairs=86, train_rows=86, test_rows=28 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/OLMo-2-1124-13B-DPO
+[done]   tiiuae/Falcon3-10B-Instruct: male=311, female=69, discarded=1268, pairs=61, train_rows=61, test_rows=250 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Falcon3-10B-Instruct
+[done]   google/gemma-3-12b-it: male=109, female=1124, discarded=415, pairs=109, train_rows=100, test_rows=9 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/gemma-3-12b-it
+[done]   Qwen/Qwen1.5-14B-Chat: male=416, female=507, discarded=725, pairs=358, train_rows=100, test_rows=316 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-14B-Chat
+[done]   Qwen/Qwen1.5-32B-Chat: male=260, female=562, discarded=826, pairs=243, train_rows=100, test_rows=160 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_describe/output/Qwen1.5-32B-Chat
+[slurm] python exited rc=0 Thu Sep 10 09:33:33 EDT 2026

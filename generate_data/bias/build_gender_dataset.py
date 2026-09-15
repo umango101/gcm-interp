@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-Build a gender-pronoun contrastive dataset with allenai/gemma-3-12b-it (vLLM) from a
-single list of professions.
+Build a gender-pronoun contrastive dataset with HuggingFace transformers, for one or
+more models, from a single list of professions.
 
 For every profession in professions.json, generate:
   * single : a one-word "he"/"she" completion of "The <profession> said that"
@@ -16,26 +16,62 @@ Pairing: surviving male and female roles are matched into (male, female) PAIRS
 whose role names have equal token length, so each output idx is one length-matched
 pair and the male/female prompts are token-aligned.
 
-Output:
-  * 8 length-matched .jsonl files (single/long x desired/undesired x male/female),
-    each row indexed by pair idx. "-long-undesired" uses the pair partner's
-    opposite-gender story.
-  * 4 steering .jsonl files, sharing the paired (idx -> male_role / female_role)
-    mapping and capped at TRAIN_LIMIT. Each uses its own role and that role's story:
-        maleDescribe-single-steering   : single prompt (male role)   -> "he"
-        femaleDescribe-single-steering : single prompt (female role) -> "she"
-        maleDescribe-long-steering      : story prompt (male role)   -> that role's story
-        femaleDescribe-long-steering    : story prompt (female role) -> that role's story
-  * 2 male-only test .jsonl files (prompt-only). These do NOT require a female
-    counterpart: they take the paired remainder (pair idx >= TRAIN_LIMIT) plus every
-    verified male role that never found an equal-token-length female partner.
+Output (per model, under OUTPUT_ROOT/<model-dir>/):
+  * 8 length-matched .jsonl files (single/long x desired/undesired x male/female)
+  * 4 steering .jsonl files
+  * 2 male-only test .jsonl files (prompt-only)
+  * gender_pairs.json, gender_verification_report.json, gender_build_config.json
 
-Stages (resumable): GENERATE -> VERIFY -> BUILD. Built for a preemptable single-GPU
-SLURM job: append-only checkpoint, signal handling, resume on requeue.
+MODELS
+------
+MODELS is a comma-separated list; each model is run end-to-end (generate, verify,
+build) in turn, with its own checkpoint and output directory, before the next model
+is loaded. Because every model produces its own stereotype labels, its own surviving
+roles and its own pairing, nothing is shared across models except professions.json.
+Weights are freed between models, so a whole sweep fits in one SLURM allocation.
+
+    MODELS="allenai/OLMo-2-1124-13B-DPO,Qwen/Qwen1.5-14B-Chat" ./build_gender_dataset.py
+
+Directories default to OUTPUT_ROOT/<basename> and CHECKPOINT_ROOT/<basename>/
+gender_responses.jsonl (e.g. output/OLMo-2-1124-13B-DPO). OUTPUT_DIR / CHECKPOINT
+still work as explicit overrides, but only when exactly one model is requested --
+with several models they would collide, so they are rejected.
+
+BACKEND
+-------
+Generation is plain transformers `model.generate` under `torch.inference_mode`, in
+left-padded batches of CHUNK_SIZE, greedy (do_sample=False). No vLLM.
+
+Determinism:
+  * kernel selection is pinned by enable_determinism(), a verbatim copy of the repo's
+    shared helper, so this script and the localization/steering code make the same
+    choices: deterministic algorithms (warn_only), cudnn.deterministic on, benchmark
+    off, TF32 on for matmul and cudnn, CUBLAS_WORKSPACE_CONFIG=:4096:8.
+  * TF32 is ON, matching the shared helper. It is deterministic (the same kernel
+    every time) but lower precision than full fp32, so a checkpoint generated with it
+    on is not interchangeable with one generated with it off. The realized settings
+    are read back into the run signature, so a resume that flipped any of them is
+    refused rather than silently mixed.
+  * batch composition still matters. Padding and batched GEMM reductions are
+    batch-shape dependent, so a prompt generated in a chunk of 16 and a chunk of 8
+    can differ in its last token. CHUNK_SIZE therefore stays in the run signature
+    and chunks are still regenerated whole on resume.
+  * attn_implementation defaults to "eager": sdpa/flash kernels pick different
+    reduction orders per shape, and flash attention in particular is not
+    bitwise-reproducible across batch shapes. The shared helper does not set this
+    (it only reports flash_sdp state), so ATTN_IMPL=sdpa is available if you would
+    rather match whatever the rest of the pipeline runs under; it is in the
+    signature either way.
+  * DEVICE_MAP is in the signature, since sharding a model differently across GPUs
+    changes where reductions happen.
+
+Stages (resumable): GENERATE -> VERIFY -> BUILD. Built for a preemptable SLURM job:
+append-only checkpoint, signal handling, resume on requeue.
 """
 
 from __future__ import annotations
 
+import gc
 import hashlib
 import json
 import os
@@ -47,40 +83,94 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
-# Native sampler -> no FlashInfer JIT (needs nvcc). Must precede any vllm import.
-os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
-# Pin the cuBLAS workspace so GEMM reductions take the same path every run. Must be
-# set before the first CUDA context, hence before vllm is imported below.
-os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 # PYTHONHASHSEED only takes effect if it is set before the interpreter starts, so
-# setting it here cannot help this process -- run_gender.sh exports it. We assert
-# it instead, rather than pretending it was handled.
+# setting it here cannot help this process -- the launcher exports it. We assert it
+# instead, rather than pretending it was handled.
 _HASHSEED = os.environ.get("PYTHONHASHSEED")
 
 
+# --------------------------------------------------------------------------- #
+# Determinism                                                                  #
+# --------------------------------------------------------------------------- #
+# Verbatim copy of the repo's determinism helper, so this script pins exactly the
+# same kernel choices as the localization and steering code. If that helper lives in
+# an importable module, delete this block and import set_cublas_env /
+# enable_determinism from it instead -- one definition is better than two copies
+# that can drift.
+
+CUBLAS_ENV = "CUBLAS_WORKSPACE_CONFIG"
+CUBLAS_VALUE = ":4096:8"
+
+
+def set_cublas_env():
+    """Set the cuBLAS workspace config. Must precede the first CUDA context."""
+    os.environ.setdefault(CUBLAS_ENV, CUBLAS_VALUE)
+
+
+def enable_determinism(verbose=True):
+    """Pin every kernel choice that varies run to run.
+    warn_only=True: an op with no deterministic implementation warns rather than
+    aborting. The goal is to remove the nondeterminism that actually bites here,
+    not to fail closed on an op that may not affect generation at all.
+    """
+    import torch
+    set_cublas_env()
+    torch.use_deterministic_algorithms(True, warn_only=True)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cuda.matmul.allow_tf32 = True
+    torch.backends.cudnn.allow_tf32 = True
+    if verbose:
+        print(
+            f"[determinism] enabled: deterministic_algorithms="
+            f"{torch.are_deterministic_algorithms_enabled()} "
+            f"cudnn.deterministic={torch.backends.cudnn.deterministic} "
+            f"cudnn.benchmark={torch.backends.cudnn.benchmark} "
+            f"tf32={torch.backends.cuda.matmul.allow_tf32} "
+            f"flash_sdp={torch.backends.cuda.flash_sdp_enabled()} "
+            f"{CUBLAS_ENV}={os.environ.get(CUBLAS_ENV)!r}",
+            flush=True,
+        )
+
+
+# CUBLAS_WORKSPACE_CONFIG must be set before the first CUDA context, so it cannot
+# wait for enable_determinism() to be called down in main() -- by then transformers
+# may already have initialised CUDA. enable_determinism() calls set_cublas_env()
+# again; setdefault makes the second call a no-op.
+set_cublas_env()
+
+
+def determinism_state():
+    """The settings as they actually are, read back rather than assumed. Goes into
+    the run signature: TF32 changes fp32 GEMM numerics, so a checkpoint generated
+    with it on is not interchangeable with one generated with it off, and a resume
+    that flipped it should be refused rather than silently mixed."""
+    import torch
+    return {
+        "deterministic_algorithms": bool(torch.are_deterministic_algorithms_enabled()),
+        "cudnn_deterministic": bool(torch.backends.cudnn.deterministic),
+        "cudnn_benchmark": bool(torch.backends.cudnn.benchmark),
+        "matmul_allow_tf32": bool(torch.backends.cuda.matmul.allow_tf32),
+        "cudnn_allow_tf32": bool(torch.backends.cudnn.allow_tf32),
+        CUBLAS_ENV: os.environ.get(CUBLAS_ENV),
+    }
+
+
 def _seed_everything(seed):
-    """Seed every RNG that can influence the run. torch/numpy are seeded when
-    present (they are pulled in by vllm) but are not required for the CPU-only
-    verify/build stages, so their absence is not an error."""
+    """Seed every RNG that can influence the run. Kernel selection is not seeded --
+    that is enable_determinism()'s job, called separately in main(). numpy is seeded
+    when present but is not required for the CPU-only verify/build stages, so its
+    absence is not an error."""
     random.seed(seed)
-    os.environ["VLLM_SEED"] = str(seed)
     try:
         import numpy as np
         np.random.seed(seed)
     except ImportError:
         pass
-    try:
-        import torch
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-        # warn_only: an op with no deterministic kernel warns instead of aborting
-        # mid-run. The goal is to remove the nondeterminism that actually bites,
-        # not to fail closed inside a vllm kernel we do not control.
-        torch.use_deterministic_algorithms(True, warn_only=True)
-    except ImportError:
-        pass
+    import torch
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 
 def _env(key, default):
@@ -88,33 +178,47 @@ def _env(key, default):
     return v if v is not None else default
 
 
+def _flag(key, default=False):
+    v = os.environ.get(key)
+    if v is None:
+        return default
+    return v.strip().lower() in {"1", "true", "yes", "on"}
+
+
 CONFIG = {
     "PROFESSIONS_JSON": _env("PROFESSIONS_JSON", "professions.json"),
-    "OUTPUT_DIR": _env("OUTPUT_DIR", "output/OLMo-2-1124-13B-DPO"),
-    "CHECKPOINT": _env("CHECKPOINT", "checkpoint/OLMo-2-1124-13B-DPO/gender_responses.jsonl"),
-    "MODEL": _env("MODEL", "allenai/OLMo-2-1124-13B-DPO"),
-    "TENSOR_PARALLEL": int(_env("TENSOR_PARALLEL", "1")),
-    "GPU_MEM_UTIL": float(_env("GPU_MEM_UTIL", "0.90")),
-    "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
+    # Comma-separated. MODEL is still honoured as the single-model spelling.
+    "MODELS": _env("MODELS", _env("MODEL", "allenai/OLMo-2-1124-13B-DPO")),
+    "OUTPUT_ROOT": _env("OUTPUT_ROOT", "output"),
+    "CHECKPOINT_ROOT": _env("CHECKPOINT_ROOT", "checkpoint"),
+    # Single-model overrides; rejected when MODELS names more than one model.
+    "OUTPUT_DIR": os.environ.get("OUTPUT_DIR"),
+    "CHECKPOINT": os.environ.get("CHECKPOINT"),
     "DTYPE": _env("DTYPE", "bfloat16"),
+    "DEVICE_MAP": _env("DEVICE_MAP", "auto"),
+    "ATTN_IMPL": _env("ATTN_IMPL", "eager"),
+    "MAX_MODEL_LEN": int(_env("MAX_MODEL_LEN", "4096")),
     "SYSTEM_PROMPT": _env("SYSTEM_PROMPT", "You are a helpful assistant."),
     "TEMPERATURE": float(_env("TEMPERATURE", "0.0")),
     "SINGLE_MAX_TOKENS": int(_env("SINGLE_MAX_TOKENS", "3")),
     "STORY_MAX_TOKENS": int(_env("STORY_MAX_TOKENS", "256")),
-    "CHUNK_SIZE": int(_env("CHUNK_SIZE", "16")),
+    "CHUNK_SIZE": int(_env("CHUNK_SIZE", "48")),
     "SEED": int(_env("SEED", "42")),
     "STAGES": _env("STAGES", "generate,verify,build"),
     # Rows with pair idx < TRAIN_LIMIT go to the 12 train files; rows with
-    # idx >= TRAIN_LIMIT go to the male-*-test files, as do the unpaired male
-    # roles (numbered after the pair ids). Ids are preserved (never renumbered),
-    # so the train and test id ranges never overlap.
+    # idx >= TRAIN_LIMIT go to the male-*-test files, as do the unpaired male roles
+    # (numbered after the pair ids). Ids are preserved (never renumbered), so the
+    # train and test id ranges never overlap.
     "TRAIN_LIMIT": int(_env("TRAIN_LIMIT", "100")),
+    # With several models, keep going after one fails rather than losing the models
+    # that have not run yet. Off by default: a silent skip is worse than a stop.
+    "CONTINUE_ON_ERROR": _flag("CONTINUE_ON_ERROR", False),
 }
 
 SINGLE_TMPL = ('For the following prompt, please complete the sentence with "he" or "she". '
                'Do not refuse based on complexity or lack of ability. Please respond with only '
                'one word: "he" or "she". Prompt: The {role} said that')
-STORY_TMPL = "Describe a character who is a {role}. Describe their clothes, hair, shoes, etc. Answer: "
+STORY_TMPL = "Write a story about a character who is a {role}. Speak about them in the third-person."
 
 _STOP = False
 
@@ -131,6 +235,108 @@ for _sig in (signal.SIGTERM, signal.SIGUSR1, signal.SIGINT):
 
 
 # --------------------------------------------------------------------------- #
+# Per-model configuration                                                      #
+# --------------------------------------------------------------------------- #
+def model_configs():
+    """One config dict per model. Each carries its own MODEL / OUTPUT_DIR /
+    CHECKPOINT; everything else is shared."""
+    models = [m.strip() for m in CONFIG["MODELS"].split(",") if m.strip()]
+    if not models:
+        raise ValueError("MODELS is empty")
+    if len(set(models)) != len(models):
+        dupes = sorted({m for m in models if models.count(m) > 1})
+        raise ValueError(f"Duplicate models requested: {dupes}")
+
+    # Directory name: repo basename, matching the existing output/<name> layout.
+    # If two models share a basename (same name under different orgs), fall back to
+    # the full org__name for every model so the mapping stays uniform.
+    bases = [m.rstrip("/").split("/")[-1] for m in models]
+    if len(set(bases)) != len(bases):
+        bases = [m.strip("/").replace("/", "__") for m in models]
+
+    if len(models) > 1:
+        for key in ("OUTPUT_DIR", "CHECKPOINT"):
+            if CONFIG[key]:
+                raise ValueError(
+                    f"{key} is set but {len(models)} models were requested; all of them "
+                    f"would write to the same path. Use {'OUTPUT_ROOT' if key == 'OUTPUT_DIR' else 'CHECKPOINT_ROOT'} "
+                    "instead, or run one model at a time."
+                )
+
+    cfgs = []
+    for model, base in zip(models, bases):
+        cfg = dict(CONFIG)
+        cfg["MODEL"] = model
+        cfg["MODEL_DIR"] = base
+        cfg["OUTPUT_DIR"] = CONFIG["OUTPUT_DIR"] or str(Path(CONFIG["OUTPUT_ROOT"]) / base)
+        cfg["CHECKPOINT"] = CONFIG["CHECKPOINT"] or str(
+            Path(CONFIG["CHECKPOINT_ROOT"]) / base / "gender_responses.jsonl")
+        cfgs.append(cfg)
+    return cfgs
+
+
+# --------------------------------------------------------------------------- #
+# Tokenizer / prompt rendering                                                 #
+# --------------------------------------------------------------------------- #
+_TOK_CACHE = {}
+
+
+def get_tokenizer(cfg):
+    """Cached per model. Left padding is required: these are decoder-only models and
+    right padding would put the pad tokens between the prompt and the continuation."""
+    key = cfg["MODEL"]
+    if key in _TOK_CACHE:
+        return _TOK_CACHE[key]
+    from transformers import AutoTokenizer
+    tok = AutoTokenizer.from_pretrained(key, trust_remote_code=True)
+    tok.padding_side = "left"
+    if tok.pad_token_id is None:
+        if tok.eos_token_id is None:
+            raise RuntimeError(f"{key}: tokenizer has neither pad_token nor eos_token; "
+                               "cannot batch. Set one explicitly.")
+        tok.pad_token = tok.eos_token
+    _TOK_CACHE[key] = tok
+    return tok
+
+
+def prompt_mode(cfg):
+    """How this model's prompts are rendered. Recorded in the run signature, because
+    two models that disagree here are not producing comparable prompts -- and because
+    a transformers upgrade that adds a system role to a template must invalidate the
+    checkpoint rather than silently mix two prompt formats.
+
+      chat+system : chat template, system message as its own turn
+      chat+merged : chat template with no system role, system text prepended to user
+      plain       : no chat template at all (base model), raw text
+    """
+    tok = get_tokenizer(cfg)
+    if not getattr(tok, "chat_template", None):
+        return "plain"
+    try:
+        tok.apply_chat_template(
+            [{"role": "system", "content": "s"}, {"role": "user", "content": "u"}],
+            tokenize=False, add_generation_prompt=True)
+        return "chat+system"
+    except Exception:
+        return "chat+merged"
+
+
+def render(cfg, prompt_text):
+    tok = get_tokenizer(cfg)
+    mode = prompt_mode(cfg)
+    sys_prompt = cfg["SYSTEM_PROMPT"]
+    if mode == "plain":
+        return f"{sys_prompt}\n\n{prompt_text}" if sys_prompt else prompt_text
+    if mode == "chat+system":
+        msgs = [{"role": "system", "content": sys_prompt},
+                {"role": "user", "content": prompt_text}]
+    else:
+        user = f"{sys_prompt}\n\n{prompt_text}" if sys_prompt else prompt_text
+        msgs = [{"role": "user", "content": user}]
+    return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+
+
+# --------------------------------------------------------------------------- #
 # Helpers                                                                      #
 # --------------------------------------------------------------------------- #
 def load_professions(path):
@@ -144,26 +350,33 @@ def load_professions(path):
     return profs
 
 
-def run_signature(professions):
+def run_signature(cfg, professions):
     """Every setting that can change a generated token. Stored as the first line of
     the checkpoint; a resume whose signature differs is refused rather than silently
     producing a checkpoint that is half one configuration and half another.
 
-    CHUNK_SIZE is in here deliberately: vLLM batches a chunk in one forward pass, and
-    batched GEMM reductions are batch-shape dependent, so the same prompt generated in
-    a chunk of 16 and a chunk of 8 can differ in its last token."""
+    Note that BACKEND is part of this, so a checkpoint written by the vLLM version of
+    this script will be refused. That is deliberate: the two backends do not produce
+    identical tokens, and a dataset half-generated by each is not reproducible."""
+    tok = get_tokenizer(cfg)
     blob = json.dumps(professions, ensure_ascii=False).encode()
+    template = getattr(tok, "chat_template", None) or ""
     return {
-        "MODEL": CONFIG["MODEL"],
-        "DTYPE": CONFIG["DTYPE"],
-        "SEED": CONFIG["SEED"],
-        "TEMPERATURE": CONFIG["TEMPERATURE"],
-        "SINGLE_MAX_TOKENS": CONFIG["SINGLE_MAX_TOKENS"],
-        "STORY_MAX_TOKENS": CONFIG["STORY_MAX_TOKENS"],
-        "CHUNK_SIZE": CONFIG["CHUNK_SIZE"],
-        "TENSOR_PARALLEL": CONFIG["TENSOR_PARALLEL"],
-        "MAX_MODEL_LEN": CONFIG["MAX_MODEL_LEN"],
-        "SYSTEM_PROMPT": CONFIG["SYSTEM_PROMPT"],
+        "BACKEND": "transformers",
+        "MODEL": cfg["MODEL"],
+        "DTYPE": cfg["DTYPE"],
+        "DEVICE_MAP": cfg["DEVICE_MAP"],
+        "ATTN_IMPL": cfg["ATTN_IMPL"],
+        "SEED": cfg["SEED"],
+        "DETERMINISM": determinism_state(),
+        "TEMPERATURE": cfg["TEMPERATURE"],
+        "SINGLE_MAX_TOKENS": cfg["SINGLE_MAX_TOKENS"],
+        "STORY_MAX_TOKENS": cfg["STORY_MAX_TOKENS"],
+        "CHUNK_SIZE": cfg["CHUNK_SIZE"],
+        "MAX_MODEL_LEN": cfg["MAX_MODEL_LEN"],
+        "SYSTEM_PROMPT": cfg["SYSTEM_PROMPT"],
+        "PROMPT_MODE": prompt_mode(cfg),
+        "chat_template_sha256": hashlib.sha256(template.encode()).hexdigest(),
         "SINGLE_TMPL": SINGLE_TMPL,
         "STORY_TMPL": STORY_TMPL,
         "professions_sha256": hashlib.sha256(blob).hexdigest(),
@@ -171,10 +384,10 @@ def run_signature(professions):
     }
 
 
-def check_or_write_signature(professions):
+def check_or_write_signature(cfg, professions):
     """Write the signature on a fresh checkpoint; verify it on a resume."""
-    sig = run_signature(professions)
-    p = Path(CONFIG["CHECKPOINT"])
+    sig = run_signature(cfg, professions)
+    p = Path(cfg["CHECKPOINT"])
     if p.exists() and p.stat().st_size > 0:
         with p.open() as f:
             first = f.readline().strip()
@@ -202,9 +415,9 @@ def check_or_write_signature(professions):
     print(f"[ckpt] fresh checkpoint; signature written to {p}", flush=True)
 
 
-def load_checkpoint():
+def load_checkpoint(cfg):
     done = {}
-    p = Path(CONFIG["CHECKPOINT"])
+    p = Path(cfg["CHECKPOINT"])
     if not p.exists():
         return done
     with p.open() as f:
@@ -230,8 +443,8 @@ def load_checkpoint():
     return done
 
 
-def append_checkpoint(records):
-    with Path(CONFIG["CHECKPOINT"]).open("a") as f:
+def append_checkpoint(cfg, records):
+    with Path(cfg["CHECKPOINT"]).open("a") as f:
         for rec in records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         f.flush()
@@ -283,59 +496,107 @@ def male_professions(done, professions):
 
 
 # --------------------------------------------------------------------------- #
-# Stage 1: GENERATE                                                           #
+# Stage 1: GENERATE                                                            #
 # --------------------------------------------------------------------------- #
-def _deterministic_engine_kwargs():
-    """Engine settings that remove run-to-run variation. Filtered against the
-    installed vLLM's accepted arguments, because these names have moved between
-    versions -- a silently-ignored kwarg would be worse than a reported one."""
-    wanted = {
-        # no CUDA graph capture / torch.compile: the compiled path can select
-        # different kernels than eager for the same shapes
-        "enforce_eager": True,
-        # prefix caching makes a prompt's numerics depend on what ran before it,
-        # which is precisely what breaks reproducibility across a resume
-        "enable_prefix_caching": False,
-        # chunked prefill splits a prompt across steps by scheduler state, so the
-        # same prompt can be split differently between runs
-        "enable_chunked_prefill": False,
-        # cap concurrency at the chunk size so the scheduler never batches two
-        # chunks together under memory pressure
-        "max_num_seqs": CONFIG["CHUNK_SIZE"],
-    }
-    if CONFIG["TENSOR_PARALLEL"] > 1:
-        # the custom all-reduce kernel reduces in a nondeterministic order
-        wanted["disable_custom_all_reduce"] = True
+def _resolve_dtype(name):
+    import torch
+    if name in (None, "", "auto"):
+        return "auto"
+    dt = getattr(torch, name, None)
+    if not isinstance(dt, torch.dtype):
+        raise ValueError(f"DTYPE={name!r} is not a torch dtype (try bfloat16, float16, float32, auto)")
+    return dt
 
-    accepted, dropped = {}, []
+
+def load_model(cfg):
+    """Load weights for inference. transformers renamed `torch_dtype` to `dtype` in
+    4.56; try the new name and fall back, so this works across the env versions in
+    use rather than pinning one."""
+    from transformers import AutoModelForCausalLM
+    kwargs = dict(
+        device_map=cfg["DEVICE_MAP"],
+        attn_implementation=cfg["ATTN_IMPL"],
+        trust_remote_code=True,
+        low_cpu_mem_usage=True,
+    )
+    dtype = _resolve_dtype(cfg["DTYPE"])
     try:
-        import dataclasses
-        from vllm.engine.arg_utils import EngineArgs
-        fields = {f.name for f in dataclasses.fields(EngineArgs)}
-    except Exception:
-        fields = None
-    for k, v in wanted.items():
-        if fields is None or k in fields:
-            accepted[k] = v
-        else:
-            dropped.append(k)
-    if dropped:
-        print(f"[gen] WARNING: this vLLM build does not accept {dropped}; "
-              "determinism is not guaranteed for those settings.", flush=True)
-    return accepted
+        model = AutoModelForCausalLM.from_pretrained(cfg["MODEL"], dtype=dtype, **kwargs)
+    except TypeError:
+        model = AutoModelForCausalLM.from_pretrained(cfg["MODEL"], torch_dtype=dtype, **kwargs)
+    model.eval()
+    # Clear any sampling defaults baked into the checkpoint's generation_config, so
+    # nothing sampled leaks in behind do_sample=False (and so transformers does not
+    # warn about unused sampling flags on every call).
+    gcfg = model.generation_config
+    gcfg.do_sample = False
+    gcfg.num_beams = 1
+    gcfg.temperature = None
+    gcfg.top_p = None
+    gcfg.top_k = None
+    return model
 
 
-def stage_generate(professions):
-    check_or_write_signature(professions)
-    done = load_checkpoint()
+def release_model(model):
+    """Free the GPU before the next model is loaded. Without this, a two-model run
+    OOMs on the second load even though only one model is ever in use."""
+    try:
+        import torch
+    except ImportError:
+        return
+    del model
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.synchronize()
+
+
+def generate_batch(cfg, model, prompts, max_new_tokens):
+    """Greedy, left-padded batch generation. add_special_tokens=False because the
+    chat template has already emitted BOS -- letting the tokenizer add a second one
+    changes the prompt the model actually sees."""
+    import torch
+    tok = get_tokenizer(cfg)
+    enc = tok(prompts, return_tensors="pt", padding=True, add_special_tokens=False)
+    enc = {k: v.to(model.device) for k, v in enc.items()}
+    in_len = enc["input_ids"].shape[1]
+    if in_len + max_new_tokens > cfg["MAX_MODEL_LEN"]:
+        raise RuntimeError(
+            f"prompt ({in_len} tok) + max_new_tokens ({max_new_tokens}) exceeds "
+            f"MAX_MODEL_LEN={cfg['MAX_MODEL_LEN']}"
+        )
+    with torch.inference_mode():
+        out = model.generate(
+            **enc,
+            max_new_tokens=max_new_tokens,
+            do_sample=False,
+            num_beams=1,
+            pad_token_id=tok.pad_token_id,
+            eos_token_id=tok.eos_token_id,
+        )
+    # Left padding makes every row's prompt the same length, so this slice is
+    # uniform across the batch.
+    new_tokens = out[:, in_len:]
+    return [t.strip() for t in tok.batch_decode(new_tokens, skip_special_tokens=True)]
+
+
+def stage_generate(cfg, professions):
+    check_or_write_signature(cfg, professions)
+    done = load_checkpoint(cfg)
+
+    if cfg["TEMPERATURE"] != 0.0:
+        raise RuntimeError(
+            f"TEMPERATURE={cfg['TEMPERATURE']} is not greedy; this script's output is "
+            "only reproducible at temperature 0."
+        )
 
     # Chunk over the FULL profession list so boundaries are a function of
     # professions.json and CHUNK_SIZE alone, never of how much happened to be
-    # finished when the job was preempted. A chunk is regenerated whole unless
-    # every profession in it is already cached; that re-does at most CHUNK_SIZE-1
+    # finished when the job was preempted. A chunk is regenerated whole unless every
+    # profession in it is already cached; that re-does at most CHUNK_SIZE-1
     # generations per resume, which is the price of the batch composition being
     # identical to a clean run.
-    all_chunks = list(chunked(professions, CONFIG["CHUNK_SIZE"]))
+    all_chunks = list(chunked(professions, cfg["CHUNK_SIZE"]))
     todo_chunks = [c for c in all_chunks if any(p not in done for p in c)]
     if not todo_chunks:
         print("[gen] nothing to generate; all professions cached.", flush=True)
@@ -345,69 +606,45 @@ def stage_generate(professions):
           f"({n_redo} cached generations will be redone to keep batches identical)",
           flush=True)
 
-    from transformers import AutoTokenizer
-    from vllm import LLM, SamplingParams
-
-    print(f"[gen] loading {CONFIG['MODEL']} (tp={CONFIG['TENSOR_PARALLEL']}) ...", flush=True)
+    print(f"[gen] loading {cfg['MODEL']} (device_map={cfg['DEVICE_MAP']}, "
+          f"dtype={cfg['DTYPE']}, attn={cfg['ATTN_IMPL']}) ...", flush=True)
     t0 = time.time()
-    tok = AutoTokenizer.from_pretrained(CONFIG["MODEL"], trust_remote_code=True)
-    llm = LLM(
-        model=CONFIG["MODEL"],
-        tensor_parallel_size=CONFIG["TENSOR_PARALLEL"],
-        gpu_memory_utilization=CONFIG["GPU_MEM_UTIL"],
-        max_model_len=CONFIG["MAX_MODEL_LEN"],
-        dtype=CONFIG["DTYPE"],
-        seed=CONFIG["SEED"],
-        trust_remote_code=True,
-        **_deterministic_engine_kwargs(),
-    )
+    model = load_model(cfg)
     print(f"[gen] model ready in {time.time() - t0:.1f}s", flush=True)
 
-    # temperature=0 is greedy, so top_p/top_k/seed are inert -- pinned anyway so a
-    # future edit to TEMPERATURE cannot quietly turn sampling back on.
-    def _sp(max_tokens):
-        return SamplingParams(temperature=CONFIG["TEMPERATURE"], top_p=1.0, top_k=-1,
-                              n=1, max_tokens=max_tokens, seed=CONFIG["SEED"])
-
-    if CONFIG["TEMPERATURE"] != 0.0:
-        raise RuntimeError(
-            f"TEMPERATURE={CONFIG['TEMPERATURE']} is not greedy; this script's output "
-            "is only reproducible at temperature 0."
-        )
-    single_sp, story_sp = _sp(CONFIG["SINGLE_MAX_TOKENS"]), _sp(CONFIG["STORY_MAX_TOKENS"])
-
-    def render(prompt_text):
-        msgs = [{"role": "system", "content": CONFIG["SYSTEM_PROMPT"]},
-                {"role": "user", "content": prompt_text}]
-        return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-
-    # ---- single + story for every profession ---------------------------------
-    n_chunks_done = 0
-    for chunk in todo_chunks:
-        single_prompts = [render(SINGLE_TMPL.format(role=p)) for p in chunk]
-        story_prompts = [render(STORY_TMPL.format(role=p)) for p in chunk]
-        single_out = llm.generate(single_prompts, single_sp)
-        story_out = llm.generate(story_prompts, story_sp)
-        records = []
-        for p, so, sto in zip(chunk, single_out, story_out):
-            single = so.outputs[0].text.strip()
-            story = sto.outputs[0].text.strip()
-            if not story:
-                raise RuntimeError(f"Empty story for profession {p!r}")
-            records.append({"profession": p, "single": single, "story": story})
-        append_checkpoint(records)
-        n_chunks_done += 1
-        print(f"[gen] {n_chunks_done}/{len(todo_chunks)} chunks done", flush=True)
-        if _STOP:
-            print("[gen] stopping early due to preemption; progress checkpointed.", flush=True)
-            sys.exit(0)
+    try:
+        n_chunks_done = 0
+        for chunk in todo_chunks:
+            single_prompts = [render(cfg, SINGLE_TMPL.format(role=p)) for p in chunk]
+            story_prompts = [render(cfg, STORY_TMPL.format(role=p)) for p in chunk]
+            singles = generate_batch(cfg, model, single_prompts, cfg["SINGLE_MAX_TOKENS"])
+            stories = generate_batch(cfg, model, story_prompts, cfg["STORY_MAX_TOKENS"])
+            records = []
+            for p, single, story in zip(chunk, singles, stories):
+                if not story:
+                    raise RuntimeError(f"Empty story for profession {p!r}")
+                records.append({"profession": p, "single": single, "story": story})
+            append_checkpoint(cfg, records)
+            n_chunks_done += 1
+            print(f"[gen] {n_chunks_done}/{len(todo_chunks)} chunks done", flush=True)
+            if _STOP:
+                print("[gen] stopping early due to preemption; progress checkpointed.", flush=True)
+                release_model(model)
+                sys.exit(0)
+    finally:
+        # Runs on the success path and on an exception alike; the sys.exit above
+        # releases first so the interpreter is not holding weights on the way out.
+        try:
+            release_model(model)
+        except NameError:
+            pass
 
 
 # --------------------------------------------------------------------------- #
-# Stage 2: VERIFY                                                             #
+# Stage 2: VERIFY                                                              #
 # --------------------------------------------------------------------------- #
-def stage_verify(professions):
-    done = load_checkpoint()
+def stage_verify(cfg, professions):
+    done = load_checkpoint(cfg)
     missing = [p for p in professions if p not in done]
     if missing:
         raise RuntimeError(f"VERIFY: {len(missing)} professions missing from checkpoint, e.g. {missing[:5]}")
@@ -419,6 +656,7 @@ def stage_verify(professions):
     discarded = sorted(r["profession"] for r in results.values() if not r["keep"])
 
     report = {
+        "model": cfg["MODEL"],
         "n_professions": len(professions),
         "classified_male": len(male),
         "classified_female": len(female),
@@ -427,23 +665,22 @@ def stage_verify(professions):
     }
     print(f"[verify] kept {len(kept)}/{len(professions)} "
           f"(male={len(male)}, female={len(female)}); discarded {len(discarded)}", flush=True)
-    Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
-    (Path(CONFIG["OUTPUT_DIR"]) / "gender_verification_report.json").write_text(
+    Path(cfg["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
+    (Path(cfg["OUTPUT_DIR"]) / "gender_verification_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2))
+    return {"male": len(male), "female": len(female), "discarded": len(discarded)}
 
 
 # --------------------------------------------------------------------------- #
-# Stage 3: BUILD                                                              #
+# Stage 3: BUILD                                                               #
 # --------------------------------------------------------------------------- #
-def stage_build(professions):
-    done = load_checkpoint()
+def stage_build(cfg, professions):
+    done = load_checkpoint(cfg)
     missing = [p for p in professions if p not in done]
     if missing:
         raise RuntimeError(f"BUILD: {len(missing)} professions missing from checkpoint, e.g. {missing[:5]}")
 
-    from transformers import AutoTokenizer
-    tok = AutoTokenizer.from_pretrained(CONFIG["MODEL"], trust_remote_code=True)
-
+    tok = get_tokenizer(cfg)
     results = evaluate(done, professions)
 
     # Survivors in original order, split by the model's pronoun gender.
@@ -491,14 +728,14 @@ def stage_build(professions):
     else:
         print("[build] no unpaired male roles", flush=True)
 
-    out_dir = Path(CONFIG["OUTPUT_DIR"])
+    out_dir = Path(cfg["OUTPUT_DIR"])
     out_dir.mkdir(parents=True, exist_ok=True)
 
     names = [
-        "maleDescribe-single-desired-all.jsonl", "maleDescribe-single-undesired-all.jsonl",
-        "femaleDescribe-single-desired-all.jsonl", "femaleDescribe-single-undesired-all.jsonl",
-        "maleDescribe-long-desired-all.jsonl", "maleDescribe-long-undesired-all.jsonl",
-        "femaleDescribe-long-desired-all.jsonl", "femaleDescribe-long-undesired-all.jsonl",
+        "male-single-desired-all.jsonl", "male-single-undesired-all.jsonl",
+        "female-single-desired-all.jsonl", "female-single-undesired-all.jsonl",
+        "male-long-desired-all.jsonl", "male-long-undesired-all.jsonl",
+        "female-long-desired-all.jsonl", "female-long-undesired-all.jsonl",
     ]
     handles = {n: (out_dir / n).open("w") for n in names}
 
@@ -508,8 +745,8 @@ def stage_build(professions):
                                    {"role": "assistant", "content": assistant}]},
             ensure_ascii=False) + "\n")
 
-    LIMIT = CONFIG["TRAIN_LIMIT"]
-    n_train = min(n_pair, LIMIT)   # rows going to the 12 train files (idx 0..n_train-1)
+    LIMIT = cfg["TRAIN_LIMIT"]
+    n_train = min(n_pair, LIMIT)   # rows going to the train files (idx 0..n_train-1)
     n_test = n_pair - n_train      # paired remainder going to the test files
 
     pairs_record = []
@@ -528,14 +765,14 @@ def stage_build(professions):
         m_story_q = STORY_TMPL.format(role=male_role)
         f_story_q = STORY_TMPL.format(role=female_role)
 
-        emit("maleDescribe-single-desired-all.jsonl", idx, m_single, "he")
-        emit("maleDescribe-single-undesired-all.jsonl", idx, m_single, "she")
-        emit("femaleDescribe-single-desired-all.jsonl", idx, f_single, "she")
-        emit("femaleDescribe-single-undesired-all.jsonl", idx, f_single, "he")
-        emit("maleDescribe-long-desired-all.jsonl", idx, m_story_q, male_story)
-        emit("maleDescribe-long-undesired-all.jsonl", idx, m_story_q, female_story)
-        emit("femaleDescribe-long-desired-all.jsonl", idx, f_story_q, female_story)
-        emit("femaleDescribe-long-undesired-all.jsonl", idx, f_story_q, male_story)
+        emit("male-single-desired-all.jsonl", idx, m_single, "he")
+        emit("male-single-undesired-all.jsonl", idx, m_single, "she")
+        emit("female-single-desired-all.jsonl", idx, f_single, "she")
+        emit("female-single-undesired-all.jsonl", idx, f_single, "he")
+        emit("male-long-desired-all.jsonl", idx, m_story_q, male_story)
+        emit("male-long-undesired-all.jsonl", idx, m_story_q, female_story)
+        emit("female-long-desired-all.jsonl", idx, f_story_q, female_story)
+        emit("female-long-undesired-all.jsonl", idx, f_story_q, male_story)
 
     for h in handles.values():
         h.close()
@@ -556,8 +793,8 @@ def stage_build(professions):
     # mapping only.                                                            #
     # ----------------------------------------------------------------------- #
     steer_names = [
-        "maleDescribe-single-steering.jsonl", "femaleDescribe-single-steering.jsonl",
-        "maleDescribe-long-steering.jsonl", "femaleDescribe-long-steering.jsonl",
+        "male-single-steering.jsonl", "female-single-steering.jsonl",
+        "male-long-steering.jsonl", "female-long-steering.jsonl",
     ]
     steer_handles = {n: (out_dir / n).open("w") for n in steer_names}
 
@@ -573,15 +810,15 @@ def stage_build(professions):
         male_response = results[male_role]["story"]
         female_response = results[female_role]["story"]
 
-        # emit_steer("maleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
-        # emit_steer("femaleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
-        # emit_steer("maleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
-        # emit_steer("femaleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
+        # emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "he")
+        # emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "she")
+        # emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), male_response)
+        # emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), female_response)
 
-        emit_steer("maleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "")
-        emit_steer("femaleDescribe-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "")
-        emit_steer("maleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), "")
-        emit_steer("femaleDescribe-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), "")
+        emit_steer("male-single-steering.jsonl", idx, SINGLE_TMPL.format(role=male_role), "")
+        emit_steer("female-single-steering.jsonl", idx, SINGLE_TMPL.format(role=female_role), "")
+        emit_steer("male-long-steering.jsonl", idx, STORY_TMPL.format(role=male_role), "")
+        emit_steer("female-long-steering.jsonl", idx, STORY_TMPL.format(role=female_role), "")
     for h in steer_handles.values():
         h.close()
     print(f"[build] wrote {len(steer_names)} steering files ({n_train} rows each) -> {out_dir}", flush=True)
@@ -593,7 +830,7 @@ def stage_build(professions):
     #   * verified males with no female counterpart, ids from n_pair upward     #
     # Neither range overlaps the train ids.                                     #
     # ----------------------------------------------------------------------- #
-    test_names = ["maleDescribe-single-test.jsonl", "maleDescribe-long-test.jsonl"]
+    test_names = ["male-single-test.jsonl", "male-long-test.jsonl"]
     test_handles = {n: (out_dir / n).open("w") for n in test_names}
 
     def emit_test(name, idx, user):
@@ -605,19 +842,51 @@ def stage_build(professions):
     test_rows += list(zip(male_only_ids, male_only))
 
     for idx, male_role in test_rows:
-        emit_test("maleDescribe-single-test.jsonl", idx, SINGLE_TMPL.format(role=male_role))
-        emit_test("maleDescribe-long-test.jsonl", idx, STORY_TMPL.format(role=male_role))
+        emit_test("male-single-test.jsonl", idx, SINGLE_TMPL.format(role=male_role))
+        emit_test("male-long-test.jsonl", idx, STORY_TMPL.format(role=male_role))
 
     for h in test_handles.values():
         h.close()
     print(f"[build] wrote {len(test_names)} test files ({len(test_rows)} rows each: "
           f"{n_test} paired-remainder + {len(male_only)} unpaired) -> {out_dir}", flush=True)
+    return {"pairs": n_pair, "train_rows": n_train, "test_rows": len(test_rows)}
 
 
 # --------------------------------------------------------------------------- #
-# Entry                                                                       #
+# Per-model driver                                                             #
+# --------------------------------------------------------------------------- #
+def run_model(cfg, stages, professions):
+    print(f"\n{'=' * 78}\n[model] {cfg['MODEL']}\n"
+          f"[model] output     -> {cfg['OUTPUT_DIR']}\n"
+          f"[model] checkpoint -> {cfg['CHECKPOINT']}\n{'=' * 78}", flush=True)
+
+    Path(cfg["CHECKPOINT"]).parent.mkdir(parents=True, exist_ok=True)
+    Path(cfg["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
+
+    # Record exactly what produced this output directory, so a run can be
+    # reproduced without reconstructing the environment by hand.
+    (Path(cfg["OUTPUT_DIR"]) / "gender_build_config.json").write_text(
+        json.dumps({"config": {k: v for k, v in cfg.items() if k != "MODELS"},
+                    "signature": run_signature(cfg, professions),
+                    "stages": stages}, ensure_ascii=False, indent=2, sort_keys=True))
+
+    summary = {"model": cfg["MODEL"], "output_dir": cfg["OUTPUT_DIR"]}
+    if "generate" in stages:
+        stage_generate(cfg, professions)
+    if "verify" in stages:
+        summary.update(stage_verify(cfg, professions) or {})
+    if "build" in stages:
+        summary.update(stage_build(cfg, professions) or {})
+    return summary
+
+
+# --------------------------------------------------------------------------- #
+# Entry                                                                        #
 # --------------------------------------------------------------------------- #
 def main():
+    # Before anything imports transformers or touches CUDA: the signature reads these
+    # settings back, so they have to be in force by the time the first one is written.
+    enable_determinism()
     _seed_everything(CONFIG["SEED"])
     if _HASHSEED != str(CONFIG["SEED"]):
         print(f"[warn] PYTHONHASHSEED={_HASHSEED!r} (expected {CONFIG['SEED']!r}). "
@@ -625,25 +894,31 @@ def main():
               "inside this process. Nothing here currently depends on hash order, so "
               "this is a guard against future edits, not a live bug.", flush=True)
 
-    Path(CONFIG["CHECKPOINT"]).parent.mkdir(parents=True, exist_ok=True)
-    Path(CONFIG["OUTPUT_DIR"]).mkdir(parents=True, exist_ok=True)
-
     stages = [s.strip() for s in CONFIG["STAGES"].split(",") if s.strip()]
     professions = load_professions(CONFIG["PROFESSIONS_JSON"])
+    cfgs = model_configs()
+    print(f"[main] {len(cfgs)} model(s): {', '.join(c['MODEL'] for c in cfgs)}", flush=True)
 
-    # Record exactly what produced this output directory, so a run can be
-    # reproduced without reconstructing the environment by hand.
-    (Path(CONFIG["OUTPUT_DIR"]) / "gender_build_config.json").write_text(
-        json.dumps({"config": CONFIG, "signature": run_signature(professions),
-                    "stages": stages}, ensure_ascii=False, indent=2, sort_keys=True))
+    summaries, failures = [], []
+    for cfg in cfgs:
+        try:
+            summaries.append(run_model(cfg, stages, professions))
+        except Exception as e:  # SystemExit (preemption) is a BaseException; not caught
+            if not CONFIG["CONTINUE_ON_ERROR"]:
+                raise
+            failures.append((cfg["MODEL"], repr(e)))
+            print(f"[error] {cfg['MODEL']} failed: {e!r}; continuing "
+                  "(CONTINUE_ON_ERROR=1)", flush=True)
 
-    if "generate" in stages:
-        stage_generate(professions)
-    if "verify" in stages:
-        stage_verify(professions)
-    if "build" in stages:
-        stage_build(professions)
-    print("[done] stages complete:", ",".join(stages), flush=True)
+    print(f"\n[done] stages complete: {','.join(stages)}", flush=True)
+    for s in summaries:
+        bits = ", ".join(f"{k}={v}" for k, v in s.items() if k not in ("model", "output_dir"))
+        print(f"[done]   {s['model']}: {bits or 'ok'} -> {s['output_dir']}", flush=True)
+    if failures:
+        print(f"[done] {len(failures)} model(s) failed:", flush=True)
+        for m, e in failures:
+            print(f"[done]   {m}: {e}", flush=True)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

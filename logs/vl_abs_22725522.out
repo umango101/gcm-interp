@@ -1,0 +1,219 @@
+[slurm] job 22725522 on node5200 restart=0 Mon Sep 14 08:34:01 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+47 pairs from /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-long-abstraction/pairs.jsonl
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:00<00:11,  1.41it/s]Loading checkpoint shards:  12%|█▏        | 2/17 [00:01<00:10,  1.47it/s]Loading checkpoint shards:  18%|█▊        | 3/17 [00:02<00:09,  1.49it/s]Loading checkpoint shards:  24%|██▎       | 4/17 [00:02<00:08,  1.49it/s]Loading checkpoint shards:  29%|██▉       | 5/17 [00:03<00:08,  1.48it/s]Loading checkpoint shards:  35%|███▌      | 6/17 [00:04<00:07,  1.48it/s]Loading checkpoint shards:  41%|████      | 7/17 [00:04<00:06,  1.49it/s]Loading checkpoint shards:  47%|████▋     | 8/17 [00:05<00:06,  1.50it/s]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:06<00:05,  1.50it/s]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:06<00:04,  1.50it/s]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:07<00:04,  1.50it/s]Loading checkpoint shards:  71%|███████   | 12/17 [00:08<00:03,  1.50it/s]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:08<00:02,  1.50it/s]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:09<00:01,  1.51it/s]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:10<00:01,  1.51it/s]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:10<00:00,  1.51it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:11<00:00,  1.59it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:11<00:00,  1.51it/s]
+You're using a Qwen2TokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[patcher] Qwen/Qwen1.5-32B-Chat: 64 layers, decoder-layer output is tuple
+[patch] 47 pairs, 47 with work left, conditions=['topic', 'format', 'compete']
+[patch] 1/47 pair 38_46 topic: base topic=-1.138 source topic=+0.798 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 1/47 pair 38_46 format: base topic=-1.138 source topic=-1.613 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 1/47 pair 38_46 compete: base topic=+0.798 source topic=-1.138 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 2/47 pair 89_92 topic: base topic=-1.422 source topic=+0.606 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 2/47 pair 89_92 format: base topic=-1.422 source topic=-1.014 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 2/47 pair 89_92 compete: base topic=+0.606 source topic=-1.422 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 3/47 pair 93_98 topic: base topic=-0.825 source topic=+0.838 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 3/47 pair 93_98 format: base topic=-0.825 source topic=-0.911 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 3/47 pair 93_98 compete: base topic=+0.838 source topic=-0.825 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 4/47 pair 17_21 topic: base topic=-1.075 source topic=+1.262 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 4/47 pair 17_21 format: base topic=-1.075 source topic=-0.671 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 4/47 pair 17_21 compete: base topic=+1.262 source topic=-1.075 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 5/47 pair 23_56 topic: base topic=-0.752 source topic=+1.087 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 5/47 pair 23_56 format: base topic=-0.752 source topic=-0.714 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 5/47 pair 23_56 compete: base topic=+1.087 source topic=-0.752 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 6/47 pair 24_59 topic: base topic=-0.921 source topic=+0.554 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 6/47 pair 24_59 format: base topic=-0.921 source topic=-0.874 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 6/47 pair 24_59 compete: base topic=+0.554 source topic=-0.921 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 7/47 pair 67_77 topic: base topic=-1.459 source topic=+1.452 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 7/47 pair 67_77 format: base topic=-1.459 source topic=-0.897 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 7/47 pair 67_77 compete: base topic=+1.452 source topic=-1.459 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 8/47 pair 84_85 topic: base topic=-1.599 source topic=+1.522 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 8/47 pair 84_85 format: base topic=-1.599 source topic=-1.869 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 8/47 pair 84_85 compete: base topic=+1.522 source topic=-1.599 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 9/47 pair 3_6 topic: base topic=-0.598 source topic=+1.159 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 9/47 pair 3_6 format: base topic=-0.598 source topic=-0.737 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 9/47 pair 3_6 compete: base topic=+1.159 source topic=-0.598 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 10/47 pair 9_13 topic: base topic=-0.716 source topic=+0.746 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 10/47 pair 9_13 format: base topic=-0.716 source topic=-0.993 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 10/47 pair 9_13 compete: base topic=+0.746 source topic=-0.716 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 11/47 pair 26_37 topic: base topic=-0.888 source topic=+2.017 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 11/47 pair 26_37 format: base topic=-0.888 source topic=+0.028 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 11/47 pair 26_37 compete: base topic=+2.017 source topic=-0.888 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 12/47 pair 40_50 topic: base topic=-1.545 source topic=+1.033 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 12/47 pair 40_50 format: base topic=-1.545 source topic=-1.594 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 12/47 pair 40_50 compete: base topic=+1.033 source topic=-1.545 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 13/47 pair 48_70 topic: base topic=-0.825 source topic=+0.876 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 13/47 pair 48_70 format: base topic=-0.825 source topic=-0.706 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 13/47 pair 48_70 compete: base topic=+0.876 source topic=-0.825 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 14/47 pair 75_83 topic: base topic=-1.292 source topic=+1.247 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 14/47 pair 75_83 format: base topic=-1.292 source topic=-1.615 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 14/47 pair 75_83 compete: base topic=+1.247 source topic=-1.292 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 15/47 pair 0_14 topic: base topic=-1.071 source topic=+0.915 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 15/47 pair 0_14 format: base topic=-1.071 source topic=-1.019 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 15/47 pair 0_14 compete: base topic=+0.915 source topic=-1.071 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 16/47 pair 28_34 topic: base topic=-0.456 source topic=+1.719 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 16/47 pair 28_34 format: base topic=-0.456 source topic=-0.855 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 16/47 pair 28_34 compete: base topic=+1.719 source topic=-0.456 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 17/47 pair 30_44 topic: base topic=-0.720 source topic=+1.041 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 17/47 pair 30_44 format: base topic=-0.720 source topic=-0.872 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 17/47 pair 30_44 compete: base topic=+1.041 source topic=-0.720 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 18/47 pair 42_45 topic: base topic=-1.473 source topic=+1.657 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 18/47 pair 42_45 format: base topic=-1.473 source topic=-2.227 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 18/47 pair 42_45 compete: base topic=+1.657 source topic=-1.473 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 19/47 pair 53_58 topic: base topic=-0.706 source topic=+0.798 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 19/47 pair 53_58 format: base topic=-0.706 source topic=-0.942 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 19/47 pair 53_58 compete: base topic=+0.798 source topic=-0.706 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 20/47 pair 60_66 topic: base topic=-1.086 source topic=+0.833 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 20/47 pair 60_66 format: base topic=-1.086 source topic=-1.196 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 20/47 pair 60_66 compete: base topic=+0.833 source topic=-1.086 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 21/47 pair 72_74 topic: base topic=-0.965 source topic=+1.017 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 21/47 pair 72_74 format: base topic=-0.965 source topic=-0.546 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 21/47 pair 72_74 compete: base topic=+1.017 source topic=-0.965 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 22/47 pair 78_95 topic: base topic=-0.943 source topic=+0.943 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 22/47 pair 78_95 format: base topic=-0.943 source topic=-1.149 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 22/47 pair 78_95 compete: base topic=+0.943 source topic=-0.943 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 23/47 pair 1_16 topic: base topic=-1.403 source topic=+1.413 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 23/47 pair 1_16 format: base topic=-1.403 source topic=-1.051 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 23/47 pair 1_16 compete: base topic=+1.413 source topic=-1.403 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 24/47 pair 12_27 topic: base topic=-0.885 source topic=+0.903 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 24/47 pair 12_27 format: base topic=-0.885 source topic=-0.945 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 24/47 pair 12_27 compete: base topic=+0.903 source topic=-0.885 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 25/47 pair 32_47 topic: base topic=-1.486 source topic=+0.654 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 25/47 pair 32_47 format: base topic=-1.486 source topic=-1.459 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 25/47 pair 32_47 compete: base topic=+0.654 source topic=-1.486 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 26/47 pair 49_54 topic: base topic=-1.098 source topic=+0.706 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 26/47 pair 49_54 format: base topic=-1.098 source topic=-1.233 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 26/47 pair 49_54 compete: base topic=+0.706 source topic=-1.098 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 27/47 pair 62_63 topic: base topic=-1.181 source topic=+1.891 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 27/47 pair 62_63 format: base topic=-1.181 source topic=-1.391 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 27/47 pair 62_63 compete: base topic=+1.891 source topic=-1.181 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 28/47 pair 68_73 topic: base topic=-1.210 source topic=+1.007 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 28/47 pair 68_73 format: base topic=-1.210 source topic=-0.804 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 28/47 pair 68_73 compete: base topic=+1.007 source topic=-1.210 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 29/47 pair 88_91 topic: base topic=-1.293 source topic=+1.671 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 29/47 pair 88_91 format: base topic=-1.293 source topic=-1.172 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 29/47 pair 88_91 compete: base topic=+1.671 source topic=-1.293 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 30/47 pair 2_4 topic: base topic=-2.817 source topic=+0.902 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 30/47 pair 2_4 format: base topic=-2.817 source topic=-2.457 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 30/47 pair 2_4 compete: base topic=+0.902 source topic=-2.817 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 31/47 pair 5_8 topic: base topic=-0.647 source topic=+1.361 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 31/47 pair 5_8 format: base topic=-0.647 source topic=-0.989 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 31/47 pair 5_8 compete: base topic=+1.361 source topic=-0.647 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 32/47 pair 10_11 topic: base topic=-1.119 source topic=+0.484 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 32/47 pair 10_11 format: base topic=-1.119 source topic=-1.056 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 32/47 pair 10_11 compete: base topic=+0.484 source topic=-1.119 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 33/47 pair 15_20 topic: base topic=-1.211 source topic=+0.371 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 33/47 pair 15_20 format: base topic=-1.211 source topic=-0.845 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 33/47 pair 15_20 compete: base topic=+0.371 source topic=-1.211 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 34/47 pair 31_35 topic: base topic=-1.657 source topic=+1.528 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 34/47 pair 31_35 format: base topic=-1.657 source topic=-1.215 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 34/47 pair 31_35 compete: base topic=+1.528 source topic=-1.657 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 35/47 pair 36_51 topic: base topic=-0.967 source topic=+1.375 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 35/47 pair 36_51 format: base topic=-0.967 source topic=-0.798 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 35/47 pair 36_51 compete: base topic=+1.375 source topic=-0.967 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 36/47 pair 52_57 topic: base topic=-1.863 source topic=+2.163 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 36/47 pair 52_57 format: base topic=-1.863 source topic=-1.917 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 36/47 pair 52_57 compete: base topic=+2.163 source topic=-1.863 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 37/47 pair 65_69 topic: base topic=-1.023 source topic=+1.268 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 37/47 pair 65_69 format: base topic=-1.023 source topic=-0.915 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 37/47 pair 65_69 compete: base topic=+1.268 source topic=-1.023 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 38/47 pair 76_82 topic: base topic=-0.709 source topic=+1.066 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 38/47 pair 76_82 format: base topic=-0.709 source topic=-0.963 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 38/47 pair 76_82 compete: base topic=+1.066 source topic=-0.709 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 39/47 pair 87_94 topic: base topic=-2.109 source topic=+0.520 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 39/47 pair 87_94 format: base topic=-2.109 source topic=-2.157 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 39/47 pair 87_94 compete: base topic=+0.520 source topic=-2.109 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 40/47 pair 25_39 topic: base topic=-0.734 source topic=+1.218 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 40/47 pair 25_39 format: base topic=-0.734 source topic=-1.044 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 40/47 pair 25_39 compete: base topic=+1.218 source topic=-0.734 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 41/47 pair 71_86 topic: base topic=-1.195 source topic=+1.429 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 41/47 pair 71_86 format: base topic=-1.195 source topic=-0.884 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 41/47 pair 71_86 compete: base topic=+1.429 source topic=-1.195 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 42/47 pair 7_19 topic: base topic=-1.219 source topic=+1.575 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 42/47 pair 7_19 format: base topic=-1.219 source topic=-1.155 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 42/47 pair 7_19 compete: base topic=+1.575 source topic=-1.219 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 43/47 pair 22_55 topic: base topic=-0.704 source topic=+1.101 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 43/47 pair 22_55 format: base topic=-0.704 source topic=-0.904 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 43/47 pair 22_55 compete: base topic=+1.101 source topic=-0.704 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 44/47 pair 64_79 topic: base topic=-1.922 source topic=+1.792 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 44/47 pair 64_79 format: base topic=-1.922 source topic=-2.215 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 44/47 pair 64_79 compete: base topic=+1.792 source topic=-1.922 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 45/47 pair 81_90 topic: base topic=-1.844 source topic=+1.231 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 45/47 pair 81_90 format: base topic=-1.844 source topic=-1.160 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 45/47 pair 81_90 compete: base topic=+1.231 source topic=-1.844 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 46/47 pair 18_29 topic: base topic=-1.885 source topic=+0.725 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 46/47 pair 18_29 format: base topic=-1.885 source topic=-1.828 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 46/47 pair 18_29 compete: base topic=+0.725 source topic=-1.885 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 47/47 pair 33_43 topic: base topic=-0.757 source topic=+0.425 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 47/47 pair 33_43 format: base topic=-0.757 source topic=-0.793 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[patch] 47/47 pair 33_43 compete: base topic=+0.425 source topic=-0.757 sets=['fmt', 'question', 'suffix', 'last', 'prompt', 'concisely']
+[transplant] 47 pairs, 47 with work left
+[transplant] 1/47 pair 38_46 blank topic=-0.236
+[transplant] 2/47 pair 89_92 blank topic=-0.547
+[transplant] 3/47 pair 93_98 blank topic=-0.175
+[transplant] 4/47 pair 17_21 blank topic=+0.061
+[transplant] 5/47 pair 23_56 blank topic=+0.416
+[transplant] 6/47 pair 24_59 blank topic=-0.163
+[transplant] 7/47 pair 67_77 blank topic=-0.115
+[transplant] 8/47 pair 84_85 blank topic=-0.122
+[transplant] 9/47 pair 3_6 blank topic=+0.491
+[transplant] 10/47 pair 9_13 blank topic=-0.043
+[transplant] 11/47 pair 26_37 blank topic=+0.865
+[transplant] 12/47 pair 40_50 blank topic=-0.127
+[transplant] 13/47 pair 48_70 blank topic=-0.029
+[transplant] 14/47 pair 75_83 blank topic=-0.191
+[transplant] 15/47 pair 0_14 blank topic=+0.152
+[transplant] 16/47 pair 28_34 blank topic=+0.593
+[transplant] 17/47 pair 30_44 blank topic=+0.056
+[transplant] 18/47 pair 42_45 blank topic=+0.481
+[transplant] 19/47 pair 53_58 blank topic=-0.050
+[transplant] 20/47 pair 60_66 blank topic=+0.142
+[transplant] 21/47 pair 72_74 blank topic=+0.040
+[transplant] 22/47 pair 78_95 blank topic=+0.075
+[transplant] 23/47 pair 1_16 blank topic=+0.464
+[transplant] 24/47 pair 12_27 blank topic=-0.472
+[transplant] 25/47 pair 32_47 blank topic=-0.341
+[transplant] 26/47 pair 49_54 blank topic=+0.062
+[transplant] 27/47 pair 62_63 blank topic=+0.030
+[transplant] 28/47 pair 68_73 blank topic=-0.219
+[transplant] 29/47 pair 88_91 blank topic=+0.273
+[transplant] 30/47 pair 2_4 blank topic=-0.637
+[transplant] 31/47 pair 5_8 blank topic=+0.358
+[transplant] 32/47 pair 10_11 blank topic=+0.087
+[transplant] 33/47 pair 15_20 blank topic=-0.130
+[transplant] 34/47 pair 31_35 blank topic=-0.096
+[transplant] 35/47 pair 36_51 blank topic=+0.210
+[transplant] 36/47 pair 52_57 blank topic=+0.142
+[transplant] 37/47 pair 65_69 blank topic=-0.186
+[transplant] 38/47 pair 76_82 blank topic=-0.081
+[transplant] 39/47 pair 87_94 blank topic=-1.004
+[transplant] 40/47 pair 25_39 blank topic=+0.041
+[transplant] 41/47 pair 71_86 blank topic=+0.310
+[transplant] 42/47 pair 7_19 blank topic=+0.472
+[transplant] 43/47 pair 22_55 blank topic=+0.504
+[transplant] 44/47 pair 64_79 blank topic=+0.006
+[transplant] 45/47 pair 81_90 blank topic=-0.602
+[transplant] 46/47 pair 18_29 blank topic=-0.441
+[transplant] 47/47 pair 33_43 blank topic=-0.207
+[aggregate] patch/topic/fmt: n=47 peak normalized topic=0.00 @ layer 51, max format side effect=0.003 nats
+[aggregate] patch/topic/question: n=47 peak normalized topic=1.06 @ layer 20, max format side effect=0.126 nats
+[aggregate] patch/topic/suffix: n=47 peak normalized topic=0.15 @ layer 62, max format side effect=0.053 nats
+[aggregate] patch/topic/last: n=47 peak normalized topic=0.15 @ layer 62, max format side effect=0.015 nats
+[aggregate] patch/topic/prompt: n=47 peak normalized topic=1.06 @ layer 20, max format side effect=0.130 nats
+[aggregate] patch/topic/concisely: n=47 peak normalized topic=0.00 @ layer 46, max format side effect=0.002 nats
+[aggregate] patch/format/fmt: n=47 peak normalized format=1.00 @ layer 0, max topic side effect=0.256 nats
+[aggregate] patch/format/question: n=47 peak normalized format=0.05 @ layer 35, max topic side effect=0.037 nats
+[aggregate] patch/format/suffix: n=47 peak normalized format=0.18 @ layer 44, max topic side effect=0.088 nats
+[aggregate] patch/format/last: n=47 peak normalized format=0.09 @ layer 44, max topic side effect=0.048 nats
+[aggregate] patch/format/prompt: n=47 peak normalized format=1.00 @ layer 0, max topic side effect=0.223 nats
+[aggregate] patch/format/concisely: n=47 peak normalized format=0.07 @ layer 39, max topic side effect=0.059 nats
+[aggregate] patch/compete/fmt: n=47 peak normalized topic=0.00 @ layer 13, max format side effect=0.003 nats
+[aggregate] patch/compete/question: n=47 peak normalized topic=1.07 @ layer 20, max format side effect=0.156 nats
+[aggregate] patch/compete/suffix: n=47 peak normalized topic=0.15 @ layer 63, max format side effect=0.050 nats
+[aggregate] patch/compete/last: n=47 peak normalized topic=0.15 @ layer 63, max format side effect=0.015 nats
+[aggregate] patch/compete/prompt: n=47 peak normalized topic=1.07 @ layer 20, max format side effect=0.136 nats
+[aggregate] patch/compete/concisely: n=47 peak normalized topic=0.00 @ layer 41, max format side effect=0.002 nats
+[aggregate] transplant/last: n=47 peak donor separation=0.320 nats @ layer 63
+[aggregate] transplant/suffix: n=47 peak donor separation=0.431 nats @ layer 42
+[aggregate] wrote plots + summary.json to /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-long-abstraction
+[slurm] python exited rc=0 Mon Sep 14 10:07:47 EDT 2026

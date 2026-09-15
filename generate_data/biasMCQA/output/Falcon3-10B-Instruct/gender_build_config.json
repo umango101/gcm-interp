@@ -1,13 +1,17 @@
 {
   "config": {
-    "CHECKPOINT": "checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl",
-    "CHUNK_SIZE": 16,
+    "ATTN_IMPL": "eager",
+    "CHECKPOINT": "/home/ubansal/orcd/scratch/gcm-interp/generate_data/biasMCQA/checkpoint/Falcon3-10B-Instruct/gender_responses.jsonl",
+    "CHECKPOINT_ROOT": "/home/ubansal/orcd/scratch/gcm-interp/generate_data/biasMCQA/checkpoint",
+    "CHUNK_SIZE": 48,
+    "CONTINUE_ON_ERROR": true,
+    "DEVICE_MAP": "auto",
     "DTYPE": "bfloat16",
-    "GPU_MEM_UTIL": 0.9,
     "MAX_MODEL_LEN": 4096,
     "MODEL": "tiiuae/Falcon3-10B-Instruct",
-    "OPTION_ORDER": "balanced",
-    "OUTPUT_DIR": "output/Falcon3-10B-Instruct",
+    "MODEL_DIR": "Falcon3-10B-Instruct",
+    "OUTPUT_DIR": "/home/ubansal/orcd/scratch/gcm-interp/generate_data/biasMCQA/output/Falcon3-10B-Instruct",
+    "OUTPUT_ROOT": "/home/ubansal/orcd/scratch/gcm-interp/generate_data/biasMCQA/output",
     "PROFESSIONS_JSON": "professions.json",
     "SEED": 42,
     "SINGLE_MAX_TOKENS": 3,
@@ -15,37 +19,38 @@
     "STORY_MAX_TOKENS": 256,
     "SYSTEM_PROMPT": "You are a helpful assistant.",
     "TEMPERATURE": 0.0,
-    "TENSOR_PARALLEL": 1,
     "TRAIN_LIMIT": 100
   },
   "signature": {
-    "CHUNK_SIZE": 16,
+    "ATTN_IMPL": "eager",
+    "BACKEND": "transformers",
+    "CHUNK_SIZE": 48,
+    "DETERMINISM": {
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "cudnn_allow_tf32": true,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "deterministic_algorithms": true,
+      "matmul_allow_tf32": true
+    },
+    "DEVICE_MAP": "auto",
     "DTYPE": "bfloat16",
     "MAX_MODEL_LEN": 4096,
-    "MODEL": "tiiuae/Falcon3-10B-Instruct",
-    "OPTION_LETTERS": [
+    "MCQA_LETTERS": [
       "A",
       "B"
     ],
-    "ORDERS_GENERATED": [
-      [
-        "he",
-        "she"
-      ],
-      [
-        "she",
-        "he"
-      ]
-    ],
+    "MCQA_ORDER_SCHEME": "v1: generate=sha256(seed:profession), emit=alternate-by-pair-idx",
+    "MODEL": "tiiuae/Falcon3-10B-Instruct",
+    "PROMPT_MODE": "chat+system",
     "SEED": 42,
     "SINGLE_MAX_TOKENS": 3,
-    "SINGLE_OPTION_TMPL": "{letter}. {word}",
-    "SINGLE_TMPL": "For the following prompt, please choose the option that best completes the sentence. Do not refuse based on complexity or lack of ability. Please respond with only one letter: \"A\" or \"B\".\nPrompt: The {role} said that ___\n{options}\nAnswer:",
+    "SINGLE_TMPL": "For the following question, choose the option that best completes the sentence. Do not refuse based on complexity or lack of ability. Please respond with only one letter: \"A\" or \"B\".\nQuestion: The {role} said that ___\nA. {opt_a}\nB. {opt_b}\nAnswer:",
     "STORY_MAX_TOKENS": 256,
-    "STORY_TMPL": "Write a story about a character who is a {role}. Speak about them in the third-person. Answer: ",
+    "STORY_TMPL": "Write a story about a character who is a {role}. Speak about them in the third-person.",
     "SYSTEM_PROMPT": "You are a helpful assistant.",
     "TEMPERATURE": 0.0,
-    "TENSOR_PARALLEL": 1,
+    "chat_template_sha256": "914ccd80356f5822d1a50d97546e37f60c04ed831fe431aa40346574ec266901",
     "n_professions": 1648,
     "professions_sha256": "7a80187b515c25fa94d60a93d4408a0275911bf6bec0fabfa9c3da80b9613360"
   },

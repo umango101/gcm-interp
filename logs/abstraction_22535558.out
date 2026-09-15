@@ -1,0 +1,197 @@
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:00<00:15,  1.01it/s]Loading checkpoint shards:  12%|█▏        | 2/17 [00:02<00:17,  1.17s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:03<00:16,  1.21s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:04<00:15,  1.22s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:05<00:14,  1.21s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:07<00:13,  1.22s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:08<00:11,  1.20s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:09<00:10,  1.19s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:10<00:08,  1.12s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:11<00:07,  1.07s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:12<00:06,  1.04s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:13<00:05,  1.02s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:14<00:04,  1.01s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:15<00:02,  1.00it/s]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:16<00:02,  1.00s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:17<00:01,  1.00s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:18<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:18<00:00,  1.07s/it]
+You're using a Qwen2TokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[patcher] Qwen/Qwen1.5-32B-Chat: 64 layers, decoder-layer output is tuple
+[step 1] 60 pairs, 0 already done, 60 to run
+[step 1] 1/60 id=0 ld_clean=-11.38 ld_corrupted=0.75
+[step 1] 2/60 id=1 ld_clean=-11.25 ld_corrupted=12.62
+[step 1] 3/60 id=2 ld_clean=-13.38 ld_corrupted=3.75
+[step 1] 4/60 id=3 ld_clean=-14.75 ld_corrupted=1.38
+[step 1] 5/60 id=7 ld_clean=-11.00 ld_corrupted=7.62
+[step 1] 6/60 id=9 ld_clean=-10.38 ld_corrupted=7.12
+[step 1] 7/60 id=11 ld_clean=-2.88 ld_corrupted=0.62
+[step 1] id 12: baseline mismatch, skipped
+[step 1] 9/60 id=13 ld_clean=-9.88 ld_corrupted=5.75
+[step 1] 10/60 id=14 ld_clean=-5.50 ld_corrupted=8.75
+[step 1] 11/60 id=15 ld_clean=-1.12 ld_corrupted=7.75
+[step 1] 12/60 id=16 ld_clean=-12.50 ld_corrupted=9.62
+[step 1] 13/60 id=17 ld_clean=-11.25 ld_corrupted=9.38
+[step 1] 14/60 id=18 ld_clean=-2.12 ld_corrupted=1.25
+[step 1] 15/60 id=19 ld_clean=-2.88 ld_corrupted=16.62
+[step 1] 16/60 id=22 ld_clean=-3.38 ld_corrupted=4.50
+[step 1] 17/60 id=23 ld_clean=-12.88 ld_corrupted=5.88
+[step 1] 18/60 id=24 ld_clean=-5.12 ld_corrupted=2.38
+[step 1] 19/60 id=26 ld_clean=-5.75 ld_corrupted=9.75
+[step 1] 20/60 id=27 ld_clean=-6.25 ld_corrupted=11.38
+[step 1] 21/60 id=28 ld_clean=-16.88 ld_corrupted=13.88
+[step 1] 22/60 id=29 ld_clean=-5.62 ld_corrupted=6.75
+[step 1] 23/60 id=30 ld_clean=-12.38 ld_corrupted=8.12
+[step 1] 24/60 id=34 ld_clean=-14.62 ld_corrupted=6.00
+[step 1] 25/60 id=36 ld_clean=-11.62 ld_corrupted=16.25
+[step 1] 26/60 id=37 ld_clean=-1.62 ld_corrupted=8.75
+[step 1] 27/60 id=38 ld_clean=-13.62 ld_corrupted=1.00
+[step 1] 28/60 id=41 ld_clean=-8.88 ld_corrupted=10.25
+[step 1] 29/60 id=42 ld_clean=-9.38 ld_corrupted=9.88
+[step 1] 30/60 id=43 ld_clean=-4.62 ld_corrupted=7.88
+[step 1] 31/60 id=45 ld_clean=-4.00 ld_corrupted=2.88
+[step 1] 32/60 id=51 ld_clean=-12.38 ld_corrupted=5.62
+[step 1] 33/60 id=52 ld_clean=-9.50 ld_corrupted=17.38
+[step 1] 34/60 id=53 ld_clean=-5.25 ld_corrupted=3.50
+[step 1] 35/60 id=57 ld_clean=-4.75 ld_corrupted=7.00
+[step 1] 36/60 id=58 ld_clean=-2.75 ld_corrupted=6.25
+[step 1] 37/60 id=59 ld_clean=-6.88 ld_corrupted=11.12
+[step 1] 38/60 id=60 ld_clean=-1.38 ld_corrupted=6.12
+[step 1] 39/60 id=61 ld_clean=-7.38 ld_corrupted=12.50
+[step 1] 40/60 id=62 ld_clean=-12.38 ld_corrupted=3.50
+[step 1] 41/60 id=63 ld_clean=-12.62 ld_corrupted=1.88
+[step 1] 42/60 id=64 ld_clean=-2.00 ld_corrupted=6.38
+[step 1] 43/60 id=65 ld_clean=-10.88 ld_corrupted=4.25
+[step 1] 44/60 id=66 ld_clean=-11.12 ld_corrupted=11.25
+[step 1] 45/60 id=69 ld_clean=-9.62 ld_corrupted=9.00
+[step 1] 46/60 id=73 ld_clean=-6.75 ld_corrupted=14.25
+[step 1] 47/60 id=74 ld_clean=-16.56 ld_corrupted=4.88
+[step 1] 48/60 id=75 ld_clean=-13.62 ld_corrupted=4.00
+[step 1] 49/60 id=77 ld_clean=-0.25 ld_corrupted=14.38
+[step 1] 50/60 id=78 ld_clean=-7.62 ld_corrupted=9.25
+[step 1] 51/60 id=79 ld_clean=-10.38 ld_corrupted=12.25
+[step 1] 52/60 id=82 ld_clean=-12.62 ld_corrupted=8.50
+[step 1] 53/60 id=85 ld_clean=-6.50 ld_corrupted=16.00
+[step 1] 54/60 id=88 ld_clean=-10.88 ld_corrupted=10.75
+[step 1] 55/60 id=91 ld_clean=-17.50 ld_corrupted=7.62
+[step 1] 56/60 id=94 ld_clean=-7.62 ld_corrupted=14.50
+[step 1] 57/60 id=95 ld_clean=-6.62 ld_corrupted=10.25
+[step 1] 58/60 id=97 ld_clean=-6.75 ld_corrupted=4.62
+[step 1] 59/60 id=98 ld_clean=-7.75 ld_corrupted=4.38
+[step 1] 60/60 id=99 ld_clean=-10.38 ld_corrupted=12.88
+[step 1] sanity: max |last-layer final patch - corrupted| = 0.0000
+[step 2] 60 pairs, 0 already done, 60 to run
+[step 2] 1/60 id=0 ld_clean=-14.25 ld_corrupted=12.75
+[step 2] 2/60 id=1 ld_clean=-13.62 ld_corrupted=11.75
+[step 2] 3/60 id=2 ld_clean=-17.69 ld_corrupted=17.56
+[step 2] 4/60 id=3 ld_clean=-16.88 ld_corrupted=14.38
+[step 2] 5/60 id=7 ld_clean=-16.00 ld_corrupted=17.69
+[step 2] 6/60 id=9 ld_clean=-19.50 ld_corrupted=15.00
+[step 2] 7/60 id=11 ld_clean=-11.25 ld_corrupted=13.88
+[step 2] id 12: baseline mismatch, skipped
+[step 2] 9/60 id=13 ld_clean=-10.62 ld_corrupted=14.62
+[step 2] 10/60 id=14 ld_clean=-17.94 ld_corrupted=16.69
+[step 2] 11/60 id=15 ld_clean=-15.69 ld_corrupted=16.62
+[step 2] 12/60 id=16 ld_clean=-17.38 ld_corrupted=12.38
+[step 2] 13/60 id=17 ld_clean=-18.25 ld_corrupted=19.69
+[step 2] 14/60 id=18 ld_clean=-14.19 ld_corrupted=13.50
+[step 2] 15/60 id=19 ld_clean=-14.38 ld_corrupted=16.56
+[step 2] 16/60 id=22 ld_clean=-4.25 ld_corrupted=14.75
+[step 2] 17/60 id=23 ld_clean=-18.88 ld_corrupted=10.62
+[step 2] 18/60 id=24 ld_clean=-17.44 ld_corrupted=15.00
+[step 2] 19/60 id=26 ld_clean=-11.12 ld_corrupted=9.62
+[step 2] 20/60 id=27 ld_clean=-11.62 ld_corrupted=12.38
+[step 2] 21/60 id=28 ld_clean=-16.50 ld_corrupted=18.12
+[step 2] 22/60 id=29 ld_clean=-12.50 ld_corrupted=17.50
+[step 2] 23/60 id=30 ld_clean=-13.62 ld_corrupted=13.00
+[step 2] 24/60 id=34 ld_clean=-19.81 ld_corrupted=11.88
+[step 2] 25/60 id=36 ld_clean=-18.31 ld_corrupted=15.50
+[step 2] 26/60 id=37 ld_clean=-10.88 ld_corrupted=5.38
+[step 2] 27/60 id=38 ld_clean=-15.00 ld_corrupted=12.75
+[step 2] 28/60 id=41 ld_clean=-13.00 ld_corrupted=9.00
+[step 2] 29/60 id=42 ld_clean=-8.12 ld_corrupted=16.88
+[step 2] 30/60 id=43 ld_clean=-11.25 ld_corrupted=15.88
+[step 2] 31/60 id=45 ld_clean=-11.88 ld_corrupted=3.62
+[step 2] 32/60 id=51 ld_clean=-17.44 ld_corrupted=17.56
+[step 2] 33/60 id=52 ld_clean=-18.88 ld_corrupted=18.25
+[step 2] 34/60 id=53 ld_clean=-12.62 ld_corrupted=16.31
+[step 2] 35/60 id=57 ld_clean=-14.56 ld_corrupted=12.75
+[step 2] 36/60 id=58 ld_clean=-10.88 ld_corrupted=11.00
+[step 2] 37/60 id=59 ld_clean=-14.75 ld_corrupted=17.25
+[step 2] 38/60 id=60 ld_clean=-6.38 ld_corrupted=9.75
+[step 2] 39/60 id=61 ld_clean=-12.88 ld_corrupted=16.00
+[step 2] 40/60 id=62 ld_clean=-15.62 ld_corrupted=8.88
+[step 2] 41/60 id=63 ld_clean=-14.25 ld_corrupted=13.50
+[step 2] 42/60 id=64 ld_clean=-13.81 ld_corrupted=16.00
+[step 2] 43/60 id=65 ld_clean=-14.00 ld_corrupted=4.50
+[step 2] 44/60 id=66 ld_clean=-15.12 ld_corrupted=14.50
+[step 2] 45/60 id=69 ld_clean=-17.44 ld_corrupted=10.00
+[step 2] 46/60 id=73 ld_clean=-11.19 ld_corrupted=11.50
+[step 2] 47/60 id=74 ld_clean=-18.00 ld_corrupted=17.56
+[step 2] 48/60 id=75 ld_clean=-16.75 ld_corrupted=16.25
+[step 2] 49/60 id=77 ld_clean=-12.75 ld_corrupted=15.88
+[step 2] 50/60 id=78 ld_clean=-12.12 ld_corrupted=17.75
+[step 2] 51/60 id=79 ld_clean=-17.25 ld_corrupted=14.38
+[step 2] 52/60 id=82 ld_clean=-18.50 ld_corrupted=14.12
+[step 2] 53/60 id=85 ld_clean=-17.94 ld_corrupted=17.00
+[step 2] 54/60 id=88 ld_clean=-15.00 ld_corrupted=6.00
+[step 2] 55/60 id=91 ld_clean=-19.56 ld_corrupted=12.12
+[step 2] 56/60 id=94 ld_clean=-12.62 ld_corrupted=16.62
+[step 2] 57/60 id=95 ld_clean=-14.00 ld_corrupted=14.88
+[step 2] 58/60 id=97 ld_clean=-13.25 ld_corrupted=18.31
+[step 2] 59/60 id=98 ld_clean=-15.94 ld_corrupted=15.00
+[step 2] 60/60 id=99 ld_clean=-14.25 ld_corrupted=15.12
+[step 2] sanity: max |last-layer final patch - corrupted| = 0.0000
+[step 3] 60 pairs, 0 already done, 60 to run
+[step 3] 1/60 id=0 ld_clean=-24.88 ld_corrupted=15.00
+[step 3] 2/60 id=1 ld_clean=-24.69 ld_corrupted=17.56
+[step 3] 3/60 id=2 ld_clean=-25.28 ld_corrupted=18.00
+[step 3] 4/60 id=3 ld_clean=-25.31 ld_corrupted=16.44
+[step 3] 5/60 id=7 ld_clean=-29.91 ld_corrupted=14.81
+[step 3] 6/60 id=9 ld_clean=-28.53 ld_corrupted=19.38
+[step 3] 7/60 id=11 ld_clean=-25.19 ld_corrupted=18.62
+[step 3] id 12: baseline mismatch, skipped
+[step 3] 9/60 id=13 ld_clean=-23.47 ld_corrupted=14.75
+[step 3] 10/60 id=14 ld_clean=-27.03 ld_corrupted=16.94
+[step 3] 11/60 id=15 ld_clean=-22.88 ld_corrupted=17.44
+[step 3] 12/60 id=16 ld_clean=-27.41 ld_corrupted=15.75
+[step 3] 13/60 id=17 ld_clean=-25.00 ld_corrupted=20.81
+[step 3] 14/60 id=18 ld_clean=-21.69 ld_corrupted=15.31
+[step 3] 15/60 id=19 ld_clean=-26.47 ld_corrupted=14.75
+[step 3] 16/60 id=22 ld_clean=-21.81 ld_corrupted=20.62
+[step 3] 17/60 id=23 ld_clean=-28.03 ld_corrupted=14.81
+[step 3] 18/60 id=24 ld_clean=-25.78 ld_corrupted=17.50
+[step 3] 19/60 id=26 ld_clean=-23.88 ld_corrupted=14.69
+[step 3] 20/60 id=27 ld_clean=-23.97 ld_corrupted=14.06
+[step 3] 21/60 id=28 ld_clean=-28.22 ld_corrupted=17.25
+[step 3] 22/60 id=29 ld_clean=-23.22 ld_corrupted=16.31
+[step 3] 23/60 id=30 ld_clean=-26.34 ld_corrupted=15.69
+[step 3] 24/60 id=34 ld_clean=-27.84 ld_corrupted=18.56
+[step 3] 25/60 id=36 ld_clean=-26.66 ld_corrupted=15.56
+[step 3] 26/60 id=37 ld_clean=-24.56 ld_corrupted=14.94
+[step 3] 27/60 id=38 ld_clean=-29.61 ld_corrupted=15.44
+[step 3] 28/60 id=41 ld_clean=-24.62 ld_corrupted=12.62
+[step 3] 29/60 id=42 ld_clean=-19.50 ld_corrupted=21.44
+[step 3] 30/60 id=43 ld_clean=-24.94 ld_corrupted=21.12
+[step 3] 31/60 id=45 ld_clean=-22.44 ld_corrupted=13.94
+[step 3] 32/60 id=51 ld_clean=-23.97 ld_corrupted=19.31
+[step 3] 33/60 id=52 ld_clean=-27.47 ld_corrupted=21.56
+[step 3] 34/60 id=53 ld_clean=-25.59 ld_corrupted=20.12
+[step 3] 35/60 id=57 ld_clean=-22.31 ld_corrupted=16.44
+[step 3] 36/60 id=58 ld_clean=-23.78 ld_corrupted=21.56
+[step 3] 37/60 id=59 ld_clean=-28.81 ld_corrupted=19.12
+[step 3] 38/60 id=60 ld_clean=-21.94 ld_corrupted=16.56
+[step 3] 39/60 id=61 ld_clean=-23.84 ld_corrupted=14.75
+[step 3] 40/60 id=62 ld_clean=-26.56 ld_corrupted=13.62
+[step 3] 41/60 id=63 ld_clean=-24.50 ld_corrupted=14.00
+[step 3] 42/60 id=64 ld_clean=-23.41 ld_corrupted=18.62
+[step 3] 43/60 id=65 ld_clean=-27.28 ld_corrupted=16.50
+[step 3] 44/60 id=66 ld_clean=-26.06 ld_corrupted=18.62
+[step 3] 45/60 id=69 ld_clean=-27.66 ld_corrupted=18.12
+[step 3] 46/60 id=73 ld_clean=-22.70 ld_corrupted=12.94
+[step 3] 47/60 id=74 ld_clean=-25.78 ld_corrupted=20.75
+[step 3] 48/60 id=75 ld_clean=-27.53 ld_corrupted=19.12
+[step 3] 49/60 id=77 ld_clean=-23.09 ld_corrupted=18.81
+[step 3] 50/60 id=78 ld_clean=-28.66 ld_corrupted=17.38
+[step 3] 51/60 id=79 ld_clean=-25.94 ld_corrupted=18.00
+[step 3] 52/60 id=82 ld_clean=-26.31 ld_corrupted=16.44
+[step 3] 53/60 id=85 ld_clean=-27.50 ld_corrupted=17.12
+[step 3] 54/60 id=88 ld_clean=-27.34 ld_corrupted=8.00
+[step 3] 55/60 id=91 ld_clean=-28.97 ld_corrupted=13.50
+[step 3] 56/60 id=94 ld_clean=-24.44 ld_corrupted=17.69
+[step 3] 57/60 id=95 ld_clean=-24.38 ld_corrupted=17.00
+[step 3] 58/60 id=97 ld_clean=-24.72 ld_corrupted=18.69
+[step 3] 59/60 id=98 ld_clean=-25.16 ld_corrupted=17.38
+[step 3] 60/60 id=99 ld_clean=-24.72 ld_corrupted=18.38
+[step 3] sanity: max |last-layer final patch - corrupted| = 0.0000
+[aggregate] step 1 / paren: n=59, first layer with normalized effect >= 0.5: None
+[aggregate] step 1 / final: n=59, first layer with normalized effect >= 0.5: 48
+[aggregate] step 2 / paren: n=59, first layer with normalized effect >= 0.5: None
+[aggregate] step 2 / final: n=59, first layer with normalized effect >= 0.5: 48
+[aggregate] step 3 / paren: n=59, first layer with normalized effect >= 0.5: None
+[aggregate] step 3 / final: n=59, first layer with normalized effect >= 0.5: 53
+[aggregate] wrote plots + summary.json to /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-mcqa-abstraction

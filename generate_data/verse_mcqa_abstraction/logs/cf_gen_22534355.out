@@ -1,0 +1,173 @@
+[slurm] job 22534355 on node4600 restart=0 Thu Sep 10 23:58:10 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+base rows: 100  (/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-single/verse-single-desired-all.jsonl)
+QC: scoring 1000 prompts with Qwen/Qwen1.5-32B-Chat
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:28,  1.79s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:04<00:30,  2.06s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:06<00:29,  2.12s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:08<00:27,  2.11s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:10<00:25,  2.11s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:12<00:23,  2.12s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:14<00:21,  2.13s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:16<00:19,  2.13s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:18<00:14,  1.84s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:19<00:11,  1.65s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:20<00:09,  1.52s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:21<00:07,  1.43s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:23<00:05,  1.38s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:24<00:04,  1.34s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:25<00:02,  1.31s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:26<00:01,  1.29s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:27<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:27<00:00,  1.63s/it]
+  QC scored 8/1000
+  QC scored 16/1000
+  QC scored 24/1000
+  QC scored 32/1000
+  QC scored 40/1000
+  QC scored 48/1000
+  QC scored 56/1000
+  QC scored 64/1000
+  QC scored 72/1000
+  QC scored 80/1000
+  QC scored 88/1000
+  QC scored 96/1000
+  QC scored 104/1000
+  QC scored 112/1000
+  QC scored 120/1000
+  QC scored 128/1000
+  QC scored 136/1000
+  QC scored 144/1000
+  QC scored 152/1000
+  QC scored 160/1000
+  QC scored 168/1000
+  QC scored 176/1000
+  QC scored 184/1000
+  QC scored 192/1000
+  QC scored 200/1000
+  QC scored 208/1000
+  QC scored 216/1000
+  QC scored 224/1000
+  QC scored 232/1000
+  QC scored 240/1000
+  QC scored 248/1000
+  QC scored 256/1000
+  QC scored 264/1000
+  QC scored 272/1000
+  QC scored 280/1000
+  QC scored 288/1000
+  QC scored 296/1000
+  QC scored 304/1000
+  QC scored 312/1000
+  QC scored 320/1000
+  QC scored 328/1000
+  QC scored 336/1000
+  QC scored 344/1000
+  QC scored 352/1000
+  QC scored 360/1000
+  QC scored 368/1000
+  QC scored 376/1000
+  QC scored 384/1000
+  QC scored 392/1000
+  QC scored 400/1000
+  QC scored 408/1000
+  QC scored 416/1000
+  QC scored 424/1000
+  QC scored 432/1000
+  QC scored 440/1000
+  QC scored 448/1000
+  QC scored 456/1000
+  QC scored 464/1000
+  QC scored 472/1000
+  QC scored 480/1000
+  QC scored 488/1000
+  QC scored 496/1000
+  QC scored 504/1000
+  QC scored 512/1000
+  QC scored 520/1000
+  QC scored 528/1000
+  QC scored 536/1000
+  QC scored 544/1000
+  QC scored 552/1000
+  QC scored 560/1000
+  QC scored 568/1000
+  QC scored 576/1000
+  QC scored 584/1000
+  QC scored 592/1000
+  QC scored 600/1000
+  QC scored 608/1000
+  QC scored 616/1000
+  QC scored 624/1000
+  QC scored 632/1000
+  QC scored 640/1000
+  QC scored 648/1000
+  QC scored 656/1000
+  QC scored 664/1000
+  QC scored 672/1000
+  QC scored 680/1000
+  QC scored 688/1000
+  QC scored 696/1000
+  QC scored 704/1000
+  QC scored 712/1000
+  QC scored 720/1000
+  QC scored 728/1000
+  QC scored 736/1000
+  QC scored 744/1000
+  QC scored 752/1000
+  QC scored 760/1000
+  QC scored 768/1000
+  QC scored 776/1000
+  QC scored 784/1000
+  QC scored 792/1000
+  QC scored 800/1000
+  QC scored 808/1000
+  QC scored 816/1000
+  QC scored 824/1000
+  QC scored 832/1000
+  QC scored 840/1000
+  QC scored 848/1000
+  QC scored 856/1000
+  QC scored 864/1000
+  QC scored 872/1000
+  QC scored 880/1000
+  QC scored 888/1000
+  QC scored 896/1000
+  QC scored 904/1000
+  QC scored 912/1000
+  QC scored 920/1000
+  QC scored 928/1000
+  QC scored 936/1000
+  QC scored 944/1000
+  QC scored 952/1000
+  QC scored 960/1000
+  QC scored 968/1000
+  QC scored 976/1000
+  QC scored 984/1000
+  QC scored 992/1000
+  QC scored 1000/1000
+{
+  "model": "Qwen/Qwen1.5-32B-Chat",
+  "base_path": "/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-single/verse-single-desired-all.jsonl",
+  "prose_path": "/orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-single/prose-desired-all.jsonl",
+  "seed": 0,
+  "step3_letters": "PQRS",
+  "qc_enabled": true,
+  "counts": {
+    "rows": 100,
+    "clean_pass": 84,
+    "step1_pass": 71,
+    "step2_pass_any_candidate": 79,
+    "step23_pass": 73,
+    "step23_candidate_index_0": 47,
+    "step23_candidate_index_2": 12,
+    "clean_fail": 16,
+    "step23_candidate_index_3": 3,
+    "step23_candidate_index_1": 11
+  },
+  "corrupted_answer_distribution": {
+    "step1": {
+      "A": 21,
+      "B": 18,
+      "C": 15,
+      "D": 17
+    },
+    "step2": {
+      "A": 24,
+      "B": 20,
+      "C": 14,
+      "D": 15
+    },
+    "step3": {
+      "P": 24,
+      "Q": 20,
+      "R": 14,
+      "S": 15
+    }
+  }
+}
+wrote /orcd/scratch/orcd/008/ubansal/gcm-interp/data/Qwen1.5-32B-Chat/verse-mcqa-abstraction
+[slurm] python exited rc=0 Fri Sep 11 00:00:20 EDT 2026
