@@ -71,6 +71,7 @@ class Steerer:
         self.n_layers = len(self.layers)
         self.layer_batch = layer_batch
         self.max_ref_tokens = max_ref_tokens
+        self._meta = {}
         self.tuple_out = self._detect_tuple_output()
         print(f"[steerer] {model_name}: {self.n_layers} layers, decoder-layer output is "
               f"{'tuple' if self.tuple_out else 'tensor'}", flush=True)
@@ -85,6 +86,20 @@ class Steerer:
         out = self.layers[layer].output
         return out[0] if self.tuple_out else out
 
+    def _layer_meta(self, layer):
+        """Device and dtype of this layer's own parameters.
+
+        The direction vectors are accumulated in float32 on CPU (summing hundreds of bf16
+        residuals in bf16 loses precision), while the residual stream is bf16, so the vector has
+        to be cast before it touches the stream. Reading the parameters rather than assuming
+        self.model.device also keeps this correct when device_map='auto' shards layers across
+        GPUs, where the vector's target device varies by layer.
+        """
+        if layer not in self._meta:
+            p = next(self.layers[layer].parameters())
+            self._meta[layer] = (p.device, p.dtype)
+        return self._meta[layer]
+
     def _add(self, layer, rows, positions, vec):
         """resid[rows, positions, :] += vec, with index tensors of equal length.
 
@@ -94,7 +109,8 @@ class Steerer:
         """
         torch = self.torch
         R, P = len(rows), len(positions)
-        dev = vec.device
+        dev, dt = self._layer_meta(layer)
+        vec = vec.to(device=dev, dtype=dt)
         row_idx = torch.tensor(rows, device=dev, dtype=torch.long).repeat_interleave(P)
         col_idx = torch.tensor(positions, device=dev, dtype=torch.long).repeat(R)
         h = self._resid(layer)
@@ -169,8 +185,7 @@ class Steerer:
             ids, mask, tgt, smask = batch.tile(len(chunk))
             with torch.no_grad(), self.model.trace(self._inputs(ids, mask)):
                 for b, layer in enumerate(chunk):
-                    self._add(layer, list(range(b * R, (b + 1) * R)), positions,
-                              vecs[layer].to(self.model.device))
+                    self._add(layer, list(range(b * R, (b + 1) * R)), positions, vecs[layer])
                 g = torch.log_softmax(self.model.lm_head.output.float(), -1) \
                          .gather(-1, tgt.unsqueeze(-1)).squeeze(-1).save()
             for b, scores in enumerate(batch.reduce(_val(g), smask, len(chunk))):
@@ -192,7 +207,7 @@ class Steerer:
         pos = anatomy.positions["prompt"] if steer_positions in ("all", "prompt") else []
         with torch.no_grad(), self.model.trace(self._inputs(ids, mask)):
             if vec is not None and pos:
-                self._add(layer, [0], pos, vec.to(self.model.device))
+                self._add(layer, [0], pos, vec)
             out = self.model.output.save()
         out = _val(out)
         cache, nxt = out.past_key_values, out.logits[:, -1].argmax(-1, keepdim=True)
@@ -202,12 +217,13 @@ class Steerer:
         steer_gen = vec is not None and steer_positions in ("all", "answer")
         handle = None
         if steer_gen:
-            v = vec.to(self.model.device)
+            dev, dt = self._layer_meta(layer)
+            v = vec.to(device=dev, dtype=dt)
 
             def hook(mod, inp, out_):
-                if isinstance(out_, tuple):
-                    return (out_[0] + v.to(out_[0].dtype),) + out_[1:]
-                return out_ + v.to(out_.dtype)
+                h = out_[0] if isinstance(out_, tuple) else out_
+                add = v.to(device=h.device, dtype=h.dtype)
+                return (h + add,) + out_[1:] if isinstance(out_, tuple) else h + add
 
             handle = hf.model.layers[layer].register_forward_hook(hook)
         try:
