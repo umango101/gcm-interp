@@ -48,7 +48,7 @@ sys.path.insert(0, str(REPO_ROOT))
 import verse_long_utils as U  # noqa: E402
 
 SOURCE_POSITIONS = ("last", "answer", "prompt")
-STEER_POSITIONS = ("all", "prompt", "answer")
+STEER_POSITIONS = ("last", "all", "prompt", "answer")
 
 
 def _val(p):
@@ -169,16 +169,28 @@ class Steerer:
         return dict(top=fmt(top.indices, top.values), bottom=fmt(bot.indices, -bot.values))
 
     # ---------------------------------------------------------------- steering sweep
+    @staticmethod
+    def steer_index(anatomy, steer_positions, total_len):
+        """Where the direction is added.
+
+        'last' is the sharp test of the bottleneck hypothesis: inject once at the final prompt
+        token and let every answer token reach it through attention. 'all' is the CAA
+        convention -- it keeps acting during decoding, but it also assumes the answer, since a
+        style maintained continuously and a style committed up front both succeed under it.
+        """
+        if steer_positions == "last":
+            return list(anatomy.positions["last"])
+        if steer_positions == "prompt":
+            return list(anatomy.positions["prompt"])
+        if steer_positions == "answer":
+            return list(range(len(anatomy.ids), total_len))
+        return list(range(total_len))
+
     def steer_sweep(self, batch, anatomy, vecs, steer_positions):
         """One batched forward per chunk of layers; block b steers layer chunk[b]."""
         torch = self.torch
         R = len(batch.keys)
-        if steer_positions == "all":
-            positions = list(range(batch.input_ids.shape[1]))
-        elif steer_positions == "prompt":
-            positions = anatomy.positions["prompt"]
-        else:
-            positions = list(range(len(anatomy.ids), batch.input_ids.shape[1]))
+        positions = self.steer_index(anatomy, steer_positions, batch.input_ids.shape[1])
         out = [None] * self.n_layers
         for s in range(0, self.n_layers, self.layer_batch):
             chunk = list(range(s, min(s + self.layer_batch, self.n_layers)))
@@ -204,7 +216,8 @@ class Steerer:
         torch = self.torch
         ids = torch.tensor([anatomy.ids], device=self.model.device)
         mask = torch.ones_like(ids)
-        pos = anatomy.positions["prompt"] if steer_positions in ("all", "prompt") else []
+        n_prompt = len(anatomy.ids)
+        pos = [i for i in self.steer_index(anatomy, steer_positions, n_prompt) if i < n_prompt]
         with torch.no_grad(), self.model.trace(self._inputs(ids, mask)):
             if vec is not None and pos:
                 self._add(layer, [0], pos, vec)
@@ -276,7 +289,9 @@ def main():
     ap.add_argument("--source_position", default="last", choices=SOURCE_POSITIONS,
                     help="where the difference-in-means is taken: the final prompt token, the "
                          "answer tokens, or the whole prompt")
-    ap.add_argument("--steer_positions", default="all", choices=STEER_POSITIONS)
+    ap.add_argument("--steer_positions", nargs="+", default=["last", "all"],
+                    choices=STEER_POSITIONS,
+                    help="swept: one accuracy curve per entry, all in the same job")
     ap.add_argument("--scalings", nargs="+", default=["raw", "normed"], choices=["raw", "normed"])
     ap.add_argument("--resid_frac", type=float, default=0.1,
                     help="'normed' rescales the vector to this fraction of the layer's mean "
@@ -366,7 +381,9 @@ def main():
         done = set()
         if rec_path.exists():
             for r in U.load_jsonl(rec_path):
-                done.add((r["id"], r["scaling"]))
+                # records written before steer_positions became a sweep used the old default
+                r.setdefault("steer_position", "all")
+                done.add((r["id"], r["scaling"], r["steer_position"]))
                 records.append(r)
         with open(rec_path, "a") as fout:
             for n, rid in enumerate(test_ids):
@@ -379,17 +396,18 @@ def main():
                 ceiling = S.score(S.batch(verse_anat, refs))
                 margin = lambda sc: sc["verse"]["logp_mean"] - sc["prose"]["logp_mean"]
                 for mode in args.scalings:
-                    if (rid, mode) in done:
-                        continue
-                    curve = S.steer_sweep(prose_batch, prose_anat, scaled[mode],
-                                          args.steer_positions)
-                    rec = dict(id=rid, scaling=mode, floor_margin=round(margin(floor), 5),
-                               ceiling_margin=round(margin(ceiling), 5),
-                               margins=[round(margin(c), 5) for c in curve])
-                    records.append(rec)
-                    fout.write(json.dumps(rec) + "\n")
-                    fout.flush()
-                    os.fsync(fout.fileno())
+                    for where in args.steer_positions:
+                        if (rid, mode, where) in done:
+                            continue
+                        curve = S.steer_sweep(prose_batch, prose_anat, scaled[mode], where)
+                        rec = dict(id=rid, scaling=mode, steer_position=where,
+                                   floor_margin=round(margin(floor), 5),
+                                   ceiling_margin=round(margin(ceiling), 5),
+                                   margins=[round(margin(c), 5) for c in curve])
+                        records.append(rec)
+                        fout.write(json.dumps(rec) + "\n")
+                        fout.flush()
+                        os.fsync(fout.fileno())
                 print(f"[steer] {n + 1}/{len(test_ids)} id={rid} "
                       f"floor={margin(floor):+.3f} ceiling={margin(ceiling):+.3f}", flush=True)
 
@@ -400,15 +418,18 @@ def main():
                 for rid in test_ids:
                     q = rows[rid]["question"]
                     anat = S.anatomy("prose", q)
-                    base = dict(id=rid, question=q, steer_positions=args.steer_positions)
+                    base = dict(id=rid, question=q)
                     fout.write(json.dumps(dict(base, layer=None, scaling=None,
-                                               text=S.generate(anat, 0, None, args.steer_positions,
+                                               steer_position=None,
+                                               text=S.generate(anat, 0, None, "last",
                                                                args.max_new_tokens))) + "\n")
                     for mode in args.scalings:
-                        for l in args.generate_layers:
-                            txt = S.generate(anat, l, scaled[mode][l], args.steer_positions,
-                                             args.max_new_tokens)
-                            fout.write(json.dumps(dict(base, layer=l, scaling=mode, text=txt)) + "\n")
+                        for where in args.steer_positions:
+                            for l in args.generate_layers:
+                                txt = S.generate(anat, l, scaled[mode][l], where,
+                                                 args.max_new_tokens)
+                                fout.write(json.dumps(dict(base, layer=l, scaling=mode,
+                                                           steer_position=where, text=txt)) + "\n")
                     fout.flush()
                     os.fsync(fout.fileno())
                     print(f"[generate] id={rid} done", flush=True)
@@ -429,42 +450,53 @@ def aggregate(out_dir):
         return
     seen = {}
     for r in U.load_jsonl(rec_path):
-        seen[(r["id"], r["scaling"])] = r
+        r.setdefault("steer_position", "all")
+        seen[(r["id"], r["scaling"], r["steer_position"])] = r
     by = {}
     for r in seen.values():
-        by.setdefault(r["scaling"], []).append(r)
+        by.setdefault(r["scaling"], {}).setdefault(r["steer_position"], []).append(r)
 
-    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(13, 4.5))
+    scalings = [m for m in ("raw", "normed") if m in by]
+    wheres = [w for w in STEER_POSITIONS if any(w in by[m] for m in scalings)]
+    colors = dict(zip(STEER_POSITIONS, ["tab:blue", "tab:orange", "tab:green", "tab:red"]))
     summary = {}
-    for mode, color in (("raw", "tab:blue"), ("normed", "tab:orange")):
-        rs = by.get(mode)
-        if not rs:
-            continue
-        m = np.array([r["margins"] for r in rs])
-        acc = (m > 0).mean(0)
-        x = np.arange(m.shape[1])
-        ax.plot(x, acc, color=color, label=f"{mode} scaling")
-        mean = m.mean(0)
-        ci = 1.96 * m.std(0, ddof=1) / np.sqrt(len(rs)) if len(rs) > 1 else np.zeros_like(mean)
-        ax2.plot(x, mean, color=color, label=f"{mode} scaling")
-        ax2.fill_between(x, mean - ci, mean + ci, color=color, alpha=0.2)
-        peak = int(np.argmax(acc))
-        summary[mode] = dict(n=len(rs), accuracy=acc.tolist(), margin_mean=mean.tolist(),
-                             peak_layer=peak, peak_accuracy=float(acc[peak]))
+
     floor_acc = float(np.mean([r["floor_margin"] > 0 for r in seen.values()]))
     ceil_acc = float(np.mean([r["ceiling_margin"] > 0 for r in seen.values()]))
     floor_m = float(np.mean([r["floor_margin"] for r in seen.values()]))
     ceil_m = float(np.mean([r["ceiling_margin"] for r in seen.values()]))
-    for a, lo, hi in ((ax, floor_acc, ceil_acc), (ax2, floor_m, ceil_m)):
-        a.axhline(lo, ls="--", lw=1, color="k", label="unsteered prose prompt (floor)")
-        a.axhline(hi, ls=":", lw=1.2, color="tab:green", label="unsteered verse prompt (ceiling)")
-        a.set_xlabel("layer index")
-        a.legend(fontsize=8)
-    ax.set_ylim(-0.02, 1.02)
-    ax.set_ylabel("accuracy: verse answer scored above prose answer")
-    ax.set_title("Steering effectiveness by layer")
-    ax2.set_ylabel("logp(verse) - logp(prose), nats/token")
-    ax2.set_title("Same measurement, before thresholding")
+
+    fig, axes = plt.subplots(len(scalings), 2, figsize=(13, 4.5 * len(scalings)), squeeze=False)
+    for row, mode in enumerate(scalings):
+        ax, ax2 = axes[row]
+        for where in wheres:
+            rs = by[mode].get(where)
+            if not rs:
+                continue
+            m = np.array([r["margins"] for r in rs])
+            x = np.arange(m.shape[1])
+            acc = (m > 0).mean(0)
+            mean = m.mean(0)
+            ci = 1.96 * m.std(0, ddof=1) / np.sqrt(len(rs)) if len(rs) > 1 else np.zeros_like(mean)
+            ax.plot(x, acc, color=colors[where], label=f"add at '{where}' (n={len(rs)})")
+            ax2.plot(x, mean, color=colors[where], label=f"add at '{where}'")
+            ax2.fill_between(x, mean - ci, mean + ci, color=colors[where], alpha=0.2)
+            peak = int(np.argmax(acc))
+            peak_m = int(np.argmax(mean))
+            summary.setdefault(mode, {})[where] = dict(
+                n=len(rs), accuracy=acc.tolist(), margin_mean=mean.tolist(),
+                peak_layer=peak, peak_accuracy=float(acc[peak]),
+                peak_margin_layer=peak_m, peak_margin=float(mean[peak_m]))
+        for a, lo, hi in ((ax, floor_acc, ceil_acc), (ax2, floor_m, ceil_m)):
+            a.axhline(lo, ls="--", lw=1, color="k", label="unsteered prose prompt (floor)")
+            a.axhline(hi, ls=":", lw=1.2, color="grey", label="unsteered verse prompt (ceiling)")
+            a.set_xlabel("layer index")
+            a.legend(fontsize=7)
+        ax.set_ylim(-0.02, 1.02)
+        ax.set_ylabel("accuracy: verse answer scored above prose answer")
+        ax.set_title(f"Steering effectiveness by layer — {mode} scaling")
+        ax2.set_ylabel("logp(verse) - logp(prose), nats/token")
+        ax2.set_title(f"Same measurement, before thresholding — {mode} scaling")
     fig.tight_layout()
     fig.savefig(out_dir / "accuracy_by_layer.png", dpi=150)
     plt.close(fig)
@@ -495,10 +527,13 @@ def aggregate(out_dir):
     with open(out_dir / "accuracy.json", "w") as f:
         json.dump(summary, f)
     print(f"[aggregate] floor accuracy {floor_acc:.2f}, ceiling accuracy {ceil_acc:.2f}")
-    for mode, d in summary.items():
-        if mode != "baselines":
-            print(f"[aggregate] {mode}: n={d['n']} peak accuracy {d['peak_accuracy']:.2f} "
-                  f"at layer {d['peak_layer']}")
+    for mode, per_where in summary.items():
+        if mode == "baselines":
+            continue
+        for where, d in per_where.items():
+            print(f"[aggregate] {mode} / add at '{where}': n={d['n']} "
+                  f"peak accuracy {d['peak_accuracy']:.2f} at layer {d['peak_layer']}; "
+                  f"peak margin {d['peak_margin']:+.3f} nats at layer {d['peak_margin_layer']}")
     print(f"[aggregate] wrote plots + accuracy.json to {out_dir}")
 
 

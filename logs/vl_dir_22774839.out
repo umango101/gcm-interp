@@ -1,0 +1,102 @@
+[slurm] job 22774839 on node3200 restart=0 Mon Sep 14 22:37:03 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+100 rows; 50 train / 50 test (seed 0)
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:21,  1.36s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:02<00:18,  1.25s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:06<00:34,  2.43s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:09<00:37,  2.90s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:13<00:39,  3.27s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:17<00:36,  3.36s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:20<00:33,  3.34s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:24<00:29,  3.31s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:27<00:26,  3.31s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:30<00:23,  3.36s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:34<00:20,  3.39s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:37<00:17,  3.43s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:41<00:14,  3.52s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:45<00:10,  3.57s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:49<00:07,  3.66s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:53<00:03,  3.77s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:56<00:00,  3.63s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:56<00:00,  3.31s/it]
+You're using a Qwen2TokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[steerer] Qwen/Qwen1.5-32B-Chat: 64 layers, decoder-layer output is tuple
+[direction] 10/50 train items
+[direction] 20/50 train items
+[direction] 30/50 train items
+[direction] 40/50 train items
+[direction] 50/50 train items
+[lens] wrote /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-direction/logit_lens.txt
+[steer] 1/50 id=0 floor=-0.957 ceiling=+1.035
+[steer] 2/50 id=3 floor=-0.801 ceiling=+1.014
+[steer] 3/50 id=5 floor=-0.699 ceiling=+1.669
+[steer] 4/50 id=9 floor=-0.826 ceiling=+1.154
+[steer] 5/50 id=12 floor=-0.968 ceiling=+1.303
+[steer] 6/50 id=17 floor=-1.221 ceiling=+0.913
+[steer] 7/50 id=18 floor=-1.083 ceiling=+1.475
+[steer] 8/50 id=25 floor=-1.113 ceiling=+1.523
+[steer] 9/50 id=26 floor=-2.367 ceiling=+0.796
+[steer] 10/50 id=27 floor=-0.889 ceiling=+1.054
+[steer] 11/50 id=32 floor=-0.868 ceiling=+1.241
+[steer] 12/50 id=33 floor=-1.084 ceiling=+1.073
+[steer] 13/50 id=35 floor=-1.087 ceiling=+1.863
+[steer] 14/50 id=36 floor=-1.777 ceiling=+1.613
+[steer] 15/50 id=38 floor=-0.905 ceiling=+1.446
+[steer] 16/50 id=39 floor=-1.269 ceiling=+1.057
+[steer] 17/50 id=40 floor=-0.834 ceiling=+1.266
+[steer] 18/50 id=42 floor=-0.992 ceiling=+1.525
+[steer] 19/50 id=45 floor=-0.843 ceiling=+1.343
+[steer] 20/50 id=46 floor=-0.825 ceiling=+1.156
+[steer] 21/50 id=49 floor=-0.869 ceiling=+1.093
+[steer] 22/50 id=50 floor=-0.973 ceiling=+1.330
+[steer] 23/50 id=51 floor=-1.052 ceiling=+1.361
+[steer] 24/50 id=53 floor=-0.880 ceiling=+1.347
+[steer] 25/50 id=55 floor=-0.839 ceiling=+1.034
+[steer] 26/50 id=56 floor=-1.273 ceiling=+1.367
+[steer] 27/50 id=58 floor=-0.988 ceiling=+1.246
+[steer] 28/50 id=60 floor=-1.225 ceiling=+0.950
+[steer] 29/50 id=61 floor=-1.613 ceiling=+1.066
+[steer] 30/50 id=62 floor=-0.869 ceiling=+1.162
+[steer] 31/50 id=64 floor=-0.939 ceiling=+1.134
+[steer] 32/50 id=65 floor=-0.989 ceiling=+0.890
+[steer] 33/50 id=68 floor=-0.920 ceiling=+0.682
+[steer] 34/50 id=69 floor=-0.884 ceiling=+1.351
+[steer] 35/50 id=71 floor=-1.497 ceiling=+0.905
+[steer] 36/50 id=72 floor=-1.354 ceiling=+0.785
+[steer] 37/50 id=73 floor=-1.127 ceiling=+1.532
+[steer] 38/50 id=74 floor=-0.692 ceiling=+1.302
+[steer] 39/50 id=75 floor=-0.818 ceiling=+1.297
+[steer] 40/50 id=77 floor=-1.004 ceiling=+1.322
+[steer] 41/50 id=79 floor=-1.144 ceiling=+1.562
+[steer] 42/50 id=82 floor=-1.047 ceiling=+0.992
+[steer] 43/50 id=85 floor=-2.001 ceiling=+0.835
+[steer] 44/50 id=89 floor=-0.895 ceiling=+0.739
+[steer] 45/50 id=90 floor=-0.934 ceiling=+1.837
+[steer] 46/50 id=92 floor=-0.901 ceiling=+1.927
+[steer] 47/50 id=95 floor=-1.100 ceiling=+1.222
+[steer] 48/50 id=96 floor=-0.882 ceiling=+1.008
+[steer] 49/50 id=97 floor=-0.934 ceiling=+1.038
+[steer] 50/50 id=98 floor=-0.932 ceiling=+0.960
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 27969 (\N{CJK UNIFIED IDEOGRAPH-6D41}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 36716 (\N{CJK UNIFIED IDEOGRAPH-8F6C}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 38752 (\N{CJK UNIFIED IDEOGRAPH-9760}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 36825 (\N{CJK UNIFIED IDEOGRAPH-8FD9}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 39318 (\N{CJK UNIFIED IDEOGRAPH-9996}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 19968 (\N{CJK UNIFIED IDEOGRAPH-4E00}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 30828 (\N{CJK UNIFIED IDEOGRAPH-786C}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:523: UserWarning: Glyph 20648 (\N{CJK UNIFIED IDEOGRAPH-50A8}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 27969 (\N{CJK UNIFIED IDEOGRAPH-6D41}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 36716 (\N{CJK UNIFIED IDEOGRAPH-8F6C}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 38752 (\N{CJK UNIFIED IDEOGRAPH-9760}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 36825 (\N{CJK UNIFIED IDEOGRAPH-8FD9}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 39318 (\N{CJK UNIFIED IDEOGRAPH-9996}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 19968 (\N{CJK UNIFIED IDEOGRAPH-4E00}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 30828 (\N{CJK UNIFIED IDEOGRAPH-786C}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_direction_logit_lens.py:524: UserWarning: Glyph 20648 (\N{CJK UNIFIED IDEOGRAPH-50A8}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_dir / "logit_lens_top1.png", dpi=150)
+[aggregate] floor accuracy 0.00, ceiling accuracy 1.00
+[aggregate] raw / add at 'last': n=50 peak accuracy 0.00 at layer 0; peak margin -0.740 nats at layer 29
+[aggregate] raw / add at 'all': n=50 peak accuracy 1.00 at layer 23; peak margin +0.830 nats at layer 30
+[aggregate] normed / add at 'last': n=50 peak accuracy 0.00 at layer 0; peak margin -1.030 nats at layer 25
+[aggregate] normed / add at 'all': n=50 peak accuracy 0.00 at layer 0; peak margin -0.709 nats at layer 24
+[aggregate] wrote plots + accuracy.json to /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-direction
+[slurm] python exited rc=0 Mon Sep 14 22:43:16 EDT 2026
