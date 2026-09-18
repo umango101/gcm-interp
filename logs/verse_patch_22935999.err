@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/hub.py", line 470, in cached_files
+    hf_hub_download(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1007, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1114, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1646, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic has been disabled. To enable hf.co look-ups and downloads online, set 'local_files_only' to False.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_patch.py", line 605, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_patch.py", line 424, in main
+    S = Patcher(args.model, args.dtype, args.layer_batch, args.max_ref_tokens)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/verse_patch.py", line 77, in __init__
+    self.model = LanguageModel(model_name, device_map="auto",
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 103, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 22, in __init__
+    super().__init__(*args, rename=rename, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/loadable.py", line 14, in __init__
+    model = self._load(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 163, in _load
+    self._load_config(repo_id, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 113, in _load_config
+    self.config = AutoConfig.from_pretrained(repo_id, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1197, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/configuration_utils.py", line 608, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/configuration_utils.py", line 667, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/hub.py", line 312, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.

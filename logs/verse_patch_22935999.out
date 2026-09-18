@@ -1,0 +1,14 @@
+[slurm] job 22935999 on node4602 at 2026-09-17T21:11:26-04:00
+[slurm] restart count: 0
+[slurm] repo /home/ubansal/orcd/scratch/gcm-interp @ cleanup b0ae64e83
+NVIDIA H200, 143771 MiB, 0 MiB
+[env] python      3.10.20
+[env] torch       2.7.0+cu126  cuda 12.6
+[env] transformers 4.53.3
+[env] nnsight     0.4.11
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+100 rows; 100 test (no train split needed)
+[slurm] python exited 1 at 2026-09-17T21:12:01-04:00
+[slurm] NOT requeueing on a nonzero exit -- a crash would requeue forever.
+[slurm] partial records are in /home/ubansal/orcd/scratch/gcm-interp/results/Qwen1.5-32B-Chat/verse-patch/records_accuracy.jsonl;
+[slurm] fix and resubmit, or run with --plot_only to aggregate what landed.

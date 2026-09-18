@@ -1,0 +1,97 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, allenai/OLMo-2-1124-13B-DPO, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat
+[plan] pairs:  female-long_male-long female-single_male-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (393 steps already recorded)
+
+==================== Falcon3-10B-Instruct, ====================
+[skip] Falcon3-10B-Instruct, / female-long -> male-long: 10 data file(s) missing
+         Falcon3-10B-Instruct,/female-long/male-long-desired-all.jsonl
+         Falcon3-10B-Instruct,/female-long/male-long-undesired-all.jsonl
+         Falcon3-10B-Instruct,/female-long/female-long-desired-all.jsonl
+         Falcon3-10B-Instruct,/female-long/female-long-undesired-all.jsonl
+         ... and 6 more
+[skip] Falcon3-10B-Instruct, / female-single -> male-single: 10 data file(s) missing
+         Falcon3-10B-Instruct,/female-single/male-single-desired-all.jsonl
+         Falcon3-10B-Instruct,/female-single/male-single-undesired-all.jsonl
+         Falcon3-10B-Instruct,/female-single/female-single-desired-all.jsonl
+         Falcon3-10B-Instruct,/female-single/female-single-undesired-all.jsonl
+         ... and 6 more
+
+==================== gemma-3-12b-it, ====================
+[skip] gemma-3-12b-it, / female-long -> male-long: 10 data file(s) missing
+         gemma-3-12b-it,/female-long/male-long-desired-all.jsonl
+         gemma-3-12b-it,/female-long/male-long-undesired-all.jsonl
+         gemma-3-12b-it,/female-long/female-long-desired-all.jsonl
+         gemma-3-12b-it,/female-long/female-long-undesired-all.jsonl
+         ... and 6 more
+[skip] gemma-3-12b-it, / female-single -> male-single: 10 data file(s) missing
+         gemma-3-12b-it,/female-single/male-single-desired-all.jsonl
+         gemma-3-12b-it,/female-single/male-single-undesired-all.jsonl
+         gemma-3-12b-it,/female-single/female-single-desired-all.jsonl
+         gemma-3-12b-it,/female-single/female-single-undesired-all.jsonl
+         ... and 6 more
+
+==================== OLMo-2-1124-13B-DPO, ====================
+[skip] OLMo-2-1124-13B-DPO, / female-long -> male-long: 10 data file(s) missing
+         OLMo-2-1124-13B-DPO,/female-long/male-long-desired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-long/male-long-undesired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-long/female-long-desired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-long/female-long-undesired-all.jsonl
+         ... and 6 more
+[skip] OLMo-2-1124-13B-DPO, / female-single -> male-single: 10 data file(s) missing
+         OLMo-2-1124-13B-DPO,/female-single/male-single-desired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-single/male-single-undesired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-single/female-single-desired-all.jsonl
+         OLMo-2-1124-13B-DPO,/female-single/female-single-undesired-all.jsonl
+         ... and 6 more
+
+==================== Qwen1.5-14B-Chat, ====================
+[skip] Qwen1.5-14B-Chat, / female-long -> male-long: 10 data file(s) missing
+         Qwen1.5-14B-Chat,/female-long/male-long-desired-all.jsonl
+         Qwen1.5-14B-Chat,/female-long/male-long-undesired-all.jsonl
+         Qwen1.5-14B-Chat,/female-long/female-long-desired-all.jsonl
+         Qwen1.5-14B-Chat,/female-long/female-long-undesired-all.jsonl
+         ... and 6 more
+[skip] Qwen1.5-14B-Chat, / female-single -> male-single: 10 data file(s) missing
+         Qwen1.5-14B-Chat,/female-single/male-single-desired-all.jsonl
+         Qwen1.5-14B-Chat,/female-single/male-single-undesired-all.jsonl
+         Qwen1.5-14B-Chat,/female-single/female-single-desired-all.jsonl
+         Qwen1.5-14B-Chat,/female-single/female-single-undesired-all.jsonl
+         ... and 6 more
+
+==================== Qwen1.5-32B-Chat ====================
+[skip] [1/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | localize
+[skip] [2/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:long steer:long
+[skip] [3/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:long steer:single
+[skip] [4/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:single steer:long
+[skip] [5/50] Qwen1.5-32B-Chat | female-long -> male-long | atp | eval:single steer:single
+[skip] [6/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | localize
+[skip] [7/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:long steer:long
+[skip] [8/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:long steer:single
+[skip] [9/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:single steer:long
+[skip] [10/50] Qwen1.5-32B-Chat | female-single -> male-single | atp | eval:single steer:single
+
+==================== summary ====================
+steps complete: 10/50   (ran 0 this pass)
+skipped (missing data):
+  Falcon3-10B-Instruct, / female-long -> male-long (10 files missing)
+  Falcon3-10B-Instruct, / female-single -> male-single (10 files missing)
+  gemma-3-12b-it, / female-long -> male-long (10 files missing)
+  gemma-3-12b-it, / female-single -> male-single (10 files missing)
+  OLMo-2-1124-13B-DPO, / female-long -> male-long (10 files missing)
+  OLMo-2-1124-13B-DPO, / female-single -> male-single (10 files missing)
+  Qwen1.5-14B-Chat, / female-long -> male-long (10 files missing)
+  Qwen1.5-14B-Chat, / female-single -> male-single (10 files missing)
+all steps completed for: tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, allenai/OLMo-2-1124-13B-DPO, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat

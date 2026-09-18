@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p mit_preemptable
 #SBATCH -t 48:00:00
-#SBATCH -J bias_describe_experiment
+#SBATCH -J biasDescribe_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
 #SBATCH --mem=128G
@@ -20,11 +20,10 @@ cd "$RM_INTERP_REPO" || { echo "FATAL: cannot cd to $RM_INTERP_REPO"; exit 1; }
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubansal/orcd/scratch/gcm-interp/.venv/lib/python3.10/site-packages/nvidia/cu13/lib
 
 declare -a models=(
-  "tiiuae/Falcon3-10B-Instruct"
-  "Qwen/Qwen1.5-14B-Chat"
+  "tiiuae/Falcon3-10B-Instruct",
+  "google/gemma-3-12b-it",
+  "Qwen/Qwen1.5-14B-Chat",
   "Qwen/Qwen1.5-32B-Chat"
-  "google/gemma-3-12b-it"
-  "allenai/OLMo-2-1124-13B-DPO"
 )
 
 declare -a pairs=(
@@ -187,9 +186,9 @@ check_data() {
     local fmt
     for fmt in "${formats[@]}"; do
         needed+=(
-            "$DATA_ROOT/$model_name/female-$fmt/male-$fmt-test.jsonl"
-            "$DATA_ROOT/$model_name/female-$fmt/female-$fmt-steering.jsonl"
-            "$DATA_ROOT/$model_name/female-$fmt/male-$fmt-steering.jsonl"
+            "$DATA_ROOT/$model_name/femaleDescribe-$fmt/maleDescribe-$fmt-test.jsonl"
+            "$DATA_ROOT/$model_name/femaleDescribe-$fmt/femaleDescribe-$fmt-steering.jsonl"
+            "$DATA_ROOT/$model_name/femaleDescribe-$fmt/maleDescribe-$fmt-steering.jsonl"
         )
     done
     local -a missing=()
@@ -247,9 +246,9 @@ for model_id in "${selected[@]}"; do
                 [[ $STOPPED -eq 1 ]] && break
                 for steer_fmt in "${formats[@]}"; do
                     [[ $STOPPED -eq 1 ]] && break
-                    eval_test="$DATA_ROOT/$model_name/female-$eval_fmt/male-$eval_fmt-test.jsonl"
-                    steer_add="$DATA_ROOT/$model_name/female-$steer_fmt/female-$steer_fmt-steering.jsonl"
-                    steer_sub="$DATA_ROOT/$model_name/female-$steer_fmt/male-$steer_fmt-steering.jsonl"
+                    eval_test="$DATA_ROOT/$model_name/femaleDescribe-$eval_fmt/maleDescribe-$eval_fmt-test.jsonl"
+                    steer_add="$DATA_ROOT/$model_name/femaleDescribe-$steer_fmt/femaleDescribe-$steer_fmt-steering.jsonl"
+                    steer_sub="$DATA_ROOT/$model_name/femaleDescribe-$steer_fmt/maleDescribe-$steer_fmt-steering.jsonl"
 
                     declare -a extra=()
                     [[ "$FULL_PRECISION" == "1" ]] && extra+=(--full_precision)

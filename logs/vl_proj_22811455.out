@@ -1,0 +1,68 @@
+[slurm] job 22811455 on node5201 restart=1 Wed Sep 16 01:09:25 EDT 2026
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+100 rows; 50 train / 50 test (seed 0)
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:07<01:57,  7.37s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:14<01:48,  7.21s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:21<01:40,  7.20s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:28<01:32,  7.10s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:35<01:23,  6.94s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:42<01:16,  6.95s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:48<01:08,  6.86s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:55<01:01,  6.81s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [01:03<00:56,  7.04s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [01:09<00:48,  6.91s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [01:16<00:41,  6.84s/it]Loading checkpoint shards:  71%|███████   | 12/17 [01:23<00:34,  6.83s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [01:29<00:26,  6.73s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [01:36<00:20,  6.69s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [01:43<00:13,  6.69s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [01:50<00:06,  6.81s/it]Loading checkpoint shards: 100%|██████████| 17/17 [01:55<00:00,  6.49s/it]Loading checkpoint shards: 100%|██████████| 17/17 [01:55<00:00,  6.82s/it]
+You're using a Qwen2TokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[projector] Qwen/Qwen1.5-32B-Chat: 64 layers, decoder-layer output is tuple
+[direction] 10/50 train items
+[direction] 20/50 train items
+[direction] 30/50 train items
+[direction] 40/50 train items
+[direction] 50/50 train items
+[project] 1/50 id=0
+[project] 2/50 id=3
+[project] 3/50 id=5
+[project] 4/50 id=9
+[project] 5/50 id=12
+[project] 6/50 id=17
+[project] 7/50 id=18
+[project] 8/50 id=25
+[project] 9/50 id=26
+[project] 10/50 id=27
+[project] 11/50 id=32
+[project] 12/50 id=33
+[project] 13/50 id=35
+[project] 14/50 id=36
+[project] 15/50 id=38
+[project] 16/50 id=39
+[project] 17/50 id=40
+[project] 18/50 id=42
+[project] 19/50 id=45
+[project] 20/50 id=46
+[project] 21/50 id=49
+[project] 22/50 id=50
+[project] 23/50 id=51
+[project] 24/50 id=53
+[project] 25/50 id=55
+[project] 26/50 id=56
+[project] 27/50 id=58
+[project] 28/50 id=60
+[project] 29/50 id=61
+[project] 30/50 id=62
+[project] 31/50 id=64
+[project] 32/50 id=65
+[project] 33/50 id=68
+[project] 34/50 id=69
+[project] 35/50 id=71
+[project] 36/50 id=72
+[project] 37/50 id=73
+[project] 38/50 id=74
+[project] 39/50 id=75
+[project] 40/50 id=77
+[project] 41/50 id=79
+[project] 42/50 id=82
+[project] 43/50 id=85
+[project] 44/50 id=89
+[project] 45/50 id=90
+[project] 46/50 id=92
+[project] 47/50 id=95
+[project] 48/50 id=96
+[project] 49/50 id=97
+[project] 50/50 id=98
+[lens] wrote /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-projection/direction_lens.txt
+[aggregate] n=50 pairs
+[aggregate] final prompt token: peak accuracy 1.00 at layer 0, first layer >=0.9: 0
+[aggregate] answer positions:   peak accuracy 1.00 at layer 2, first layer >=0.9: 2
+[aggregate] wrote plots + projection.json to /orcd/scratch/orcd/008/ubansal/gcm-interp/results/Qwen1.5-32B-Chat/verse-projection
+[slurm] python exited rc=0 Wed Sep 16 01:12:41 EDT 2026

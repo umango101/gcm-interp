@@ -1,0 +1,428 @@
+[slurm] job 22933118 on node5102 restart=0 Thu Sep 17 20:00:55 EDT 2026
+NVIDIA H200 NVL, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[slurm] cwd=/home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall
+[slurm] qc_models=allenai/OLMo-2-1124-13B-DPO,tiiuae/Falcon3-10B-Instruct,google/gemma-3-12b-it,Qwen/Qwen1.5-14B-Chat,Qwen/Qwen1.5-32B-Chat
+[slurm] judge=unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit
+[determinism] env OK: {'PYTHONHASHSEED': '0', 'TOKENIZERS_PARALLELISM': 'false'} + CUBLAS_WORKSPACE_CONFIG=:4096:8
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] seed=42 strict=1
+[load] 686 rows with Best Answer > 4 words from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/TruthfulQA.csv
+[main] 5 QC model(s): allenai/OLMo-2-1124-13B-DPO, tiiuae/Falcon3-10B-Instruct, google/gemma-3-12b-it, Qwen/Qwen1.5-14B-Chat, Qwen/Qwen1.5-32B-Chat
+[main] judge: unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit
+
+==============================================================================
+[qcgen] allenai/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[qcgen] all responses + MCQ cached.
+
+==============================================================================
+[qcgen] tiiuae/Falcon3-10B-Instruct
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_qc.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_qc.jsonl
+[model] loading tiiuae/Falcon3-10B-Instruct (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:08<00:33,  8.42s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:17<00:25,  8.61s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:26<00:17,  8.72s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:35<00:08,  8.90s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:36<00:00,  6.32s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:36<00:00,  7.39s/it]
+[model] ready in 43.4s
+[qcgen] chunk 0: 48/686 generated, 31 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 1: 96/686 generated, 55 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 2: 144/686 generated, 83 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 3: 192/686 generated, 110 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 4: 240/686 generated, 144 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 5: 288/686 generated, 171 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 6: 336/686 generated, 202 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 7: 384/686 generated, 232 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 8: 432/686 generated, 257 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 9: 480/686 generated, 288 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 10: 528/686 generated, 322 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 11: 576/686 generated, 356 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 12: 624/686 generated, 394 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 13: 672/686 generated, 420 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 14: 686/686 generated, 428 passing QC1&QC2 (-> sent to judge)
+[model] released: free 101.5 -> 119.9 GiB of 139.8
+
+==============================================================================
+[qcgen] google/gemma-3-12b-it
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_qc.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_qc.jsonl
+[model] loading google/gemma-3-12b-it (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:08<00:34,  8.57s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:16<00:24,  8.17s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:24<00:16,  8.20s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:32<00:08,  8.19s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:40<00:00,  8.09s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:40<00:00,  8.16s/it]
+[model] ready in 45.9s
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[qcgen] chunk 0: 48/686 generated, 41 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 1: 96/686 generated, 83 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 2: 144/686 generated, 127 passing QC1&QC2 (-> sent to judge)
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[qcgen] chunk 3: 192/686 generated, 171 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 4: 240/686 generated, 214 passing QC1&QC2 (-> sent to judge)
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[qcgen] chunk 5: 288/686 generated, 250 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 6: 336/686 generated, 293 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 7: 384/686 generated, 340 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 8: 432/686 generated, 387 passing QC1&QC2 (-> sent to judge)
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[qcgen] chunk 9: 480/686 generated, 432 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 10: 528/686 generated, 477 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 11: 576/686 generated, 523 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 12: 624/686 generated, 567 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 13: 672/686 generated, 611 passing QC1&QC2 (-> sent to judge)
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+[qcgen] chunk 14: 686/686 generated, 625 passing QC1&QC2 (-> sent to judge)
+[model] released: free 62.9 -> 77.2 GiB of 139.8
+
+==============================================================================
+[qcgen] Qwen/Qwen1.5-14B-Chat
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_qc.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_qc.jsonl
+[model] loading Qwen/Qwen1.5-14B-Chat (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:06<00:43,  6.22s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:12<00:38,  6.36s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:19<00:31,  6.37s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:25<00:25,  6.35s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:32<00:19,  6.53s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:39<00:13,  6.72s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:45<00:06,  6.45s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:47<00:00,  5.26s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:47<00:00,  5.99s/it]
+[model] ready in 50.6s
+[qcgen] chunk 0: 48/686 generated, 36 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 1: 96/686 generated, 61 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 2: 144/686 generated, 94 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 3: 192/686 generated, 130 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 4: 240/686 generated, 160 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 5: 288/686 generated, 187 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 6: 336/686 generated, 218 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 7: 384/686 generated, 250 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 8: 432/686 generated, 277 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 9: 480/686 generated, 307 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 10: 528/686 generated, 337 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 11: 576/686 generated, 369 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 12: 624/686 generated, 397 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 13: 672/686 generated, 427 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 14: 686/686 generated, 436 passing QC1&QC2 (-> sent to judge)
+[model] released: free 20.7 -> 73.5 GiB of 139.8
+
+==============================================================================
+[qcgen] Qwen/Qwen1.5-32B-Chat
+==============================================================================
+[determinism] seed=42 strict=1
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_qc.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_qc.jsonl
+[model] loading Qwen/Qwen1.5-32B-Chat (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:06<01:41,  6.34s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:12<01:34,  6.30s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:19<01:29,  6.36s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:25<01:22,  6.35s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:32<01:18,  6.55s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:38<01:12,  6.55s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:45<01:06,  6.61s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:52<01:00,  6.71s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:58<00:52,  6.53s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [01:04<00:45,  6.46s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [01:11<00:38,  6.39s/it]Loading checkpoint shards:  71%|███████   | 12/17 [01:17<00:32,  6.47s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [01:24<00:26,  6.58s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [01:30<00:19,  6.51s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [01:37<00:13,  6.63s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [01:44<00:06,  6.68s/it]Loading checkpoint shards: 100%|██████████| 17/17 [01:49<00:00,  6.20s/it]Loading checkpoint shards: 100%|██████████| 17/17 [01:49<00:00,  6.46s/it]
+[model] ready in 111.3s
+[qcgen] chunk 0: 48/686 generated, 30 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 1: 96/686 generated, 53 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 2: 144/686 generated, 87 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 3: 192/686 generated, 119 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 4: 240/686 generated, 152 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 5: 288/686 generated, 187 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 6: 336/686 generated, 213 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 7: 384/686 generated, 235 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 8: 432/686 generated, 263 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 9: 480/686 generated, 290 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 10: 528/686 generated, 323 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 11: 576/686 generated, 354 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 12: 624/686 generated, 387 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 13: 672/686 generated, 410 passing QC1&QC2 (-> sent to judge)
+[qcgen] chunk 14: 686/686 generated, 419 passing QC1&QC2 (-> sent to judge)
+[model] released: free 27.8 -> 40.0 GiB of 139.8
+[determinism] seed=42 strict=1
+[ckpt] 230 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[qcjudge] allenai/OLMo-2-1124-13B-DPO: nothing to judge (all cached, or no QC1&QC2 survivors).
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_judge.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_qc.jsonl
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_judge.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_qc.jsonl
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_judge.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_qc.jsonl
+[ckpt] fresh checkpoint; signature written to /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_judge.jsonl
+[ckpt] 0 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_judge.jsonl
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_qc.jsonl
+[model] WARNING: only 40.0 of 139.8 GiB free on cuda:0 before loading unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit. If a model was loaded earlier in this process its memory may not have come back; a partial load will be offloaded to CPU rather than refused.
+[model] unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit is pre-quantized; using its own quantization_config
+[model] loading unsloth/Meta-Llama-3.1-70B-Instruct-bnb-4bit (device_map=auto, dtype=bfloat16, attn=eager, quant=bitsandbytes) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:11<00:55, 11.16s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:22<00:46, 11.51s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:34<00:34, 11.46s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:45<00:22, 11.16s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:56<00:11, 11.44s/it]Loading checkpoint shards: 100%|██████████| 6/6 [01:04<00:00, 10.26s/it]Loading checkpoint shards: 100%|██████████| 6/6 [01:04<00:00, 10.82s/it]
+[model] ready in 84.8s
+[qcjudge] === tiiuae/Falcon3-10B-Instruct -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_judge.jsonl ===
+[qcjudge] chunk 0: 48 judged (+22/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 1: 96 judged (+28/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 2: 144 judged (+29/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 3: 192 judged (+28/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 4: 240 judged (+25/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 5: 288 judged (+25/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 6: 336 judged (+28/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 7: 384 judged (+31/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 8: 428 judged (+26/44 passed QC3&QC4 this chunk)
+[qcjudge] === google/gemma-3-12b-it -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_judge.jsonl ===
+[qcjudge] chunk 0: 48 judged (+34/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 1: 96 judged (+29/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 2: 144 judged (+30/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 3: 192 judged (+30/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 4: 240 judged (+39/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 5: 288 judged (+23/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 6: 336 judged (+23/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 7: 384 judged (+27/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 8: 432 judged (+32/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 9: 480 judged (+32/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 10: 528 judged (+36/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 11: 576 judged (+32/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 12: 624 judged (+31/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 13: 625 judged (+1/1 passed QC3&QC4 this chunk)
+[qcjudge] === Qwen/Qwen1.5-14B-Chat -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_judge.jsonl ===
+[qcjudge] chunk 0: 48 judged (+38/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 1: 96 judged (+34/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 2: 144 judged (+30/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 3: 192 judged (+29/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 4: 240 judged (+23/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 5: 288 judged (+31/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 6: 336 judged (+28/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 7: 384 judged (+31/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 8: 432 judged (+34/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 9: 436 judged (+3/4 passed QC3&QC4 this chunk)
+[qcjudge] === Qwen/Qwen1.5-32B-Chat -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_judge.jsonl ===
+[qcjudge] chunk 0: 48 judged (+35/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 1: 96 judged (+38/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 2: 144 judged (+37/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 3: 192 judged (+29/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 4: 240 judged (+29/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 5: 288 judged (+38/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 6: 336 judged (+38/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 7: 384 judged (+36/48 passed QC3&QC4 this chunk)
+[qcjudge] chunk 8: 419 judged (+28/35 passed QC3&QC4 this chunk)
+[model] released: free 39.7 -> 39.8 GiB of 139.8
+
+==============================================================================
+[build] allenai/OLMo-2-1124-13B-DPO -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_qc.jsonl
+[ckpt] 230 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/OLMo-2-1124-13B-DPO/tqa_judge.jsonl
+[build] 75/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 49, 'B': 26}; train 26 per letter (52 rows), 23 to test
+[build] NOTE: wanted 50 per letter (TRAIN_LIMIT=100) but the scarcest letter has only 26 survivors, so the train set is 52 rows rather than 100. Balance is kept; size is what gives.
+[build] wrote 12 train files (52 rows each) and 2 test files (23 rows each, ids 52..74) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+
+==============================================================================
+[build] tiiuae/Falcon3-10B-Instruct -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Falcon3-10B-Instruct
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_qc.jsonl
+[ckpt] 428 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Falcon3-10B-Instruct/tqa_judge.jsonl
+[build] 242/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 105, 'B': 137}; train 50 per letter (100 rows), 142 to test
+[build] wrote 12 train files (100 rows each) and 2 test files (142 rows each, ids 100..241) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Falcon3-10B-Instruct
+
+==============================================================================
+[build] google/gemma-3-12b-it -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/gemma-3-12b-it
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_qc.jsonl
+[ckpt] 625 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/gemma-3-12b-it/tqa_judge.jsonl
+[build] 399/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 192, 'B': 207}; train 50 per letter (100 rows), 299 to test
+[build] wrote 12 train files (100 rows each) and 2 test files (299 rows each, ids 100..398) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/gemma-3-12b-it
+
+==============================================================================
+[build] Qwen/Qwen1.5-14B-Chat -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-14B-Chat
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_qc.jsonl
+[ckpt] 436 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-14B-Chat/tqa_judge.jsonl
+[build] 281/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 151, 'B': 130}; train 50 per letter (100 rows), 181 to test
+[build] wrote 12 train files (100 rows each) and 2 test files (181 rows each, ids 100..280) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-14B-Chat
+
+==============================================================================
+[build] Qwen/Qwen1.5-32B-Chat -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-32B-Chat
+==============================================================================
+[determinism] seed=42 strict=1
+[build] token lengths: 'correctly'=1, 'incorrectly'=1
+[build] token lengths: 'correct'=1, 'wrong'=1
+[ckpt] 686 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_qc.jsonl
+[ckpt] 419 records loaded from /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/checkpoint/Qwen1.5-32B-Chat/tqa_judge.jsonl
+[build] 308/686 rows passed all four QC checks
+[build] letter balance: survivors {'A': 152, 'B': 156}; train 50 per letter (100 rows), 208 to test
+[build] wrote 12 train files (100 rows each) and 2 test files (208 rows each, ids 100..307) + manifest -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-32B-Chat
+
+[done] stages complete: qcgen,qcjudge,build
+[done]   allenai/OLMo-2-1124-13B-DPO: passed_qc=75, train_rows=52, test_rows=23, per_letter=26 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/OLMo-2-1124-13B-DPO
+[done]   tiiuae/Falcon3-10B-Instruct: passed_qc=242, train_rows=100, test_rows=142, per_letter=50 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Falcon3-10B-Instruct
+[done]   google/gemma-3-12b-it: passed_qc=399, train_rows=100, test_rows=299, per_letter=50 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/gemma-3-12b-it
+[done]   Qwen/Qwen1.5-14B-Chat: passed_qc=281, train_rows=100, test_rows=181, per_letter=50 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-14B-Chat
+[done]   Qwen/Qwen1.5-32B-Chat: passed_qc=308, train_rows=100, test_rows=208, per_letter=50 -> /home/ubansal/orcd/scratch/gcm-interp/generate_data/factual_recall/output/Qwen1.5-32B-Chat
+[slurm] python exited rc=0 Thu Sep 17 20:21:08 EDT 2026

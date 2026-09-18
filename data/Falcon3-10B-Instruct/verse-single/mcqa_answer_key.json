@@ -1,0 +1,1850 @@
+{
+  "scheme": "v2: cycle, prose=qid%4, verse=(prose+1+(qid//4)%3)%4",
+  "letters": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "model": "Falcon3-10B-Instruct",
+  "balance": {
+    "train": {
+      "prose": {
+        "A": 25,
+        "B": 25,
+        "C": 25,
+        "D": 25
+      },
+      "verse": {
+        "A": 25,
+        "B": 25,
+        "C": 25,
+        "D": 25
+      }
+    },
+    "test": {
+      "prose": {
+        "A": 13,
+        "B": 13,
+        "C": 12,
+        "D": 12
+      },
+      "verse": {
+        "A": 12,
+        "B": 12,
+        "C": 13,
+        "D": 13
+      }
+    }
+  },
+  "determinism": {
+    "deterministic_algorithms": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "matmul_allow_tf32": true,
+    "cudnn_allow_tf32": true,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "by_id": {
+    "0": {
+      "question": "What insights can be gained from dreams about our future selves?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "1": {
+      "question": "How does solitude influence our approach to problem-solving?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "2": {
+      "question": "How does the dialogue between faith and doubt enrich our spiritual life?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "3": {
+      "question": "What is the impact of cultural relativism on moral judgments?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "4": {
+      "question": "What is the impact of doubt on trust in divine providence?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "5": {
+      "question": "What is the responsibility of consumers to corporations with power?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "6": {
+      "question": "How does love affect our perception of reality?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "7": {
+      "question": "Can the past influence our present happiness?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "8": {
+      "question": "How does courage allow us to challenge societal norms?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "9": {
+      "question": "Can something be beautiful without intention?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "10": {
+      "question": "What is the role of storytelling in preserving and transforming cultural narratives?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "11": {
+      "question": "What is the impact of misinformation on personal and societal truth?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "12": {
+      "question": "What is the difference between remembering and reminiscing?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "13": {
+      "question": "What are the responsibilities of a powerful nation on the global stage?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "14": {
+      "question": "What role does responsibility play in personal growth?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "15": {
+      "question": "Can overachieving lead to personal fulfillment, or does it create new challenges?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "16": {
+      "question": "What role does empathy play in achieving justice?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "17": {
+      "question": "Can egoism be reconciled with altruism in ethical frameworks?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "18": {
+      "question": "Can innovation be a means of revitalizing fading traditions?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "19": {
+      "question": "How does courage enable us to face our mortality?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "20": {
+      "question": "Can trust coexist with suspicion?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "21": {
+      "question": "What are the moral obligations of those in influential positions?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "22": {
+      "question": "What are the emotional rewards of embracing solitude?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "23": {
+      "question": "How does freedom influence our mental and emotional well-being?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "24": {
+      "question": "In what ways does memory influence our decision-making today?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "25": {
+      "question": "Can absolute freedom coexist with moral responsibility?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "26": {
+      "question": "Can sadness be a catalyst for growth?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "27": {
+      "question": "What is the role of imperfection in artistic beauty?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "28": {
+      "question": "How does the concept of 'enough' relate to happiness?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "29": {
+      "question": "How does creativity manifest in the everyday?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "30": {
+      "question": "What role does curiosity play in the pursuit of meaning?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "31": {
+      "question": "What is the psychological impact of constant connectivity?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "32": {
+      "question": "Does every tradition need to adapt to remain relevant?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "33": {
+      "question": "Does suffering create a greater appreciation for joy?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "34": {
+      "question": "Can forgiveness heal the wounds of betrayal?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "35": {
+      "question": "How does the concept of legacy relate to our thoughts on mortality?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "36": {
+      "question": "How can suffering lead to spiritual growth?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "37": {
+      "question": "What is the role of humility in the pursuit of wisdom?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "38": {
+      "question": "How does fear influence our perception of courage in others?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "39": {
+      "question": "Does suffering have a purpose beyond personal development?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "40": {
+      "question": "How does technology influence the fabric of human connection?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "41": {
+      "question": "What lessons from tradition are crucial for guiding future innovations?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "42": {
+      "question": "Can true freedom exist without acknowledging interdependence?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "43": {
+      "question": "Is there a universal definition of personal growth that applies to aging?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "44": {
+      "question": "Can innovation be a form of cultural continuity?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "45": {
+      "question": "How do dreams and reality intersect in our lives?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "46": {
+      "question": "Can technology bridge cultural gaps or deepen them?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "47": {
+      "question": "How does the evolution of technology affect our existential queries?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "48": {
+      "question": "Can doubt coexist with deep faith?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "49": {
+      "question": "How do relationships influence our capacity for emotional and personal growth?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "50": {
+      "question": "What role does emotion play in the formation of memories?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "51": {
+      "question": "What does the unity of the night sky imply about cosmic harmony?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "52": {
+      "question": "What is the role of hope in overcoming adversity?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "53": {
+      "question": "How does the threat of anonymity impact ethical decision-making?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "54": {
+      "question": "What role does vulnerability play in creative authenticity?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "55": {
+      "question": "How does the anticipation of death influence personal growth?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "56": {
+      "question": "What role does memory play in our relationship with time?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "57": {
+      "question": "What role does collaboration play in the creative process?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "58": {
+      "question": "What is the relationship between wisdom and intuition?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "59": {
+      "question": "How does the silence of a forest reveal the complexity of life?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "60": {
+      "question": "What is the impact of trauma on the formation of personal identity?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "61": {
+      "question": "How does memory affect our understanding of reality?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "62": {
+      "question": "In what ways does empathy drive imaginative storytelling?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "63": {
+      "question": "In what ways does failure contribute to learning and success?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "64": {
+      "question": "Is time a resource we can manage, or is it beyond our control?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "65": {
+      "question": "How does globalization affect local cultures and identities?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "66": {
+      "question": "Can faith transcend rational doubt?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "67": {
+      "question": "What are the ethical implications of surveillance in modern society?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "68": {
+      "question": "How does the act of giving contribute to personal happiness?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "69": {
+      "question": "How does collaboration enhance the path to success compared to competition?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "70": {
+      "question": "How does the pursuit of lifelong learning affect one's aging process?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "71": {
+      "question": "How do we find meaning in fleeting moments of happiness?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "72": {
+      "question": "How does the concept of justice vary across different societies?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "73": {
+      "question": "Is forgiveness a moral duty or a personal choice?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "74": {
+      "question": "How does courage help us confront our deepest fears?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "75": {
+      "question": "How does silence influence our perception of sound?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "76": {
+      "question": "How does creativity intertwine with joy and fulfillment?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "77": {
+      "question": "In what ways does beauty reflect the human condition?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "78": {
+      "question": "How do new technologies impact traditional practices?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "79": {
+      "question": "What is the impact of technology on our perception of beauty in art?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "80": {
+      "question": "In what ways does the ebb and flow of tides symbolize the dance between life and death?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "81": {
+      "question": "What fears prevent us from truly living?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "82": {
+      "question": "What role do dreams play in shaping our life's direction?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "83": {
+      "question": "How does freedom influence our ethical decision-making?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "84": {
+      "question": "How do power dynamics within families reflect broader societal structures?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "85": {
+      "question": "In what ways does resilience contribute to personal development?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "86": {
+      "question": "How do dreams inspire acts of courage and bravery?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "87": {
+      "question": "In what ways does adversity reveal our true character?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "88": {
+      "question": "What ethical dilemmas arise from the imbalance of power?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "89": {
+      "question": "What are the ethical considerations surrounding end-of-life care?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "90": {
+      "question": "What fears hold us back from forming deep connections?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "91": {
+      "question": "How does power affect the perception of justice?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "92": {
+      "question": "In what ways does tradition inspire innovative thinking?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "93": {
+      "question": "How do our moral choices define the fabric of our existence?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "94": {
+      "question": "What is the role of linguistic diversity in fostering innovation?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "95": {
+      "question": "What is the connection between beauty and emotional resonance in art?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "96": {
+      "question": "How does justice reconcile with personal moral beliefs?",
+      "split": "train",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "97": {
+      "question": "Can change be both an opportunity and a threat?",
+      "split": "train",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "98": {
+      "question": "How can work be a form of leisure for some individuals?",
+      "split": "train",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "99": {
+      "question": "In what ways does solitude foster a deeper connection with nature?",
+      "split": "train",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "1000": {
+      "question": "Does the fleeting nature of beauty enhance its allure?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "1001": {
+      "question": "How does spirituality contribute to personal growth?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "1002": {
+      "question": "What is the responsibility of individuals in a democratic society?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "1003": {
+      "question": "Can shared memories create or strengthen bonds between people?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "1004": {
+      "question": "What is the role of doubt in religious traditions?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "1005": {
+      "question": "Can a person truly change their fundamental personality traits?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "1006": {
+      "question": "What are the boundaries of personal freedom in a democratic society?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "1007": {
+      "question": "How does solitude shape our sense of self?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "1008": {
+      "question": "Is it possible to age gracefully without losing one's identity?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "1009": {
+      "question": "Can doubt lead to a more profound faith?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "1010": {
+      "question": "How does time influence our sense of identity?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "1011": {
+      "question": "Does the self exist independently of relationships?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "1012": {
+      "question": "Can silence be a form of communication?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "1013": {
+      "question": "How does beauty intersect with the concept of the sublime?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "1014": {
+      "question": "How does work influence our sense of identity?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "1015": {
+      "question": "What lessons does time teach us about impermanence?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "1016": {
+      "question": "How does suffering influence our sense of identity and purpose?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "1017": {
+      "question": "In what ways does gratitude impact our perception of life's meaning?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "1018": {
+      "question": "How do cultural views differ on the concept of time?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "1019": {
+      "question": "How does creativity thrive in both work and leisure settings?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "1020": {
+      "question": "What role does hope play in personal and collective healing?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "1021": {
+      "question": "How does the fear of losing power impact decision-making?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "1022": {
+      "question": "How do historical events continue to influence contemporary societal attitudes?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "1023": {
+      "question": "What are the responsibilities of a powerful minority in a society?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "1024": {
+      "question": "How does responsibility change when faced with anonymous power?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "1025": {
+      "question": "How does the concept of 'lost' languages influence cultural preservation efforts?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "1026": {
+      "question": "How can one maintain a balance between ambition and contentment?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "1027": {
+      "question": "What is the difference between romantic love and platonic affection?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    },
+    "1028": {
+      "question": "What are the responsibilities that accompany wealth?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "1029": {
+      "question": "What role does solitude play in maintaining personal boundaries?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "1030": {
+      "question": "In what ways does tradition resist or embrace change?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "1031": {
+      "question": "Can we truly know ourselves, or are we forever strangers to our own being?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "1032": {
+      "question": "Is there a universal wisdom, or is it inherently personal and subjective?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "1033": {
+      "question": "How does gratitude influence our sense of fulfillment?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "1034": {
+      "question": "What is the impact of suffering on our perception of life's meaning?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "1035": {
+      "question": "How does language reflect cultural identity?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "1036": {
+      "question": "How does solitude influence our perception of time?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "1037": {
+      "question": "How does the fear of punishment influence ethical behavior?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "1038": {
+      "question": "How does education influence one's understanding of justice?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "A",
+        "prose_off": "D",
+        "verse_off": "B"
+      }
+    },
+    "1039": {
+      "question": "How does love influence our perception of others' worth?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "B",
+        "prose_off": "C",
+        "verse_off": "A"
+      }
+    },
+    "1040": {
+      "question": "What is the impact of societal expectations on our personal aspirations?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "C"
+      }
+    },
+    "1041": {
+      "question": "How does doubt challenge religious institutions?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "D"
+      }
+    },
+    "1042": {
+      "question": "What role does choice play in defining personal freedom?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "B",
+        "prose_off": "A",
+        "verse_off": "D"
+      }
+    },
+    "1043": {
+      "question": "Can we cultivate happiness through mindful living?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "C",
+        "prose_off": "A",
+        "verse_off": "B"
+      }
+    },
+    "1044": {
+      "question": "Can truth be subjective, or is it universally objective?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "B",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "B",
+        "prose_off": "D",
+        "verse_off": "C"
+      }
+    },
+    "1045": {
+      "question": "How does empathy enhance or hinder our understanding of truth?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "C",
+        "prose_off": "D",
+        "verse_off": "A"
+      }
+    },
+    "1046": {
+      "question": "How does community involvement contribute to personal development across the lifespan?",
+      "split": "test",
+      "prose_letter": "C",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "C",
+        "verse_on": "D",
+        "prose_off": "B",
+        "verse_off": "A"
+      }
+    },
+    "1047": {
+      "question": "In what ways does silence enhance or hinder dialogue?",
+      "split": "test",
+      "prose_letter": "D",
+      "verse_letter": "A",
+      "layout": {
+        "prose_on": "D",
+        "verse_on": "A",
+        "prose_off": "C",
+        "verse_off": "B"
+      }
+    },
+    "1048": {
+      "question": "What is the balance between honoring heritage and fostering progress?",
+      "split": "test",
+      "prose_letter": "A",
+      "verse_letter": "C",
+      "layout": {
+        "prose_on": "A",
+        "verse_on": "C",
+        "prose_off": "B",
+        "verse_off": "D"
+      }
+    },
+    "1049": {
+      "question": "Can wisdom exist without knowledge, and vice versa?",
+      "split": "test",
+      "prose_letter": "B",
+      "verse_letter": "D",
+      "layout": {
+        "prose_on": "B",
+        "verse_on": "D",
+        "prose_off": "A",
+        "verse_off": "C"
+      }
+    }
+  }
+}

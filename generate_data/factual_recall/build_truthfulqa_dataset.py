@@ -881,10 +881,19 @@ def load_model(cfg, model_id, device_map, quant, dtype_name):
     t0 = time.time()
     # transformers renamed torch_dtype -> dtype in 4.56; try the new name and fall
     # back, so this works across the env versions in use rather than pinning one.
+    def _load(cls):
+        try:
+            return cls.from_pretrained(model_id, dtype=dtype, **kwargs)
+        except TypeError:                     # transformers renamed dtype in 4.56
+            return cls.from_pretrained(model_id, torch_dtype=dtype, **kwargs)
     try:
-        model = AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype, **kwargs)
-    except TypeError:
-        model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, **kwargs)
+        model = _load(AutoModelForCausalLM)
+    except ValueError:
+        # gemma-3-*-it's config is the multimodal "gemma3", so the causal-LM auto
+        # class has no entry for it. Text-only generation works fine through the
+        # image-text-to-text class.
+        from transformers import AutoModelForImageTextToText
+        model = _load(AutoModelForImageTextToText)
     model.eval()
     _assert_no_offload(model, model_id, cfg["ALLOW_CPU_OFFLOAD"])
     # Clear sampling defaults baked into the checkpoint's generation_config, so

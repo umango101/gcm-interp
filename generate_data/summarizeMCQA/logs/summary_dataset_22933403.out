@@ -1,0 +1,809 @@
+[slurm] job 22933403 on node4600 restart=0 Thu Sep 17 20:03:36 EDT 2026
+[run] models: allenai/OLMo-2-1124-13B-DPO,,tiiuae/Falcon3-10B-Instruct,,google/gemma-3-12b-it,,Qwen/Qwen1.5-14B-Chat,,Qwen/Qwen1.5-32B-Chat
+
+EnvironmentNameNotFound: Could not find conda environment: hf-summ
+You can list all discoverable environments with `conda info --envs`.
+
+
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[main] 1016 books | 5 model(s) | stages=['tokcheck', 'generate', 'prune', 'build'] | batch_size=8
+
+========================================================================
+[model] allenai/OLMo-2-1124-13B-DPO
+        out=output/OLMo-2-1124-13B-DPO  ckpt=checkpoint/OLMo-2-1124-13B-DPO
+========================================================================
+[tokenizer] loading allenai/OLMo-2-1124-13B-DPO
+[tokcheck] tokens: 'sentence'=1 'paragraph'=1 | ' sentence'=1 ' paragraph'=1
+[tokcheck] PASS: ' sentence' and ' paragraph' are both 1 token(s)
+[generate] 0 cached / 1016 to do
+[model] loading allenai/OLMo-2-1124-13B-DPO (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading weights:   0%|          | 0/443 [00:00<?, ?it/s]Loading weights:   0%|          | 1/443 [00:00<01:38,  4.51it/s]Loading weights:   0%|          | 2/443 [00:00<01:14,  5.92it/s]Loading weights:   3%|▎         | 13/443 [00:00<00:11, 38.76it/s]Loading weights:   7%|▋         | 30/443 [00:00<00:05, 76.69it/s]Loading weights:   9%|▉         | 41/443 [00:00<00:05, 69.91it/s]Loading weights:  13%|█▎        | 56/443 [00:00<00:05, 70.69it/s]Loading weights:  17%|█▋        | 77/443 [00:01<00:04, 83.08it/s]Loading weights:  22%|██▏       | 99/443 [00:01<00:04, 76.22it/s]Loading weights:  30%|███       | 135/443 [00:01<00:02, 103.14it/s]Loading weights:  33%|███▎      | 146/443 [00:01<00:03, 89.20it/s] Loading weights:  35%|███▌      | 156/443 [00:02<00:03, 75.62it/s]Loading weights:  46%|████▌     | 202/443 [00:02<00:02, 81.20it/s]Loading weights:  57%|█████▋    | 252/443 [00:02<00:01, 115.84it/s]Loading weights:  62%|██████▏   | 275/443 [00:02<00:01, 129.27it/s]Loading weights:  66%|██████▌   | 291/443 [00:03<00:01, 88.41it/s] Loading weights:  75%|███████▌  | 333/443 [00:03<00:00, 128.93it/s]Loading weights:  80%|███████▉  | 353/443 [00:03<00:00, 120.64it/s]Loading weights:  84%|████████▎ | 370/443 [00:03<00:00, 127.26it/s]Loading weights:  87%|████████▋ | 387/443 [00:04<00:00, 112.08it/s]Loading weights:  91%|█████████ | 401/443 [00:04<00:00, 97.66it/s] Loading weights:  94%|█████████▍| 418/443 [00:04<00:00, 109.53it/s]Loading weights:  98%|█████████▊| 434/443 [00:04<00:00, 118.27it/s]Loading weights: 100%|██████████| 443/443 [00:04<00:00, 98.14it/s] 
+[model] ready on cuda:0 (13.7B params)
+[generate] chunk 1: +16 (total 16/1016) [40.5s]
+[generate] chunk 2: +16 (total 32/1016) [13.7s]
+[generate] chunk 3: +16 (total 48/1016) [15.0s]
+[generate] chunk 4: +16 (total 64/1016) [13.5s]
+[generate] chunk 5: +16 (total 80/1016) [16.1s]
+[generate] chunk 6: +16 (total 96/1016) [14.3s]
+[generate] chunk 7: +16 (total 112/1016) [15.5s]
+[generate] chunk 8: +16 (total 128/1016) [13.7s]
+[generate] chunk 9: +16 (total 144/1016) [15.3s]
+[generate] chunk 10: +16 (total 160/1016) [13.8s]
+[generate] chunk 11: +16 (total 176/1016) [15.2s]
+[generate] chunk 12: +16 (total 192/1016) [14.0s]
+[generate] chunk 13: +16 (total 208/1016) [13.0s]
+[generate] chunk 14: +16 (total 224/1016) [14.1s]
+[generate] chunk 15: +16 (total 240/1016) [13.6s]
+[generate] chunk 16: +16 (total 256/1016) [13.6s]
+[generate] chunk 17: +16 (total 272/1016) [13.5s]
+[generate] chunk 18: +16 (total 288/1016) [15.1s]
+[generate] chunk 19: +16 (total 304/1016) [13.0s]
+[generate] chunk 20: +16 (total 320/1016) [16.0s]
+[generate] chunk 21: +16 (total 336/1016) [15.5s]
+[generate] chunk 22: +16 (total 352/1016) [14.9s]
+[generate] chunk 23: +16 (total 368/1016) [13.4s]
+[generate] chunk 24: +16 (total 384/1016) [12.7s]
+[generate] chunk 25: +16 (total 400/1016) [13.6s]
+[generate] chunk 26: +16 (total 416/1016) [14.9s]
+[generate] chunk 27: +16 (total 432/1016) [15.0s]
+[generate] chunk 28: +16 (total 448/1016) [13.8s]
+[generate] chunk 29: +16 (total 464/1016) [13.5s]
+[generate] chunk 30: +16 (total 480/1016) [13.3s]
+[generate] chunk 31: +16 (total 496/1016) [14.6s]
+[generate] chunk 32: +16 (total 512/1016) [12.4s]
+[generate] chunk 33: +16 (total 528/1016) [13.9s]
+[generate] chunk 34: +16 (total 544/1016) [15.3s]
+[generate] chunk 35: +16 (total 560/1016) [13.8s]
+[generate] chunk 36: +16 (total 576/1016) [13.8s]
+[generate] chunk 37: +16 (total 592/1016) [14.3s]
+[generate] chunk 38: +16 (total 608/1016) [13.6s]
+[generate] chunk 39: +16 (total 624/1016) [14.5s]
+[generate] chunk 40: +16 (total 640/1016) [13.5s]
+[generate] chunk 41: +16 (total 656/1016) [13.6s]
+[generate] chunk 42: +16 (total 672/1016) [16.0s]
+[generate] chunk 43: +16 (total 688/1016) [14.5s]
+[generate] chunk 44: +16 (total 704/1016) [14.4s]
+[generate] chunk 45: +16 (total 720/1016) [13.1s]
+[generate] chunk 46: +16 (total 736/1016) [14.3s]
+[generate] chunk 47: +16 (total 752/1016) [13.5s]
+[generate] chunk 48: +16 (total 768/1016) [14.3s]
+[generate] chunk 49: +16 (total 784/1016) [12.7s]
+[generate] chunk 50: +16 (total 800/1016) [13.1s]
+[generate] chunk 51: +16 (total 816/1016) [13.9s]
+[generate] chunk 52: +16 (total 832/1016) [14.8s]
+[generate] chunk 53: +16 (total 848/1016) [13.6s]
+[generate] chunk 54: +16 (total 864/1016) [14.0s]
+[generate] chunk 55: +16 (total 880/1016) [13.1s]
+[generate] chunk 56: +16 (total 896/1016) [13.3s]
+[generate] chunk 57: +16 (total 912/1016) [13.7s]
+[generate] chunk 58: +16 (total 928/1016) [13.7s]
+[generate] chunk 59: +16 (total 944/1016) [13.8s]
+[generate] chunk 60: +16 (total 960/1016) [13.8s]
+[generate] chunk 61: +16 (total 976/1016) [13.8s]
+[generate] chunk 62: +16 (total 992/1016) [13.3s]
+[generate] chunk 63: +16 (total 1008/1016) [13.1s]
+[generate] chunk 64: +8 (total 1016/1016) [6.2s]
+[prune] length: 1016/1016 pass (detailed >= 2.0x brief, metric=word)
+[prune] mcqa: 0 cached / 1016 to verify
+[prune] mcqa chunk 1: +16
+[prune] mcqa chunk 2: +16
+[prune] mcqa chunk 3: +16
+[prune] mcqa chunk 4: +16
+[prune] mcqa chunk 5: +16
+[prune] mcqa chunk 6: +16
+[prune] mcqa chunk 7: +16
+[prune] mcqa chunk 8: +16
+[prune] mcqa chunk 9: +16
+[prune] mcqa chunk 10: +16
+[prune] mcqa chunk 11: +16
+[prune] mcqa chunk 12: +16
+[prune] mcqa chunk 13: +16
+[prune] mcqa chunk 14: +16
+[prune] mcqa chunk 15: +16
+[prune] mcqa chunk 16: +16
+[prune] mcqa chunk 17: +16
+[prune] mcqa chunk 18: +16
+[prune] mcqa chunk 19: +16
+[prune] mcqa chunk 20: +16
+[prune] mcqa chunk 21: +16
+[prune] mcqa chunk 22: +16
+[prune] mcqa chunk 23: +16
+[prune] mcqa chunk 24: +16
+[prune] mcqa chunk 25: +16
+[prune] mcqa chunk 26: +16
+[prune] mcqa chunk 27: +16
+[prune] mcqa chunk 28: +16
+[prune] mcqa chunk 29: +16
+[prune] mcqa chunk 30: +16
+[prune] mcqa chunk 31: +16
+[prune] mcqa chunk 32: +16
+[prune] mcqa chunk 33: +16
+[prune] mcqa chunk 34: +16
+[prune] mcqa chunk 35: +16
+[prune] mcqa chunk 36: +16
+[prune] mcqa chunk 37: +16
+[prune] mcqa chunk 38: +16
+[prune] mcqa chunk 39: +16
+[prune] mcqa chunk 40: +16
+[prune] mcqa chunk 41: +16
+[prune] mcqa chunk 42: +16
+[prune] mcqa chunk 43: +16
+[prune] mcqa chunk 44: +16
+[prune] mcqa chunk 45: +16
+[prune] mcqa chunk 46: +16
+[prune] mcqa chunk 47: +16
+[prune] mcqa chunk 48: +16
+[prune] mcqa chunk 49: +16
+[prune] mcqa chunk 50: +16
+[prune] mcqa chunk 51: +16
+[prune] mcqa chunk 52: +16
+[prune] mcqa chunk 53: +16
+[prune] mcqa chunk 54: +16
+[prune] mcqa chunk 55: +16
+[prune] mcqa chunk 56: +16
+[prune] mcqa chunk 57: +16
+[prune] mcqa chunk 58: +16
+[prune] mcqa chunk 59: +16
+[prune] mcqa chunk 60: +16
+[prune] mcqa chunk 61: +16
+[prune] mcqa chunk 62: +16
+[prune] mcqa chunk 63: +16
+[prune] mcqa chunk 64: +8
+[prune] mcqa accuracy: brief 698/1016, detailed 489/1016, both 220/1016 | same answer to both Qs: 729/1016 (mode=filter)
+[build] sentence-single-desired-all.jsonl: 100 rows
+[build] paragraph-single-desired-all.jsonl: 100 rows
+[build] sentence-single-undesired-all.jsonl: 100 rows
+[build] paragraph-single-undesired-all.jsonl: 100 rows
+[build] sentence-single-steering.jsonl: 100 rows
+[build] paragraph-single-steering.jsonl: 100 rows
+[build] sentence-long-desired-all.jsonl: 100 rows
+[build] paragraph-long-desired-all.jsonl: 100 rows
+[build] sentence-long-undesired-all.jsonl: 100 rows
+[build] paragraph-long-undesired-all.jsonl: 100 rows
+[build] sentence-long-steering.jsonl: 100 rows
+[build] paragraph-long-steering.jsonl: 100 rows
+[build] sentence-long-test.jsonl: 120 rows
+[build] sentence-single-test.jsonl: 120 rows
+[build] wrote 14 files to output/OLMo-2-1124-13B-DPO/ (head=100, tail=120)
+[model] allenai/OLMo-2-1124-13B-DPO finished in 1035.7s
+
+========================================================================
+[model] tiiuae/Falcon3-10B-Instruct
+        out=output/Falcon3-10B-Instruct  ckpt=checkpoint/Falcon3-10B-Instruct
+========================================================================
+[tokenizer] loading tiiuae/Falcon3-10B-Instruct
+[tokcheck] tokens: 'sentence'=1 'paragraph'=1 | ' sentence'=1 ' paragraph'=1
+[tokcheck] PASS: ' sentence' and ' paragraph' are both 1 token(s)
+[generate] 0 cached / 1016 to do
+[model] loading tiiuae/Falcon3-10B-Instruct (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading weights:   0%|          | 0/363 [00:00<?, ?it/s]Loading weights:   0%|          | 1/363 [00:00<02:57,  2.04it/s]Loading weights:   1%|          | 2/363 [00:00<03:00,  1.99it/s]Loading weights:   1%|          | 3/363 [00:01<02:05,  2.87it/s]Loading weights:   3%|▎         | 10/363 [00:01<00:26, 13.27it/s]Loading weights:   4%|▎         | 13/363 [00:01<00:27, 12.52it/s]Loading weights:   5%|▌         | 19/363 [00:01<00:19, 17.38it/s]Loading weights:   7%|▋         | 26/363 [00:01<00:15, 22.00it/s]Loading weights:   9%|▉         | 33/363 [00:02<00:12, 26.68it/s]Loading weights:  10%|█         | 37/363 [00:02<00:15, 21.57it/s]Loading weights:  13%|█▎        | 48/363 [00:02<00:11, 26.93it/s]Loading weights:  15%|█▌        | 55/363 [00:02<00:09, 32.48it/s]Loading weights:  17%|█▋        | 60/363 [00:03<00:09, 30.89it/s]Loading weights:  18%|█▊        | 64/363 [00:03<00:12, 23.84it/s]Loading weights:  21%|██        | 76/363 [00:03<00:07, 37.76it/s]Loading weights:  23%|██▎       | 82/363 [00:03<00:09, 30.79it/s]Loading weights:  24%|██▍       | 87/363 [00:03<00:09, 30.63it/s]Loading weights:  25%|██▌       | 92/363 [00:04<00:08, 33.08it/s]Loading weights:  26%|██▋       | 96/363 [00:04<00:09, 29.33it/s]Loading weights:  28%|██▊       | 103/363 [00:04<00:07, 33.03it/s]Loading weights:  29%|██▉       | 107/363 [00:04<00:08, 29.44it/s]Loading weights:  31%|███       | 111/363 [00:04<00:08, 30.77it/s]Loading weights:  32%|███▏      | 115/363 [00:04<00:09, 26.43it/s]Loading weights:  33%|███▎      | 121/363 [00:05<00:09, 25.04it/s]Loading weights:  35%|███▌      | 128/363 [00:05<00:07, 31.92it/s]Loading weights:  36%|███▋      | 132/363 [00:05<00:08, 27.67it/s]Loading weights:  39%|███▊      | 140/363 [00:05<00:06, 32.07it/s]Loading weights:  40%|███▉      | 144/363 [00:05<00:06, 32.57it/s]Loading weights:  41%|████      | 148/363 [00:06<00:09, 23.56it/s]Loading weights:  42%|████▏     | 154/363 [00:06<00:07, 29.31it/s]Loading weights:  44%|████▎     | 158/363 [00:06<00:09, 22.36it/s]Loading weights:  44%|████▍     | 161/363 [00:06<00:09, 20.98it/s]Loading weights:  47%|████▋     | 172/363 [00:07<00:06, 27.45it/s]Loading weights:  50%|████▉     | 180/363 [00:07<00:05, 34.74it/s]Loading weights:  51%|█████     | 185/363 [00:07<00:05, 35.52it/s]Loading weights:  52%|█████▏    | 190/363 [00:07<00:04, 37.44it/s]Loading weights:  54%|█████▎    | 195/363 [00:07<00:05, 29.24it/s]Loading weights:  56%|█████▌    | 202/363 [00:07<00:04, 36.14it/s]Loading weights:  57%|█████▋    | 207/363 [00:07<00:04, 32.72it/s]Loading weights:  58%|█████▊    | 211/363 [00:08<00:06, 24.15it/s]Loading weights:  59%|█████▉    | 215/363 [00:08<00:07, 20.49it/s]Loading weights:  63%|██████▎   | 228/363 [00:08<00:04, 30.58it/s]Loading weights:  64%|██████▍   | 232/363 [00:08<00:04, 28.78it/s]Loading weights:  66%|██████▌   | 240/363 [00:09<00:03, 31.66it/s]Loading weights:  68%|██████▊   | 246/363 [00:09<00:03, 31.83it/s]Loading weights:  70%|██████▉   | 253/363 [00:09<00:03, 32.29it/s]Loading weights:  71%|███████   | 257/363 [00:09<00:04, 21.41it/s]Loading weights:  75%|███████▌  | 274/363 [00:10<00:02, 37.40it/s]Loading weights:  77%|███████▋  | 279/363 [00:10<00:02, 33.92it/s]Loading weights:  78%|███████▊  | 284/363 [00:10<00:02, 32.76it/s]Loading weights:  79%|███████▉  | 288/363 [00:10<00:02, 33.78it/s]Loading weights:  80%|████████  | 292/363 [00:10<00:02, 34.57it/s]Loading weights:  82%|████████▏ | 296/363 [00:10<00:02, 30.67it/s]Loading weights:  83%|████████▎ | 301/363 [00:11<00:01, 33.56it/s]Loading weights:  84%|████████▍ | 305/363 [00:11<00:02, 27.74it/s]Loading weights:  86%|████████▌ | 311/363 [00:11<00:01, 29.40it/s]Loading weights:  87%|████████▋ | 315/363 [00:11<00:01, 31.46it/s]Loading weights:  88%|████████▊ | 319/363 [00:11<00:01, 32.62it/s]Loading weights:  89%|████████▉ | 323/363 [00:12<00:02, 18.02it/s]Loading weights:  93%|█████████▎| 336/363 [00:12<00:00, 34.34it/s]Loading weights:  94%|█████████▍| 342/363 [00:12<00:00, 32.76it/s]Loading weights:  96%|█████████▌| 347/363 [00:12<00:00, 26.67it/s]Loading weights:  97%|█████████▋| 352/363 [00:13<00:00, 23.83it/s]Loading weights: 100%|██████████| 363/363 [00:13<00:00, 27.81it/s]
+[model] ready on cuda:0 (10.3B params)
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+[generate] chunk 1: +16 (total 16/1016) [34.4s]
+[generate] chunk 2: +16 (total 32/1016) [10.5s]
+[generate] chunk 3: +16 (total 48/1016) [10.5s]
+[generate] chunk 4: +16 (total 64/1016) [9.5s]
+[generate] chunk 5: +16 (total 80/1016) [9.1s]
+[generate] chunk 6: +16 (total 96/1016) [8.7s]
+[generate] chunk 7: +16 (total 112/1016) [11.1s]
+[generate] chunk 8: +16 (total 128/1016) [8.6s]
+[generate] chunk 9: +16 (total 144/1016) [9.6s]
+[generate] chunk 10: +16 (total 160/1016) [9.9s]
+[generate] chunk 11: +16 (total 176/1016) [10.3s]
+[generate] chunk 12: +16 (total 192/1016) [10.4s]
+[generate] chunk 13: +16 (total 208/1016) [9.7s]
+[generate] chunk 14: +16 (total 224/1016) [10.3s]
+[generate] chunk 15: +16 (total 240/1016) [10.3s]
+[generate] chunk 16: +16 (total 256/1016) [9.3s]
+[generate] chunk 17: +16 (total 272/1016) [9.8s]
+[generate] chunk 18: +16 (total 288/1016) [9.8s]
+[generate] chunk 19: +16 (total 304/1016) [9.8s]
+[generate] chunk 20: +16 (total 320/1016) [10.5s]
+[generate] chunk 21: +16 (total 336/1016) [9.8s]
+[generate] chunk 22: +16 (total 352/1016) [9.3s]
+[generate] chunk 23: +16 (total 368/1016) [9.9s]
+[generate] chunk 24: +16 (total 384/1016) [8.3s]
+[generate] chunk 25: +16 (total 400/1016) [8.7s]
+[generate] chunk 26: +16 (total 416/1016) [10.5s]
+[generate] chunk 27: +16 (total 432/1016) [11.6s]
+[generate] chunk 28: +16 (total 448/1016) [9.3s]
+[generate] chunk 29: +16 (total 464/1016) [10.5s]
+[generate] chunk 30: +16 (total 480/1016) [9.2s]
+[generate] chunk 31: +16 (total 496/1016) [9.8s]
+[generate] chunk 32: +16 (total 512/1016) [8.8s]
+[generate] chunk 33: +16 (total 528/1016) [9.9s]
+[generate] chunk 34: +16 (total 544/1016) [8.6s]
+[generate] chunk 35: +16 (total 560/1016) [9.8s]
+[generate] chunk 36: +16 (total 576/1016) [9.1s]
+[generate] chunk 37: +16 (total 592/1016) [8.9s]
+[generate] chunk 38: +16 (total 608/1016) [8.5s]
+[generate] chunk 39: +16 (total 624/1016) [9.0s]
+[generate] chunk 40: +16 (total 640/1016) [9.0s]
+[generate] chunk 41: +16 (total 656/1016) [9.8s]
+[generate] chunk 42: +16 (total 672/1016) [9.8s]
+[generate] chunk 43: +16 (total 688/1016) [9.1s]
+[generate] chunk 44: +16 (total 704/1016) [9.4s]
+[generate] chunk 45: +16 (total 720/1016) [9.1s]
+[generate] chunk 46: +16 (total 736/1016) [9.3s]
+[generate] chunk 47: +16 (total 752/1016) [8.9s]
+[generate] chunk 48: +16 (total 768/1016) [9.1s]
+[generate] chunk 49: +16 (total 784/1016) [9.6s]
+[generate] chunk 50: +16 (total 800/1016) [9.1s]
+[generate] chunk 51: +16 (total 816/1016) [9.1s]
+[generate] chunk 52: +16 (total 832/1016) [9.7s]
+[generate] chunk 53: +16 (total 848/1016) [9.4s]
+[generate] chunk 54: +16 (total 864/1016) [9.2s]
+[generate] chunk 55: +16 (total 880/1016) [8.7s]
+[generate] chunk 56: +16 (total 896/1016) [8.3s]
+[generate] chunk 57: +16 (total 912/1016) [8.9s]
+[generate] chunk 58: +16 (total 928/1016) [12.7s]
+[generate] chunk 59: +16 (total 944/1016) [9.1s]
+[generate] chunk 60: +16 (total 960/1016) [9.1s]
+[generate] chunk 61: +16 (total 976/1016) [9.2s]
+[generate] chunk 62: +16 (total 992/1016) [9.1s]
+[generate] chunk 63: +16 (total 1008/1016) [9.6s]
+[generate] chunk 64: +8 (total 1016/1016) [4.5s]
+[prune] length: 984/1016 pass (detailed >= 2.0x brief, metric=word)
+[prune] mcqa: 0 cached / 984 to verify
+[prune] mcqa chunk 1: +16
+[prune] mcqa chunk 2: +16
+[prune] mcqa chunk 3: +16
+[prune] mcqa chunk 4: +16
+[prune] mcqa chunk 5: +16
+[prune] mcqa chunk 6: +16
+[prune] mcqa chunk 7: +16
+[prune] mcqa chunk 8: +16
+[prune] mcqa chunk 9: +16
+[prune] mcqa chunk 10: +16
+[prune] mcqa chunk 11: +16
+[prune] mcqa chunk 12: +16
+[prune] mcqa chunk 13: +16
+[prune] mcqa chunk 14: +16
+[prune] mcqa chunk 15: +16
+[prune] mcqa chunk 16: +16
+[prune] mcqa chunk 17: +16
+[prune] mcqa chunk 18: +16
+[prune] mcqa chunk 19: +16
+[prune] mcqa chunk 20: +16
+[prune] mcqa chunk 21: +16
+[prune] mcqa chunk 22: +16
+[prune] mcqa chunk 23: +16
+[prune] mcqa chunk 24: +16
+[prune] mcqa chunk 25: +16
+[prune] mcqa chunk 26: +16
+[prune] mcqa chunk 27: +16
+[prune] mcqa chunk 28: +16
+[prune] mcqa chunk 29: +16
+[prune] mcqa chunk 30: +16
+[prune] mcqa chunk 31: +16
+[prune] mcqa chunk 32: +16
+[prune] mcqa chunk 33: +16
+[prune] mcqa chunk 34: +16
+[prune] mcqa chunk 35: +16
+[prune] mcqa chunk 36: +16
+[prune] mcqa chunk 37: +16
+[prune] mcqa chunk 38: +16
+[prune] mcqa chunk 39: +16
+[prune] mcqa chunk 40: +16
+[prune] mcqa chunk 41: +16
+[prune] mcqa chunk 42: +16
+[prune] mcqa chunk 43: +16
+[prune] mcqa chunk 44: +16
+[prune] mcqa chunk 45: +16
+[prune] mcqa chunk 46: +16
+[prune] mcqa chunk 47: +16
+[prune] mcqa chunk 48: +16
+[prune] mcqa chunk 49: +16
+[prune] mcqa chunk 50: +16
+[prune] mcqa chunk 51: +16
+[prune] mcqa chunk 52: +16
+[prune] mcqa chunk 53: +16
+[prune] mcqa chunk 54: +16
+[prune] mcqa chunk 55: +16
+[prune] mcqa chunk 56: +16
+[prune] mcqa chunk 57: +16
+[prune] mcqa chunk 58: +16
+[prune] mcqa chunk 59: +16
+[prune] mcqa chunk 60: +16
+[prune] mcqa chunk 61: +16
+[prune] mcqa chunk 62: +8
+[prune] mcqa accuracy: brief 398/984, detailed 672/984, both 143/984 | same answer to both Qs: 792/984 (mode=filter)
+[build] sentence-single-desired-all.jsonl: 100 rows
+[build] paragraph-single-desired-all.jsonl: 100 rows
+[build] sentence-single-undesired-all.jsonl: 100 rows
+[build] paragraph-single-undesired-all.jsonl: 100 rows
+[build] sentence-single-steering.jsonl: 100 rows
+[build] paragraph-single-steering.jsonl: 100 rows
+[build] sentence-long-desired-all.jsonl: 100 rows
+[build] paragraph-long-desired-all.jsonl: 100 rows
+[build] sentence-long-undesired-all.jsonl: 100 rows
+[build] paragraph-long-undesired-all.jsonl: 100 rows
+[build] sentence-long-steering.jsonl: 100 rows
+[build] paragraph-long-steering.jsonl: 100 rows
+[build] sentence-long-test.jsonl: 43 rows
+[build] sentence-single-test.jsonl: 43 rows
+[build] wrote 14 files to output/Falcon3-10B-Instruct/ (head=100, tail=43)
+[model] tiiuae/Falcon3-10B-Instruct finished in 688.7s
+
+========================================================================
+[model] google/gemma-3-12b-it
+        out=output/gemma-3-12b-it  ckpt=checkpoint/gemma-3-12b-it
+========================================================================
+[tokenizer] loading google/gemma-3-12b-it
+[tokcheck] tokens: 'sentence'=1 'paragraph'=1 | ' sentence'=1 ' paragraph'=1
+[tokcheck] PASS: ' sentence' and ' paragraph' are both 1 token(s)
+[generate] 0 cached / 1016 to do
+[model] loading google/gemma-3-12b-it (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading weights:   0%|          | 0/1065 [00:00<?, ?it/s]Loading weights:   0%|          | 1/1065 [00:00<04:21,  4.07it/s]Loading weights:   2%|▏         | 16/1065 [00:00<00:20, 50.57it/s]Loading weights:   4%|▍         | 42/1065 [00:00<00:09, 104.22it/s]Loading weights:   5%|▌         | 58/1065 [00:00<00:08, 119.54it/s]Loading weights:   7%|▋         | 72/1065 [00:00<00:09, 109.88it/s]Loading weights:  10%|█         | 107/1065 [00:00<00:06, 156.77it/s]Loading weights:  12%|█▏        | 124/1065 [00:01<00:07, 134.38it/s]Loading weights:  14%|█▍        | 148/1065 [00:01<00:07, 120.89it/s]Loading weights:  17%|█▋        | 184/1065 [00:01<00:05, 150.45it/s]Loading weights:  21%|██        | 224/1065 [00:01<00:04, 189.78it/s]Loading weights:  23%|██▎       | 245/1065 [00:01<00:04, 188.21it/s]Loading weights:  25%|██▍       | 265/1065 [00:01<00:04, 174.20it/s]Loading weights:  27%|██▋       | 287/1065 [00:01<00:04, 178.61it/s]Loading weights:  29%|██▊       | 306/1065 [00:02<00:04, 170.10it/s]Loading weights:  31%|███       | 326/1065 [00:02<00:04, 165.32it/s]Loading weights:  33%|███▎      | 348/1065 [00:02<00:04, 175.54it/s]Loading weights:  34%|███▍      | 366/1065 [00:02<00:05, 134.19it/s]Loading weights:  38%|███▊      | 406/1065 [00:02<00:03, 187.33it/s]Loading weights:  40%|████      | 428/1065 [00:02<00:03, 181.23it/s]Loading weights:  42%|████▏     | 448/1065 [00:02<00:03, 165.65it/s]Loading weights:  44%|████▍     | 466/1065 [00:03<00:04, 147.42it/s]Loading weights:  46%|████▋     | 495/1065 [00:03<00:03, 157.41it/s]Loading weights:  49%|████▉     | 523/1065 [00:03<00:03, 176.16it/s]Loading weights:  51%|█████     | 542/1065 [00:03<00:03, 150.55it/s]Loading weights:  53%|█████▎    | 568/1065 [00:03<00:03, 155.78it/s]Loading weights:  56%|█████▋    | 601/1065 [00:03<00:02, 186.95it/s]Loading weights:  58%|█████▊    | 621/1065 [00:03<00:02, 180.16it/s]Loading weights:  81%|████████  | 861/1065 [00:04<00:00, 704.89it/s]Loading weights: 100%|██████████| 1065/1065 [00:04<00:00, 255.51it/s]
+[model] ready on cuda:0 (12.2B params)
+[generate] chunk 1: +16 (total 16/1016) [25.9s]
+[generate] chunk 2: +16 (total 32/1016) [16.9s]
+[generate] chunk 3: +16 (total 48/1016) [14.8s]
+[generate] chunk 4: +16 (total 64/1016) [16.1s]
+[generate] chunk 5: +16 (total 80/1016) [16.7s]
+[generate] chunk 6: +16 (total 96/1016) [15.3s]
+[generate] chunk 7: +16 (total 112/1016) [16.6s]
+[generate] chunk 8: +16 (total 128/1016) [17.6s]
+[generate] chunk 9: +16 (total 144/1016) [15.7s]
+[generate] chunk 10: +16 (total 160/1016) [17.3s]
+[generate] chunk 11: +16 (total 176/1016) [16.0s]
+[generate] chunk 12: +16 (total 192/1016) [16.8s]
+[generate] chunk 13: +16 (total 208/1016) [16.5s]
+[generate] chunk 14: +16 (total 224/1016) [18.0s]
+[generate] chunk 15: +16 (total 240/1016) [15.5s]
+[generate] chunk 16: +16 (total 256/1016) [15.9s]
+[generate] chunk 17: +16 (total 272/1016) [16.4s]
+[generate] chunk 18: +16 (total 288/1016) [17.3s]
+[generate] chunk 19: +16 (total 304/1016) [17.8s]
+[generate] chunk 20: +16 (total 320/1016) [16.6s]
+[generate] chunk 21: +16 (total 336/1016) [16.6s]
+[generate] chunk 22: +16 (total 352/1016) [16.6s]
+[generate] chunk 23: +16 (total 368/1016) [15.4s]
+[generate] chunk 24: +16 (total 384/1016) [14.7s]
+[generate] chunk 25: +16 (total 400/1016) [15.4s]
+[generate] chunk 26: +16 (total 416/1016) [16.7s]
+[generate] chunk 27: +16 (total 432/1016) [17.5s]
+[generate] chunk 28: +16 (total 448/1016) [16.6s]
+[generate] chunk 29: +16 (total 464/1016) [16.5s]
+[generate] chunk 30: +16 (total 480/1016) [16.5s]
+[generate] chunk 31: +16 (total 496/1016) [17.1s]
+[generate] chunk 32: +16 (total 512/1016) [15.7s]
+[generate] chunk 33: +16 (total 528/1016) [17.2s]
+[generate] chunk 34: +16 (total 544/1016) [15.4s]
+[generate] chunk 35: +16 (total 560/1016) [16.3s]
+[generate] chunk 36: +16 (total 576/1016) [16.1s]
+[generate] chunk 37: +16 (total 592/1016) [15.9s]
+[generate] chunk 38: +16 (total 608/1016) [17.0s]
+[generate] chunk 39: +16 (total 624/1016) [15.9s]
+[generate] chunk 40: +16 (total 640/1016) [16.6s]
+[generate] chunk 41: +16 (total 656/1016) [16.9s]
+[generate] chunk 42: +16 (total 672/1016) [17.4s]
+[generate] chunk 43: +16 (total 688/1016) [15.4s]
+[generate] chunk 44: +16 (total 704/1016) [17.1s]
+[generate] chunk 45: +16 (total 720/1016) [17.0s]
+[generate] chunk 46: +16 (total 736/1016) [15.4s]
+[generate] chunk 47: +16 (total 752/1016) [16.6s]
+[generate] chunk 48: +16 (total 768/1016) [16.6s]
+[generate] chunk 49: +16 (total 784/1016) [17.2s]
+[generate] chunk 50: +16 (total 800/1016) [16.9s]
+[generate] chunk 51: +16 (total 816/1016) [16.2s]
+[generate] chunk 52: +16 (total 832/1016) [14.9s]
+[generate] chunk 53: +16 (total 848/1016) [16.9s]
+[generate] chunk 54: +16 (total 864/1016) [16.2s]
+[generate] chunk 55: +16 (total 880/1016) [16.0s]
+[generate] chunk 56: +16 (total 896/1016) [15.9s]
+[generate] chunk 57: +16 (total 912/1016) [14.9s]
+[generate] chunk 58: +16 (total 928/1016) [15.7s]
+[generate] chunk 59: +16 (total 944/1016) [15.4s]
+[generate] chunk 60: +16 (total 960/1016) [15.8s]
+[generate] chunk 61: +16 (total 976/1016) [16.3s]
+[generate] chunk 62: +16 (total 992/1016) [16.9s]
+[generate] chunk 63: +16 (total 1008/1016) [18.0s]
+[generate] chunk 64: +8 (total 1016/1016) [7.5s]
+[prune] length: 1015/1016 pass (detailed >= 2.0x brief, metric=word)
+[prune] mcqa: 0 cached / 1015 to verify
+[prune] mcqa chunk 1: +16
+[prune] mcqa chunk 2: +16
+[prune] mcqa chunk 3: +16
+[prune] mcqa chunk 4: +16
+[prune] mcqa chunk 5: +16
+[prune] mcqa chunk 6: +16
+[prune] mcqa chunk 7: +16
+[prune] mcqa chunk 8: +16
+[prune] mcqa chunk 9: +16
+[prune] mcqa chunk 10: +16
+[prune] mcqa chunk 11: +16
+[prune] mcqa chunk 12: +16
+[prune] mcqa chunk 13: +16
+[prune] mcqa chunk 14: +16
+[prune] mcqa chunk 15: +16
+[prune] mcqa chunk 16: +16
+[prune] mcqa chunk 17: +16
+[prune] mcqa chunk 18: +16
+[prune] mcqa chunk 19: +16
+[prune] mcqa chunk 20: +16
+[prune] mcqa chunk 21: +16
+[prune] mcqa chunk 22: +16
+[prune] mcqa chunk 23: +16
+[prune] mcqa chunk 24: +16
+[prune] mcqa chunk 25: +16
+[prune] mcqa chunk 26: +16
+[prune] mcqa chunk 27: +16
+[prune] mcqa chunk 28: +16
+[prune] mcqa chunk 29: +16
+[prune] mcqa chunk 30: +16
+[prune] mcqa chunk 31: +16
+[prune] mcqa chunk 32: +16
+[prune] mcqa chunk 33: +16
+[prune] mcqa chunk 34: +16
+[prune] mcqa chunk 35: +16
+[prune] mcqa chunk 36: +16
+[prune] mcqa chunk 37: +16
+[prune] mcqa chunk 38: +16
+[prune] mcqa chunk 39: +16
+[prune] mcqa chunk 40: +16
+[prune] mcqa chunk 41: +16
+[prune] mcqa chunk 42: +16
+[prune] mcqa chunk 43: +16
+[prune] mcqa chunk 44: +16
+[prune] mcqa chunk 45: +16
+[prune] mcqa chunk 46: +16
+[prune] mcqa chunk 47: +16
+[prune] mcqa chunk 48: +16
+[prune] mcqa chunk 49: +16
+[prune] mcqa chunk 50: +16
+[prune] mcqa chunk 51: +16
+[prune] mcqa chunk 52: +16
+[prune] mcqa chunk 53: +16
+[prune] mcqa chunk 54: +16
+[prune] mcqa chunk 55: +16
+[prune] mcqa chunk 56: +16
+[prune] mcqa chunk 57: +16
+[prune] mcqa chunk 58: +16
+[prune] mcqa chunk 59: +16
+[prune] mcqa chunk 60: +16
+[prune] mcqa chunk 61: +16
+[prune] mcqa chunk 62: +16
+[prune] mcqa chunk 63: +16
+[prune] mcqa chunk 64: +7
+[prune] mcqa accuracy: brief 769/1015, detailed 943/1015, both 704/1015 | same answer to both Qs: 306/1015 (mode=filter)
+[build] sentence-single-desired-all.jsonl: 100 rows
+[build] paragraph-single-desired-all.jsonl: 100 rows
+[build] sentence-single-undesired-all.jsonl: 100 rows
+[build] paragraph-single-undesired-all.jsonl: 100 rows
+[build] sentence-single-steering.jsonl: 100 rows
+[build] paragraph-single-steering.jsonl: 100 rows
+[build] sentence-long-desired-all.jsonl: 100 rows
+[build] paragraph-long-desired-all.jsonl: 100 rows
+[build] sentence-long-undesired-all.jsonl: 100 rows
+[build] paragraph-long-undesired-all.jsonl: 100 rows
+[build] sentence-long-steering.jsonl: 100 rows
+[build] paragraph-long-steering.jsonl: 100 rows
+[build] sentence-long-test.jsonl: 604 rows
+[build] sentence-single-test.jsonl: 604 rows
+[build] wrote 14 files to output/gemma-3-12b-it/ (head=100, tail=604)
+[model] google/gemma-3-12b-it finished in 1124.5s
+
+========================================================================
+[model] Qwen/Qwen1.5-14B-Chat
+        out=output/Qwen1.5-14B-Chat  ckpt=checkpoint/Qwen1.5-14B-Chat
+========================================================================
+[tokenizer] loading Qwen/Qwen1.5-14B-Chat
+[tokcheck] tokens: 'sentence'=1 'paragraph'=1 | ' sentence'=1 ' paragraph'=1
+[tokcheck] PASS: ' sentence' and ' paragraph' are both 1 token(s)
+[generate] 0 cached / 1016 to do
+[model] loading Qwen/Qwen1.5-14B-Chat (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading weights:   0%|          | 0/483 [00:00<?, ?it/s]Loading weights:   0%|          | 1/483 [00:00<07:10,  1.12it/s]Loading weights:   0%|          | 2/483 [00:01<07:04,  1.13it/s]Loading weights:   1%|          | 3/483 [00:02<04:49,  1.66it/s]Loading weights:   2%|▏         | 10/483 [00:02<01:05,  7.25it/s]Loading weights:   4%|▍         | 21/483 [00:02<00:25, 18.09it/s]Loading weights:   5%|▌         | 26/483 [00:02<00:22, 20.13it/s]Loading weights:   6%|▌         | 30/483 [00:02<00:25, 17.90it/s]Loading weights:   8%|▊         | 40/483 [00:03<00:16, 26.44it/s]Loading weights:   9%|▉         | 44/483 [00:03<00:16, 27.39it/s]Loading weights:  10%|▉         | 48/483 [00:03<00:14, 29.04it/s]Loading weights:  11%|█         | 53/483 [00:03<00:17, 24.79it/s]Loading weights:  12%|█▏        | 60/483 [00:03<00:13, 32.39it/s]Loading weights:  13%|█▎        | 65/483 [00:03<00:14, 28.83it/s]Loading weights:  14%|█▍        | 69/483 [00:04<00:14, 29.45it/s]Loading weights:  15%|█▌        | 73/483 [00:04<00:17, 23.10it/s]Loading weights:  17%|█▋        | 81/483 [00:04<00:13, 29.99it/s]Loading weights:  18%|█▊        | 85/483 [00:04<00:15, 24.92it/s]Loading weights:  19%|█▉        | 91/483 [00:04<00:13, 29.46it/s]Loading weights:  20%|██        | 99/483 [00:04<00:09, 38.96it/s]Loading weights:  22%|██▏       | 104/483 [00:05<00:21, 17.85it/s]Loading weights:  25%|██▍       | 119/483 [00:06<00:15, 24.01it/s]Loading weights:  25%|██▌       | 123/483 [00:06<00:16, 21.19it/s]Loading weights:  29%|██▉       | 139/483 [00:06<00:09, 35.39it/s]Loading weights:  30%|███       | 147/483 [00:07<00:14, 22.62it/s]Loading weights:  34%|███▍      | 164/483 [00:07<00:11, 28.95it/s]Loading weights:  37%|███▋      | 179/483 [00:07<00:07, 38.19it/s]Loading weights:  38%|███▊      | 185/483 [00:08<00:09, 32.91it/s]Loading weights:  39%|███▉      | 190/483 [00:08<00:08, 34.68it/s]Loading weights:  41%|████      | 197/483 [00:08<00:08, 35.73it/s]Loading weights:  42%|████▏     | 202/483 [00:08<00:08, 34.72it/s]Loading weights:  43%|████▎     | 207/483 [00:08<00:08, 34.00it/s]Loading weights:  44%|████▎     | 211/483 [00:08<00:08, 30.84it/s]Loading weights:  45%|████▍     | 217/483 [00:09<00:07, 34.15it/s]Loading weights:  46%|████▌     | 221/483 [00:09<00:09, 26.64it/s]Loading weights:  47%|████▋     | 227/483 [00:09<00:08, 30.83it/s]Loading weights:  48%|████▊     | 233/483 [00:09<00:07, 31.70it/s]Loading weights:  49%|████▉     | 237/483 [00:09<00:08, 29.95it/s]Loading weights:  51%|█████     | 244/483 [00:09<00:08, 29.77it/s]Loading weights:  51%|█████▏    | 248/483 [00:10<00:07, 30.35it/s]Loading weights:  52%|█████▏    | 253/483 [00:10<00:08, 28.67it/s]Loading weights:  53%|█████▎    | 258/483 [00:10<00:08, 28.10it/s]Loading weights:  54%|█████▍    | 263/483 [00:10<00:08, 27.37it/s]Loading weights:  56%|█████▌    | 269/483 [00:10<00:07, 27.53it/s]Loading weights:  57%|█████▋    | 275/483 [00:11<00:06, 31.57it/s]Loading weights:  58%|█████▊    | 281/483 [00:11<00:06, 32.63it/s]Loading weights:  59%|█████▉    | 285/483 [00:11<00:06, 29.30it/s]Loading weights:  60%|██████    | 292/483 [00:11<00:05, 35.99it/s]Loading weights:  61%|██████▏   | 296/483 [00:11<00:05, 31.86it/s]Loading weights:  62%|██████▏   | 301/483 [00:11<00:05, 33.45it/s]Loading weights:  63%|██████▎   | 305/483 [00:11<00:05, 29.74it/s]Loading weights:  64%|██████▍   | 309/483 [00:12<00:05, 30.37it/s]Loading weights:  65%|██████▍   | 313/483 [00:12<00:08, 18.96it/s]Loading weights:  67%|██████▋   | 325/483 [00:12<00:04, 32.08it/s]Loading weights:  68%|██████▊   | 330/483 [00:12<00:04, 31.18it/s]Loading weights:  70%|██████▉   | 338/483 [00:12<00:03, 37.86it/s]Loading weights:  71%|███████   | 343/483 [00:13<00:04, 28.21it/s]Loading weights:  73%|███████▎  | 351/483 [00:13<00:03, 34.02it/s]Loading weights:  74%|███████▎  | 356/483 [00:13<00:03, 32.57it/s]Loading weights:  75%|███████▍  | 360/483 [00:13<00:03, 32.40it/s]Loading weights:  76%|███████▌  | 365/483 [00:13<00:03, 32.02it/s]Loading weights:  76%|███████▋  | 369/483 [00:14<00:03, 32.52it/s]Loading weights:  78%|███████▊  | 376/483 [00:14<00:03, 34.81it/s]Loading weights:  79%|███████▊  | 380/483 [00:14<00:03, 27.82it/s]Loading weights:  80%|███████▉  | 384/483 [00:14<00:03, 26.05it/s]Loading weights:  81%|████████  | 390/483 [00:14<00:03, 28.76it/s]Loading weights:  82%|████████▏ | 394/483 [00:15<00:04, 19.65it/s]Loading weights:  84%|████████▍ | 407/483 [00:15<00:02, 36.10it/s]Loading weights:  86%|████████▌ | 413/483 [00:15<00:02, 30.18it/s]Loading weights:  87%|████████▋ | 418/483 [00:15<00:02, 27.73it/s]Loading weights:  87%|████████▋ | 422/483 [00:16<00:03, 16.80it/s]Loading weights:  92%|█████████▏| 445/483 [00:16<00:01, 37.47it/s]Loading weights:  93%|█████████▎| 451/483 [00:16<00:00, 36.94it/s]Loading weights:  95%|█████████▍| 457/483 [00:16<00:00, 34.57it/s]Loading weights:  96%|█████████▌| 462/483 [00:17<00:00, 33.32it/s]Loading weights:  97%|█████████▋| 469/483 [00:17<00:00, 37.54it/s]Loading weights:  98%|█████████▊| 474/483 [00:17<00:00, 31.11it/s]Loading weights:  99%|█████████▉| 478/483 [00:17<00:00, 31.44it/s]Loading weights: 100%|██████████| 483/483 [00:17<00:00, 27.38it/s]
+[model] ready on cuda:0 (14.2B params)
+[generate] chunk 1: +16 (total 16/1016) [26.6s]
+[generate] chunk 2: +16 (total 32/1016) [8.3s]
+[generate] chunk 3: +16 (total 48/1016) [8.4s]
+[generate] chunk 4: +16 (total 64/1016) [8.6s]
+[generate] chunk 5: +16 (total 80/1016) [7.7s]
+[generate] chunk 6: +16 (total 96/1016) [7.3s]
+[generate] chunk 7: +16 (total 112/1016) [9.2s]
+[generate] chunk 8: +16 (total 128/1016) [8.3s]
+[generate] chunk 9: +16 (total 144/1016) [8.7s]
+[generate] chunk 10: +16 (total 160/1016) [8.2s]
+[generate] chunk 11: +16 (total 176/1016) [8.2s]
+[generate] chunk 12: +16 (total 192/1016) [7.7s]
+[generate] chunk 13: +16 (total 208/1016) [8.1s]
+[generate] chunk 14: +16 (total 224/1016) [8.7s]
+[generate] chunk 15: +16 (total 240/1016) [8.3s]
+[generate] chunk 16: +16 (total 256/1016) [8.4s]
+[generate] chunk 17: +16 (total 272/1016) [8.1s]
+[generate] chunk 18: +16 (total 288/1016) [7.8s]
+[generate] chunk 19: +16 (total 304/1016) [8.0s]
+[generate] chunk 20: +16 (total 320/1016) [8.6s]
+[generate] chunk 21: +16 (total 336/1016) [9.3s]
+[generate] chunk 22: +16 (total 352/1016) [39.3s]
+[generate] chunk 23: +16 (total 368/1016) [7.8s]
+[generate] chunk 24: +16 (total 384/1016) [7.9s]
+[generate] chunk 25: +16 (total 400/1016) [7.4s]
+[generate] chunk 26: +16 (total 416/1016) [8.4s]
+[generate] chunk 27: +16 (total 432/1016) [8.2s]
+[generate] chunk 28: +16 (total 448/1016) [7.7s]
+[generate] chunk 29: +16 (total 464/1016) [8.2s]
+[generate] chunk 30: +16 (total 480/1016) [8.0s]
+[generate] chunk 31: +16 (total 496/1016) [7.9s]
+[generate] chunk 32: +16 (total 512/1016) [8.1s]
+[generate] chunk 33: +16 (total 528/1016) [7.9s]
+[generate] chunk 34: +16 (total 544/1016) [8.5s]
+[generate] chunk 35: +16 (total 560/1016) [8.9s]
+[generate] chunk 36: +16 (total 576/1016) [8.2s]
+[generate] chunk 37: +16 (total 592/1016) [8.2s]
+[generate] chunk 38: +16 (total 608/1016) [7.8s]
+[generate] chunk 39: +16 (total 624/1016) [7.8s]
+[generate] chunk 40: +16 (total 640/1016) [7.7s]
+[generate] chunk 41: +16 (total 656/1016) [7.5s]
+[generate] chunk 42: +16 (total 672/1016) [9.3s]
+[generate] chunk 43: +16 (total 688/1016) [8.5s]
+[generate] chunk 44: +16 (total 704/1016) [7.7s]
+[generate] chunk 45: +16 (total 720/1016) [7.8s]
+[generate] chunk 46: +16 (total 736/1016) [8.0s]
+[generate] chunk 47: +16 (total 752/1016) [7.9s]
+[generate] chunk 48: +16 (total 768/1016) [8.3s]
+[generate] chunk 49: +16 (total 784/1016) [8.0s]
+[generate] chunk 50: +16 (total 800/1016) [8.3s]
+[generate] chunk 51: +16 (total 816/1016) [8.1s]
+[generate] chunk 52: +16 (total 832/1016) [9.1s]
+[generate] chunk 53: +16 (total 848/1016) [8.1s]
+[generate] chunk 54: +16 (total 864/1016) [8.0s]
+[generate] chunk 55: +16 (total 880/1016) [7.8s]
+[generate] chunk 56: +16 (total 896/1016) [8.0s]
+[generate] chunk 57: +16 (total 912/1016) [7.9s]
+[generate] chunk 58: +16 (total 928/1016) [7.9s]
+[generate] chunk 59: +16 (total 944/1016) [8.1s]
+[generate] chunk 60: +16 (total 960/1016) [8.4s]
+[generate] chunk 61: +16 (total 976/1016) [7.8s]
+[generate] chunk 62: +16 (total 992/1016) [7.6s]
+[generate] chunk 63: +16 (total 1008/1016) [8.3s]
+[generate] chunk 64: +8 (total 1016/1016) [4.3s]
+[prune] length: 1000/1016 pass (detailed >= 2.0x brief, metric=word)
+[prune] mcqa: 0 cached / 1000 to verify
+[prune] mcqa chunk 1: +16
+[prune] mcqa chunk 2: +16
+[prune] mcqa chunk 3: +16
+[prune] mcqa chunk 4: +16
+[prune] mcqa chunk 5: +16
+[prune] mcqa chunk 6: +16
+[prune] mcqa chunk 7: +16
+[prune] mcqa chunk 8: +16
+[prune] mcqa chunk 9: +16
+[prune] mcqa chunk 10: +16
+[prune] mcqa chunk 11: +16
+[prune] mcqa chunk 12: +16
+[prune] mcqa chunk 13: +16
+[prune] mcqa chunk 14: +16
+[prune] mcqa chunk 15: +16
+[prune] mcqa chunk 16: +16
+[prune] mcqa chunk 17: +16
+[prune] mcqa chunk 18: +16
+[prune] mcqa chunk 19: +16
+[prune] mcqa chunk 20: +16
+[prune] mcqa chunk 21: +16
+[W917 21:01:13.184900065 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 293601280 bytes (free: 143523840, total: 150111715328).
+[prune] mcqa chunk 22: +16
+[prune] mcqa chunk 23: +16
+[prune] mcqa chunk 24: +16
+[prune] mcqa chunk 25: +16
+[prune] mcqa chunk 26: +16
+[prune] mcqa chunk 27: +16
+[prune] mcqa chunk 28: +16
+[prune] mcqa chunk 29: +16
+[prune] mcqa chunk 30: +16
+[prune] mcqa chunk 31: +16
+[prune] mcqa chunk 32: +16
+[prune] mcqa chunk 33: +16
+[prune] mcqa chunk 34: +16
+[prune] mcqa chunk 35: +16
+[prune] mcqa chunk 36: +16
+[prune] mcqa chunk 37: +16
+[prune] mcqa chunk 38: +16
+[prune] mcqa chunk 39: +16
+[prune] mcqa chunk 40: +16
+[prune] mcqa chunk 41: +16
+[prune] mcqa chunk 42: +16
+[prune] mcqa chunk 43: +16
+[prune] mcqa chunk 44: +16
+[prune] mcqa chunk 45: +16
+[prune] mcqa chunk 46: +16
+[prune] mcqa chunk 47: +16
+[prune] mcqa chunk 48: +16
+[prune] mcqa chunk 49: +16
+[prune] mcqa chunk 50: +16
+[prune] mcqa chunk 51: +16
+[prune] mcqa chunk 52: +16
+[prune] mcqa chunk 53: +16
+[prune] mcqa chunk 54: +16
+[prune] mcqa chunk 55: +16
+[prune] mcqa chunk 56: +16
+[prune] mcqa chunk 57: +16
+[prune] mcqa chunk 58: +16
+[prune] mcqa chunk 59: +16
+[prune] mcqa chunk 60: +16
+[prune] mcqa chunk 61: +16
+[prune] mcqa chunk 62: +16
+[prune] mcqa chunk 63: +8
+[prune] mcqa accuracy: brief 252/1000, detailed 857/1000, both 133/1000 | same answer to both Qs: 854/1000 (mode=filter)
+[build] sentence-single-desired-all.jsonl: 100 rows
+[build] paragraph-single-desired-all.jsonl: 100 rows
+[build] sentence-single-undesired-all.jsonl: 100 rows
+[build] paragraph-single-undesired-all.jsonl: 100 rows
+[build] sentence-single-steering.jsonl: 100 rows
+[build] paragraph-single-steering.jsonl: 100 rows
+[build] sentence-long-desired-all.jsonl: 100 rows
+[build] paragraph-long-desired-all.jsonl: 100 rows
+[build] sentence-long-undesired-all.jsonl: 100 rows
+[build] paragraph-long-undesired-all.jsonl: 100 rows
+[build] sentence-long-steering.jsonl: 100 rows
+[build] paragraph-long-steering.jsonl: 100 rows
+[build] sentence-long-test.jsonl: 33 rows
+[build] sentence-single-test.jsonl: 33 rows
+[build] wrote 14 files to output/Qwen1.5-14B-Chat/ (head=100, tail=33)
+[model] Qwen/Qwen1.5-14B-Chat finished in 633.4s
+
+========================================================================
+[model] Qwen/Qwen1.5-32B-Chat
+        out=output/Qwen1.5-32B-Chat  ckpt=checkpoint/Qwen1.5-32B-Chat
+========================================================================
+[tokenizer] loading Qwen/Qwen1.5-32B-Chat
+[tokcheck] tokens: 'sentence'=1 'paragraph'=1 | ' sentence'=1 ' paragraph'=1
+[tokcheck] PASS: ' sentence' and ' paragraph' are both 1 token(s)
+[generate] 0 cached / 1016 to do
+[model] loading Qwen/Qwen1.5-32B-Chat (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading weights:   0%|          | 0/771 [00:00<?, ?it/s]Loading weights:   0%|          | 1/771 [00:00<12:27,  1.03it/s]Loading weights:   0%|          | 2/771 [00:01<12:31,  1.02it/s]Loading weights:   0%|          | 3/771 [00:02<08:52,  1.44it/s]Loading weights:   1%|          | 6/771 [00:02<03:29,  3.65it/s]Loading weights:   2%|▏         | 12/771 [00:02<01:33,  8.14it/s]Loading weights:   2%|▏         | 17/771 [00:02<01:03, 11.90it/s]Loading weights:   2%|▏         | 19/771 [00:03<01:02, 11.95it/s]Loading weights:   4%|▎         | 28/771 [00:03<00:38, 19.07it/s]Loading weights:   4%|▍         | 31/771 [00:03<00:50, 14.53it/s]Loading weights:   5%|▍         | 38/771 [00:03<00:38, 19.04it/s]Loading weights:   5%|▌         | 41/771 [00:04<00:48, 15.15it/s]Loading weights:   6%|▋         | 50/771 [00:04<00:35, 20.59it/s]Loading weights:   7%|▋         | 53/771 [00:04<00:42, 16.77it/s]Loading weights:   8%|▊         | 64/771 [00:05<00:29, 24.37it/s]Loading weights:   9%|▊         | 67/771 [00:05<00:36, 19.15it/s]Loading weights:  10%|▉         | 74/771 [00:06<00:44, 15.80it/s]Loading weights:  11%|█▏        | 88/771 [00:06<00:27, 24.64it/s]Loading weights:  12%|█▏        | 92/771 [00:06<00:33, 20.45it/s]Loading weights:  13%|█▎        | 98/771 [00:06<00:32, 20.58it/s]Loading weights:  13%|█▎        | 101/771 [00:07<00:41, 16.31it/s]Loading weights:  15%|█▍        | 112/771 [00:07<00:27, 23.66it/s]Loading weights:  15%|█▍        | 115/771 [00:07<00:35, 18.58it/s]Loading weights:  16%|█▌        | 123/771 [00:08<00:29, 21.87it/s]Loading weights:  16%|█▋        | 126/771 [00:08<00:37, 17.19it/s]Loading weights:  18%|█▊        | 135/771 [00:08<00:29, 21.85it/s]Loading weights:  18%|█▊        | 138/771 [00:09<00:36, 17.47it/s]Loading weights:  19%|█▊        | 144/771 [00:09<00:44, 13.94it/s]Loading weights:  21%|██        | 159/771 [00:09<00:26, 23.27it/s]Loading weights:  21%|██        | 162/771 [00:10<00:31, 19.10it/s]Loading weights:  22%|██▏       | 170/771 [00:10<00:31, 19.01it/s]Loading weights:  22%|██▏       | 173/771 [00:10<00:32, 18.66it/s]Loading weights:  24%|██▍       | 184/771 [00:11<00:23, 24.68it/s]Loading weights:  24%|██▍       | 187/771 [00:11<00:30, 19.22it/s]Loading weights:  25%|██▌       | 196/771 [00:11<00:24, 23.46it/s]Loading weights:  26%|██▌       | 199/771 [00:12<00:43, 13.14it/s]Loading weights:  27%|██▋       | 210/771 [00:12<00:27, 20.25it/s]Loading weights:  28%|██▊       | 214/771 [00:13<00:38, 14.35it/s]Loading weights:  29%|██▉       | 227/771 [00:13<00:25, 21.68it/s]Loading weights:  30%|██▉       | 231/771 [00:13<00:24, 21.76it/s]Loading weights:  30%|███       | 234/771 [00:13<00:25, 21.00it/s]Loading weights:  31%|███       | 240/771 [00:14<00:24, 21.72it/s]Loading weights:  32%|███▏      | 245/771 [00:14<00:22, 23.47it/s]Loading weights:  32%|███▏      | 248/771 [00:14<00:24, 21.65it/s]Loading weights:  33%|███▎      | 254/771 [00:14<00:22, 22.70it/s]Loading weights:  33%|███▎      | 257/771 [00:14<00:23, 21.57it/s]Loading weights:  34%|███▎      | 260/771 [00:15<00:25, 20.18it/s]Loading weights:  35%|███▍      | 268/771 [00:15<00:21, 23.51it/s]Loading weights:  35%|███▌      | 271/771 [00:15<00:29, 17.02it/s]Loading weights:  36%|███▌      | 279/771 [00:16<00:23, 21.00it/s]Loading weights:  37%|███▋      | 282/771 [00:16<00:29, 16.54it/s]Loading weights:  38%|███▊      | 290/771 [00:16<00:23, 20.42it/s]Loading weights:  38%|███▊      | 293/771 [00:17<00:29, 16.15it/s]Loading weights:  39%|███▉      | 299/771 [00:17<00:26, 17.62it/s]Loading weights:  40%|███▉      | 305/771 [00:17<00:22, 20.76it/s]Loading weights:  40%|███▉      | 308/771 [00:17<00:23, 19.85it/s]Loading weights:  41%|████      | 316/771 [00:18<00:27, 16.35it/s]Loading weights:  42%|████▏     | 327/771 [00:18<00:19, 22.56it/s]Loading weights:  43%|████▎     | 330/771 [00:18<00:24, 17.88it/s]Loading weights:  44%|████▍     | 338/771 [00:19<00:20, 21.04it/s]Loading weights:  44%|████▍     | 341/771 [00:19<00:21, 20.42it/s]Loading weights:  45%|████▍     | 344/771 [00:19<00:21, 19.61it/s]Loading weights:  45%|████▌     | 350/771 [00:19<00:20, 20.76it/s]Loading weights:  46%|████▌     | 353/771 [00:19<00:21, 19.48it/s]Loading weights:  46%|████▌     | 355/771 [00:20<00:24, 17.20it/s]Loading weights:  47%|████▋     | 362/771 [00:20<00:20, 19.93it/s]Loading weights:  47%|████▋     | 365/771 [00:20<00:27, 14.79it/s]Loading weights:  48%|████▊     | 372/771 [00:20<00:18, 21.84it/s]Loading weights:  49%|████▉     | 376/771 [00:21<00:22, 17.32it/s]Loading weights:  49%|████▉     | 379/771 [00:21<00:23, 17.00it/s]Loading weights:  50%|█████     | 387/771 [00:21<00:17, 21.51it/s]Loading weights:  51%|█████     | 390/771 [00:22<00:24, 15.60it/s]Loading weights:  52%|█████▏    | 400/771 [00:22<00:17, 21.57it/s]Loading weights:  52%|█████▏    | 403/771 [00:22<00:22, 16.43it/s]Loading weights:  53%|█████▎    | 410/771 [00:23<00:26, 13.88it/s]Loading weights:  55%|█████▍    | 423/771 [00:23<00:16, 21.60it/s]Loading weights:  55%|█████▌    | 426/771 [00:24<00:19, 17.88it/s]Loading weights:  57%|█████▋    | 436/771 [00:24<00:14, 22.75it/s]Loading weights:  57%|█████▋    | 439/771 [00:24<00:18, 17.80it/s]Loading weights:  58%|█████▊    | 448/771 [00:25<00:19, 16.37it/s]Loading weights:  60%|█████▉    | 460/771 [00:25<00:13, 22.45it/s]Loading weights:  60%|██████    | 463/771 [00:25<00:16, 18.36it/s]Loading weights:  61%|██████    | 469/771 [00:26<00:15, 19.39it/s]Loading weights:  61%|██████▏   | 473/771 [00:26<00:14, 19.97it/s]Loading weights:  62%|██████▏   | 476/771 [00:26<00:15, 19.10it/s]Loading weights:  62%|██████▏   | 481/771 [00:26<00:15, 19.13it/s]Loading weights:  63%|██████▎   | 485/771 [00:27<00:14, 19.77it/s]Loading weights:  63%|██████▎   | 488/771 [00:27<00:14, 18.90it/s]Loading weights:  64%|██████▍   | 496/771 [00:27<00:11, 23.05it/s]Loading weights:  65%|██████▍   | 499/771 [00:27<00:15, 17.07it/s]Loading weights:  66%|██████▌   | 508/771 [00:28<00:14, 18.27it/s]Loading weights:  66%|██████▌   | 510/771 [00:28<00:15, 16.79it/s]Loading weights:  67%|██████▋   | 517/771 [00:28<00:13, 19.52it/s]Loading weights:  68%|██████▊   | 521/771 [00:28<00:12, 20.18it/s]Loading weights:  68%|██████▊   | 524/771 [00:29<00:12, 19.22it/s]Loading weights:  69%|██████▉   | 531/771 [00:29<00:11, 21.35it/s]Loading weights:  69%|██████▉   | 534/771 [00:29<00:14, 16.00it/s]Loading weights:  70%|███████   | 543/771 [00:30<00:14, 15.39it/s]Loading weights:  71%|███████▏  | 551/771 [00:30<00:11, 19.01it/s]Loading weights:  72%|███████▏  | 557/771 [00:30<00:09, 21.56it/s]Loading weights:  73%|███████▎  | 560/771 [00:31<00:10, 20.27it/s]Loading weights:  74%|███████▎  | 568/771 [00:31<00:08, 23.43it/s]Loading weights:  74%|███████▍  | 571/771 [00:31<00:11, 17.78it/s]Loading weights:  75%|███████▌  | 580/771 [00:31<00:08, 22.72it/s]Loading weights:  76%|███████▌  | 583/771 [00:32<00:10, 17.74it/s]Loading weights:  76%|███████▋  | 588/771 [00:32<00:10, 18.21it/s]Loading weights:  77%|███████▋  | 593/771 [00:32<00:10, 16.63it/s]Loading weights:  78%|███████▊  | 601/771 [00:33<00:08, 19.82it/s]Loading weights:  78%|███████▊  | 604/771 [00:33<00:08, 18.86it/s]Loading weights:  79%|███████▊  | 606/771 [00:33<00:09, 17.34it/s]Loading weights:  80%|███████▉  | 615/771 [00:33<00:06, 23.21it/s]Loading weights:  80%|████████  | 618/771 [00:34<00:08, 17.76it/s]Loading weights:  81%|████████▏ | 628/771 [00:34<00:07, 19.61it/s]Loading weights:  82%|████████▏ | 630/771 [00:34<00:07, 18.11it/s]Loading weights:  83%|████████▎ | 638/771 [00:34<00:06, 21.80it/s]Loading weights:  83%|████████▎ | 641/771 [00:35<00:07, 17.25it/s]Loading weights:  85%|████████▍ | 652/771 [00:35<00:06, 17.41it/s]Loading weights:  85%|████████▌ | 659/771 [00:36<00:05, 19.76it/s]Loading weights:  86%|████████▋ | 665/771 [00:36<00:05, 18.99it/s]Loading weights:  88%|████████▊ | 676/771 [00:36<00:03, 25.01it/s]Loading weights:  88%|████████▊ | 679/771 [00:37<00:04, 19.61it/s]Loading weights:  89%|████████▉ | 686/771 [00:37<00:03, 21.48it/s]Loading weights:  89%|████████▉ | 689/771 [00:37<00:04, 16.92it/s]Loading weights:  91%|█████████ | 698/771 [00:38<00:04, 16.37it/s]Loading weights:  92%|█████████▏| 709/771 [00:38<00:02, 22.32it/s]Loading weights:  92%|█████████▏| 713/771 [00:38<00:02, 22.33it/s]Loading weights:  93%|█████████▎| 716/771 [00:38<00:02, 20.96it/s]Loading weights:  94%|█████████▍| 723/771 [00:39<00:02, 23.01it/s]Loading weights:  94%|█████████▍| 726/771 [00:39<00:02, 17.71it/s]Loading weights:  95%|█████████▌| 733/771 [00:39<00:01, 20.40it/s]Loading weights:  96%|█████████▌| 737/771 [00:39<00:01, 21.08it/s]Loading weights:  96%|█████████▌| 740/771 [00:40<00:01, 20.09it/s]Loading weights:  97%|█████████▋| 748/771 [00:40<00:01, 19.18it/s]Loading weights:  97%|█████████▋| 750/771 [00:40<00:01, 17.29it/s]Loading weights:  99%|█████████▊| 760/771 [00:41<00:00, 16.61it/s]Loading weights: 100%|██████████| 771/771 [00:41<00:00, 18.58it/s]
+[model] ready on cuda:0 (32.5B params)
+[generate] chunk 1: +16 (total 16/1016) [58.7s]
+[generate] chunk 2: +16 (total 32/1016) [14.6s]
+[generate] chunk 3: +16 (total 48/1016) [13.4s]
+[generate] chunk 4: +16 (total 64/1016) [14.9s]
+[generate] chunk 5: +16 (total 80/1016) [14.8s]
+[generate] chunk 6: +16 (total 96/1016) [14.2s]
+[generate] chunk 7: +16 (total 112/1016) [15.4s]
+[generate] chunk 8: +16 (total 128/1016) [14.7s]
+[generate] chunk 9: +16 (total 144/1016) [15.6s]
+[generate] chunk 10: +16 (total 160/1016) [15.7s]
+[generate] chunk 11: +16 (total 176/1016) [13.5s]
+[generate] chunk 12: +16 (total 192/1016) [14.9s]
+[generate] chunk 13: +16 (total 208/1016) [13.3s]
+[generate] chunk 14: +16 (total 224/1016) [14.1s]
+[generate] chunk 15: +16 (total 240/1016) [13.7s]
+[generate] chunk 16: +16 (total 256/1016) [15.5s]
+[generate] chunk 17: +16 (total 272/1016) [13.7s]
+[generate] chunk 18: +16 (total 288/1016) [15.1s]
+[generate] chunk 19: +16 (total 304/1016) [15.0s]
+[generate] chunk 20: +16 (total 320/1016) [14.0s]
+[generate] chunk 21: +16 (total 336/1016) [14.1s]
+[generate] chunk 22: +16 (total 352/1016) [13.9s]
+[generate] chunk 23: +16 (total 368/1016) [14.4s]
+[generate] chunk 24: +16 (total 384/1016) [13.3s]
+[generate] chunk 25: +16 (total 400/1016) [14.3s]
+[generate] chunk 26: +16 (total 416/1016) [17.0s]
+[generate] chunk 27: +16 (total 432/1016) [16.0s]
+[generate] chunk 28: +16 (total 448/1016) [15.2s]
+[generate] chunk 29: +16 (total 464/1016) [15.5s]
+[generate] chunk 30: +16 (total 480/1016) [13.4s]
+[generate] chunk 31: +16 (total 496/1016) [14.4s]
+[generate] chunk 32: +16 (total 512/1016) [14.1s]
+[generate] chunk 33: +16 (total 528/1016) [13.8s]
+[generate] chunk 34: +16 (total 544/1016) [14.5s]
+[generate] chunk 35: +16 (total 560/1016) [13.9s]
+[generate] chunk 36: +16 (total 576/1016) [13.6s]
+[generate] chunk 37: +16 (total 592/1016) [13.6s]
+[generate] chunk 38: +16 (total 608/1016) [14.1s]
+[generate] chunk 39: +16 (total 624/1016) [14.8s]
+[generate] chunk 40: +16 (total 640/1016) [14.9s]
+[generate] chunk 41: +16 (total 656/1016) [13.7s]
+[generate] chunk 42: +16 (total 672/1016) [13.6s]
+[generate] chunk 43: +16 (total 688/1016) [13.2s]
+[generate] chunk 44: +16 (total 704/1016) [13.3s]
+[generate] chunk 45: +16 (total 720/1016) [14.3s]
+[generate] chunk 46: +16 (total 736/1016) [13.7s]
+[generate] chunk 47: +16 (total 752/1016) [14.1s]
+[generate] chunk 48: +16 (total 768/1016) [14.1s]
+[generate] chunk 49: +16 (total 784/1016) [14.1s]
+[generate] chunk 50: +16 (total 800/1016) [13.3s]
+[generate] chunk 51: +16 (total 816/1016) [13.8s]
+[generate] chunk 52: +16 (total 832/1016) [15.6s]
+[generate] chunk 53: +16 (total 848/1016) [14.0s]
+[generate] chunk 54: +16 (total 864/1016) [15.0s]
+[generate] chunk 55: +16 (total 880/1016) [13.9s]
+[generate] chunk 56: +16 (total 896/1016) [14.5s]
+[generate] chunk 57: +16 (total 912/1016) [14.5s]
+[generate] chunk 58: +16 (total 928/1016) [14.1s]
+[generate] chunk 59: +16 (total 944/1016) [14.4s]
+[generate] chunk 60: +16 (total 960/1016) [15.2s]
+[generate] chunk 61: +16 (total 976/1016) [13.7s]
+[generate] chunk 62: +16 (total 992/1016) [13.7s]
+[generate] chunk 63: +16 (total 1008/1016) [13.9s]
+[generate] chunk 64: +8 (total 1016/1016) [7.2s]
+[prune] length: 974/1016 pass (detailed >= 2.0x brief, metric=word)
+[prune] mcqa: 0 cached / 974 to verify
+[prune] mcqa chunk 1: +16
+[prune] mcqa chunk 2: +16
+[prune] mcqa chunk 3: +16
+[prune] mcqa chunk 4: +16
+[prune] mcqa chunk 5: +16
+[prune] mcqa chunk 6: +16
+[prune] mcqa chunk 7: +16
+[prune] mcqa chunk 8: +16
+[prune] mcqa chunk 9: +16
+[prune] mcqa chunk 10: +16
+[prune] mcqa chunk 11: +16
+[prune] mcqa chunk 12: +16
+[prune] mcqa chunk 13: +16
+[prune] mcqa chunk 14: +16
+[prune] mcqa chunk 15: +16
+[prune] mcqa chunk 16: +16
+[prune] mcqa chunk 17: +16
+[prune] mcqa chunk 18: +16
+[prune] mcqa chunk 19: +16
+[prune] mcqa chunk 20: +16
+[prune] mcqa chunk 21: +16
+[prune] mcqa chunk 22: +16
+[prune] mcqa chunk 23: +16
+[prune] mcqa chunk 24: +16
+[prune] mcqa chunk 25: +16
+[prune] mcqa chunk 26: +16
+[prune] mcqa chunk 27: +16
+[prune] mcqa chunk 28: +16
+[prune] mcqa chunk 29: +16
+[prune] mcqa chunk 30: +16
+[prune] mcqa chunk 31: +16
+[prune] mcqa chunk 32: +16
+[prune] mcqa chunk 33: +16
+[prune] mcqa chunk 34: +16
+[prune] mcqa chunk 35: +16
+[prune] mcqa chunk 36: +16
+[prune] mcqa chunk 37: +16
+[prune] mcqa chunk 38: +16
+[prune] mcqa chunk 39: +16
+[prune] mcqa chunk 40: +16
+[prune] mcqa chunk 41: +16
+[prune] mcqa chunk 42: +16
+[prune] mcqa chunk 43: +16
+[prune] mcqa chunk 44: +16
+[prune] mcqa chunk 45: +16
+[prune] mcqa chunk 46: +16
+[prune] mcqa chunk 47: +16
+[prune] mcqa chunk 48: +16
+[prune] mcqa chunk 49: +16
+[prune] mcqa chunk 50: +16
+[prune] mcqa chunk 51: +16
+[prune] mcqa chunk 52: +16
+[prune] mcqa chunk 53: +16
+[prune] mcqa chunk 54: +16
+[prune] mcqa chunk 55: +16
+[prune] mcqa chunk 56: +16
+[prune] mcqa chunk 57: +16
+[prune] mcqa chunk 58: +16
+[prune] mcqa chunk 59: +16
+[prune] mcqa chunk 60: +16
+[prune] mcqa chunk 61: +14
+[prune] mcqa accuracy: brief 387/974, detailed 653/974, both 79/974 | same answer to both Qs: 885/974 (mode=filter)
+[build] sentence-single-desired-all.jsonl: 79 rows
+[build] paragraph-single-desired-all.jsonl: 79 rows
+[build] sentence-single-undesired-all.jsonl: 79 rows
+[build] paragraph-single-undesired-all.jsonl: 79 rows
+[build] sentence-single-steering.jsonl: 79 rows
+[build] paragraph-single-steering.jsonl: 79 rows
+[build] sentence-long-desired-all.jsonl: 79 rows
+[build] paragraph-long-desired-all.jsonl: 79 rows
+[build] sentence-long-undesired-all.jsonl: 79 rows
+[build] paragraph-long-undesired-all.jsonl: 79 rows
+[build] sentence-long-steering.jsonl: 79 rows
+[build] paragraph-long-steering.jsonl: 79 rows
+[build] sentence-long-test.jsonl: 0 rows
+[build] sentence-single-test.jsonl: 0 rows
+[build] wrote 14 files to output/Qwen1.5-32B-Chat/ (head=79, tail=0)
+[model] Qwen/Qwen1.5-32B-Chat finished in 1078.4s
+
+========================================================================
+[summary] 4560.7s total
+  OK    allenai/OLMo-2-1124-13B-DPO  valid=220  -> output/OLMo-2-1124-13B-DPO
+  OK    tiiuae/Falcon3-10B-Instruct  valid=143  -> output/Falcon3-10B-Instruct
+  OK    google/gemma-3-12b-it  valid=704  -> output/gemma-3-12b-it
+  OK    Qwen/Qwen1.5-14B-Chat  valid=133  -> output/Qwen1.5-14B-Chat
+  OK    Qwen/Qwen1.5-32B-Chat  valid=79  -> output/Qwen1.5-32B-Chat
+[run] finished rc=0 Thu Sep 17 21:19:59 EDT 2026

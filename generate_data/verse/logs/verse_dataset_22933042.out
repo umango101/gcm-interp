@@ -1,0 +1,178 @@
+[slurm] job 22933042 on node4600 restart=0 Thu Sep 17 19:56:52 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[determinism] WARNING: PYTHONHASHSEED='0' (expected '42'); export it in the launcher, before python starts.
+[main] 5 model(s): OLMo-2-1124-13B-DPO, Falcon3-10B-Instruct, gemma-3-12b-it, Qwen1.5-14B-Chat, Qwen1.5-32B-Chat | stages: ['long', 'single', 'test']
+
+==============================================================================
+[main] OLMo-2-1124-13B-DPO
+==============================================================================
+[verse-single] checkpoint dir: /home/ubansal/orcd/scratch/gcm-interp/generate_data/verse/checkpoint/OLMo-2-1124-13B-DPO/verse-single
+[model] loading allenai/OLMo-2-1124-13B-DPO (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:03<00:16,  3.39s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:06<00:13,  3.41s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:10<00:10,  3.42s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:13<00:06,  3.48s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:17<00:03,  3.47s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:19<00:00,  2.94s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:19<00:00,  3.20s/it]
+[model] ready
+[verse-single] existing questions to exclude: 0 (--exclude_existing off: rebuild is reproducible)
+  responses: 1416 pairs, 0 windows to run (0 cached values recomputed to keep batches identical)
+[verse-single] slot-filling train (100)...
+  [train] resuming at round 12: 72/100 already clean, ptr=639
+  [train] round 12: clean 74/100, retry 26
+[error] OLMo-2-1124-13B-DPO failed: RuntimeError('ran out of candidates filling train (648 used)'); continuing (--continue_on_error)
+
+==============================================================================
+[main] Falcon3-10B-Instruct
+==============================================================================
+[verse-single] already built for Falcon3-10B-Instruct (all 5 files present) -- skipping. Pass --force single to rebuild.
+[verse-long] all four files present, 100 rows each, ids aligned -- nothing to do.
+[verse-long-test] data/Falcon3-10B-Instruct/verse-long/prose-test.jsonl already exists -- skipping. Pass --force test to rebuild.
+
+==============================================================================
+[main] gemma-3-12b-it
+==============================================================================
+[verse-single] checkpoint dir: /home/ubansal/orcd/scratch/gcm-interp/generate_data/verse/checkpoint/gemma-3-12b-it/verse-single
+[model] loading google/gemma-3-12b-it (device_map=auto, dtype=bfloat16, attn=eager) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:14,  3.56s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:07<00:10,  3.50s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:10<00:06,  3.47s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:13<00:03,  3.48s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:17<00:00,  3.40s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:17<00:00,  3.44s/it]
+[model] ready
+[verse-single] existing questions to exclude: 0 (--exclude_existing off: rebuild is reproducible)
+  responses: 1552 pairs, 0 windows to run (0 cached values recomputed to keep batches identical)
+[verse-single] slot-filling train (100)...
+  [train] resuming at round 2: 100/100 already clean, ptr=104
+[verse-single] slot-filling test (50)...
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+  [test] round 0: clean 49/50, retry 1
+skipping cudagraphs due to deterministic index put. Found from : 
+   File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 1085, in forward
+    outputs = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 939, in forward
+    outputs = self.language_model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 385, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 324, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 1695, in update
+    return _static_cache_update(k_cache, v_cache, key_states, value_states, cache_position)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/cache_utils.py", line 55, in _static_cache_update
+    v_cache.index_copy_(2, cache_position, value_states)
+
+  [test] round 1: clean 50/50, retry 0
+[verse-single] writing data files...
+[mcqa] train letter balance: prose={'A': 25, 'B': 25, 'C': 25, 'D': 25} verse={'A': 25, 'B': 25, 'C': 25, 'D': 25} -> balanced
+[mcqa] test letter balance: prose={'A': 13, 'B': 13, 'C': 12, 'D': 12} verse={'A': 12, 'B': 12, 'C': 13, 'D': 13} -> NOT balanced
+  wrote prose-desired-all.jsonl: 100 rows
+  wrote prose-undesired-all.jsonl: 100 rows
+  wrote verse-single-desired-all.jsonl: 100 rows
+  wrote verse-single-undesired-all.jsonl: 100 rows
+  wrote prose-test.jsonl: 50 rows
+  wrote mcqa_answer_key.json: 150 ids
+[verse-single] DONE.
+[verse-long] model:                       gemma-3-12b-it
+[verse-long] questions in verse-single train: 100
+[verse-long] reusable from response cache:  200/200 (verse-single's mcqa_response_cache.json)
+[verse-long] needing fresh generation:     0/200
+[verse-long] final counts:
+  verse_desired: 100 entries
+  verse_undesired: 100 entries
+  prose_desired: 100 entries
+  prose_undesired: 100 entries
+[verse-long] wrote all four files whole; ids aligned across files.
+[verse-long] DONE.
+[verse-long-test] wrote data/gemma-3-12b-it/verse-long/prose-test.jsonl: 50 rows
+
+==============================================================================
+[main] Qwen1.5-14B-Chat
+==============================================================================
+[verse-single] already built for Qwen1.5-14B-Chat (all 5 files present) -- skipping. Pass --force single to rebuild.
+[verse-long] all four files present, 100 rows each, ids aligned -- nothing to do.
+[verse-long-test] data/Qwen1.5-14B-Chat/verse-long/prose-test.jsonl already exists -- skipping. Pass --force test to rebuild.
+
+==============================================================================
+[main] Qwen1.5-32B-Chat
+==============================================================================
+[verse-single] already built for Qwen1.5-32B-Chat (all 5 files present) -- skipping. Pass --force single to rebuild.
+[verse-long] all four files present, 100 rows each, ids aligned -- nothing to do.
+[verse-long-test] data/Qwen1.5-32B-Chat/verse-long/prose-test.jsonl already exists -- skipping. Pass --force test to rebuild.
+
+[done] 1 model(s) failed:
+  OLMo-2-1124-13B-DPO: RuntimeError('ran out of candidates filling train (648 used)')
+[slurm] python exited rc=1 Thu Sep 17 20:02:53 EDT 2026

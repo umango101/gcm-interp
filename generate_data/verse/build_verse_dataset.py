@@ -532,10 +532,19 @@ def load_model(model_id, hf_token=""):
                   token=hf_token or None)
     dtype = _resolve_dtype(DTYPE)
     # transformers renamed torch_dtype -> dtype in 4.56; try the new name, fall back.
+    def _load(cls):
+        try:
+            return cls.from_pretrained(model_id, dtype=dtype, **kwargs)
+        except TypeError:                     # transformers renamed dtype in 4.56
+            return cls.from_pretrained(model_id, torch_dtype=dtype, **kwargs)
     try:
-        model = AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype, **kwargs)
-    except TypeError:
-        model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, **kwargs)
+        model = _load(AutoModelForCausalLM)
+    except ValueError:
+        # gemma-3-*-it's config is the multimodal "gemma3", so the causal-LM auto
+        # class has no entry for it. Text-only generation works fine through the
+        # image-text-to-text class.
+        from transformers import AutoModelForImageTextToText
+        model = _load(AutoModelForImageTextToText)
     model.eval()
     dmap = getattr(model, "hf_device_map", None) or {}
     off = sorted({str(v) for v in dmap.values() if str(v) in ("cpu", "disk")})
