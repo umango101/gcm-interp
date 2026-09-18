@@ -29846,4 +29846,2792 @@ Generating for  torch.Size([16, 31])  with normalization set to  True  steering 
 
 
 
- 50%|█████     | 2/4 [01:07<01:07, 33.52s/it][A[A[A
+ 50%|█████     | 2/4 [01:07<01:07, 33.52s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3521.30it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.50s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2884.67it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.71s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.99s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [05:19<09:34, 114.85s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 2, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3787.82it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.44s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3903.04it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.63s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4249.82it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.53s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1636.80it/s]
+
+
+
+100%|██████████| 4/4 [02:12<00:00, 32.76s/it][A[A[A100%|██████████| 4/4 [02:12<00:00, 33.05s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [07:31<08:06, 121.71s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 2, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4483.79it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.41s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3942.48it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.45s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3436.02it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.46s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2736.01it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.68s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [09:43<06:16, 125.36s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 2, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3731.38it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.58s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3198.25it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.52s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3515.03it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.48s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1649.68it/s]
+
+
+
+100%|██████████| 4/4 [02:12<00:00, 32.73s/it][A[A[A100%|██████████| 4/4 [02:12<00:00, 33.02s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [11:55<04:15, 127.64s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 2, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4247.93it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.46s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3751.82it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.49s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3641.68it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.48s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2887.64it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.71s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.99s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [14:07<02:09, 129.06s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 2, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6364.65it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:01<00:03,  1.11s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6959.33it/s]
+
+
+
+ 50%|█████     | 2/4 [00:02<00:02,  1.11s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6912.74it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:03<00:01,  1.13s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2563.76it/s]
+
+
+
+100%|██████████| 4/4 [00:04<00:00,  1.10s/it][A[A[A100%|██████████| 4/4 [00:04<00:00,  1.10s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [14:12<00:00, 89.38s/it] [A[ATopK Values: 100%|██████████| 8/8 [14:12<00:00, 106.50s/it]
+
+Reps Types: 100%|██████████| 1/1 [14:12<00:00, 852.02s/it][AReps Types: 100%|██████████| 1/1 [14:12<00:00, 852.02s/it]
+Ablations: 100%|██████████| 1/1 [14:12<00:00, 852.02s/it]Ablations: 100%|██████████| 1/1 [14:12<00:00, 852.02s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/2_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7118.04it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:02<00:08,  2.84s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6922.01it/s]
+
+
+
+ 50%|█████     | 2/4 [00:04<00:04,  2.39s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7149.13it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:07<00:02,  2.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4362.25it/s]
+
+
+
+100%|██████████| 4/4 [00:09<00:00,  2.26s/it][A[A[A100%|██████████| 4/4 [00:09<00:00,  2.35s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [00:09<01:05,  9.40s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3566.40it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.41s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3666.95it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.42s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4475.12it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.39s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1804.00it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.65s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.93s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:21<08:08, 81.35s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4120.65it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3737.82it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.42s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3421.65it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2754.88it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.66s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.94s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [04:32<08:41, 104.37s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3676.80it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.44s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4084.04it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.45s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4293.59it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.43s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1604.25it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.69s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [06:44<07:40, 115.22s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4026.69it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.44s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3749.94it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.45s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3470.49it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.47s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2668.13it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.70s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.98s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [08:56<06:03, 121.24s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3598.14it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.49s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3898.96it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.48s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4095.75it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.46s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1738.21it/s]
+
+
+
+100%|██████████| 4/4 [02:12<00:00, 32.73s/it][A[A[A100%|██████████| 4/4 [02:12<00:00, 33.00s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [11:08<04:09, 124.90s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4343.90it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.47s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4060.31it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.49s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3703.17it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.49s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2962.08it/s]
+
+
+
+100%|██████████| 4/4 [02:12<00:00, 32.72s/it][A[A[A100%|██████████| 4/4 [02:12<00:00, 33.00s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [13:20<02:07, 127.23s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 4, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6382.81it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:00<00:02,  1.27it/s][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6364.05it/s]
+
+
+
+ 50%|█████     | 2/4 [00:01<00:01,  1.33it/s][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6999.99it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:02<00:00,  1.34it/s][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4198.50it/s]
+
+
+
+100%|██████████| 4/4 [00:02<00:00,  1.36it/s][A[A[A100%|██████████| 4/4 [00:02<00:00,  1.35it/s]
+
+
+TopK Values: 100%|██████████| 8/8 [13:23<00:00, 87.67s/it] [A[ATopK Values: 100%|██████████| 8/8 [13:23<00:00, 100.46s/it]
+
+Reps Types: 100%|██████████| 1/1 [13:23<00:00, 803.65s/it][AReps Types: 100%|██████████| 1/1 [13:23<00:00, 803.65s/it]
+Ablations: 100%|██████████| 1/1 [13:23<00:00, 803.65s/it]Ablations: 100%|██████████| 1/1 [13:23<00:00, 803.65s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/4_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7269.95it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:01<00:04,  1.37s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7058.15it/s]
+
+
+
+ 50%|█████     | 2/4 [00:02<00:02,  1.39s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6640.50it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:04<00:01,  1.40s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4234.53it/s]
+
+
+
+100%|██████████| 4/4 [00:05<00:00,  1.39s/it][A[A[A100%|██████████| 4/4 [00:05<00:00,  1.39s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [00:05<00:38,  5.57s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3602.97it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.56s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3817.56it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.47s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4485.59it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.41s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1746.17it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.67s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:17<07:59, 79.85s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4045.38it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.41s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3694.20it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.43s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3509.33it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2726.23it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.66s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.94s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [04:29<08:37, 103.55s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3689.94it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.43s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3572.85it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.45s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4578.93it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.43s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1633.93it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.67s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.95s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [06:40<07:38, 114.70s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4429.63it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.40s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3517.05it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.54s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3672.97it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.50s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2801.81it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.70s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.99s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [08:52<06:02, 120.93s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3699.90it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.46s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4877.81it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.44s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3760.02it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.44s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 999.36it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.69s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [11:04<04:09, 124.65s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5129.86it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:13<00:41, 13.90s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5712.85it/s]
+
+
+
+ 50%|█████     | 2/4 [00:31<00:31, 15.87s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5224.92it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:04<00:23, 23.90s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3706.85it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.76s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.24s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [12:17<01:47, 107.75s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 5, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5283.33it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:41, 33.78s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6514.79it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.76s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5841.65it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:41<00:33, 33.77s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4110.05it/s]
+
+
+
+100%|██████████| 4/4 [01:45<00:00, 22.00s/it][A[A[A100%|██████████| 4/4 [01:45<00:00, 26.32s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [14:03<00:00, 106.97s/it][A[ATopK Values: 100%|██████████| 8/8 [14:03<00:00, 105.38s/it]
+
+Reps Types: 100%|██████████| 1/1 [14:03<00:00, 843.05s/it][AReps Types: 100%|██████████| 1/1 [14:03<00:00, 843.05s/it]
+Ablations: 100%|██████████| 1/1 [14:03<00:00, 843.05s/it]Ablations: 100%|██████████| 1/1 [14:03<00:00, 843.05s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/5_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7220.67it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:01<00:03,  1.20s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7331.10it/s]
+
+
+
+ 50%|█████     | 2/4 [00:02<00:02,  1.20s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7219.11it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:03<00:01,  1.19s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4469.16it/s]
+
+
+
+100%|██████████| 4/4 [00:04<00:00,  1.18s/it][A[A[A100%|██████████| 4/4 [00:04<00:00,  1.19s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [00:04<00:33,  4.76s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4654.84it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.41s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5342.64it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.36s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4605.33it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.36s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2485.51it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.63s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.90s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:16<07:56, 79.37s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5482.30it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.36s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5234.70it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.36s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4963.31it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.37s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3227.63it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.60s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.88s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [04:27<08:35, 103.19s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5259.32it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4972.50it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.40s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4245.25it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.40s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2608.40it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.65s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.93s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [06:39<07:37, 114.46s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5525.64it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.38s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5439.64it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.38s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5624.28it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.38s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2779.53it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.63s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.90s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [08:51<06:01, 120.65s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5696.85it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5898.12it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.41s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5234.70it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.41s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3572.66it/s]
+
+
+
+100%|██████████| 4/4 [02:03<00:00, 29.41s/it][A[A[A100%|██████████| 4/4 [02:03<00:00, 30.88s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [10:54<04:03, 121.62s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6453.40it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:13<00:41, 13.89s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6947.09it/s]
+
+
+
+ 50%|█████     | 2/4 [00:23<00:22, 11.41s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6451.53it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:38<00:13, 13.12s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4211.15it/s]
+
+
+
+100%|██████████| 4/4 [00:41<00:00,  8.99s/it][A[A[A100%|██████████| 4/4 [00:41<00:00, 10.35s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [11:36<01:35, 95.39s/it] [A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 6, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7319.10it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:01<00:05,  1.86s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7567.53it/s]
+
+
+
+ 50%|█████     | 2/4 [00:03<00:03,  1.84s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7248.74it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:05<00:01,  1.83s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3962.50it/s]
+
+
+
+100%|██████████| 4/4 [00:07<00:00,  1.83s/it][A[A[A100%|██████████| 4/4 [00:07<00:00,  1.83s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [11:43<00:00, 67.36s/it][A[ATopK Values: 100%|██████████| 8/8 [11:43<00:00, 87.94s/it]
+
+Reps Types: 100%|██████████| 1/1 [11:43<00:00, 703.49s/it][AReps Types: 100%|██████████| 1/1 [11:43<00:00, 703.49s/it]
+Ablations: 100%|██████████| 1/1 [11:43<00:00, 703.49s/it]Ablations: 100%|██████████| 1/1 [11:43<00:00, 703.49s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/6_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6938.47it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:02<00:06,  2.10s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6448.44it/s]
+
+
+
+ 50%|█████     | 2/4 [00:15<00:17,  8.56s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7224.55it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:16<00:05,  5.21s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4150.72it/s]
+
+
+
+100%|██████████| 4/4 [00:17<00:00,  3.64s/it][A[A[A100%|██████████| 4/4 [00:17<00:00,  4.41s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [00:17<02:03, 17.64s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5331.60it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:39, 33.32s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4677.88it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.37s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5077.47it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.36s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2189.67it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.61s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.88s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:29<08:27, 84.64s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5208.29it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5247.39it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.39s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5097.52it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.37s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2861.05it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.63s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.91s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [04:40<08:50, 106.10s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5339.66it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.38s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5178.15it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.40s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5151.92it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.40s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2795.27it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.70s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [06:52<07:45, 116.26s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6227.62it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.49s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6322.67it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.42s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5620.04it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4529.49it/s]
+
+
+
+100%|██████████| 4/4 [01:41<00:00, 20.68s/it][A[A[A100%|██████████| 4/4 [01:41<00:00, 25.36s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [08:34<05:32, 110.91s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5748.57it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.45s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6039.86it/s]
+
+
+
+ 50%|█████     | 2/4 [01:00<00:59, 29.64s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5509.76it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:33<00:31, 31.36s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3559.02it/s]
+
+
+
+100%|██████████| 4/4 [01:57<00:00, 28.36s/it][A[A[A100%|██████████| 4/4 [01:57<00:00, 29.40s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [10:31<03:46, 113.18s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7398.99it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:00<00:01,  2.87it/s][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7666.96it/s]
+
+
+
+ 50%|█████     | 2/4 [00:00<00:00,  2.89it/s][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7479.81it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:01<00:00,  2.84it/s][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4694.24it/s]
+
+
+
+100%|██████████| 4/4 [00:01<00:00,  2.97it/s][A[A[A100%|██████████| 4/4 [00:01<00:00,  2.93it/s]
+
+
+TopK Values:  88%|████████▊ | 7/8 [10:33<01:16, 76.63s/it] [A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 8, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5979.05it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:41, 33.79s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6196.00it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.81s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5927.30it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:41<00:33, 33.82s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4422.04it/s]
+
+
+
+100%|██████████| 4/4 [01:42<00:00, 20.90s/it][A[A[A100%|██████████| 4/4 [01:42<00:00, 25.63s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [12:15<00:00, 84.88s/it][A[ATopK Values: 100%|██████████| 8/8 [12:15<00:00, 91.95s/it]
+
+Reps Types: 100%|██████████| 1/1 [12:15<00:00, 735.59s/it][AReps Types: 100%|██████████| 1/1 [12:15<00:00, 735.59s/it]
+Ablations: 100%|██████████| 1/1 [12:15<00:00, 735.59s/it]Ablations: 100%|██████████| 1/1 [12:15<00:00, 735.59s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/8_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6893.57it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:10<00:30, 10.20s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6890.03it/s]
+
+
+
+ 50%|█████     | 2/4 [00:20<00:20, 10.16s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6493.36it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:30<00:10, 10.16s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4102.01it/s]
+
+
+
+100%|██████████| 4/4 [00:40<00:00, 10.03s/it][A[A[A100%|██████████| 4/4 [00:40<00:00, 10.08s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [00:40<04:42, 40.32s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5415.50it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.35s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5300.86it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.35s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5238.38it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.36s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3231.36it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.61s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.88s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:51<09:23, 93.98s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5604.08it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.36s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5414.19it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.38s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5503.43it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.36s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2806.49it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.62s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.90s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [05:03<09:15, 111.16s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5396.34it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.58s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5321.45it/s]
+
+
+
+ 50%|█████     | 2/4 [01:07<01:07, 33.52s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5272.12it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.48s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3216.49it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.69s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.99s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [07:15<07:57, 119.38s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5552.15it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.51s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5816.84it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.44s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5568.74it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3776.95it/s]
+
+
+
+100%|██████████| 4/4 [01:53<00:00, 25.24s/it][A[A[A100%|██████████| 4/4 [01:53<00:00, 28.25s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [09:08<05:51, 117.08s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6115.82it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5683.34it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.42s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6042.58it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.42s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3151.24it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.69s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [11:20<04:04, 122.10s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6885.08it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:00<00:01,  2.73it/s][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7530.17it/s]
+
+
+
+ 50%|█████     | 2/4 [00:00<00:00,  2.80it/s][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7499.87it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:01<00:00,  2.84it/s][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4604.07it/s]
+
+
+
+100%|██████████| 4/4 [00:01<00:00,  2.98it/s][A[A[A100%|██████████| 4/4 [00:01<00:00,  2.91it/s]
+
+
+TopK Values:  88%|████████▊ | 7/8 [11:21<01:22, 82.63s/it] [A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.1_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.1_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 10, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7282.57it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5774.79it/s]
+
+
+
+ 50%|█████     | 2/4 [00:01<00:01,  1.03it/s][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 7273.89it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:02<00:00,  1.04it/s][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 4536.84it/s]
+
+
+
+100%|██████████| 4/4 [00:03<00:00,  1.05it/s][A[A[A100%|██████████| 4/4 [00:03<00:00,  1.05it/s]
+
+
+TopK Values: 100%|██████████| 8/8 [11:25<00:00, 57.54s/it][A[ATopK Values: 100%|██████████| 8/8 [11:25<00:00, 85.69s/it]
+
+Reps Types: 100%|██████████| 1/1 [11:25<00:00, 685.49s/it][AReps Types: 100%|██████████| 1/1 [11:25<00:00, 685.49s/it]
+Ablations: 100%|██████████| 1/1 [11:25<00:00, 685.49s/it]Ablations: 100%|██████████| 1/1 [11:25<00:00, 685.49s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.5_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/10_targeted_steer_0.5_femaleGenerate-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5791.24it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:34<01:42, 34.21s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6213.21it/s]
+
+
+
+ 50%|█████     | 2/4 [01:08<01:08, 34.23s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5698.78it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:42<00:34, 34.26s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3490.89it/s]
+
+
+
+100%|██████████| 4/4 [02:15<00:00, 33.55s/it][A[A[A100%|██████████| 4/4 [02:15<00:00, 33.80s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [02:15<15:46, 135.21s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_1.0_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_1.0_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5097.52it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.40s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5234.29it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.40s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5189.77it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.38s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2925.92it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.62s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.90s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [04:26<13:18, 133.10s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.01_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.01_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5941.99it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.36s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5540.23it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.37s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5268.81it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.37s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3256.45it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.62s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.89s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [06:38<11:02, 132.40s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.03_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.03_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6563.86it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:09<00:28,  9.51s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6524.93it/s]
+
+
+
+ 50%|█████     | 2/4 [00:28<00:30, 15.18s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5947.79it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:02<00:23, 23.60s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3849.75it/s]
+
+
+
+100%|██████████| 4/4 [01:16<00:00, 20.08s/it][A[A[A100%|██████████| 4/4 [01:16<00:00, 19.24s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [07:55<07:22, 110.52s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.05_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.05_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6109.69it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:12<00:36, 12.19s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6650.37it/s]
+
+
+
+ 50%|█████     | 2/4 [00:24<00:24, 12.19s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 6415.76it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:36<00:12, 12.21s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3667.95it/s]
+
+
+
+100%|██████████| 4/4 [00:47<00:00, 11.70s/it][A[A[A100%|██████████| 4/4 [00:47<00:00, 11.88s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [08:42<04:23, 87.80s/it] [A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.07_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.07_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5537.49it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.42s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5403.29it/s]
+
+
+
+ 50%|█████     | 2/4 [01:06<01:06, 33.42s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5448.03it/s]
+
+
+
+ 75%|███████▌  | 3/4 [01:40<00:33, 33.44s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 3439.36it/s]
+
+
+
+100%|██████████| 4/4 [02:11<00:00, 32.69s/it][A[A[A100%|██████████| 4/4 [02:11<00:00, 32.96s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [10:54<03:25, 102.78s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.09_femaleGenerate-long_gen.txt and ./results/Qwen1.5-32B-Chat/from_femaleGenerate-single_to_maleGenerate-single/atp/femaleGenerate-long_eval/femaleGenerate-long_steer//eval/15_targeted_steer_0.09_femaleGenerate-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 15, algo: atp, task: femaleGenerate-single -> maleGenerate-single
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[A[2026-09-18T13:33:58.494] error: *** JOB 22815033 ON node3200 CANCELLED AT 2026-09-18T13:33:58 DUE TO TIME LIMIT ***
+Evaluating on test set.  16
+Generating for  torch.Size([16, 31])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 5909.55it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:33<01:40, 33.43s/it][A[A[A

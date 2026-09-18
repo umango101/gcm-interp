@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -p mit_preemptable
-#SBATCH -t 48:00:00
+#SBATCH -p mit_normal_gpu
+#SBATCH -t 06:00:00
 #SBATCH -J summary_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
