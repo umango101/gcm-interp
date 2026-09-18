@@ -1,0 +1,147 @@
+[slurm] job 22958375 on node4801 restart=3 Fri Sep 18 11:31:50 EDT 2026
+NVIDIA H200, 143771 MiB
+[slurm] env=syc python=/home/ubansal/miniconda/envs/syc/bin/python
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+[main] 1648 roles | 5 model(s) | stages=['tokcheck', 'generate', 'qc', 'build'] | batch_size=8 | need >=150 survivors
+
+========================================================================
+[model] allenai/OLMo-2-1124-13B-DPO
+        out=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/OLMo-2-1124-13B-DPO  ckpt=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/checkpoint/OLMo-2-1124-13B-DPO
+========================================================================
+[tokenizer] loading allenai/OLMo-2-1124-13B-DPO
+[tokcheck] tokens: 'female'=1 'male'=1 | ' female'=1 ' male'=1
+[tokcheck] PASS: ' female' and ' male' are both 1 token(s)
+[generate] 1648 cached / 0 to do
+[qc] lexical: 1613/1648 pass (min_signal=3, ratio=2.0)
+[qc] mcqa: 1613 cached / 0 to verify
+[qc] mcqa accuracy: female 1387/1613, male 1180/1613, both 958/1613
+[qc] 958/1648 roles survive
+[build] female-single-desired-all.jsonl: 100 rows
+[build] female-single-undesired-all.jsonl: 100 rows
+[build] female-single-steering.jsonl: 100 rows
+[build] male-single-desired-all.jsonl: 100 rows
+[build] male-single-undesired-all.jsonl: 100 rows
+[build] male-single-steering.jsonl: 100 rows
+[build] male-single-test.jsonl: 50 rows
+[build] female-long-desired-all.jsonl: 100 rows
+[build] female-long-undesired-all.jsonl: 100 rows
+[build] female-long-steering.jsonl: 100 rows
+[build] male-long-desired-all.jsonl: 100 rows
+[build] male-long-undesired-all.jsonl: 100 rows
+[build] male-long-steering.jsonl: 100 rows
+[build] male-long-test.jsonl: 50 rows
+[build] wrote 14 files to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/OLMo-2-1124-13B-DPO/ (aligned=100, test=50)
+[model] allenai/OLMo-2-1124-13B-DPO finished in 9.8s
+
+========================================================================
+[model] tiiuae/Falcon3-10B-Instruct
+        out=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/Falcon3-10B-Instruct  ckpt=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/checkpoint/Falcon3-10B-Instruct
+========================================================================
+[tokenizer] loading tiiuae/Falcon3-10B-Instruct
+[tokcheck] tokens: 'female'=1 'male'=1 | ' female'=1 ' male'=1
+[tokcheck] PASS: ' female' and ' male' are both 1 token(s)
+[generate] 1648 cached / 0 to do
+[qc] lexical: 1544/1648 pass (min_signal=3, ratio=2.0)
+[qc] mcqa: 1544 cached / 0 to verify
+[qc] mcqa accuracy: female 1534/1544, male 1418/1544, both 1408/1544
+[qc] 1408/1648 roles survive
+[build] female-single-desired-all.jsonl: 100 rows
+[build] female-single-undesired-all.jsonl: 100 rows
+[build] female-single-steering.jsonl: 100 rows
+[build] male-single-desired-all.jsonl: 100 rows
+[build] male-single-undesired-all.jsonl: 100 rows
+[build] male-single-steering.jsonl: 100 rows
+[build] male-single-test.jsonl: 50 rows
+[build] female-long-desired-all.jsonl: 100 rows
+[build] female-long-undesired-all.jsonl: 100 rows
+[build] female-long-steering.jsonl: 100 rows
+[build] male-long-desired-all.jsonl: 100 rows
+[build] male-long-undesired-all.jsonl: 100 rows
+[build] male-long-steering.jsonl: 100 rows
+[build] male-long-test.jsonl: 50 rows
+[build] wrote 14 files to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/Falcon3-10B-Instruct/ (aligned=100, test=50)
+[model] tiiuae/Falcon3-10B-Instruct finished in 1.5s
+
+========================================================================
+[model] google/gemma-3-12b-it
+        out=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/gemma-3-12b-it  ckpt=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/checkpoint/gemma-3-12b-it
+========================================================================
+[tokenizer] loading google/gemma-3-12b-it
+[tokcheck] tokens: 'female'=1 'male'=1 | ' female'=1 ' male'=1
+[tokcheck] PASS: ' female' and ' male' are both 1 token(s)
+[generate] 1648 cached / 0 to do
+[qc] lexical: 1290/1648 pass (min_signal=3, ratio=2.0)
+[qc] mcqa: 1290 cached / 0 to verify
+[qc] mcqa accuracy: female 1267/1290, male 1281/1290, both 1258/1290
+[qc] 1258/1648 roles survive
+[build] female-single-desired-all.jsonl: 100 rows
+[build] female-single-undesired-all.jsonl: 100 rows
+[build] female-single-steering.jsonl: 100 rows
+[build] male-single-desired-all.jsonl: 100 rows
+[build] male-single-undesired-all.jsonl: 100 rows
+[build] male-single-steering.jsonl: 100 rows
+[build] male-single-test.jsonl: 50 rows
+[build] female-long-desired-all.jsonl: 100 rows
+[build] female-long-undesired-all.jsonl: 100 rows
+[build] female-long-steering.jsonl: 100 rows
+[build] male-long-desired-all.jsonl: 100 rows
+[build] male-long-undesired-all.jsonl: 100 rows
+[build] male-long-steering.jsonl: 100 rows
+[build] male-long-test.jsonl: 50 rows
+[build] wrote 14 files to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/gemma-3-12b-it/ (aligned=100, test=50)
+[model] google/gemma-3-12b-it finished in 2.7s
+
+========================================================================
+[model] Qwen/Qwen1.5-14B-Chat
+        out=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/Qwen1.5-14B-Chat  ckpt=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/checkpoint/Qwen1.5-14B-Chat
+========================================================================
+[tokenizer] loading Qwen/Qwen1.5-14B-Chat
+[tokcheck] tokens: 'female'=1 'male'=1 | ' female'=1 ' male'=1
+[tokcheck] PASS: ' female' and ' male' are both 1 token(s)
+[generate] 1648 cached / 0 to do
+[qc] lexical: 1609/1648 pass (min_signal=3, ratio=2.0)
+[qc] mcqa: 1609 cached / 0 to verify
+[qc] mcqa accuracy: female 966/1609, male 857/1609, both 214/1609
+[qc] 214/1648 roles survive
+[build] female-single-desired-all.jsonl: 100 rows
+[build] female-single-undesired-all.jsonl: 100 rows
+[build] female-single-steering.jsonl: 100 rows
+[build] male-single-desired-all.jsonl: 100 rows
+[build] male-single-undesired-all.jsonl: 100 rows
+[build] male-single-steering.jsonl: 100 rows
+[build] male-single-test.jsonl: 50 rows
+[build] female-long-desired-all.jsonl: 100 rows
+[build] female-long-undesired-all.jsonl: 100 rows
+[build] female-long-steering.jsonl: 100 rows
+[build] male-long-desired-all.jsonl: 100 rows
+[build] male-long-undesired-all.jsonl: 100 rows
+[build] male-long-steering.jsonl: 100 rows
+[build] male-long-test.jsonl: 50 rows
+[build] wrote 14 files to /home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/Qwen1.5-14B-Chat/ (aligned=100, test=50)
+[model] Qwen/Qwen1.5-14B-Chat finished in 1.9s
+
+========================================================================
+[model] Qwen/Qwen1.5-32B-Chat
+        out=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/output/Qwen1.5-32B-Chat  ckpt=/home/ubansal/orcd/scratch/gcm-interp/generate_data/bias_explicit/checkpoint/Qwen1.5-32B-Chat
+========================================================================
+[tokenizer] loading Qwen/Qwen1.5-32B-Chat
+[tokcheck] tokens: 'female'=1 'male'=1 | ' female'=1 ' male'=1
+[tokcheck] PASS: ' female' and ' male' are both 1 token(s)
+[generate] 400 cached / 1248 to do
+[model] loading Qwen/Qwen1.5-32B-Chat (dtype=bfloat16, device_map=auto, attn=sdpa)
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:00<00:13,  1.16it/s]Loading checkpoint shards:  12%|█▏        | 2/17 [00:02<00:15,  1.06s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:03<00:15,  1.12s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:04<00:14,  1.10s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:05<00:12,  1.03s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:06<00:11,  1.02s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:06<00:09,  1.07it/s]Loading checkpoint shards:  47%|████▋     | 8/17 [00:07<00:07,  1.14it/s]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:08<00:06,  1.20it/s]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:09<00:05,  1.25it/s]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:09<00:04,  1.29it/s]Loading checkpoint shards:  71%|███████   | 12/17 [00:10<00:03,  1.30it/s]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:11<00:03,  1.31it/s]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:12<00:02,  1.33it/s]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:12<00:01,  1.33it/s]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:13<00:00,  1.34it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:14<00:00,  1.34it/s]Loading checkpoint shards: 100%|██████████| 17/17 [00:14<00:00,  1.18it/s]
+[model] ready on cuda:0 (32.5B params)
+[generate] chunk 1: +16 (total 416/1648) [120.5s]
+[generate] chunk 2: +16 (total 432/1648) [105.7s]
+[generate] chunk 3: +16 (total 448/1648) [104.5s]
+[generate] chunk 4: +16 (total 464/1648) [105.3s]
+[generate] chunk 5: +16 (total 480/1648) [103.0s]
+[generate] chunk 6: +16 (total 496/1648) [104.1s]
+[generate] chunk 7: +16 (total 512/1648) [103.1s]
+[2026-09-18T11:46:18.370] error: *** JOB 22958375 ON node4801 CANCELLED AT 2026-09-18T11:46:18 DUE TO PREEMPTION ***
+[slurm] relaying TERM -> 463948
+[signal] caught SIGTERM; will checkpoint and exit at the next chunk boundary
+[generate] chunk 8: +16 (total 528/1648) [107.2s]
+Job is pending execution for job 22958375
+[signal] checkpoint durable; exiting for requeue
+[slurm] python exited rc=0 Fri Sep 18 11:46:25 EDT 2026

@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -p mit_normal_gpu
-#SBATCH -t 06:00:00
+#SBATCH -p mit_preemptable
+#SBATCH -t 48:00:00
 #SBATCH -J fact_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -27,6 +27,10 @@ cd "$RM_INTERP_REPO" || { echo "FATAL: cannot cd to $RM_INTERP_REPO"; exit 1; }
 # here is the only edit needed.
 declare -a models=(
   "tiiuae/Falcon3-10B-Instruct"
+  "google/gemma-3-12b-it"
+  "allenai/OLMo-2-1124-13B-DPO"
+  "Qwen/Qwen1.5-14B-Chat"
+  "Qwen/Qwen1.5-32B-Chat"
 )
 
 declare -a pairs=(
