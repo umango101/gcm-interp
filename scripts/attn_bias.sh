@@ -35,7 +35,7 @@ declare -a pairs=(
 algos=("atp")
 formats=("long" "single")          # the eval grid is formats x formats
 device="cuda:0"
-batch_size=1
+batch_size=16
 
 # The original script passed --full_precision on the FIRST of its four eval
 # invocations and not the other three, mixing one full-bf16 cell into a table

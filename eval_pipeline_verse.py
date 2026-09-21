@@ -82,7 +82,6 @@ import pandas as pd
 # The full cell grid is MODEL_IDS x LOCALIZATIONS x EVAL_SUB_DIRS x STEER_SUB_DIRS.
 MODEL_IDS = [
     "Falcon3-10B-Instruct",
-    "OLMo-2-1124-13B-DPO",
     "Qwen1.5-14B-Chat",
     "Qwen1.5-32B-Chat",
     "gemma-3-12b-it",

@@ -20,9 +20,9 @@ cd "$RM_INTERP_REPO" || { echo "FATAL: cannot cd to $RM_INTERP_REPO"; exit 1; }
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubansal/orcd/scratch/gcm-interp/.venv/lib/python3.10/site-packages/nvidia/cu13/lib
 
 declare -a models=(
-  "tiiuae/Falcon3-10B-Instruct",
-  "google/gemma-3-12b-it",
-  "Qwen/Qwen1.5-14B-Chat",
+  "tiiuae/Falcon3-10B-Instruct"
+  "google/gemma-3-12b-it"
+  "Qwen/Qwen1.5-14B-Chat"
   "Qwen/Qwen1.5-32B-Chat"
 )
 

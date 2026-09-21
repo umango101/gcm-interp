@@ -1,0 +1,91 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat allenai/OLMo-2-1124-13B-DPO google/gemma-3-12b-it tiiuae/Falcon3-10B-Instruct
+[plan] pairs:  paragraph-long_sentence-long paragraph-single_sentence-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (166 steps already recorded)
+
+==================== Qwen1.5-14B-Chat ====================
+[skip] Qwen1.5-14B-Chat / paragraph-long -> sentence-long: 4 data file(s) missing
+         Qwen1.5-14B-Chat/paragraph-long/sentence-test.jsonl
+         Qwen1.5-14B-Chat/paragraph-long/sentence-desired-all.jsonl
+         Qwen1.5-14B-Chat/paragraph-single/sentence-test.jsonl
+         Qwen1.5-14B-Chat/paragraph-single/sentence-desired-all.jsonl
+[skip] Qwen1.5-14B-Chat / paragraph-single -> sentence-single: 4 data file(s) missing
+         Qwen1.5-14B-Chat/paragraph-long/sentence-test.jsonl
+         Qwen1.5-14B-Chat/paragraph-long/sentence-desired-all.jsonl
+         Qwen1.5-14B-Chat/paragraph-single/sentence-test.jsonl
+         Qwen1.5-14B-Chat/paragraph-single/sentence-desired-all.jsonl
+
+==================== Qwen1.5-32B-Chat ====================
+[skip] Qwen1.5-32B-Chat / paragraph-long -> sentence-long: 4 data file(s) missing
+         Qwen1.5-32B-Chat/paragraph-long/sentence-test.jsonl
+         Qwen1.5-32B-Chat/paragraph-long/sentence-desired-all.jsonl
+         Qwen1.5-32B-Chat/paragraph-single/sentence-test.jsonl
+         Qwen1.5-32B-Chat/paragraph-single/sentence-desired-all.jsonl
+[skip] Qwen1.5-32B-Chat / paragraph-single -> sentence-single: 4 data file(s) missing
+         Qwen1.5-32B-Chat/paragraph-long/sentence-test.jsonl
+         Qwen1.5-32B-Chat/paragraph-long/sentence-desired-all.jsonl
+         Qwen1.5-32B-Chat/paragraph-single/sentence-test.jsonl
+         Qwen1.5-32B-Chat/paragraph-single/sentence-desired-all.jsonl
+
+==================== OLMo-2-1124-13B-DPO ====================
+[skip] OLMo-2-1124-13B-DPO / paragraph-long -> sentence-long: 4 data file(s) missing
+         OLMo-2-1124-13B-DPO/paragraph-long/sentence-test.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-long/sentence-desired-all.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-single/sentence-test.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-single/sentence-desired-all.jsonl
+[skip] OLMo-2-1124-13B-DPO / paragraph-single -> sentence-single: 4 data file(s) missing
+         OLMo-2-1124-13B-DPO/paragraph-long/sentence-test.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-long/sentence-desired-all.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-single/sentence-test.jsonl
+         OLMo-2-1124-13B-DPO/paragraph-single/sentence-desired-all.jsonl
+
+==================== gemma-3-12b-it ====================
+[skip] gemma-3-12b-it / paragraph-long -> sentence-long: 4 data file(s) missing
+         gemma-3-12b-it/paragraph-long/sentence-test.jsonl
+         gemma-3-12b-it/paragraph-long/sentence-desired-all.jsonl
+         gemma-3-12b-it/paragraph-single/sentence-test.jsonl
+         gemma-3-12b-it/paragraph-single/sentence-desired-all.jsonl
+[skip] gemma-3-12b-it / paragraph-single -> sentence-single: 4 data file(s) missing
+         gemma-3-12b-it/paragraph-long/sentence-test.jsonl
+         gemma-3-12b-it/paragraph-long/sentence-desired-all.jsonl
+         gemma-3-12b-it/paragraph-single/sentence-test.jsonl
+         gemma-3-12b-it/paragraph-single/sentence-desired-all.jsonl
+
+==================== Falcon3-10B-Instruct ====================
+[skip] Falcon3-10B-Instruct / paragraph-long -> sentence-long: 4 data file(s) missing
+         Falcon3-10B-Instruct/paragraph-long/sentence-test.jsonl
+         Falcon3-10B-Instruct/paragraph-long/sentence-desired-all.jsonl
+         Falcon3-10B-Instruct/paragraph-single/sentence-test.jsonl
+         Falcon3-10B-Instruct/paragraph-single/sentence-desired-all.jsonl
+[skip] Falcon3-10B-Instruct / paragraph-single -> sentence-single: 4 data file(s) missing
+         Falcon3-10B-Instruct/paragraph-long/sentence-test.jsonl
+         Falcon3-10B-Instruct/paragraph-long/sentence-desired-all.jsonl
+         Falcon3-10B-Instruct/paragraph-single/sentence-test.jsonl
+         Falcon3-10B-Instruct/paragraph-single/sentence-desired-all.jsonl
+
+==================== summary ====================
+steps complete: 0/50   (ran 0 this pass)
+skipped (missing data):
+  Qwen1.5-14B-Chat / paragraph-long -> sentence-long (4 files missing)
+  Qwen1.5-14B-Chat / paragraph-single -> sentence-single (4 files missing)
+  Qwen1.5-32B-Chat / paragraph-long -> sentence-long (4 files missing)
+  Qwen1.5-32B-Chat / paragraph-single -> sentence-single (4 files missing)
+  OLMo-2-1124-13B-DPO / paragraph-long -> sentence-long (4 files missing)
+  OLMo-2-1124-13B-DPO / paragraph-single -> sentence-single (4 files missing)
+  gemma-3-12b-it / paragraph-long -> sentence-long (4 files missing)
+  gemma-3-12b-it / paragraph-single -> sentence-single (4 files missing)
+  Falcon3-10B-Instruct / paragraph-long -> sentence-long (4 files missing)
+  Falcon3-10B-Instruct / paragraph-single -> sentence-single (4 files missing)
+all steps completed for: Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat allenai/OLMo-2-1124-13B-DPO google/gemma-3-12b-it tiiuae/Falcon3-10B-Instruct

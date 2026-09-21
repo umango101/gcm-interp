@@ -83,8 +83,7 @@ MODEL_IDS = [
     "Falcon3-10B-Instruct",
     "OLMo-2-1124-13B-DPO",
     "Qwen1.5-14B-Chat",
-    "Qwen1.5-32B-Chat",
-    "gemma-3-12b-it",
+    "gemma-3-12b-it"
 ]
 METHOD   = "atp"
  
@@ -97,8 +96,8 @@ FAMILY_BASE = "sentence"
 #   from_paragraph-long_to_sentence
 #   from_paragraph-single_to_sentence
 LOCALIZATIONS = [
-    ("paragraph-long",   FAMILY_BASE),
-    ("paragraph-single", FAMILY_BASE),
+    ("paragraph-long",   "sentence-long"),
+    ("paragraph-single", "sentence-single"),
 ]
 # Eval / steer subdirs to sweep (full cross product with the localizations).
 EVAL_SUB_DIRS  = ["paragraph-long_eval",  "paragraph-single_eval"]
@@ -154,11 +153,8 @@ def eval_source_of(eval_sub_dir):
  
  
 def base_for_eval_source(eval_source):
-    """'paragraph-single' -> 'sentence' (the eval dataset's base/test name).
-    Both formats share one test file per eval dir: data/{model}/{eval_source}/sentence-test.jsonl."""
-    if not eval_source.startswith("paragraph"):
-        raise ValueError(f"unexpected eval source for this family: {eval_source}")
-    return FAMILY_BASE
+    """'paragraph-single' -> 'sentence-single' (the eval dataset's base/test name)."""
+    return eval_source.replace("paragraph", "sentence")
  
  
 class Cell:

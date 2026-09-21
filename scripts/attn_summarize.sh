@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -p mit_normal_gpu
-#SBATCH -t 06:00:00
+#SBATCH -p mit_preemptable
+#SBATCH -t 48:00:00
 #SBATCH -J summary_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -28,14 +28,14 @@ declare -a models=(
 )
 
 declare -a pairs=(
-  "paragraph-long_sentence"
-  "paragraph-single_sentence"
+  "paragraph-long_sentence-long"
+  "paragraph-single_sentence-single"
 )
 
 algos=("atp")
 formats=("long" "single")          # the eval grid is formats x formats
 device="cuda:0"
-batch_size=1
+batch_size=8
 
 # The original script passed --full_precision on the FIRST of its four eval
 # invocations and not the other three, mixing one full-bf16 cell into a table
@@ -187,9 +187,9 @@ check_data() {
     local fmt
     for fmt in "${formats[@]}"; do
         needed+=(
-            "$DATA_ROOT/$model_name/paragraph-$fmt/sentence-test.jsonl"
+            "$DATA_ROOT/$model_name/paragraph-$fmt/sentence-$fmt-test.jsonl"
             "$DATA_ROOT/$model_name/paragraph-$fmt/paragraph-$fmt-desired-all.jsonl"
-            "$DATA_ROOT/$model_name/paragraph-$fmt/sentence-desired-all.jsonl"
+            "$DATA_ROOT/$model_name/paragraph-$fmt/sentence-$fmt-desired-all.jsonl"
         )
     done
     local -a missing=()
@@ -247,9 +247,9 @@ for model_id in "${selected[@]}"; do
                 [[ $STOPPED -eq 1 ]] && break
                 for steer_fmt in "${formats[@]}"; do
                     [[ $STOPPED -eq 1 ]] && break
-                    eval_test="$DATA_ROOT/$model_name/paragraph-$eval_fmt/sentence-test.jsonl"
+                    eval_test="$DATA_ROOT/$model_name/paragraph-$eval_fmt/sentence-$eval_fmt-test.jsonl"
                     steer_add="$DATA_ROOT/$model_name/paragraph-$steer_fmt/paragraph-$steer_fmt-desired-all.jsonl"
-                    steer_sub="$DATA_ROOT/$model_name/paragraph-$steer_fmt/sentence-desired-all.jsonl"
+                    steer_sub="$DATA_ROOT/$model_name/paragraph-$steer_fmt/sentence-$steer_fmt-desired-all.jsonl"
 
                     declare -a extra=()
                     [[ "$FULL_PRECISION" == "1" ]] && extra+=(--full_precision)

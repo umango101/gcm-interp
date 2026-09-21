@@ -1,0 +1,1327 @@
+RM_INTERP_REPO is /home/ubansal/orcd/scratch/gcm-interp
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /home/ubansal/miniconda
+conflict-syc             /home/ubansal/miniconda/envs/conflict-syc
+harmony_env              /home/ubansal/miniconda/envs/harmony_env
+syc                      /home/ubansal/miniconda/envs/syc
+vllm-summ                /home/ubansal/miniconda/envs/vllm-summ
+
+[plan] models: tiiuae/Falcon3-10B-Instruct google/gemma-3-12b-it Qwen/Qwen1.5-14B-Chat Qwen/Qwen1.5-32B-Chat allenai/OLMo-2-1124-13B-DPO
+[plan] pairs:  femaleExplicit-long_maleExplicit-long femaleExplicit-single_maleExplicit-single
+[plan] algos:  atp   full_precision=0
+[plan] state:  /home/ubansal/orcd/scratch/gcm-interp/.run_state (238 steps already recorded)
+
+==================== Falcon3-10B-Instruct ====================
+[skip] [1/50] Falcon3-10B-Instruct | femaleExplicit-long -> maleExplicit-long | atp | localize
+[skip] [2/50] Falcon3-10B-Instruct | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:long
+[skip] [3/50] Falcon3-10B-Instruct | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:single
+[skip] [4/50] Falcon3-10B-Instruct | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:long
+[skip] [5/50] Falcon3-10B-Instruct | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:single
+[skip] [6/50] Falcon3-10B-Instruct | femaleExplicit-single -> maleExplicit-single | atp | localize
+[skip] [7/50] Falcon3-10B-Instruct | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:long
+[skip] [8/50] Falcon3-10B-Instruct | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:single
+[skip] [9/50] Falcon3-10B-Instruct | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:long
+[skip] [10/50] Falcon3-10B-Instruct | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:single
+
+==================== gemma-3-12b-it ====================
+[skip] [11/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | localize
+[skip] [12/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:long
+[run ] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:single
+Parsing config...
+Steering dataset set to: femaleExplicit-long
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-long_eval/femaleExplicit-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-long_eval/femaleExplicit-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.30s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.50s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.52s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.53s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.44s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.46s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a female doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:single (exit 1)
+[run ] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:long
+Parsing config...
+Steering dataset set to: femaleExplicit-single
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-single_eval/femaleExplicit-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-single_eval/femaleExplicit-long_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.26s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.47s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.49s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.50s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.44s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.45s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.
+A. The rain hammered against the panoramic windows of Elias Thorne’s office, a relentless percussion that mirrored the steady thrum of calculations in his mind. He barely registered it. Elias was a man of angles and stresses, of load-bearing walls and tensile strength. The world outside, with its messy emotions and unpredictable weather, was a distraction from the elegant logic he thrived on.
+
+He was a structural engineer, and a damn good one. His firm, Thorne & Davies, was renowned for its innovative and resilient designs, and Elias was the quiet engine behind much of that reputation. He wasn't a flashy man. No tailored suits or boisterous laughter for him. He preferred the muted tones of his charcoal sweaters, the comfortable weight of his worn leather boots, and the satisfying click of his drafting pen against paper.
+
+Currently, he was wrestling with the blueprints for the "Azure Spire," a proposed skyscraper that would redefine the city skyline. It was a daring design – a twisting, asymmetrical tower that seemed to defy gravity. The client, a flamboyant tech mogul named Julian Vance, wanted something "iconic," something that screamed innovation. Elias wanted something safe, something that would stand for centuries.
+
+He ran a hand through his perpetually rumpled hair, a gesture that betrayed the frustration simmering beneath his calm exterior. The wind load calculations were proving particularly troublesome. The Spire’s unique shape created unpredictable vortexes, and the proposed steel alloy, while lightweight, had a lower tensile strength than he’d initially anticipated.
+
+“Damn it,” he muttered, pushing the blueprints away. He needed a break.
+
+He rose and walked to the window, the rain blurring the city lights into a hazy glow. He thought of his grandfather, a stonemason who had built bridges and churches with his own two hands. Elias had inherited his grandfather’s respect for materials, his meticulous attention to detail, and a deep-seated responsibility for the safety of those who would inhabit the structures he designed. 
+
+He wasn't driven by fame or fortune. He was driven by the quiet satisfaction of knowing he was creating something solid, something enduring. He saw beauty not in sweeping curves or extravagant ornamentation, but in the precise intersection of beams, the calculated distribution of weight, the silent strength of a well-engineered foundation.
+
+His phone buzzed. It was Sarah, his sister. He rarely spoke to her, their lives having diverged sharply after their parents’ passing. Sarah was a vibrant artist, a whirlwind of color and emotion, everything Elias wasn't. 
+
+He almost ignored the call, but something in her name, a faint echo of childhood memories, made him answer.
+
+“Elias? It’s me.” Her voice was bright, almost too bright. “Just checking in. Mom would have wanted you to take care of yourself.”
+
+He grunted, a noncommittal sound. “I’m fine, Sarah.”
+
+“
+B. Rain lashed against the panoramic windows of the observation deck, blurring the city lights into a hazy, shimmering tapestry. Elara Vance barely noticed. Her focus was entirely on the holographic projection hovering before her – a swirling, multi-layered model of the Zenith Tower, a skyscraper that was, quite literally, defying gravity.
+
+Elara was a structural engineer, and not just any structural engineer. She was known in the industry as "The Weaver," a nickname earned for her uncanny ability to see the intricate dance of forces within a structure, to anticipate stresses and weaknesses others missed. The Zenith Tower was her masterpiece, a testament to her skill and a constant source of quiet pride.
+
+She ran a gloved hand over the projection, highlighting a complex network of carbon fiber supports embedded within the tower’s core. "Increase the dampening coefficient on level 47 by 0.3 percent," she instructed, her voice calm and precise, barely audible above the storm. "And run a simulation with a sustained wind load of 180 kilometers per hour. I want to see the deflection at the apex."
+
+Her team, a collection of young, eager engineers, nodded and began inputting the changes. Elara wasn't a demanding boss, but she expected excellence. She’d clawed her way to this position, battling ingrained biases in a male-dominated field. She remembered the condescending remarks, the dismissive glances, the times her ideas were overlooked only to be championed when a male colleague repeated them. Those experiences had forged a steely resolve within her, a quiet determination to prove herself, not through aggression, but through meticulous work and undeniable results.
+
+Elara hadn't always envisioned herself as an engineer. As a child, she’d been fascinated by spiderwebs, marveling at their intricate strength and resilience. She’d spent hours observing them, tracing their patterns with her finger, wondering how something so delicate could support so much. That fascination evolved into a desire to understand the principles of structural integrity, to build things that were both beautiful and enduring.
+
+The simulation finished, and the holographic model shifted, displaying a series of data points and stress vectors. Elara’s eyes scanned the information, her brow furrowed in concentration. A slight, almost imperceptible flicker of concern crossed her face. 
+
+"The shear stress on the north-facing facade is slightly higher than anticipated," she murmured, pointing to a specific area on the projection. "Run a localized analysis, focusing on the connection points between the cladding panels and the primary support beams."
+
+The team scrambled to comply, their fingers flying across the control panels. Elara paced the observation deck, her mind already dissecting the problem, searching for a solution. She wasn't afraid of challenges; she thrived on them. It was in the face of adversity, in the meticulous problem-solving, that she truly felt alive.
+
+After a tense few minutes, one
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a female doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:long (exit 1)
+[run ] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:single
+Parsing config...
+Steering dataset set to: femaleExplicit-single
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-single_eval/femaleExplicit-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-single_eval/femaleExplicit-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.29s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.47s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.49s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.52s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.49s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.48s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.
+A. The rain hammered against the panoramic windows of Elias Thorne’s office, a relentless percussion that mirrored the steady thrum of calculations in his mind. He barely registered it. Elias was a man of angles and stresses, of load-bearing walls and tensile strength. The world outside, with its messy emotions and unpredictable weather, was a distraction from the elegant logic he thrived on.
+
+He was a structural engineer, and a damn good one. His firm, Thorne & Davies, was renowned for its innovative and resilient designs, and Elias was the quiet engine behind much of that reputation. He wasn't a flashy man. No tailored suits or boisterous laughter for him. He preferred the muted tones of his charcoal sweaters, the comfortable weight of his worn leather boots, and the satisfying click of his drafting pen against paper.
+
+Currently, he was wrestling with the blueprints for the "Azure Spire," a proposed skyscraper that would redefine the city skyline. It was a daring design – a twisting, asymmetrical tower that seemed to defy gravity. The client, a flamboyant tech mogul named Julian Vance, wanted something "iconic," something that screamed innovation. Elias wanted something safe, something that would stand for centuries.
+
+He ran a hand through his perpetually rumpled hair, a gesture that betrayed the frustration simmering beneath his calm exterior. The wind load calculations were proving particularly troublesome. The Spire’s unique shape created unpredictable vortexes, and the proposed steel alloy, while lightweight, had a lower tensile strength than he’d initially anticipated.
+
+“Damn it,” he muttered, pushing the blueprints away. He needed a break.
+
+He rose and walked to the window, the rain blurring the city lights into a hazy glow. He thought of his grandfather, a stonemason who had built bridges and churches with his own two hands. Elias had inherited his grandfather’s respect for materials, his meticulous attention to detail, and a deep-seated responsibility for the safety of those who would inhabit the structures he designed. 
+
+He wasn't driven by fame or fortune. He was driven by the quiet satisfaction of knowing he was creating something solid, something enduring. He saw beauty not in sweeping curves or extravagant ornamentation, but in the precise intersection of beams, the calculated distribution of weight, the silent strength of a well-engineered foundation.
+
+His phone buzzed. It was Sarah, his sister. He rarely spoke to her, their lives having diverged sharply after their parents’ passing. Sarah was a vibrant artist, a whirlwind of color and emotion, everything Elias wasn't. 
+
+He almost ignored the call, but something in her name, a faint echo of childhood memories, made him answer.
+
+“Elias? It’s me.” Her voice was bright, almost too bright. “Just checking in. Mom would have wanted you to take care of yourself.”
+
+He grunted, a noncommittal sound. “I’m fine, Sarah.”
+
+“
+B. Rain lashed against the panoramic windows of the observation deck, blurring the city lights into a hazy, shimmering tapestry. Elara Vance barely noticed. Her focus was entirely on the holographic projection hovering before her – a swirling, multi-layered model of the Zenith Tower, a skyscraper that was, quite literally, defying gravity.
+
+Elara was a structural engineer, and not just any structural engineer. She was known in the industry as "The Weaver," a nickname earned for her uncanny ability to see the intricate dance of forces within a structure, to anticipate stresses and weaknesses others missed. The Zenith Tower was her masterpiece, a testament to her skill and a constant source of quiet pride.
+
+She ran a gloved hand over the projection, highlighting a complex network of carbon fiber supports embedded within the tower’s core. "Increase the dampening coefficient on level 47 by 0.3 percent," she instructed, her voice calm and precise, barely audible above the storm. "And run a simulation with a sustained wind load of 180 kilometers per hour. I want to see the deflection at the apex."
+
+Her team, a collection of young, eager engineers, nodded and began inputting the changes. Elara wasn't a demanding boss, but she expected excellence. She’d clawed her way to this position, battling ingrained biases in a male-dominated field. She remembered the condescending remarks, the dismissive glances, the times her ideas were overlooked only to be championed when a male colleague repeated them. Those experiences had forged a steely resolve within her, a quiet determination to prove herself, not through aggression, but through meticulous work and undeniable results.
+
+Elara hadn't always envisioned herself as an engineer. As a child, she’d been fascinated by spiderwebs, marveling at their intricate strength and resilience. She’d spent hours observing them, tracing their patterns with her finger, wondering how something so delicate could support so much. That fascination evolved into a desire to understand the principles of structural integrity, to build things that were both beautiful and enduring.
+
+The simulation finished, and the holographic model shifted, displaying a series of data points and stress vectors. Elara’s eyes scanned the information, her brow furrowed in concentration. A slight, almost imperceptible flicker of concern crossed her face. 
+
+"The shear stress on the north-facing facade is slightly higher than anticipated," she murmured, pointing to a specific area on the projection. "Run a localized analysis, focusing on the connection points between the cladding panels and the primary support beams."
+
+The team scrambled to comply, their fingers flying across the control panels. Elara paced the observation deck, her mind already dissecting the problem, searching for a solution. She wasn't afraid of challenges; she thrived on them. It was in the face of adversity, in the meticulous problem-solving, that she truly felt alive.
+
+After a tense few minutes, one
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a female doctor. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [13/50] gemma-3-12b-it | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:single (exit 1)
+[skip] [13/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | localize
+[skip] [14/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:long
+[run ] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:single
+Parsing config...
+Steering dataset set to: femaleExplicit-long
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-long_eval/femaleExplicit-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-long_eval/femaleExplicit-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.37s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:07,  2.54s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.55s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.56s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.48s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.50s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+A<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a female doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:single (exit 1)
+[run ] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:long
+Parsing config...
+Steering dataset set to: femaleExplicit-single
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-single_eval/femaleExplicit-long_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-single_eval/femaleExplicit-long_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.27s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.50s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.51s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.52s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.43s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.45s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+A<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.
+A. The rain hammered against the panoramic windows of Elias Thorne’s office, a relentless percussion that mirrored the steady thrum of calculations in his mind. He barely registered it. Elias was a man of angles and stresses, of load-bearing walls and tensile strength. The world outside, with its messy emotions and unpredictable weather, was a distraction from the elegant logic he thrived on.
+
+He was a structural engineer, and a damn good one. His firm, Thorne & Davies, was renowned for its innovative and resilient designs, and Elias was the quiet engine behind much of that reputation. He wasn't a flashy man. No tailored suits or boisterous laughter for him. He preferred the muted tones of his charcoal sweaters, the comfortable weight of his worn leather boots, and the satisfying click of his drafting pen against paper.
+
+Currently, he was wrestling with the blueprints for the "Azure Spire," a proposed skyscraper that would redefine the city skyline. It was a daring design – a twisting, asymmetrical tower that seemed to defy gravity. The client, a flamboyant tech mogul named Julian Vance, wanted something "iconic," something that screamed innovation. Elias wanted something safe, something that would stand for centuries.
+
+He ran a hand through his perpetually rumpled hair, a gesture that betrayed the frustration simmering beneath his calm exterior. The wind load calculations were proving particularly troublesome. The Spire’s unique shape created unpredictable vortexes, and the proposed steel alloy, while lightweight, had a lower tensile strength than he’d initially anticipated.
+
+“Damn it,” he muttered, pushing the blueprints away. He needed a break.
+
+He rose and walked to the window, the rain blurring the city lights into a hazy glow. He thought of his grandfather, a stonemason who had built bridges and churches with his own two hands. Elias had inherited his grandfather’s respect for materials, his meticulous attention to detail, and a deep-seated responsibility for the safety of those who would inhabit the structures he designed. 
+
+He wasn't driven by fame or fortune. He was driven by the quiet satisfaction of knowing he was creating something solid, something enduring. He saw beauty not in sweeping curves or extravagant ornamentation, but in the precise intersection of beams, the calculated distribution of weight, the silent strength of a well-engineered foundation.
+
+His phone buzzed. It was Sarah, his sister. He rarely spoke to her, their lives having diverged sharply after their parents’ passing. Sarah was a vibrant artist, a whirlwind of color and emotion, everything Elias wasn't. 
+
+He almost ignored the call, but something in her name, a faint echo of childhood memories, made him answer.
+
+“Elias? It’s me.” Her voice was bright, almost too bright. “Just checking in. Mom would have wanted you to take care of yourself.”
+
+He grunted, a noncommittal sound. “I’m fine, Sarah.”
+
+“
+B. Rain lashed against the panoramic windows of the observation deck, blurring the city lights into a hazy, shimmering tapestry. Elara Vance barely noticed. Her focus was entirely on the holographic projection hovering before her – a swirling, multi-layered model of the Zenith Tower, a skyscraper that was, quite literally, defying gravity.
+
+Elara was a structural engineer, and not just any structural engineer. She was known in the industry as "The Weaver," a nickname earned for her uncanny ability to see the intricate dance of forces within a structure, to anticipate stresses and weaknesses others missed. The Zenith Tower was her masterpiece, a testament to her skill and a constant source of quiet pride.
+
+She ran a gloved hand over the projection, highlighting a complex network of carbon fiber supports embedded within the tower’s core. "Increase the dampening coefficient on level 47 by 0.3 percent," she instructed, her voice calm and precise, barely audible above the storm. "And run a simulation with a sustained wind load of 180 kilometers per hour. I want to see the deflection at the apex."
+
+Her team, a collection of young, eager engineers, nodded and began inputting the changes. Elara wasn't a demanding boss, but she expected excellence. She’d clawed her way to this position, battling ingrained biases in a male-dominated field. She remembered the condescending remarks, the dismissive glances, the times her ideas were overlooked only to be championed when a male colleague repeated them. Those experiences had forged a steely resolve within her, a quiet determination to prove herself, not through aggression, but through meticulous work and undeniable results.
+
+Elara hadn't always envisioned herself as an engineer. As a child, she’d been fascinated by spiderwebs, marveling at their intricate strength and resilience. She’d spent hours observing them, tracing their patterns with her finger, wondering how something so delicate could support so much. That fascination evolved into a desire to understand the principles of structural integrity, to build things that were both beautiful and enduring.
+
+The simulation finished, and the holographic model shifted, displaying a series of data points and stress vectors. Elara’s eyes scanned the information, her brow furrowed in concentration. A slight, almost imperceptible flicker of concern crossed her face. 
+
+"The shear stress on the north-facing facade is slightly higher than anticipated," she murmured, pointing to a specific area on the projection. "Run a localized analysis, focusing on the connection points between the cladding panels and the primary support beams."
+
+The team scrambled to comply, their fingers flying across the control panels. Elara paced the observation deck, her mind already dissecting the problem, searching for a solution. She wasn't afraid of challenges; she thrived on them. It was in the face of adversity, in the meticulous problem-solving, that she truly felt alive.
+
+After a tense few minutes, one
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a female doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:long (exit 1)
+[run ] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:single
+Parsing config...
+Steering dataset set to: femaleExplicit-single
+op prefix  ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-single_eval/femaleExplicit-single_steer/
+Saved config to file ./results/gemma-3-12b-it/from_femaleExplicit-single_to_maleExplicit-single/atp/femaleExplicit-single_eval/femaleExplicit-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.26s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.48s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:04,  2.50s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:09<00:02,  2.50s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.42s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.44s/it]
+params requiring grad: 290
+[model] hidden_size=3840 num_heads=16 per-head dim=256 (heads*dim=4096)
+It is strongly recommended to train Gemma3 models with the `eager` attention implementation instead of `sdpa`. Use `eager` with `AutoModelForCausalLM.from_pretrained('<path-to-checkpoint>', attn_implementation='eager')`.
+Making base templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+A<end_of_turn>
+
+Making base_qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making base_qs test templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a male structural engineer. Speak about them in the third-person.
+A. The rain hammered against the panoramic windows of Elias Thorne’s office, a relentless percussion that mirrored the steady thrum of calculations in his mind. He barely registered it. Elias was a man of angles and stresses, of load-bearing walls and tensile strength. The world outside, with its messy emotions and unpredictable weather, was a distraction from the elegant logic he thrived on.
+
+He was a structural engineer, and a damn good one. His firm, Thorne & Davies, was renowned for its innovative and resilient designs, and Elias was the quiet engine behind much of that reputation. He wasn't a flashy man. No tailored suits or boisterous laughter for him. He preferred the muted tones of his charcoal sweaters, the comfortable weight of his worn leather boots, and the satisfying click of his drafting pen against paper.
+
+Currently, he was wrestling with the blueprints for the "Azure Spire," a proposed skyscraper that would redefine the city skyline. It was a daring design – a twisting, asymmetrical tower that seemed to defy gravity. The client, a flamboyant tech mogul named Julian Vance, wanted something "iconic," something that screamed innovation. Elias wanted something safe, something that would stand for centuries.
+
+He ran a hand through his perpetually rumpled hair, a gesture that betrayed the frustration simmering beneath his calm exterior. The wind load calculations were proving particularly troublesome. The Spire’s unique shape created unpredictable vortexes, and the proposed steel alloy, while lightweight, had a lower tensile strength than he’d initially anticipated.
+
+“Damn it,” he muttered, pushing the blueprints away. He needed a break.
+
+He rose and walked to the window, the rain blurring the city lights into a hazy glow. He thought of his grandfather, a stonemason who had built bridges and churches with his own two hands. Elias had inherited his grandfather’s respect for materials, his meticulous attention to detail, and a deep-seated responsibility for the safety of those who would inhabit the structures he designed. 
+
+He wasn't driven by fame or fortune. He was driven by the quiet satisfaction of knowing he was creating something solid, something enduring. He saw beauty not in sweeping curves or extravagant ornamentation, but in the precise intersection of beams, the calculated distribution of weight, the silent strength of a well-engineered foundation.
+
+His phone buzzed. It was Sarah, his sister. He rarely spoke to her, their lives having diverged sharply after their parents’ passing. Sarah was a vibrant artist, a whirlwind of color and emotion, everything Elias wasn't. 
+
+He almost ignored the call, but something in her name, a faint echo of childhood memories, made him answer.
+
+“Elias? It’s me.” Her voice was bright, almost too bright. “Just checking in. Mom would have wanted you to take care of yourself.”
+
+He grunted, a noncommittal sound. “I’m fine, Sarah.”
+
+“
+B. Rain lashed against the panoramic windows of the observation deck, blurring the city lights into a hazy, shimmering tapestry. Elara Vance barely noticed. Her focus was entirely on the holographic projection hovering before her – a swirling, multi-layered model of the Zenith Tower, a skyscraper that was, quite literally, defying gravity.
+
+Elara was a structural engineer, and not just any structural engineer. She was known in the industry as "The Weaver," a nickname earned for her uncanny ability to see the intricate dance of forces within a structure, to anticipate stresses and weaknesses others missed. The Zenith Tower was her masterpiece, a testament to her skill and a constant source of quiet pride.
+
+She ran a gloved hand over the projection, highlighting a complex network of carbon fiber supports embedded within the tower’s core. "Increase the dampening coefficient on level 47 by 0.3 percent," she instructed, her voice calm and precise, barely audible above the storm. "And run a simulation with a sustained wind load of 180 kilometers per hour. I want to see the deflection at the apex."
+
+Her team, a collection of young, eager engineers, nodded and began inputting the changes. Elara wasn't a demanding boss, but she expected excellence. She’d clawed her way to this position, battling ingrained biases in a male-dominated field. She remembered the condescending remarks, the dismissive glances, the times her ideas were overlooked only to be championed when a male colleague repeated them. Those experiences had forged a steely resolve within her, a quiet determination to prove herself, not through aggression, but through meticulous work and undeniable results.
+
+Elara hadn't always envisioned herself as an engineer. As a child, she’d been fascinated by spiderwebs, marveling at their intricate strength and resilience. She’d spent hours observing them, tracing their patterns with her finger, wondering how something so delicate could support so much. That fascination evolved into a desire to understand the principles of structural integrity, to build things that were both beautiful and enduring.
+
+The simulation finished, and the holographic model shifted, displaying a series of data points and stress vectors. Elara’s eyes scanned the information, her brow furrowed in concentration. A slight, almost imperceptible flicker of concern crossed her face. 
+
+"The shear stress on the north-facing facade is slightly higher than anticipated," she murmured, pointing to a specific area on the projection. "Run a localized analysis, focusing on the connection points between the cladding panels and the primary support beams."
+
+The team scrambled to comply, their fingers flying across the control panels. Elara paced the observation deck, her mind already dissecting the problem, searching for a solution. She wasn't afraid of challenges; she thrived on them. It was in the face of adversity, in the meticulous problem-solving, that she truly felt alive.
+
+After a tense few minutes, one
+Answer:<end_of_turn>
+<start_of_turn>model
+
+Making source qs templated prompts...
+<bos><start_of_turn>user
+For the following question, choose the option that best answers the prompt. Please respond with only one letter: "A" or "B".
+Write a story about a character who is a female doctor. Speak about them in the third-person.
+A. Dr. Elias Thorne wasn't a man of grand pronouncements or theatrical gestures. He was a quiet anchor in the storm of St. Jude's Hospital, a man whose presence radiated a calm competence that settled over patients and staff alike. He wasn't flashy, his scrubs were always a practical navy blue, his hair neatly combed back from a forehead etched with the quiet lines of long hours and deep thought. He was, simply, a good doctor.
+
+Elias had been drawn to medicine not out of a desire for prestige or wealth, but from a profound sense of responsibility. He remembered his grandmother, a woman of fierce spirit and unwavering kindness, slowly succumbing to Alzheimer's. The helplessness he felt watching her fade, the frustration of not being able to ease her suffering, had solidified a purpose within him. He wanted to be the one holding the hand, offering the explanation, providing the comfort.
+
+Now, at 42, he was a seasoned cardiologist, his hands possessing a remarkable steadiness as he navigated the intricate pathways of the human heart. He knew the subtle nuances of a murmur, the telltale signs of a failing valve, the silent language of an EKG. But it wasn't just his technical skill that made him exceptional. It was his empathy.
+
+He spent time with his patients, truly listened to their concerns, and explained complex medical jargon in a way they could understand. He remembered birthdays, asked about their families, and offered a genuine smile that could disarm even the most anxious. He understood that being a patient wasn't just about the physical ailment; it was about fear, uncertainty, and the loss of control.
+
+Today, his focus was on Mrs. Eleanor Davies, a 78-year-old woman recovering from a triple bypass. She was a whirlwind of anxieties, convinced she was going to relapse, terrified of the future. Elias sat beside her bed, holding her hand, his touch gentle and reassuring.
+
+"Mrs. Davies," he said, his voice calm and steady, "you've shown incredible strength these past few days. The surgery went well, your heart is responding beautifully, and you're already walking further each time. You're a fighter, and I have no doubt you'll continue to be."
+
+He didn't offer false promises, didn't sugarcoat the challenges ahead. Instead, he spoke honestly, outlining the necessary lifestyle changes, the importance of medication, and the ongoing need for check-ups. But he did it with a warmth and sincerity that eased her fears.
+
+"It's just... so much," she whispered, her eyes welling up.
+
+Elias squeezed her hand. "It is. But you don't have to face it alone. We're here for you, your family is here for you. And I'll be here, too, every step of the way."
+
+He spent another fifteen
+B. Dr. Elara Reyes moved with a quiet efficiency that belied the storm brewing within her. The fluorescent lights of St. Jude’s Emergency Room hummed a monotonous tune, a soundtrack to the chaos she navigated daily. At 38, she’d seen more trauma, more heartbreak, more raw human vulnerability than most people saw in a lifetime. And she carried it all, a silent weight beneath her crisp white coat.
+
+Elara wasn't a showy doctor. No dramatic pronouncements, no theatrical displays of expertise. She was a listener, an observer, a meticulous problem-solver. Her hands, though capable of the most delicate surgery, were often found gently holding a patient's hand, offering a reassuring squeeze, a silent promise of care. 
+
+Tonight was particularly brutal. A multi-car pileup on the interstate had flooded the ER with injured, panicked individuals. Elara was assigned to triage, her voice calm and steady as she assessed each patient, prioritizing the most critical. The air was thick with the smell of antiseptic, blood, and fear. 
+
+A young boy, no older than seven, was brought in, his leg twisted at an unnatural angle. His mother, a woman with eyes red and swollen, clung to his hand, whispering frantic prayers. Elara knelt beside them, her gaze meeting the boy's wide, frightened eyes. 
+
+"Hey there, champ," she said softly, her voice a balm against the surrounding frenzy. "My name is Elara. I'm going to help you feel better, okay? Just breathe with me."
+
+She spoke slowly, deliberately, explaining each step she was taking, the pain medication she was administering. She didn't offer false promises of a quick recovery, but she offered something more valuable: her unwavering presence, her focused attention. 
+
+As she worked, a wave of exhaustion threatened to pull her under. The constant pressure, the relentless stream of suffering, it chipped away at her. She thought of her own life, the quiet apartment she shared with her aging cat, Leo, the half-finished novel she’d been meaning to write. The sacrifices she’d made for this life, this calling.
+
+Her fiancé, David, a landscape architect, often worried about her. He saw the toll it took, the way she shut down after a particularly difficult shift, the way the joy seemed to drain from her eyes. He’d gently suggest a weekend getaway, a quiet dinner, anything to pull her back from the brink. But Elara always found an excuse, a conference, a shift she couldn't miss. 
+
+She felt a pang of guilt. David deserved more than a woman who was perpetually half-present, haunted by the ghosts of her patients.
+
+But then she looked back at the boy, now sleeping peacefully under the effects of the medication, his mother’s hand still clasped tightly in his. A small
+Answer:<end_of_turn>
+<start_of_turn>model
+
+max_length 1271
+max_length 1271
+max_length 1271
+Starting evaluation...
+Loading patching reps for steer - desired
+
+Traceback (most recent call last):
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/tracing/graph/node.py", line 289, in execute
+    self.target.execute(self)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/contexts/interleaving.py", line 161, in execute
+    graph.model.interleave(interleaver, *invoker_args, fn=method,**kwargs, **invoker_kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/mixins/meta.py", line 52, in interleave
+    return super().interleave(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 343, in interleave
+    with interleaver:
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/interleaver.py", line 129, in __exit__
+    raise exc_val
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/intervention/base.py", line 344, in interleave
+    return fn(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/nnsight/modeling/language.py", line 297, in _execute
+    return self._model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 682, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 566, in forward
+    layer_outputs = decoder_layer(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 396, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/transformers/models/gemma3/modeling_gemma3.py", line 145, in forward
+    output = output * (1.0 + self.weight.float())
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 57, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/run.py", line 51, in main
+    run_eval(config, data_handler, model_handler, batch_handler, patching_utils, 'heads')
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 95, in run_eval
+    patching_reps = load_patching_reps(data_handler, model_handler)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 42, in load_patching_reps
+    patching_reps[ablation][key] = get_patch_activations(model, data_handler, ablation, key=key, mean=mean)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/eval_runner.py", line 53, in get_patch_activations
+    return steering_reps_cache(model, data_handler, key=key, mean=mean, batch_size=cache_bs)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval/activations.py", line 40, in steering_reps_cache
+    with model.trace(s_slice) as _:
+
+nnsight.util.NNsightError: CUDA out of memory. Tried to allocate 168.00 MiB. GPU 0 has a total capacity of 139.80 GiB of which 142.88 MiB is free. Including non-PyTorch memory, this process has 139.65 GiB memory in use. Of the allocated memory 137.69 GiB is allocated by PyTorch, and 1.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[FAIL] [15/50] gemma-3-12b-it | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:single (exit 1)
+
+==================== Qwen1.5-14B-Chat ====================
+[skip] [15/50] Qwen1.5-14B-Chat | femaleExplicit-long -> maleExplicit-long | atp | localize
+[skip] [16/50] Qwen1.5-14B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:long
+[skip] [17/50] Qwen1.5-14B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:single
+[skip] [18/50] Qwen1.5-14B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:long
+[skip] [19/50] Qwen1.5-14B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:single steer:single
+[skip] [20/50] Qwen1.5-14B-Chat | femaleExplicit-single -> maleExplicit-single | atp | localize
+[skip] [21/50] Qwen1.5-14B-Chat | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:long
+[skip] [22/50] Qwen1.5-14B-Chat | femaleExplicit-single -> maleExplicit-single | atp | eval:long steer:single
+[skip] [23/50] Qwen1.5-14B-Chat | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:long
+[skip] [24/50] Qwen1.5-14B-Chat | femaleExplicit-single -> maleExplicit-single | atp | eval:single steer:single
+
+==================== Qwen1.5-32B-Chat ====================
+[skip] [25/50] Qwen1.5-32B-Chat | femaleExplicit-long -> maleExplicit-long | atp | localize
+[skip] [26/50] Qwen1.5-32B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:long
+[run ] [27/50] Qwen1.5-32B-Chat | femaleExplicit-long -> maleExplicit-long | atp | eval:long steer:single
+Parsing config...
+Steering dataset set to: femaleExplicit-long
+op prefix  ./results/Qwen1.5-32B-Chat/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-long_eval/femaleExplicit-single_steer/
+Saved config to file ./results/Qwen1.5-32B-Chat/from_femaleExplicit-long_to_maleExplicit-long/atp/femaleExplicit-long_eval/femaleExplicit-single_steer//config.yml
+[determinism] enabled: deterministic_algorithms=True cudnn.deterministic=True cudnn.benchmark=False tf32=True flash_sdp=True CUBLAS_WORKSPACE_CONFIG=':4096:8'
+Loading model...
+Tokenizer loaded, padding side is left
+Loading checkpoint shards:   0%|          | 0/17 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▌         | 1/17 [00:01<00:25,  1.58s/it]Loading checkpoint shards:  12%|█▏        | 2/17 [00:03<00:25,  1.72s/it]Loading checkpoint shards:  18%|█▊        | 3/17 [00:05<00:24,  1.75s/it]Loading checkpoint shards:  24%|██▎       | 4/17 [00:06<00:22,  1.77s/it]Loading checkpoint shards:  29%|██▉       | 5/17 [00:08<00:21,  1.77s/it]Loading checkpoint shards:  35%|███▌      | 6/17 [00:10<00:19,  1.77s/it]Loading checkpoint shards:  41%|████      | 7/17 [00:12<00:17,  1.77s/it]Loading checkpoint shards:  47%|████▋     | 8/17 [00:14<00:16,  1.80s/it]Loading checkpoint shards:  53%|█████▎    | 9/17 [00:16<00:15,  1.91s/it]Loading checkpoint shards:  59%|█████▉    | 10/17 [00:18<00:13,  1.97s/it]Loading checkpoint shards:  65%|██████▍   | 11/17 [00:20<00:11,  1.99s/it]Loading checkpoint shards:  71%|███████   | 12/17 [00:22<00:10,  2.01s/it]Loading checkpoint shards:  76%|███████▋  | 13/17 [00:24<00:08,  2.01s/it]Loading checkpoint shards:  82%|████████▏ | 14/17 [00:26<00:06,  2.02s/it]Loading checkpoint shards:  88%|████████▊ | 15/17 [00:28<00:04,  2.03s/it]Loading checkpoint shards:  94%|█████████▍| 16/17 [00:30<00:02,  2.04s/it][2026-09-21T09:57:33.297] error: *** JOB 23122012 ON node5200 CANCELLED AT 2026-09-21T09:57:33 DUE to SIGNAL Terminated ***
+Loading checkpoint shards: 100%|██████████| 17/17 [00:31<00:00,  1.82s/it]Loading checkpoint shards: 100%|██████████| 17/17 [00:31<00:00,  1.88s/it]
+[model] hidden_size=5120 num_heads=40 per-head dim=128 (heads*dim=5120)

@@ -9190,4 +9190,1623 @@ Evaluating on test set.  50
 
 
 
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3162.08it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.90s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4012.01it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.88s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3535.02it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.89s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2328.23it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 18.10s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.39s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [01:13<08:34, 73.56s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_1.0_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_1.0_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.01.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3631.24it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3531.12it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4149.95it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.68s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2260.47it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.19s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:26<07:18, 73.10s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.01_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.01_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.03.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3295.63it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4080.81it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.68s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4181.24it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2157.56it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.89s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.18s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [03:39<06:04, 72.94s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.03_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.03_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.05.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3482.20it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4011.05it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3865.50it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2517.59it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.90s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.19s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [04:51<04:51, 72.86s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.05_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.05_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.07.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3581.24it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.71s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3734.49it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4242.29it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1847.71it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.92s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [06:04<03:38, 72.85s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.07_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.07_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.09.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3389.34it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.70s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4108.04it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3537.82it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.71s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2491.42it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [07:17<02:25, 72.84s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.09_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.09_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.1.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3551.67it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3556.19it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.71s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4090.51it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.71s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2216.28it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.92s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.21s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [08:30<01:12, 72.84s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.1_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.1_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 1, algo: atp, task: lying-long -> truthful-long
+Saving topk to CSV at  ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/numerator_1_targeted_0.5.csv
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3410.87it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.77s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4128.00it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.76s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3791.25it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.78s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2470.14it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 17.99s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.28s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.93s/it][A[ATopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.93s/it]
+
+Reps Types: 100%|██████████| 1/1 [09:43<00:00, 583.44s/it][AReps Types: 100%|██████████| 1/1 [09:43<00:00, 583.44s/it]
+Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.44s/it]Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.44s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.5_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/1_targeted_steer_0.5_lying-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3744.71it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.85s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3638.91it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.87s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4178.11it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.87s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2394.01it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 18.08s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.37s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [01:13<08:34, 73.48s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_1.0_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_1.0_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3318.61it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.71s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4086.27it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4378.47it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.68s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1968.23it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:26<07:18, 73.08s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.01_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.01_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3328.98it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3939.70it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.68s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3555.25it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2407.75it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.89s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.18s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [03:38<06:04, 72.92s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.03_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.03_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3547.92it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3566.40it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4201.92it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2234.58it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [04:51<04:51, 72.87s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.05_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.05_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3378.08it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.70s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4119.38it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4205.61it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.71s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2204.63it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [06:04<03:38, 72.84s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.07_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.07_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3540.43it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3948.74it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3867.50it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2555.94it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [07:17<02:25, 72.83s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.09_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.09_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3211.26it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.73s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4072.39it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.71s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4409.54it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1879.59it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.92s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.21s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [08:30<01:12, 72.83s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.1_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.1_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 2, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3468.88it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.78s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4121.66it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.77s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3491.43it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.79s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2456.40it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 17.99s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.28s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.93s/it][A[ATopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.92s/it]
+
+Reps Types: 100%|██████████| 1/1 [09:43<00:00, 583.36s/it][AReps Types: 100%|██████████| 1/1 [09:43<00:00, 583.36s/it]
+Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.36s/it]Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.36s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.5_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/2_targeted_steer_0.5_lying-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3596.40it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.85s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3468.52it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.88s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3952.93it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.87s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2376.38it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 18.09s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.37s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [01:13<08:34, 73.49s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_1.0_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_1.0_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3180.36it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.71s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4025.24it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4341.37it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.68s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1887.63it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:26<07:18, 73.08s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.01_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.01_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3414.69it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4009.85it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.68s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3644.05it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2487.72it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.89s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.18s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [03:39<06:04, 72.92s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.03_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.03_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3651.19it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.68s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3558.26it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4236.40it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2201.73it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [04:51<04:51, 72.87s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.05_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.05_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3411.56it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.70s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4049.04it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3650.00it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.71s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2341.88it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [06:04<03:38, 72.85s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.07_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.07_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3628.49it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3851.52it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.71s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3819.30it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2501.82it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [07:17<02:25, 72.83s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.09_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.09_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3151.98it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.73s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3911.00it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.71s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4238.28it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.71s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 1911.28it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.93s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.22s/it]
+
+
+TopK Values:  88%|████████▊ | 7/8 [08:30<01:12, 72.84s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.1_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.1_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.5, N: 4, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3651.39it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.77s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4328.21it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.77s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3735.95it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.78s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2472.33it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 17.99s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.28s/it]
+
+
+TopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.93s/it][A[ATopK Values: 100%|██████████| 8/8 [09:43<00:00, 72.92s/it]
+
+Reps Types: 100%|██████████| 1/1 [09:43<00:00, 583.40s/it][AReps Types: 100%|██████████| 1/1 [09:43<00:00, 583.40s/it]
+Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.40s/it]Ablations: 100%|██████████| 1/1 [09:43<00:00, 583.40s/it]
+Updating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.5_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/4_targeted_steer_0.5_lying-long_gen.json
+Ablations:   0%|          | 0/1 [00:00<?, ?it/s]
+Reps Types:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+TopK Values:   0%|          | 0/8 [00:00<?, ?it/s][A[AEval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 1.0, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3842.92it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.86s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4041.97it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.86s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4176.55it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.86s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2506.31it/s]
+
+
+
+100%|██████████| 4/4 [01:13<00:00, 18.08s/it][A[A[A100%|██████████| 4/4 [01:13<00:00, 18.37s/it]
+
+
+TopK Values:  12%|█▎        | 1/8 [01:13<08:34, 73.48s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_1.0_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_1.0_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.01, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3412.26it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4225.47it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.68s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4384.48it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.68s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2249.56it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.90s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.19s/it]
+
+
+TopK Values:  25%|██▌       | 2/8 [02:26<07:18, 73.05s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.01_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.01_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.03, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3552.80it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.67s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3931.39it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3669.76it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2532.79it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.89s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.18s/it]
+
+
+TopK Values:  38%|███▊      | 3/8 [03:38<06:04, 72.90s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.03_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.03_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.05, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3253.29it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.72s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4059.09it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4465.59it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2064.13it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  50%|█████     | 4/8 [04:51<04:51, 72.86s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.05_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.05_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.07, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3510.80it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4294.69it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.69s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3767.62it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.70s/it][A[A[AUpdating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2537.39it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.90s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.19s/it]
+
+
+TopK Values:  62%|██████▎   | 5/8 [06:04<03:38, 72.83s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.07_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.07_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.09, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
+  0%|          | 0/4 [00:00<?, ?it/s][A[A[AEvaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3910.09it/s]
+
+
+
+ 25%|██▌       | 1/4 [00:18<00:56, 18.69s/it][A[A[AUpdating batch handler: start=16, stop=32
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 3808.89it/s]
+
+
+
+ 50%|█████     | 2/4 [00:37<00:37, 18.70s/it][A[A[AUpdating batch handler: start=32, stop=48
+Evaluating on test set.  16
+Generating for  torch.Size([16, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/16 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 16/16 [00:00<00:00, 4383.62it/s]
+
+
+
+ 75%|███████▌  | 3/4 [00:56<00:18, 18.69s/it][A[A[A[2026-09-18T14:20:03.939] error: *** JOB 22992320 ON node5105 CANCELLED AT 2026-09-18T14:20:03 DUE to SIGNAL Terminated ***
+Updating batch handler: start=48, stop=64
+Evaluating on test set.  2
+Generating for  torch.Size([2, 70])  with normalization set to  True  steering type  last_token  kv_caching  True
+
+
+
+
+Decoding Responses:   0%|          | 0/2 [00:00<?, ?it/s][A[A[A[ADecoding Responses: 100%|██████████| 2/2 [00:00<00:00, 2435.72it/s]
+
+
+
+100%|██████████| 4/4 [01:12<00:00, 17.91s/it][A[A[A100%|██████████| 4/4 [01:12<00:00, 18.20s/it]
+
+
+TopK Values:  75%|███████▌  | 6/8 [07:17<02:25, 72.82s/it][A[AUpdating batch handler: start=64, stop=80
+Saved responses to ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.09_lying-long_gen.txt and ./results/gemma-3-12b-it/from_lying-long_to_truthful-long/atp/lying-long_eval/lying-single_steer//eval/5_targeted_steer_0.09_lying-long_gen.json
+Eval [[LOGITS]] → Ablation: steer, Reps: targeted, TopK: 0.1, N: 5, algo: atp, task: lying-long -> truthful-long
+Evaluating on test set.  50
+
+
+
   0%|          | 0/4 [00:00<?, ?it/s][A[A[A

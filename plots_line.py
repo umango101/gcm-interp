@@ -66,30 +66,34 @@ DEFAULT_TOPK_VALUES = [0.01, 0.03, 0.05, 0.07, 0.09, 0.1, 0.5, 1.0]
 ALL_TASKS = [
     # "from_extraversion-long_to_introversion-long",
     # "from_extraversion-single_to_introversion-single",
-    "from_female-long_to_male-long",
-    "from_female-single_to_male-single",
+    # "from_female-long_to_male-long",
+    # "from_female-single_to_male-single",
     # "from_lying-long_to_truthful-long",
     # "from_lying-single_to_truthful-single",
-    "from_femaleDescribe-long_to_maleDescribe-long",
-    "from_femaleDescribe-single_to_maleDescribe-single",
-    "from_femaleGeneration-long_to_maleGeneration-long",
-    "from_femaleGeneration-single_to_maleGeneration-single",
-    "from_femaleMCQA-long_to_maleMCQA-long",
-    "from_femaleMCQA-single_to_maleMCQA-single",
+    # "from_femaleDescribe-long_to_maleDescribe-long",
+    # "from_femaleDescribe-single_to_maleDescribe-single",
+    # "from_femaleGeneration-long_to_maleGeneration-long",
+    # "from_femaleGeneration-single_to_maleGeneration-single",
+    # "from_femaleMCQA-long_to_maleMCQA-long",
+    # "from_femaleMCQA-single_to_maleMCQA-single",
+    "from_paragraph-long_to_sentence-long",
+    "from_paragraph-single_to_sentence-single"
 ]
 TASK_DICT = {
-    "from_extraversion-long_to_introversion-long":          "Persona\n(Long)",
-    "from_extraversion-single_to_introversion-single":      "Persona\n(Single)",
-    "from_female-long_to_male-long":                        "Bias\n(Long)",
-    "from_female-single_to_male-single":                    "Bias\n(Single)",
-    "from_lying-long_to_truthful-long":                     "Factual Recall (Long)",
-    "from_lying-single_to_truthful-single":                 "Factual Recall (Single)",
-    "from_femaleDescribe-long_to_maleDescribe-long":        "Bias - Long, Description",
-    "from_femaleDescribe-single_to_maleDescribe-single":    "Bias - Single, Description",
-    "from_femaleGeneration-long_to_maleGeneration-long":    "Bias - Long, Generation",
-    "from_femaleGeneration-single_to_maleGeneration-single":"Bias - Single, Generation",
-    "from_femaleMCQA-long_to_maleMCQA-long":                "Bias - Long, MCQA",
-    "from_femaleMCQA-single_to_maleMCQA-single":            "Bias - Single, MCQA",
+    # "from_extraversion-long_to_introversion-long":          "Persona\n(Long)",
+    # "from_extraversion-single_to_introversion-single":      "Persona\n(Single)",
+    # "from_female-long_to_male-long":                        "Bias\n(Long)",
+    # "from_female-single_to_male-single":                    "Bias\n(Single)",
+    # "from_lying-long_to_truthful-long":                     "Factual Recall (Long)",
+    # "from_lying-single_to_truthful-single":                 "Factual Recall (Single)",
+    # "from_femaleDescribe-long_to_maleDescribe-long":        "Bias - Long, Description",
+    # "from_femaleDescribe-single_to_maleDescribe-single":    "Bias - Single, Description",
+    # "from_femaleGeneration-long_to_maleGeneration-long":    "Bias - Long, Generation",
+    # "from_femaleGeneration-single_to_maleGeneration-single":"Bias - Single, Generation",
+    # "from_femaleMCQA-long_to_maleMCQA-long":                "Bias - Long, MCQA",
+    # "from_femaleMCQA-single_to_maleMCQA-single":            "Bias - Single, MCQA",
+    "from_paragraph-long_to_sentence-long":                 "Summarization (Long)",
+    "from_paragraph-single_to_sentence-single":             "Summarization (Single)"
 }
 
 ALL_MODELS = ["Qwen1.5-14B-Chat", "OLMo-2-1124-13B-DPO", "gemma-3-12b-it",
@@ -172,8 +176,8 @@ def build_matrix(
             load_method = "acp" if (topk == 1 and os.path.isdir(acp_dir)) else method
             method_dir = os.path.join(
                 root_dir, task, load_method,
-                f"female-{eval_variant}_eval",
-                f"female-{steer_variant}_steer",
+                f"paragraph-{eval_variant}_eval",
+                f"paragraph-{steer_variant}_steer",
                 "accuracy",
             )
             stem = "targeted" if load_method != "random" else "random"
@@ -370,7 +374,7 @@ def make_grid_plot(
     eval_str = "Single-Token" if is_single else "Long-Form"
     steer_str = "Single-Token" if steer_variant == "single" else "Long-Form"
     rf_label = "Token Matching" if is_single else (
-        "w/ R+F Filter" if rf_suffix == "w_rf" else "combined"
+        "w/ R+F Filter" if rf_suffix == "mcqa" else "combined"
     )
 
     task_label_title = TASK_DICT.get(task, task).replace("\n", " ")
@@ -485,7 +489,7 @@ def main():
                 for evalu in args.eval_variants:
                     for steer in args.steer_variants:
                         is_single = evalu == "single"
-                        rf_suffixes = ["w_rf"] if is_single else ["comb"]
+                        rf_suffixes = ["mcqa"] if is_single else ["comb"]
 
                         for rf_suffix in rf_suffixes:
                             print(f"\n--- ablation={ablation} method={method} "

@@ -20,4 +20,4 @@ source /home/ubansal/miniconda/etc/profile.d/conda.sh
 conda activate /home/ubansal/miniconda/envs/syc
 cd "$RM_INTERP_REPO"
 
-python -u eval_pipeline_fact.py --stages merge build_prompts judge accuracies plots --batch_size 16
+python -u eval_pipeline_fact.py --stages merge build_prompts judge accuracies plots --batch_size 32

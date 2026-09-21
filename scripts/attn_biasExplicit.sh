@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -p mit_normal_gpu
-#SBATCH -t 06:00:00
+#SBATCH -p mit_preemptable
+#SBATCH -t 48:00:00
 #SBATCH -J biasExplicit_experiment
 #SBATCH -o logs/%x_%j.out
 #SBATCH --gres=gpu:h200:1
@@ -23,6 +23,7 @@ declare -a models=(
   "tiiuae/Falcon3-10B-Instruct"
   "google/gemma-3-12b-it"
   "Qwen/Qwen1.5-14B-Chat"
+  "Qwen/Qwen1.5-32B-Chat"
   "allenai/OLMo-2-1124-13B-DPO"
 )
 
@@ -34,7 +35,7 @@ declare -a pairs=(
 algos=("atp")
 formats=("long" "single")          # the eval grid is formats x formats
 device="cuda:0"
-batch_size=1
+batch_size=16
 
 # The original script passed --full_precision on the FIRST of its four eval
 # invocations and not the other three, mixing one full-bf16 cell into a table
