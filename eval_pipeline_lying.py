@@ -109,6 +109,8 @@ COMBINED_JUDGE_TARGET = 5        # combined: judge>=5 AND fluency==2 AND relevan
 SINGLE_METRICS  = ["mcqa", "mcqa_pre"]
 SINGLE_POST_COL = "post-intervention-response"
 SINGLE_PRE_COL  = "original-response"
+MCQA_LETTERS    = ["A", "B"]                 # options per question in lying-single
+KEY_FILE        = "{base}-test-key.jsonl"
 
 # Labelled files beside the test file. For the BASE (truthful) dataset,
 # 'undesired' is the lying answer (the target) and 'desired' the truthful one.
@@ -230,8 +232,8 @@ def is_single_eval(cell):
 
 
 def load_test_rows(cell):
-    """Test rows in file order: the QUERY is the last user turn, and 'gold' is
-    the last assistant turn if present (a label, not part of the prompt)."""
+    """Test rows in file order: 'id' is the dataset id, 'query' the last user turn,
+    'gold' the last assistant turn if present (a label, not part of the prompt)."""
     _require(cell.test_jsonl, "test-queries")
     rows = []
     with open(cell.test_jsonl) as f:
@@ -239,12 +241,14 @@ def load_test_rows(cell):
             line = line.strip()
             if not line:
                 continue
-            turns = json.loads(line)["prompt"]
+            obj = json.loads(line)
+            turns = obj["prompt"]
             users = [t for t in turns if t.get("role") == "user"]
             if not users:
                 raise ValueError(f"{cell.test_jsonl}:{lineno} has no user turn")
             assistants = [t for t in turns if t.get("role") == "assistant"]
             rows.append({
+                "id": obj.get("id"),
                 "query": users[-1]["content"],
                 "gold": assistants[-1]["content"].strip() if assistants else None,
             })
@@ -260,19 +264,23 @@ def load_test_queries(cell):
 # =============================================================================
 #                    MCQA ANSWER KEY (single-token evals)
 #
-# The option text alone cannot say which answer is the lie, so the key is
-# LOOKED UP rather than derived: each test query is matched, by its normalized
-# prompt text, to {eval_base}-undesired-all.jsonl in the same data dir, whose
-# assistant turn is the lying letter. A test query with no match is a hard
-# error -- nothing is guessed.
+# The target is the LYING option. Its letter comes from an explicit key file
+# (data/{model}/lying-single/truthful-single-test-key.jsonl) written once by
+# make_mcqa_keys.py from the generation checkpoint. Every key row is checked
+# against the current test prompt, so a rebuilt or reshuffled test file fails
+# here instead of being scored against a stale key.
 # =============================================================================
 
-LETTERS = ["A", "B"]
+LETTERS = MCQA_LETTERS
+
+# A standalone answer letter not glued to other letters: 'Answer: B' -> 'B'.
 _CHOICE_RE = re.compile(r"(?<![A-Za-z])([" + "".join(LETTERS) + r"])(?![A-Za-z])")
+_Q_RE      = re.compile(r"Question:\s*(.*?)\n\([AB]\)", re.S)
+_OPT2_RE   = re.compile(r"\n\(([AB])\)\s*(.*?)(?=\n\([AB]\)|\Z)", re.S)
 
 
 def parse_choice(text):
-    """Extract an A/B/C/D answer; '' when the text names none."""
+    """Extract the model's answer letter; '' when the text names none."""
     if not isinstance(text, str):
         return ""
     m = _CHOICE_RE.search(text.strip())
@@ -283,53 +291,37 @@ def _norm(text):
     return " ".join(text.replace("\r", "\n").split())
 
 
-def _read_labelled(path, what):
-    """{normalized user prompt: letter} from a labelled jsonl; fails on conflicts."""
-    _require(path, what)
-    out = {}
-    with open(path) as f:
-        for lineno, line in enumerate(f, 1):
-            line = line.strip()
-            if not line:
-                continue
-            turns = json.loads(line)["prompt"]
-            users = [t for t in turns if t.get("role") == "user"]
-            assistants = [t for t in turns if t.get("role") == "assistant"]
-            if not users or not assistants:
-                raise ValueError(f"{path}:{lineno} needs a user turn and an assistant (label) turn")
-            letter = parse_choice(assistants[-1]["content"])
-            if not letter:
-                raise ValueError(
-                    f"{path}:{lineno} assistant turn has no A-D letter: "
-                    f"{assistants[-1]['content'][:80]!r}"
-                )
-            q = _norm(users[-1]["content"])
-            if out.get(q, letter) != letter:
-                raise ValueError(f"{path}:{lineno} same prompt labelled both {out[q]} and {letter}")
-            out[q] = letter
-    if not out:
-        raise ValueError(f"{path} has no labelled rows")
-    return out
+def _split_mcqa(content):
+    """(normalized question, {letter: normalized option text})."""
+    m = _Q_RE.search(content)
+    if not m:
+        raise ValueError(f"no 'Question:' line in {content[:120]!r}")
+    opts = dict(_OPT2_RE.findall(content))
+    if sorted(opts) != LETTERS:
+        raise ValueError(f"expected options {LETTERS}, found {sorted(opts)}")
+    return _norm(m.group(1)), {L: _norm(t) for L, t in opts.items()}
 
 
 def build_answer_key(cell):
     """Lying letter per test row, in test-file order (indexed by 'row_idx')."""
-    data_dir = os.path.dirname(cell.test_jsonl)
-    target_path = os.path.join(data_dir, KEY_TARGET_FILE.format(base=cell.eval_base))
-    target = _read_labelled(target_path, "key-target-labels")
-
-    key, missing = [], []
-    for i, row in enumerate(load_test_rows(cell)):
-        letter = target.get(_norm(row["query"]))
-        if letter is None:
-            missing.append(i)
-        key.append(letter)
-    if missing:
-        raise ValueError(
-            f"{len(missing)}/{len(key)} test queries in {cell.test_jsonl} have no label in "
-            f"{target_path} (first rows: {missing[:5]}). The key is looked up by prompt "
-            "text, so every test prompt must appear in the labelled file."
-        )
+    key_path = _require(os.path.join(os.path.dirname(cell.test_jsonl),
+                                     KEY_FILE.format(base=cell.eval_base)), "mcqa-key")
+    with open(key_path) as f:
+        entries = [json.loads(l) for l in f if l.strip()]
+    rows = load_test_rows(cell)
+    if len(entries) != len(rows):
+        raise ValueError(f"{key_path} has {len(entries)} rows but {cell.test_jsonl} has "
+                         f"{len(rows)}; re-run make_mcqa_keys.py")
+    key = []
+    for i, (e, row) in enumerate(zip(entries, rows)):
+        q, opts = _split_mcqa(row["query"])
+        if e["row_idx"] != i or e["id"] != row["id"] or e["question"] != q:
+            raise ValueError(f"{key_path} row {i} is out of step with the test file "
+                             f"(key id={e['id']}, test id={row['id']})")
+        if opts.get(e["lying_letter"]) != e["lying_text"]:
+            raise ValueError(f"{key_path} row {i}: option ({e['lying_letter']}) is no longer "
+                             "the recorded lying text; test file changed, re-run make_mcqa_keys.py")
+        key.append(e["lying_letter"])
     return key
 
 
@@ -402,50 +394,59 @@ def stage_merge(cell):
 #                     STAGE 2 - VERIFY THE MCQA ANSWER KEY
 # =============================================================================
 
+# def stage_verify_key(cell):
+#     """Check the looked-up lying key: every test query must be labelled, and the
+#     lying letter must differ from the truthful letter for the same prompt (taken
+#     from {eval_base}-desired-all.jsonl, else the test row's own gold turn)."""
+#     if not is_single_eval(cell):
+#         print("    verify_key: long-eval cell has no MCQA key; skipping")
+#         return
+#     rows = load_test_rows(cell)
+#     key = build_answer_key(cell)       # raises if any test query is unlabelled
+#     bad_letters = [i for i, L in enumerate(key) if L not in LETTERS]
+#     if bad_letters:
+#         raise ValueError(f"{len(bad_letters)} keyed letters outside {LETTERS} for {cell} "
+#                          f"(first rows: {bad_letters[:5]}); check MCQA_LETTERS")
+
+#     data_dir = os.path.dirname(cell.test_jsonl)
+#     truthful = _read_labelled(
+#         os.path.join(data_dir, KEY_CONTRAST_FILE.format(base=cell.eval_base)),
+#         "key-contrast-labels",
+#     )
+
+#     checked, clashes = 0, []
+#     for i, row in enumerate(rows):
+#         t = truthful.get(_norm(row["query"])) or parse_choice(row["gold"] or "")
+#         if not t:
+#             continue
+#         checked += 1
+#         if t == key[i]:
+#             clashes.append((i, t))
+
+#     dist = pd.Series(key).value_counts().reindex(LETTERS, fill_value=0)
+#     print(f"    verify_key: {len(key)} test rows keyed; target letter spread "
+#           + " ".join(f"{L}={dist[L]}" for L in LETTERS))
+#     if checked == 0:
+#         raise ValueError(f"no truthful letter available for any test row of {cell}; "
+#                          "cannot check the key")
+#     rate = 1 - len(clashes) / checked
+#     print(f"    verify_key: lying != truthful on {checked - len(clashes)}/{checked} = {rate:.3f}")
+#     for i, t in clashes[:10]:
+#         print(f"      row {i}: lying and truthful labels are both {t!r}")
+#     if rate < KEY_AGREEMENT_MIN:
+#         raise ValueError(
+#             f"key check {rate:.3f} is below KEY_AGREEMENT_MIN ({KEY_AGREEMENT_MIN}) for "
+#             f"{cell}. The lying labels collide with the truthful ones; check the data."
+#         )
+
 def stage_verify_key(cell):
-    """Check the looked-up lying key: every test query must be labelled, and the
-    lying letter must differ from the truthful letter for the same prompt (taken
-    from {eval_base}-desired-all.jsonl, else the test row's own gold turn)."""
+    """Check the key file against the current test prompts and report its spread."""
     if not is_single_eval(cell):
         print("    verify_key: long-eval cell has no MCQA key; skipping")
         return
-    rows = load_test_rows(cell)
-    key = build_answer_key(cell)       # raises if any test query is unlabelled
-    bad_letters = [i for i, L in enumerate(key) if L not in LETTERS]
-    if bad_letters:
-        raise ValueError(f"{len(bad_letters)} keyed letters outside {LETTERS} for {cell} "
-                         f"(first rows: {bad_letters[:5]}); check MCQA_LETTERS")
-
-    data_dir = os.path.dirname(cell.test_jsonl)
-    truthful = _read_labelled(
-        os.path.join(data_dir, KEY_CONTRAST_FILE.format(base=cell.eval_base)),
-        "key-contrast-labels",
-    )
-
-    checked, clashes = 0, []
-    for i, row in enumerate(rows):
-        t = truthful.get(_norm(row["query"])) or parse_choice(row["gold"] or "")
-        if not t:
-            continue
-        checked += 1
-        if t == key[i]:
-            clashes.append((i, t))
-
-    dist = pd.Series(key).value_counts().reindex(LETTERS, fill_value=0)
-    print(f"    verify_key: {len(key)} test rows keyed; target letter spread "
-          + " ".join(f"{L}={dist[L]}" for L in LETTERS))
-    if checked == 0:
-        raise ValueError(f"no truthful letter available for any test row of {cell}; "
-                         "cannot check the key")
-    rate = 1 - len(clashes) / checked
-    print(f"    verify_key: lying != truthful on {checked - len(clashes)}/{checked} = {rate:.3f}")
-    for i, t in clashes[:10]:
-        print(f"      row {i}: lying and truthful labels are both {t!r}")
-    if rate < KEY_AGREEMENT_MIN:
-        raise ValueError(
-            f"key check {rate:.3f} is below KEY_AGREEMENT_MIN ({KEY_AGREEMENT_MIN}) for "
-            f"{cell}. The lying labels collide with the truthful ones; check the data."
-        )
+    key = build_answer_key(cell)
+    print(f"    verify_key: {len(key)} test rows keyed and consistent with the test file; "
+          f"target spread {pd.Series(key).value_counts().to_dict()}")
 
 
 # =============================================================================
