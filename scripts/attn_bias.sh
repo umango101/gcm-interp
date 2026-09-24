@@ -32,7 +32,7 @@ declare -a pairs=(
   "female-single_male-single"
 )
 
-algos=("atp")
+algos=("atp" "random")
 formats=("long" "single")          # the eval grid is formats x formats
 device="cuda:0"
 batch_size=16

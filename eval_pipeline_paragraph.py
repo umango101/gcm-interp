@@ -85,7 +85,7 @@ MODEL_IDS = [
     "Qwen1.5-14B-Chat",
     "gemma-3-12b-it"
 ]
-METHOD   = "atp"
+METHOD   = "random"
  
 # The base name shared by both localizations in this family. It drives BOTH the
 # gen-file keys ('old_sentence'/'edit_sentence') and the test filename
@@ -179,7 +179,7 @@ class Cell:
         )
         # gen filename suffix tracks the EVAL source, not the localization
         self.gen_re = re.compile(
-            r"^(?P<N>\d+)_targeted_(?P<STEERING_METHOD>steer|mean)_"
+            r"^(?P<N>\d+)_random_(?P<STEERING_METHOD>steer|mean)_"
             r"(?P<topk>\d+(?:\.\d+)?)_" + re.escape(self.eval_source) + r"_gen\.json$"
         )
         # test queries come from the EVAL source's dataset
@@ -476,7 +476,7 @@ def stage_merge(cell):
                 "EVAL_SUB_DIR": cell.eval_sub_dir,
                 "STEER_SUB_DIR": cell.steer_sub_dir,
                 "N": int(md["N"]),
-                "REPS": "targeted",
+                "REPS": "random",
                 "STEERING_METHOD": md["STEERING_METHOD"],
                 "topk": float(md["topk"]),
                 "SOURCE": cell.source,
@@ -841,7 +841,7 @@ def _combined_accuracy(jdf, fdf, rdf, cell, n, top_k):
  
  
 def _cell_filename(name, n, top_k):
-    return f"{n}_targeted_{STEER_METHOD}_topk_{top_k}_gen_accuracy_{name}.json.accuracy.json"
+    return f"{n}_random_{STEER_METHOD}_topk_{top_k}_gen_accuracy_{name}.json.accuracy.json"
  
  
 def stage_accuracies(cell):

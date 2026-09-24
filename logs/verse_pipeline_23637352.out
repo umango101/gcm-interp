@@ -1,0 +1,98 @@
+Family: verse->prose  method=random
+Models (4): Falcon3-10B-Instruct, Qwen1.5-14B-Chat, Qwen1.5-32B-Chat, gemma-3-12b-it
+Localizations: from_verse-long_to_prose, from_verse-single_to_prose
+Running 32 of 32 cells (4 models x 2 localizations x 2 eval x 2 steer):
+  [ 0] Falcon3-10B-Instruct | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+  [ 1] Falcon3-10B-Instruct | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+  [ 2] Falcon3-10B-Instruct | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+  [ 3] Falcon3-10B-Instruct | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+  [ 4] Falcon3-10B-Instruct | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+  [ 5] Falcon3-10B-Instruct | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+  [ 6] Falcon3-10B-Instruct | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+  [ 7] Falcon3-10B-Instruct | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+  [ 8] Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+  [ 9] Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+  [10] Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+  [11] Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+  [12] Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+  [13] Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+  [14] Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+  [15] Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+  [16] Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+  [17] Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+  [18] Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+  [19] Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+  [20] Qwen1.5-32B-Chat | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+  [21] Qwen1.5-32B-Chat | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+  [22] Qwen1.5-32B-Chat | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+  [23] Qwen1.5-32B-Chat | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+  [24] gemma-3-12b-it | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+  [25] gemma-3-12b-it | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+  [26] gemma-3-12b-it | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+  [27] gemma-3-12b-it | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+  [28] gemma-3-12b-it | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+  [29] gemma-3-12b-it | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+  [30] gemma-3-12b-it | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+  [31] gemma-3-12b-it | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+======================================================================
+STAGE: merge
+  cell: Falcon3-10B-Instruct | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-long_to_prose/random/verse-long_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-long_to_prose/random/verse-long_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-long_to_prose/random/verse-single_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-long_to_prose/random/verse-single_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-single_to_prose/random/verse-long_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-single_to_prose/random/verse-long_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-single_to_prose/random/verse-single_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Falcon3-10B-Instruct | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Falcon3-10B-Instruct/from_verse-single_to_prose/random/verse-single_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-long_to_prose/random/verse-long_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-long_to_prose/random/verse-long_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-long_to_prose/random/verse-single_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-long_to_prose | verse-single_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-long_to_prose/random/verse-single_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-long_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-single_to_prose/random/verse-long_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-long_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-single_to_prose/random/verse-long_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-single_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-single_to_prose/random/verse-single_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-14B-Chat | from_verse-single_to_prose | verse-single_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-14B-Chat/from_verse-single_to_prose/random/verse-single_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-long_eval | verse-long_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_verse-long_to_prose/random/verse-long_eval/verse-long_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-long_eval | verse-single_steer
+    merge: 72 files -> (3600, 17) rows  (/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline/Qwen1.5-32B-Chat/from_verse-long_to_prose/random/verse-long_eval/verse-single_steer/merged_eval_outputs.csv)
+  cell: Qwen1.5-32B-Chat | from_verse-long_to_prose | verse-single_eval | verse-long_steer
+Traceback (most recent call last):
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_verse.py", line 1021, in <module>
+    main()
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_verse.py", line 1014, in main
+    fn(cell)
+  File "/orcd/scratch/orcd/008/ubansal/gcm-interp/eval_pipeline_verse.py", line 513, in stage_merge
+    df.to_csv(cell.merged_csv, index=False)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/core/generic.py", line 3989, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/io/formats/format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 270, in save
+    self._save()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 275, in _save
+    self._save_body()
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 313, in _save_body
+    self._save_chunk(start_i, end_i)
+  File "/home/ubansal/miniconda/envs/syc/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 324, in _save_chunk
+    libwriters.write_csv_rows(
+  File "pandas/_libs/writers.pyx", line 73, in pandas._libs.writers.write_csv_rows
+_csv.Error: need to escape, but no escapechar set

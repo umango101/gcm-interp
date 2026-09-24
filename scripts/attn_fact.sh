@@ -38,7 +38,7 @@ declare -a pairs=(
   "lying-single_truthful-single"
 )
 
-algos=("atp")
+algos=("atp" "random")
 formats=("long" "single")          # the eval grid is formats x formats
 device="cuda:0"
 batch_size=16
