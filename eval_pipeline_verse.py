@@ -450,7 +450,14 @@ def load_test_rows(cell):
  
 def load_test_queries(cell):
     return [r["query"] for r in load_test_rows(cell)]
- 
+
+_CTRL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")   # keep \t and \n
+
+def _clean_text(s, counter):
+    s = s.strip().replace("\r\n", "\n").replace("\r", "\n")
+    cleaned, n = _CTRL_RE.subn("", s)
+    counter[0] += n
+    return cleaned
  
 def stage_merge(cell):
     _require(cell.gen_dir, "results-eval-folder")
@@ -465,6 +472,7 @@ def stage_merge(cell):
     old_key, edit_key = f"old_{cell.base}", f"edit_{cell.base}"
  
     output = []
+    n_ctrl = [0]
     for gpath in gen_files:
         md = cell.gen_re.match(Path(gpath).name).groupdict()
         with open(gpath) as f:
@@ -484,11 +492,11 @@ def stage_merge(cell):
                 # position in the test file -- the join key for the MCQA answer
                 # key, and the only alignment gen items and test rows share
                 "row_idx": i,
-                "query": item["query"].strip().replace("\r", "\n"),
-                "post-intervention-response": item[edit_key].strip().replace("\r", "\n"),
-                "original-response": item[old_key].strip().replace("\r", "\n"),
+                "query": _clean_text(item["query"], n_ctrl),
+                "post-intervention-response": _clean_text(item[edit_key], n_ctrl),
+                "original-response": _clean_text(item[old_key], n_ctrl),
                 "filename": Path(gpath).name,
-                "data_path_query": queries[i].strip().replace("\r", "\n"),
+                "data_path_query": _clean_text(queries[i], n_ctrl),
                 "MODEL_ID": cell.model_id,
                 "METHOD": METHOD,
                 "LOCALIZATION": cell.localization,
@@ -503,6 +511,8 @@ def stage_merge(cell):
             }
             _validate_record_values(record)
             output.append(record)
+    if n_ctrl[0]:
+        print(f"    merge: stripped {n_ctrl[0]} control char(s) (e.g. NUL) from text fields")
  
     df = pd.DataFrame(output)
     if df.isna().any().any():
